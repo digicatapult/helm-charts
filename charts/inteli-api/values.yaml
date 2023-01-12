@@ -45,6 +45,7 @@ image:
 
 postgresql:
   enabled: true
-  postgresqlDatabase: inteli
-  postgresqlUsername: postgres
-  postgresqlPassword: postgres
+  auth:
+    database: inteli
+    username: inteli_api
+    password: postgres
