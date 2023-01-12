@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  dscp-node:
+  - apiVersion: v2
+    appVersion: 4.5.2
+    created: "2023-01-12T12:51:32.894422337Z"
+    description: A Helm chart to deploy DSCP nodes
+    digest: aa70eef04ddbce27e0ceb8089233658de01bb50b654dcf361f064e241ffa1a10
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-node-4.5.2/dscp-node-4.5.2.tgz
+    version: 4.5.2
+generated: "2023-01-12T12:51:32.894435537Z"
