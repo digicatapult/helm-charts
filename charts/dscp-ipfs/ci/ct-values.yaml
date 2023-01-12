@@ -1,8 +1,3 @@
-image:
-  repository: 'dscp-ipfs'
-  tag: 'latest'
-  PullPolicy: Never
-
 dscpNode:
   enabled: true
   node:
