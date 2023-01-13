@@ -1,5 +1,31 @@
 apiVersion: v1
 entries:
+  dscp-api:
+  - apiVersion: v2
+    appVersion: 4.8.2
+    created: "2023-01-13T13:37:05.690731436Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.4
+    - alias: dscpIpfs
+      condition: dscpIpfs.enabled
+      name: dscp-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 2.9.2
+    description: A Helm chart for dscp-api
+    digest: 53556103c2bf3576cf538533d02fbb2754c5fa80332941954817da01e15466d4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.3/dscp-api-4.8.3.tgz
+    version: 4.8.3
   dscp-identity-service:
   - apiVersion: v2
     appVersion: 1.8.2
@@ -129,4 +155,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.2/inteli-api-1.29.2.tgz
     version: 1.29.2
-generated: "2023-01-13T12:30:18.66677005Z"
+generated: "2023-01-13T13:37:05.690746537Z"
