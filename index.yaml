@@ -200,4 +200,24 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.2/inteli-api-1.29.2.tgz
     version: 1.29.2
-generated: "2023-01-16T13:50:38.308711833Z"
+  wasp-routing-service:
+  - apiVersion: v2
+    appVersion: 2.1.0
+    created: "2023-01-17T16:44:46.385550884Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    description: A Helm chart for WASP-ROUTING_SERVICE
+    digest: 7160eb075e5c409ee8fa7544a49f72c3b4dc04e2cfc7e3b7ad18f556a153f76a
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-routing-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-2.0.5/wasp-routing-service-2.0.5.tgz
+    version: 2.0.5
+generated: "2023-01-17T16:44:46.385956388Z"
