@@ -200,6 +200,26 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.2/inteli-api-1.29.2.tgz
     version: 1.29.2
+  wasp-authentication-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-18T16:38:48.035647399Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    description: A Helm chart for wasp-authentication-service
+    digest: 3cb79003fff33b5d660d659a2538bcd314c027159fad52f3ac67fbeb1a4da2c0
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-authentication-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-authentication-service-0.0.19/wasp-authentication-service-0.0.19.tgz
+    version: 0.0.19
   wasp-routing-service:
   - apiVersion: v2
     appVersion: 2.1.0
@@ -220,4 +240,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-2.0.5/wasp-routing-service-2.0.5.tgz
     version: 2.0.5
-generated: "2023-01-17T16:44:46.385956388Z"
+generated: "2023-01-18T16:38:48.035665399Z"
