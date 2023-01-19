@@ -1,0 +1,4 @@
+image:
+  repository: 'wasp-thing-service'
+  tag: 'latest'
+  PullPolicy: Never
