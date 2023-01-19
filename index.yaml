@@ -240,4 +240,24 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-2.0.5/wasp-routing-service-2.0.5.tgz
     version: 2.0.5
-generated: "2023-01-18T16:38:48.035665399Z"
+  wasp-thing-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-19T13:14:47.431553571Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    description: A Helm chart for WASP Thing Service
+    digest: c200fa4095534eefe9cea8ca2495b0f26a2dadd8c3076263836672040129bd15
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-thing-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-thing-service-0.0.13/wasp-thing-service-0.0.13.tgz
+    version: 0.0.13
+generated: "2023-01-19T13:14:47.431707478Z"
