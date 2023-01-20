@@ -13,5 +13,5 @@ image:
   pullPolicy: IfNotPresent
   tag: 'v2.1.0'
 kafkaInit:
-  repository: bitnami/kakfa
+  repository: bitnami/kafka
   tag: '3.3-debian-11'
