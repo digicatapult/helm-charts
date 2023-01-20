@@ -20,7 +20,7 @@ spec:
       {{- include "wasp-reading-service.imagePullSecrets" . | indent 6 }}
       initContainers:
         - name: {{ include "wasp-reading-service.initReadings.name" . }}
-          image: bitnami/kafka:2.7.0-debian-10-r68
+          image: bitnami/kafka:3.3-debian-11
           envFrom:
             - configMapRef:
                 name: {{ include "wasp-reading-service.fullname" . }}-config
