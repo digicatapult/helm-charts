@@ -220,7 +220,50 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-authentication-service-0.0.19/wasp-authentication-service-0.0.19.tgz
     version: 0.0.19
+  wasp-reading-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-23T10:20:48.758473648Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    description: A Helm chart for wasp-reading-service
+    digest: 1de27d401fd4ed503044774fe5dda7586eed283d55ea57c8835e78e870b4430b
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-reading-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-0.0.19/wasp-reading-service-0.0.19.tgz
+    version: 0.0.19
   wasp-routing-service:
+  - apiVersion: v2
+    appVersion: 2.1.0
+    created: "2023-01-23T10:20:49.003971724Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    description: A Helm chart for WASP-ROUTING_SERVICE
+    digest: 255d0ee42950aec9c9b1bc97e2c2b9df783d61ac0a7543717eaf6e976b149df4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-routing-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-2.0.6/wasp-routing-service-2.0.6.tgz
+    version: 2.0.6
   - apiVersion: v2
     appVersion: 2.1.0
     created: "2023-01-17T16:44:46.385550884Z"
@@ -280,4 +323,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-user-service-0.0.11/wasp-user-service-0.0.11.tgz
     version: 0.0.11
-generated: "2023-01-20T14:11:56.521248822Z"
+generated: "2023-01-23T10:20:49.003999424Z"
