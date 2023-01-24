@@ -359,13 +359,12 @@ initContainers: []
 service:
   ## @param service.type wasp-routing-service service type
   ##
-  type: LoadBalancer
+  type: ClusterIP
   ## @param service.ports.http wasp-routing-service service HTTP port
   ## @param service.ports.https wasp-routing-service service HTTPS port
   ##
   ports:
-    http: 80
-    https: 443
+    http: 3000
   ## Node ports to expose
   ## @param service.nodePorts.http Node port for HTTP
   ## @param service.nodePorts.https Node port for HTTPS
@@ -373,7 +372,6 @@ service:
   ##
   nodePorts:
     http: ""
-    https: ""
   ## @param service.clusterIP wasp-routing-service service Cluster IP
   ## e.g.:
   ## clusterIP: None
@@ -710,7 +708,7 @@ externalKafka:
   ## @param externalKafka.brokers Array of Kafka brokers to connect to. Format: protocol://broker_hostname:port
   ##
   brokers:
-    - PLAINTEXT://localhost:9092
+    - localhost:9092
   ## Authentication parameters
   ## @param externalKafka.auth.protocol                   Authentication protocol. Allowed protocols: plaintext, tls, sasl and sasl_tls
   ## @param externalKafka.auth.jaas.user                  User for SASL authentication
