@@ -60,314 +60,308 @@ diagnosticMode:
   args:
     - infinity
 
-## @section %%MAIN_CONTAINER%% Parameters
+## @section WASP Routing Service config parameters
 ##
 
-## %%MAIN_CONTAINER/POD_DESCRIPTION%%
+## @param logLevel Allowed values: error, warn, info, debug
 ##
-%%MAIN_OBJECT_BLOCK%%:
-  ## Bitnami %%MAIN_CONTAINER%% image
-  ## ref: https://hub.docker.com/r/bitnami/%%IMAGE_NAME%%/tags/
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.registry %%MAIN_CONTAINER%% image registry
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.repository %%MAIN_CONTAINER%% image repository
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.tag %%MAIN_CONTAINER%% image tag (immutable tags are recommended)
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.digest %%MAIN_CONTAINER%% image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.pullPolicy %%MAIN_CONTAINER%% image pull policy
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.pullSecrets %%MAIN_CONTAINER%% image pull secrets
-  ## @param %%MAIN_OBJECT_BLOCK%%.image.debug Enable %%MAIN_CONTAINER%% image debug mode
-  ##
-  image:
-    registry: docker.io
-    repository: bitnami/%%IMAGE_NAME%%
-    tag: %%IMAGE_TAG%%
-    digest: ""
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
-    pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ## e.g:
-    ## pullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
-    pullSecrets: []
-    ## Enable debug mode
-    ##
-    debug: false
-  ## @param %%MAIN_OBJECT_BLOCK%%.replicaCount Number of %%MAIN_CONTAINER_NAME%% replicas to deploy
-  ##
-  replicaCount: 1
-  ## @param %%MAIN_OBJECT_BLOCK%%.containerPorts.http %%MAIN_CONTAINER_NAME%% HTTP container port
-  ## @param %%MAIN_OBJECT_BLOCK%%.containerPorts.https %%MAIN_CONTAINER_NAME%% HTTPS container port
-  ##
-  containerPorts:
-    http: 80
-    https: 443
-  ## Configure extra options for %%MAIN_CONTAINER_NAME%% containers' liveness and readiness probes
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-  ## @param %%MAIN_OBJECT_BLOCK%%.livenessProbe.enabled Enable livenessProbe on %%MAIN_CONTAINER_NAME%% containers
-  ## @param %%MAIN_OBJECT_BLOCK%%.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.livenessProbe.periodSeconds Period seconds for livenessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.livenessProbe.failureThreshold Failure threshold for livenessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.livenessProbe.successThreshold Success threshold for livenessProbe
-  ##
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: foo
-    periodSeconds: bar
-    timeoutSeconds: foo
-    failureThreshold: bar
-    successThreshold: foo
-  ## @param %%MAIN_OBJECT_BLOCK%%.readinessProbe.enabled Enable readinessProbe on %%MAIN_CONTAINER_NAME%% containers
-  ## @param %%MAIN_OBJECT_BLOCK%%.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.readinessProbe.periodSeconds Period seconds for readinessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.readinessProbe.failureThreshold Failure threshold for readinessProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.readinessProbe.successThreshold Success threshold for readinessProbe
-  ##
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: foo
-    periodSeconds: bar
-    timeoutSeconds: foo
-    failureThreshold: bar
-    successThreshold: foo
-  ## @param %%MAIN_OBJECT_BLOCK%%.startupProbe.enabled Enable startupProbe on %%MAIN_CONTAINER_NAME%% containers
-  ## @param %%MAIN_OBJECT_BLOCK%%.startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.startupProbe.periodSeconds Period seconds for startupProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.startupProbe.timeoutSeconds Timeout seconds for startupProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.startupProbe.failureThreshold Failure threshold for startupProbe
-  ## @param %%MAIN_OBJECT_BLOCK%%.startupProbe.successThreshold Success threshold for startupProbe
-  ##
-  startupProbe:
-    enabled: false
-    initialDelaySeconds: foo
-    periodSeconds: bar
-    timeoutSeconds: foo
-    failureThreshold: bar
-    successThreshold: foo
-  ## @param %%MAIN_OBJECT_BLOCK%%.customLivenessProbe Custom livenessProbe that overrides the default one
-  ##
-  customLivenessProbe: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.customReadinessProbe Custom readinessProbe that overrides the default one
-  ##
-  customReadinessProbe: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.customStartupProbe Custom startupProbe that overrides the default one
-  ##
-  customStartupProbe: {}
-  ## %%MAIN_CONTAINER_NAME%% resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ## @param %%MAIN_OBJECT_BLOCK%%.resources.limits The resources limits for the %%MAIN_CONTAINER_NAME%% containers
-  ## @param %%MAIN_OBJECT_BLOCK%%.resources.requests The requested resources for the %%MAIN_CONTAINER_NAME%% containers
-  ##
-  resources:
-    limits: {}
-    requests: {}
-  ## Configure Pods Security Context
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-  ## @param %%MAIN_OBJECT_BLOCK%%.podSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% pods' Security Context
-  ## @param %%MAIN_OBJECT_BLOCK%%.podSecurityContext.fsGroup Set %%MAIN_CONTAINER_NAME%% pod's Security Context fsGroup
-  ##
-  podSecurityContext:
-    enabled: true
-    fsGroup: 1001
-  ## Configure Container Security Context
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-  ## @param %%MAIN_OBJECT_BLOCK%%.containerSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% containers' Security Context
-  ## @param %%MAIN_OBJECT_BLOCK%%.containerSecurityContext.runAsUser Set %%MAIN_CONTAINER_NAME%% containers' Security Context runAsUser
-  ## @param %%MAIN_OBJECT_BLOCK%%.containerSecurityContext.runAsNonRoot Set %%MAIN_CONTAINER_NAME%% containers' Security Context runAsNonRoot
-  ## @param %%MAIN_OBJECT_BLOCK%%.containerSecurityContext.readOnlyRootFilesystem Set %%MAIN_CONTAINER_NAME%% containers' Security Context runAsNonRoot
-  ##
-  containerSecurityContext:
-    enabled: true
-    runAsUser: 1001
-    runAsNonRoot: true
-    readOnlyRootFilesystem: false
+logLevel: "info"
+## @param kafkaJsLogLevel Allowed values: error, warn, info, debug
+##
+kafkaJsLogLevel: "error"
+## @param rawPayloadMatch Javascript Regular Expression on which to subscribe to raw-payloads
+##
+rawPayloadMatch: "/^raw-payloads$/"
+## @param payloadRoutingPrefix Routing prefix to use when publishing routed messages
+##
+payloadRoutingPrefix: "payloads"
 
-  %%OTHER_PARAMETERS_RELATED_TO_THIS_CONTAINER/POD%%
 
-  ## @param %%MAIN_OBJECT_BLOCK%%.existingConfigmap The name of an existing ConfigMap with your custom configuration for %%MAIN_CONTAINER_NAME%%
+## Digital Catapult wasp-routing-service image
+## ref: https://hub.docker.com/r/digicatapult/wasp-routing-service/tags/
+## @param image.registry wasp-routing-service image registry
+## @param image.repository wasp-routing-service image repository
+## @param image.tag wasp-routing-service image tag (immutable tags are recommended)
+## @param image.digest wasp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+## @param image.pullPolicy wasp-routing-service image pull policy
+## @param image.pullSecrets wasp-routing-service image pull secrets
+## @param image.debug Enable wasp-routing-service image debug mode
+##
+image:
+  registry: docker.io
+  repository: digicatapult/wasp-routing-service
+  tag: v2.1.2
+  digest: ""
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  existingConfigmap:
-  ## @param %%MAIN_OBJECT_BLOCK%%.command Override default container command (useful when using custom images)
-  ##
-  command: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.args Override default container args (useful when using custom images)
-  ##
-  args: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.hostAliases %%MAIN_CONTAINER_NAME%% pods host aliases
-  ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
-  ##
-  hostAliases: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.podLabels Extra labels for %%MAIN_CONTAINER_NAME%% pods
-  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-  ##
-  podLabels: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.podAnnotations Annotations for %%MAIN_CONTAINER_NAME%% pods
-  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-  ##
-  podAnnotations: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.podAffinityPreset Pod affinity preset. Ignored if `%%MAIN_OBJECT_BLOCK%%.affinity` is set. Allowed values: `soft` or `hard`
-  ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-  ##
-  podAffinityPreset: ""
-  ## @param %%MAIN_OBJECT_BLOCK%%.podAntiAffinityPreset Pod anti-affinity preset. Ignored if `%%MAIN_OBJECT_BLOCK%%.affinity` is set. Allowed values: `soft` or `hard`
-  ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-  ##
-  podAntiAffinityPreset: soft
-  ## Pod Disruption Budget configuration
-  ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb
-  ## @param %%MAIN_OBJECT_BLOCK%%.pdb.create Enable/disable a Pod Disruption Budget creation
-  ## @param %%MAIN_OBJECT_BLOCK%%.pdb.minAvailable Minimum number/percentage of pods that should remain scheduled
-  ## @param %%MAIN_OBJECT_BLOCK%%.pdb.maxUnavailable Maximum number/percentage of pods that may be made unavailable
-  ##
-  pdb:
-    create: false
-    minAvailable: 1
-    maxUnavailable: ""
-  ## Autoscaling configuration
-  ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-  ## @param %%MAIN_OBJECT_BLOCK%%.autoscaling.enabled Enable autoscaling for %%MAIN_OBJECT_BLOCK%%
-  ## @param %%MAIN_OBJECT_BLOCK%%.autoscaling.minReplicas Minimum number of %%MAIN_OBJECT_BLOCK%% replicas
-  ## @param %%MAIN_OBJECT_BLOCK%%.autoscaling.maxReplicas Maximum number of %%MAIN_OBJECT_BLOCK%% replicas
-  ## @param %%MAIN_OBJECT_BLOCK%%.autoscaling.targetCPU Target CPU utilization percentage
-  ## @param %%MAIN_OBJECT_BLOCK%%.autoscaling.targetMemory Target Memory utilization percentage
-  ##
-  autoscaling:
-    enabled: false
-    minReplicas: ""
-    maxReplicas: ""
-    targetCPU: ""
-    targetMemory: ""
-  ## Node %%MAIN_OBJECT_BLOCK%%.affinity preset
-  ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
-  ##
-  nodeAffinityPreset:
-    ## @param %%MAIN_OBJECT_BLOCK%%.nodeAffinityPreset.type Node affinity preset type. Ignored if `%%MAIN_OBJECT_BLOCK%%.affinity` is set. Allowed values: `soft` or `hard`
-    ##
-    type: ""
-    ## @param %%MAIN_OBJECT_BLOCK%%.nodeAffinityPreset.key Node label key to match. Ignored if `%%MAIN_OBJECT_BLOCK%%.affinity` is set
-    ##
-    key: ""
-    ## @param %%MAIN_OBJECT_BLOCK%%.nodeAffinityPreset.values Node label values to match. Ignored if `%%MAIN_OBJECT_BLOCK%%.affinity` is set
-    ## E.g.
-    ## values:
-    ##   - e2e-az1
-    ##   - e2e-az2
-    ##
-    values: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.affinity Affinity for %%MAIN_CONTAINER_NAME%% pods assignment
-  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-  ## NOTE: `%%MAIN_OBJECT_BLOCK%%.podAffinityPreset`, `%%MAIN_OBJECT_BLOCK%%.podAntiAffinityPreset`, and `%%MAIN_OBJECT_BLOCK%%.nodeAffinityPreset` will be ignored when it's set
-  ##
-  affinity: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.nodeSelector Node labels for %%MAIN_CONTAINER_NAME%% pods assignment
-  ## ref: https://kubernetes.io/docs/user-guide/node-selection/
-  ##
-  nodeSelector: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.tolerations Tolerations for %%MAIN_CONTAINER_NAME%% pods assignment
-  ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  ##
-  tolerations: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.updateStrategy.type %%MAIN_CONTAINER_NAME%% statefulset strategy type
-  ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
-  ##
-  updateStrategy:
-    ## StrategyType
-    ## Can be set to RollingUpdate or OnDelete
-    ##
-    type: RollingUpdate
-
-  ## ONLY FOR STATEFULSETS
-  ## @param %%MAIN_OBJECT_BLOCK%%.podManagementPolicy Statefulset Pod management policy, it needs to be Parallel to be able to complete the cluster join
-  ## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#pod-management-policies
-  ##
-  podManagementPolicy: OrderedReady
-
-  ## @param %%MAIN_OBJECT_BLOCK%%.priorityClassName %%MAIN_CONTAINER_NAME%% pods' priorityClassName
-  ##
-  priorityClassName: ""
-  ## @param %%MAIN_OBJECT_BLOCK%%.topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
-  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
-  ##
-  topologySpreadConstraints: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.schedulerName Name of the k8s scheduler (other than default) for %%MAIN_CONTAINER_NAME%% pods
-  ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
-  ##
-  schedulerName: ""
-  ## @param %%MAIN_OBJECT_BLOCK%%.terminationGracePeriodSeconds Seconds Redmine pod needs to terminate gracefully
-  ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
-  ##
-  terminationGracePeriodSeconds: ""
-  ## @param %%MAIN_OBJECT_BLOCK%%.lifecycleHooks for the %%MAIN_CONTAINER_NAME%% container(s) to automate configuration before or after startup
-  ##
-  lifecycleHooks: {}
-  ## @param %%MAIN_OBJECT_BLOCK%%.extraEnvVars Array with extra environment variables to add to %%MAIN_CONTAINER_NAME%% nodes
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## e.g:
-  ## extraEnvVars:
-  ##   - name: FOO
-  ##     value: "bar"
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
   ##
-  extraEnvVars: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.extraEnvVarsCM Name of existing ConfigMap containing extra env vars for %%MAIN_CONTAINER_NAME%% nodes
+  pullSecrets: []
+  ## Enable debug mode
   ##
-  extraEnvVarsCM: ""
-  ## @param %%MAIN_OBJECT_BLOCK%%.extraEnvVarsSecret Name of existing Secret containing extra env vars for %%MAIN_CONTAINER_NAME%% nodes
-  ##
-  extraEnvVarsSecret: ""
-  ## @param %%MAIN_OBJECT_BLOCK%%.extraVolumes Optionally specify extra list of additional volumes for the %%MAIN_CONTAINER_NAME%% pod(s)
-  ##
-  extraVolumes: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.extraVolumeMounts Optionally specify extra list of additional volumeMounts for the %%MAIN_CONTAINER_NAME%% container(s)
-  ##
-  extraVolumeMounts: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.sidecars Add additional sidecar containers to the %%MAIN_CONTAINER_NAME%% pod(s)
-  ## e.g:
-  ## sidecars:
-  ##   - name: your-image-name
-  ##     image: your-image
-  ##     imagePullPolicy: Always
-  ##     ports:
-  ##       - name: portname
-  ##         containerPort: 1234
-  ##
-  sidecars: []
-  ## @param %%MAIN_OBJECT_BLOCK%%.initContainers Add additional init containers to the %%MAIN_CONTAINER_NAME%% pod(s)
-  ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
-  ## e.g:
-  ## initContainers:
-  ##  - name: your-image-name
-  ##    image: your-image
-  ##    imagePullPolicy: Always
-  ##    command: ['sh', '-c', 'echo "hello world"']
-  ##
-  initContainers: []
-
-## %%SECONDARY_CONTAINER/POD_DESCRIPTION%%
+  debug: false
+## @param replicaCount Number of wasp-routing-service replicas to deploy
 ##
-%%SECONDARY_OBJECT_BLOCK%%:
-  %%SAME_STRUCTURE_AS_THE_MAIN_CONTAINER/POD%%
-
-## %%OTHERS_CONTAINER/POD_DESCRIPTION%%
+replicaCount: 1
+## @param containerPorts.http wasp-routing-service HTTP container port
 ##
-%%OTHER_OBJECT_BLOCK%%:
-  %%SAME_STRUCTURE_AS_THE_MAIN_CONTAINER/POD%%
+containerPorts:
+  http: 80
+## Configure extra options for wasp-routing-service containers' liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+## @param livenessProbe.enabled Enable livenessProbe on wasp-routing-service containers
+## @param livenessProbe.path Path for to check for livenessProbe
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.successThreshold Success threshold for livenessProbe
+##
+livenessProbe:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+## @param readinessProbe.enabled Enable readinessProbe on wasp-routing-service containers
+## @param readinessProbe.path Path for to check for readinessProbe
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.successThreshold Success threshold for readinessProbe
+##
+readinessProbe:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 5
+  successThreshold: 1
+## @param startupProbe.enabled Enable startupProbe on wasp-routing-service containers
+## @param startupProbe.path Path for to check for startupProbe
+## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## @param startupProbe.periodSeconds Period seconds for startupProbe
+## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## @param startupProbe.failureThreshold Failure threshold for startupProbe
+## @param startupProbe.successThreshold Success threshold for startupProbe
+##
+startupProbe:
+  enabled: false
+  path: /health
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 10
+  successThreshold: 1
+## @param customLivenessProbe Custom livenessProbe that overrides the default one
+##
+customLivenessProbe: {}
+## @param customReadinessProbe Custom readinessProbe that overrides the default one
+##
+customReadinessProbe: {}
+## @param customStartupProbe Custom startupProbe that overrides the default one
+##
+customStartupProbe: {}
+## wasp-routing-service resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+## @param resources.limits The resources limits for the wasp-routing-service containers
+## @param resources.requests The requested resources for the wasp-routing-service containers
+##
+resources:
+  limits: {}
+  requests: {}
+## Configure Pods Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param podSecurityContext.enabled Enabled wasp-routing-service pods' Security Context
+## @param podSecurityContext.fsGroup Set wasp-routing-service pod's Security Context fsGroup
+##
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+## Configure Container Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## @param containerSecurityContext.enabled Enabled wasp-routing-service containers' Security Context
+## @param containerSecurityContext.runAsUser Set wasp-routing-service containers' Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set wasp-routing-service containers' Security Context runAsNonRoot
+## @param containerSecurityContext.readOnlyRootFilesystem Set wasp-routing-service containers' Security Context runAsNonRoot
+##
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+  runAsNonRoot: true
+  readOnlyRootFilesystem: false
+
+## @param command Override default container command (useful when using custom images)
+##
+command: []
+## @param args Override default container args (useful when using custom images)
+##
+args: []
+## @param hostAliases wasp-routing-service pods host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+##
+hostAliases: []
+## @param podLabels Extra labels for wasp-routing-service pods
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+##
+podLabels: {}
+## @param podAnnotations Annotations for wasp-routing-service pods
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+## @param podAffinityPreset Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAffinityPreset: ""
+## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAntiAffinityPreset: soft
+## Pod Disruption Budget configuration
+## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb
+## @param pdb.create Enable/disable a Pod Disruption Budget creation
+## @param pdb.minAvailable Minimum number/percentage of pods that should remain scheduled
+## @param pdb.maxUnavailable Maximum number/percentage of pods that may be made unavailable
+##
+pdb:
+  create: false
+  minAvailable: 1
+  maxUnavailable: ""
+## Autoscaling configuration
+## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+## @param autoscaling.enabled Enable autoscaling for wasp-routing-service
+## @param autoscaling.minReplicas Minimum number of wasp-routing-service replicas
+## @param autoscaling.maxReplicas Maximum number of wasp-routing-service replicas
+## @param autoscaling.targetCPU Target CPU utilization percentage
+## @param autoscaling.targetMemory Target Memory utilization percentage
+##
+autoscaling:
+  enabled: false
+  minReplicas: ""
+  maxReplicas: ""
+  targetCPU: ""
+  targetMemory: ""
+## Node affinity preset
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+##
+nodeAffinityPreset:
+  ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+  ##
+  type: ""
+  ## @param nodeAffinityPreset.key Node label key to match. Ignored if `affinity` is set
+  ##
+  key: ""
+  ## @param nodeAffinityPreset.values Node label values to match. Ignored if `affinity` is set
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+## @param affinity Affinity for wasp-routing-service pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+## NOTE: `podAffinityPreset`, `podAntiAffinityPreset`, and `nodeAffinityPreset` will be ignored when it's set
+##
+affinity: {}
+## @param nodeSelector Node labels for wasp-routing-service pods assignment
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+## @param tolerations Tolerations for wasp-routing-service pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+## @param updateStrategy.type wasp-routing-service statefulset strategy type
+## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
+##
+updateStrategy:
+  ## StrategyType
+  ## Can be set to RollingUpdate or OnDelete
+  ##
+  type: RollingUpdate
+
+## @param priorityClassName wasp-routing-service pods' priorityClassName
+##
+priorityClassName: ""
+## @param topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
+## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
+##
+topologySpreadConstraints: []
+## @param schedulerName Name of the k8s scheduler (other than default) for wasp-routing-service pods
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ""
+## @param terminationGracePeriodSeconds Seconds Redmine pod needs to terminate gracefully
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
+##
+terminationGracePeriodSeconds: ""
+## @param lifecycleHooks for the wasp-routing-service container(s) to automate configuration before or after startup
+##
+lifecycleHooks: {}
+## @param extraEnvVars Array with extra environment variables to add to wasp-routing-service nodes
+## e.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+extraEnvVars: []
+## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for wasp-routing-service nodes
+##
+extraEnvVarsCM: ""
+## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for wasp-routing-service nodes
+##
+extraEnvVarsSecret: ""
+## @param extraVolumes Optionally specify extra list of additional volumes for the wasp-routing-service pod(s)
+##
+extraVolumes: []
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the wasp-routing-service container(s)
+##
+extraVolumeMounts: []
+## @param sidecars Add additional sidecar containers to the wasp-routing-service pod(s)
+## e.g:
+## sidecars:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+sidecars: []
+## @param initContainers Add additional init containers to the wasp-routing-service pod(s)
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+## e.g:
+## initContainers:
+##  - name: your-image-name
+##    image: your-image
+##    imagePullPolicy: Always
+##    command: ['sh', '-c', 'echo "hello world"']
+##
+initContainers: []
 
 ## @section Traffic Exposure Parameters
 ##
 
-## %%MAIN_CONTAINER_NAME%% service parameters
+## wasp-routing-service service parameters
 ##
 service:
-  ## @param service.type %%MAIN_CONTAINER_NAME%% service type
+  ## @param service.type wasp-routing-service service type
   ##
   type: LoadBalancer
-  ## @param service.ports.http %%MAIN_CONTAINER_NAME%% service HTTP port
-  ## @param service.ports.https %%MAIN_CONTAINER_NAME%% service HTTPS port
+  ## @param service.ports.http wasp-routing-service service HTTP port
+  ## @param service.ports.https wasp-routing-service service HTTPS port
   ##
   ports:
     http: 80
@@ -380,30 +374,30 @@ service:
   nodePorts:
     http: ""
     https: ""
-  ## @param service.clusterIP %%MAIN_CONTAINER_NAME%% service Cluster IP
+  ## @param service.clusterIP wasp-routing-service service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.loadBalancerIP %%MAIN_CONTAINER_NAME%% service Load Balancer IP
+  ## @param service.loadBalancerIP wasp-routing-service service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param service.loadBalancerSourceRanges %%MAIN_CONTAINER_NAME%% service Load Balancer sources
+  ## @param service.loadBalancerSourceRanges wasp-routing-service service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param service.externalTrafficPolicy %%MAIN_CONTAINER_NAME%% service external traffic policy
+  ## @param service.externalTrafficPolicy wasp-routing-service service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
+  ## @param service.annotations Additional custom annotations for wasp-routing-service service
   ##
   annotations: {}
-  ## @param service.extraPorts Extra ports to expose in %%MAIN_CONTAINER_NAME%% service (normally used with the `sidecars` value)
+  ## @param service.extraPorts Extra ports to expose in wasp-routing-service service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -417,11 +411,12 @@ service:
   ##     timeoutSeconds: 300
   ##
   sessionAffinityConfig: {}
-## %%MAIN_CONTAINER_NAME%% ingress parameters
+
+## wasp-routing-service ingress parameters
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
 ingress:
-  ## @param ingress.enabled Enable ingress record generation for %%MAIN_CONTAINER_NAME%%
+  ## @param ingress.enabled Enable ingress record generation for wasp-routing-service
   ##
   enabled: false
   ## @param ingress.pathType Ingress path type
@@ -432,7 +427,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: %%COMPONENT_NAME%%.local
+  hostname: wasp-routing-service.local
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
@@ -465,7 +460,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: %%COMPONENT_NAME%%.local
+  ##   - name: wasp-routing-service.local
   ##     path: /
   ##
   extraHosts: []
@@ -483,8 +478,8 @@ ingress:
   ## e.g:
   ## extraTls:
   ## - hosts:
-  ##     - %%COMPONENT_NAME%%.local
-  ##   secretName: %%COMPONENT_NAME%%.local-tls
+  ##     - wasp-routing-service.local
+  ##   secretName: wasp-routing-service.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets Custom TLS certificates as secrets
@@ -496,7 +491,7 @@ ingress:
   ## Please see README.md for more information
   ## e.g:
   ## secrets:
-  ##   - name: %%COMPONENT_NAME%%.local-tls
+  ##   - name: wasp-routing-service.local-tls
   ##     key: |-
   ##       -----BEGIN RSA PRIVATE KEY-----
   ##       ...
@@ -522,77 +517,37 @@ ingress:
   ##
   extraRules: []
 
-## @section Persistence Parameters
-##
-
-## Enable persistence using Persistent Volume Claims
-## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
-##
-persistence:
-  ## @param persistence.enabled Enable persistence using Persistent Volume Claims
-  ##
-  enabled: true
-  ## @param persistence.mountPath Path to mount the volume at.
-  ##
-  mountPath: /bitnami/%%MAIN_OBJECT_BLOCK%%/data
-  ## @param persistence.subPath The subdirectory of the volume to mount to, useful in dev environments and one PV for multiple services
-  ##
-  subPath: ""
-  ## @param persistence.storageClass Storage class of backing PVC
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  storageClass: ""
-  ## @param persistence.annotations Persistent Volume Claim annotations
-  ##
-  annotations: {}
-  ## @param persistence.accessModes Persistent Volume Access Modes
-  ##
-  accessModes:
-    - ReadWriteOnce
-  ## @param persistence.size Size of data volume
-  ##
-  size: 8Gi
-  ## @param persistence.existingClaim The name of an existing PVC to use for persistence
-  ##
-  existingClaim: ""
-  ## @param persistence.selector Selector to match an existing Persistent Volume for WordPress data PVC
-  ## If set, the PVC can't have a PV dynamically provisioned for it
-  ## E.g.
-  ## selector:
-  ##   matchLabels:
-  ##     app: my-app
-  ##
-  selector: {}
-  ## @param persistence.dataSource Custom PVC data source
-  ##
-  dataSource: {}
 ## @section Init Container Parameters
 ##
 
-## 'volumePermissions' init container parameters
-## Changes the owner and group of the persistent volume mount point to runAsUser:fsGroup values
-##   based on the *podSecurityContext/*containerSecurityContext parameters
-##
-volumePermissions:
-  ## @param volumePermissions.enabled Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup`
-  ##
-  enabled: false
-  ## Bitnami Shell image
-  ## ref: https://hub.docker.com/r/bitnami/bitnami-shell/tags/
-  ## @param volumePermissions.image.registry Bitnami Shell image registry
-  ## @param volumePermissions.image.repository Bitnami Shell image repository
-  ## @param volumePermissions.image.tag Bitnami Shell image tag (immutable tags are recommended)
-  ## @param volumePermissions.image.pullPolicy Bitnami Shell image pull policy
-  ## @param volumePermissions.image.pullSecrets Bitnami Shell image pull secrets
+## @param initRawPayloads.enable Initialise the raw-payloads topics as an init container
+## @param initRawPayloads.topic Topic to create
+## @param initRawPayloads.partitions Number of Partitions to create topic with
+## @param initRawPayloads.replicationFactor Replication factor for topic
+initRawPayloads:
+  enable: true
+  topic: raw-payloads
+  partitions: 30
+  replicationFactor: 1
+
+  ## Digital Catapult wasp-routing-service image
+  ## ref: https://hub.docker.com/r/digicatapult/wasp-routing-service/tags/
+  ## @param initRawPayloads.image.registry wasp-routing-service image registry
+  ## @param initRawPayloads.image.repository wasp-routing-service image repository
+  ## @param initRawPayloads.image.tag wasp-routing-service image tag (immutable tags are recommended)
+  ## @param initRawPayloads.image.digest wasp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+  ## @param initRawPayloads.image.pullPolicy wasp-routing-service image pull policy
+  ## @param initRawPayloads.image.pullSecrets wasp-routing-service image pull secrets
   ##
   image:
     registry: docker.io
-    repository: bitnami/bitnami-shell
-    tag: 11-debian-11-r%%IMAGE_REVISION%%
+    repository: bitnami/kafka
+    tag: '3.3-debian-11'
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
@@ -602,23 +557,6 @@ volumePermissions:
     ##   - myRegistryKeySecretName
     ##
     pullSecrets: []
-  ## Init container's resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ## @param volumePermissions.resources.limits The resources limits for the init container
-  ## @param volumePermissions.resources.requests The requested resources for the init container
-  ##
-  resources:
-    limits: {}
-    requests: {}
-  ## Init container Container Security Context
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-  ## @param volumePermissions.containerSecurityContext.runAsUser Set init container's Security Context runAsUser
-  ## NOTE: when runAsUser is set to special value "auto", init container will try to chown the
-  ##   data folder to auto-determined user&group, using commands: `id -u`:`id -G | cut -d" " -f2`
-  ##   "auto" is especially useful for OpenShift which has scc with dynamic user ids (and 0 is not allowed)
-  ##
-  containerSecurityContext:
-    runAsUser: 0
 
 ## @section Other Parameters
 ##
@@ -659,59 +597,149 @@ serviceAccount:
   ##
   automountServiceAccountToken: true
 
-## Prometheus metrics
+## @section Kafka chart parameters
 ##
-metrics:
-  ## @param metrics.enabled Enable the export of Prometheus metrics
-  ##
-  enabled: false
-  ## Prometheus Operator ServiceMonitor configuration
-  ##
-  serviceMonitor:
-    ## @param metrics.serviceMonitor.enabled if `true`, creates a Prometheus Operator ServiceMonitor (also requires `metrics.enabled` to be `true`)
-    ##
-    enabled: false
-    ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
-    ##
-    namespace: ""
-    ## @param metrics.serviceMonitor.annotations Additional custom annotations for the ServiceMonitor
-    ##
-    annotations: {}
-    ## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
-    ##
-    labels: {}
-    ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in Prometheus
-    ##
-    jobLabel: ""
-    ## @param metrics.serviceMonitor.honorLabels honorLabels chooses the metric's labels on collisions with target labels
-    ##
-    honorLabels: false
-    ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped.
-    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
-    ## e.g:
-    ## interval: 10s
-    ##
-    interval: ""
-    ## @param metrics.serviceMonitor.scrapeTimeout Timeout after which the scrape is ended
-    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
-    ## e.g:
-    ## scrapeTimeout: 10s
-    ##
-    scrapeTimeout: ""
-    ## @param metrics.serviceMonitor.metricRelabelings Specify additional relabeling of metrics
-    ##
-    metricRelabelings: []
-    ## @param metrics.serviceMonitor.relabelings Specify general relabeling
-    ##
-    relabelings: []
-    ## @param metrics.serviceMonitor.selector Prometheus instance selector labels
-    ## ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration
-    ## selector:
-    ##   prometheus: my-prometheus
-    ##
-    selector: {}
-## %%SUBCHART_CONTAINER/POD_DESCRIPTION%%
+## Kafka chart configuration
+## For information about these parameters, refer to:
+##   https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml
 ##
-%%SUBCHART_NAME%%:
-  enabled: false
-  %%OTHER_PARAMETERS_RELATED_TO_THIS_SUBCHART%%
+kafka:
+  ## @param kafka.enabled Enable/disable Kafka chart installation
+  ##
+  enabled: true
+  ## @param kafka.replicaCount Number of Kafka brokers
+  ##
+  replicaCount: 1
+  auth:
+    ## @param kafka.auth.clientProtocol Authentication protocol for communications with clients. Allowed protocols: plaintext, tls, mtls, sasl and sasl_tls
+    ##
+    clientProtocol: plaintext
+    ## @param kafka.auth.interBrokerProtocol Authentication protocol for inter-broker communications. Allowed protocols: plaintext, tls, mtls, sasl and sasl_tls
+    ##
+    interBrokerProtocol: plaintext
+    ## TLS configuration
+    ##
+    tls:
+      ## @param kafka.auth.tls.existingSecrets Array existing secrets containing the TLS certificates for the Kafka brokers
+      ## When using 'jks' format for certificates, each secret should contain a truststore and a keystore.
+      ## Create these secrets following the steps below:
+      ## 1) Generate your truststore and keystore files. Helpful script: https://raw.githubusercontent.com/confluentinc/confluent-platform-security-tools/master/kafka-generate-ssl.sh
+      ## 2) Rename your truststore to `kafka.truststore.jks`.
+      ## 3) Rename your keystores to `kafka-X.keystore.jks` where X is the ID of each Kafka broker.
+      ## 4) Run the command below one time per broker to create its associated secret (SECRET_NAME_X is the name of the secret you want to create):
+      ##       kubectl create secret generic SECRET_NAME_0 --from-file=kafka.truststore.jks=./kafka.truststore.jks --from-file=kafka.keystore.jks=./kafka-0.keystore.jks
+      ##       kubectl create secret generic SECRET_NAME_1 --from-file=kafka.truststore.jks=./kafka.truststore.jks --from-file=kafka.keystore.jks=./kafka-1.keystore.jks
+      ##       ...
+      ##
+      ## When using 'pem' format for certificates, each secret should contain a public CA certificate, a public certificate and one private key.
+      ## Create these secrets following the steps below:
+      ## 1) Create a certificate key and signing request per Kafka broker, and sign the signing request with your CA
+      ## 2) Rename your CA file to `kafka.ca.crt`.
+      ## 3) Rename your certificates to `kafka-X.tls.crt` where X is the ID of each Kafka broker.
+      ## 3) Rename your keys to `kafka-X.tls.key` where X is the ID of each Kafka broker.
+      ## 4) Run the command below one time per broker to create its associated secret (SECRET_NAME_X is the name of the secret you want to create):
+      ##       kubectl create secret generic SECRET_NAME_0 --from-file=ca.crt=./kafka.ca.crt --from-file=tls.crt=./kafka-0.tls.crt --from-file=tls.key=./kafka-0.tls.key
+      ##       kubectl create secret generic SECRET_NAME_1 --from-file=ca.crt=./kafka.ca.crt --from-file=tls.crt=./kafka-1.tls.crt --from-file=tls.key=./kafka-1.tls.key
+      ##       ...
+      ##
+      existingSecrets: []
+      ## @param kafka.auth.tls.password Password to access the JKS files or PEM key when they are password-protected.
+      ## Note: ignored when using 'existingSecret'.
+      ##
+      password: ""
+      ## @param kafka.auth.tls.endpointIdentificationAlgorithm The endpoint identification algorithm to validate server hostname using server certificate
+      ## Disable server host name verification by setting it to an empty string.
+      ## ref: https://docs.confluent.io/current/kafka/authentication_ssl.html#optional-settings
+      ##
+      endpointIdentificationAlgorithm: https
+    sasl:
+      jaas:
+        ## @param kafka.auth.sasl.jaas.clientUsers [array] Kafka client users for SASL authentication
+        ##
+        clientUsers:
+          - user
+        ## @param kafka.auth.sasl.jaas.clientPasswords Kafka client passwords for SASL authentication
+        ##
+        clientPasswords: []
+        ## @param kafka.auth.sasl.jaas.interBrokerUser Kafka inter broker communication user for SASL authentication
+        ##
+        interBrokerUser: admin
+        ## @param kafka.auth.sasl.jaas.interBrokerPassword Kafka inter broker communication password for SASL authentication
+        ##
+        interBrokerPassword: ""
+        ## @param kafka.auth.sasl.jaas.zookeeperUser Kafka Zookeeper user for SASL authentication
+        ##
+        zookeeperUser: ""
+        ## @param kafka.auth.sasl.jaas.zookeeperPassword Kafka Zookeeper password for SASL authentication
+        ##
+        zookeeperPassword: ""
+        ## @param kafka.auth.sasl.jaas.existingSecret Name of the existing secret containing credentials for brokerUser, interBrokerUser and zookeeperUser
+        ##
+        existingSecret: ""
+  service:
+    ## @param kafka.service.ports.client Kafka service port for client connections
+    ##
+    ports:
+      client: 9092
+  ##
+  ## Zookeeper chart configuration
+  ## For information about these parameters, refer to:
+  ##   https://github.com/bitnami/charts/blob/main/bitnami/zookeeper/values.yaml
+  ##
+  zookeeper:
+    ## @param kafka.zookeeper.enabled Enable/disable Zookeeper chart installation
+    ##
+    enabled: true
+    ## @param kafka.zookeeper.replicaCount Number of Zookeeper replicas
+    ##
+    replicaCount: 1
+    ## @param kafka.zookeeper.auth [object] Zookeeper auth settings
+    auth:
+      client:
+        enabled: false
+        clientUser: zookeeperUser
+        clientPassword: ""
+        serverUsers: zookeeperUser
+        serverPasswords: ""
+        existingSecret: ""
+##
+## External Kafka Configuration
+## All of these values are only used when kafka.enabled is set to false
+##
+externalKafka:
+  ## @param externalKafka.brokers Array of Kafka brokers to connect to. Format: protocol://broker_hostname:port
+  ##
+  brokers:
+    - PLAINTEXT://localhost:9092
+  ## Authentication parameters
+  ## @param externalKafka.auth.protocol                   Authentication protocol. Allowed protocols: plaintext, tls, sasl and sasl_tls
+  ## @param externalKafka.auth.jaas.user                  User for SASL authentication
+  ## @param externalKafka.auth.jaas.password              Password for SASL authentication
+  ##
+  auth:
+    ## Authentication protocol
+    ## Supported values: 'plaintext', 'tls', sasl' and 'sasl_tls'
+    ## This table shows the security provided on each protocol:
+    ## | Method    | Authentication                | Encryption via TLS |
+    ## | plaintext | None                          | No                 |
+    ## | tls       | None                          | Yes                |
+    ## | sasl      | Yes (via SASL)                | No                 |
+    ## | sasl_tls  | Yes (via SASL)                | Yes                |
+    ##
+    protocol: plaintext
+    ## JAAS configuration for SASL authentication
+    ## MANDATORY when protocol is 'sasl' or 'sasl_tls'
+    ##
+    jaas:
+      user: user
+      password: ""
+
+## @section Thing service chart parameters
+## Configuration for external wasp-thing-service
+## ref: https://hub.docker.com/r/digicatapult/wasp-thing-service/tags/
+## @param externalThingService.host Host of the wasp-thing-service
+## @param externalThingService.port Http port of the wasp-thing-service
+##
+externalThingService:
+  host: wasp-thing-service
+  port: 80

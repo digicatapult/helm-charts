@@ -142,6 +142,14 @@ Find more information about how to deal with common errors related to Bitnami's 
 
 ## License
 
+This chart is licensed under the Apache v2.0 license.
+
+Copyright &copy; 2023 Digital Catapult
+
+### Attribution
+
+This chart is derived form the [Bitnami chart template](https://github.com/bitnami/charts/tree/main/template)
+
 Copyright &copy; 2022 Bitnami
 
 Licensed under the Apache License, Version 2.0 (the "License");

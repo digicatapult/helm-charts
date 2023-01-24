@@ -20,7 +20,7 @@ Access the pod you want to debug by executing
 
 In order to replicate the container startup scripts execute this command:
 
-    %%ENTRYPOINT and CMD from main container%%
+    node ./app/index.js
 
 {{- else }}
 
@@ -28,6 +28,5 @@ In order to replicate the container startup scripts execute this command:
 
 {{- end }}
 
-{{- include "common.warnings.rollingTag" .Values.%%MAIN_OBJECT_BLOCK%%.image }}
-{{- include "common.warnings.rollingTag" .Values.%%OTHER_OBJECT_BLOCK%%.image }}
-{{- include "%%TEMPLATE_NAME%%.validateValues" . }}
+{{- include "common.warnings.rollingTag" .Values.image }}
+{{- include "wasp-routing-service.validateValues" . }}
