@@ -347,4 +347,44 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-user-service-0.0.11/wasp-user-service-0.0.11.tgz
     version: 0.0.11
-generated: "2023-01-24T09:29:54.526548602Z"
+  wasp-ws-event-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-24T10:23:28.217356492Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    description: A Helm chart for wasp-ws-event-service
+    digest: 9b87f3a84ebbbc33f403c04c5445e7b43c3eed7895f5a2e20fcd8231246eb4d1
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-ws-event-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-event-service-0.0.8/wasp-ws-event-service-0.0.8.tgz
+    version: 0.0.8
+  wasp-ws-reading-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-24T10:23:28.380330121Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    description: A Helm chart for wasp-ws-reading-service
+    digest: 8cf335994ff231447c0d3531673b45b311a8351e8d65ed4523167c5bb6e217df
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-ws-reading-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
+    version: 0.0.9
+generated: "2023-01-24T10:23:28.380481831Z"
