@@ -109,7 +109,7 @@ spec:
             - name: WASP_DEBUG
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: PORT
-              value: {{ .Values.containerPorts.http }}
+              value: {{ .Values.containerPorts.http | quote }}
             - name: KAFKA_BROKERS
               value: {{ include "wasp-routing-service.kafka.brokers" . }}
             - name: THINGS_SERVICE_HOST
