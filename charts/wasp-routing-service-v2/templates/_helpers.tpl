@@ -70,6 +70,13 @@ Return the proper wasp-routing-service image name
 {{- end -}}
 
 {{/*
+Return the proper init container image name
+*/}}
+{{- define "wasp-routing-service.initRawPayloads.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.initRawPayloads.image "global" .Values.global) }}
+{{- end -}}
+
+{{/*
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "wasp-routing-service.imagePullSecrets" -}}
