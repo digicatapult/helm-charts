@@ -78,9 +78,9 @@ spec:
             - name: TOPIC
               value: {{ .Values.initRawPayloads.topic}}
             - name: PARTITIONS
-              value: {{ .Values.initRawPayloads.partitions}}
+              value: {{ .Values.initRawPayloads.partitions | quote }}
             - name: REPLICATION_FACTOR
-              value: {{ .Values.initRawPayloads.replicationFactor}}
+              value: {{ .Values.initRawPayloads.replicationFactor | quote }}
           command: ['/bin/sh', '-c']
           args: ['/opt/bitnami/kafka/bin/kafka-topics.sh --create --topic $(TOPIC) --bootstrap-server=$(KAFKA_BROKER) --partitions $(PARTITIONS) --replication-factor $(REPLICATION_FACTOR) --if-not-exists']
         {{- end }}
