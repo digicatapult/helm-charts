@@ -44,7 +44,7 @@ Kafka broker to be used to bootstrap initialisation
 {{- if .Values.kafka.enabled -}}
 {{- printf "%s://%s-%d.%s-headless.%s.svc.%s:%d" $kafkaProtocol $kafkaFullname "0" $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort -}}
 {{- else -}}
-{{- .Values.externalKafka.brokers[0] -}}
+{{- first .Values.externalKafka.brokers -}}
 {{- end -}}
 {{- end -}}
 
