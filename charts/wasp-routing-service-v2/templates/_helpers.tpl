@@ -34,14 +34,13 @@ Create a comma separated list of kafka brokers to be used as the brokers list
 {{- define "wasp-routing-service.kafka.brokers" -}}
 {{- $releaseNamespace := .Release.Namespace -}}
 {{- $clusterDomain := .Values.clusterDomain -}}
-{{- $kafkaProtocol := include "wasp-routing-service.listenerType" ( dict "protocol" (ternary .Values.kafka.auth.clientProtocol .Values.externalKafka.auth.protocol .Values.kafka.enabled) ) -}}
 {{- $kafkaReplicaCount := int .Values.kafka.replicaCount -}}
 {{- $kafkaFullname := include "wasp-routing-service.kafka.fullname" . -}}
 {{- $kafkaPort := int .Values.kafka.service.ports.client -}}
 {{- if .Values.kafka.enabled -}}
 {{- $brokers := list -}}
 {{- range $e, $i := until $kafkaReplicaCount -}}
-{{- $brokers = append $brokers (printf "%s://%s-%d.%s-headless.%s.svc.%s:%d" $kafkaProtocol $kafkaFullname $i $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort) -}}
+{{- $brokers = append $brokers (printf "%s-%d.%s-headless.%s.svc.%s:%d" $kafkaFullname $i $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort) -}}
 {{- end -}}
 {{- join "," $brokers | quote -}}
 {{- else -}}
@@ -55,11 +54,10 @@ Kafka broker to be used to bootstrap initialisation
 {{- define "wasp-routing-service.kafka.bootstrapBroker" -}}
 {{- $releaseNamespace := .Release.Namespace -}}
 {{- $clusterDomain := .Values.clusterDomain -}}
-{{- $kafkaProtocol := include "wasp-routing-service.listenerType" ( dict "protocol" (ternary .Values.kafka.auth.clientProtocol .Values.externalKafka.auth.protocol .Values.kafka.enabled) ) -}}
 {{- $kafkaFullname := include "wasp-routing-service.kafka.fullname" . -}}
 {{- $kafkaPort := int .Values.kafka.service.ports.client -}}
 {{- if .Values.kafka.enabled -}}
-{{- printf "%s://%s-%d.%s-headless.%s.svc.%s:%d" $kafkaProtocol $kafkaFullname 0 $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort -}}
+{{- printf "%s-%d.%s-headless.%s.svc.%s:%d" $kafkaFullname 0 $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort -}}
 {{- else -}}
 {{- first .Values.externalKafka.brokers -}}
 {{- end -}}
