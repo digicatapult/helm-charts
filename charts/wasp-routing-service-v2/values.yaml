@@ -114,7 +114,7 @@ replicaCount: 1
 ## @param containerPorts.http wasp-routing-service HTTP container port
 ##
 containerPorts:
-  http: 80
+  http: 3000
 ## Configure extra options for wasp-routing-service containers' liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
 ## @param livenessProbe.enabled Enable livenessProbe on wasp-routing-service containers
