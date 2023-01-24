@@ -12,12 +12,29 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
+Return the type of listener
+Usage:
+{{ include "wasp-routing-service.listenerType" ( dict "protocol" .Values.path.to.the.Value ) }}
+*/}}
+{{- define "wasp-routing-service.listenerType" -}}
+{{- if eq .protocol "plaintext" -}}
+PLAINTEXT
+{{- else if or (eq .protocol "tls") (eq .protocol "mtls") -}}
+SSL
+{{- else if eq .protocol "sasl_tls" -}}
+SASL_SSL
+{{- else if eq .protocol "sasl" -}}
+SASL_PLAINTEXT
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create a comma separated list of kafka brokers to be used as the brokers list
 */}}
 {{- define "wasp-routing-service.kafka.brokers" -}}
 {{- $releaseNamespace := .Release.Namespace -}}
 {{- $clusterDomain := .Values.clusterDomain -}}
-{{- $kafkaProtocol := include "schema-registry.listenerType" ( dict "protocol" (ternary .Values.kafka.auth.clientProtocol .Values.externalKafka.auth.protocol .Values.kafka.enabled) ) -}}
+{{- $kafkaProtocol := include "wasp-routing-service.listenerType" ( dict "protocol" (ternary .Values.kafka.auth.clientProtocol .Values.externalKafka.auth.protocol .Values.kafka.enabled) ) -}}
 {{- $kafkaReplicaCount := int .Values.kafka.replicaCount -}}
 {{- $kafkaFullname := include "wasp-routing-service.kafka.fullname" . -}}
 {{- $kafkaPort := int .Values.kafka.service.ports.client -}}
@@ -38,7 +55,7 @@ Kafka broker to be used to bootstrap initialisation
 {{- define "wasp-routing-service.kafka.bootstrapBroker" -}}
 {{- $releaseNamespace := .Release.Namespace -}}
 {{- $clusterDomain := .Values.clusterDomain -}}
-{{- $kafkaProtocol := include "schema-registry.listenerType" ( dict "protocol" (ternary .Values.kafka.auth.clientProtocol .Values.externalKafka.auth.protocol .Values.kafka.enabled) ) -}}
+{{- $kafkaProtocol := include "wasp-routing-service.listenerType" ( dict "protocol" (ternary .Values.kafka.auth.clientProtocol .Values.externalKafka.auth.protocol .Values.kafka.enabled) ) -}}
 {{- $kafkaFullname := include "wasp-routing-service.kafka.fullname" . -}}
 {{- $kafkaPort := int .Values.kafka.service.ports.client -}}
 {{- if .Values.kafka.enabled -}}
