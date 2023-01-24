@@ -220,6 +220,30 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-authentication-service-0.0.19/wasp-authentication-service-0.0.19.tgz
     version: 0.0.19
+  wasp-event-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-24T09:29:54.526395Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    description: A Helm chart for wasp-event-service
+    digest: d464ff5867b83b65bb6f0b8f8d0dce579ba875d07891a184fbfbcaece62bd6a4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-event-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-0.0.10/wasp-event-service-0.0.10.tgz
+    version: 0.0.10
   wasp-reading-service:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -323,4 +347,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-user-service-0.0.11/wasp-user-service-0.0.11.tgz
     version: 0.0.11
-generated: "2023-01-23T10:20:49.003999424Z"
+generated: "2023-01-24T09:29:54.526548602Z"
