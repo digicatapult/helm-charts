@@ -59,7 +59,7 @@ Kafka broker to be used to bootstrap initialisation
 {{- $kafkaFullname := include "wasp-routing-service.kafka.fullname" . -}}
 {{- $kafkaPort := int .Values.kafka.service.ports.client -}}
 {{- if .Values.kafka.enabled -}}
-{{- printf "%s://%s-%d.%s-headless.%s.svc.%s:%d" $kafkaProtocol $kafkaFullname "0" $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort -}}
+{{- printf "%s://%s-%d.%s-headless.%s.svc.%s:%d" $kafkaProtocol $kafkaFullname 0 $kafkaFullname $releaseNamespace $clusterDomain $kafkaPort -}}
 {{- else -}}
 {{- first .Values.externalKafka.brokers -}}
 {{- end -}}

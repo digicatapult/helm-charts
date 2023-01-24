@@ -71,12 +71,12 @@ spec:
         {{- if .Values.initRawPayloads.enable}}
         - name: assert-raw-payloads
           image: {{ template "wasp-routing-service.initRawPayloads.image" . }}
-          imagePullPolicy:
+          imagePullPolicy: {{ .Values.initRawPayloads.image.pullPolicy }}
           env:
             - name: KAFKA_BROKER
               value: {{ include "wasp-routing-service.kafka.bootstrapBroker" . }}
             - name: TOPIC
-              value: {{ .Values.initRawPayloads.topic}}
+              value: {{ .Values.initRawPayloads.topic }}
             - name: PARTITIONS
               value: {{ .Values.initRawPayloads.partitions | quote }}
             - name: REPLICATION_FACTOR
