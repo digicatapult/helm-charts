@@ -2,18 +2,18 @@
 
 # wasp-routing-service
 
-%%DESCRIPTION%% (check existing examples)
+The wasp-routing-service is a component of the WASP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services into one place. The wasp-routing-service is responsible for routing raw payloads from IoT devices to the correct payload-processor so that it can be parsed into dataset readings and events. See [https://github.com/digicatapult/wasp-documentation](https://github.com/digicatapult/wasp-documentation) for details.
 
 ## TL;DR
 
 ```console
-$ helm repo add my-repo https://charts.bitnami.com/bitnami
-$ helm install my-release my-repo/wasp-routing-service
+$ helm repo add digicatapult https://digicatapult.github.io/helm-charts
+$ helm install my-release digicatapult/wasp-routing-service
 ```
 
 ## Introduction
 
-%%INTRODUCTION%% (check existing examples)
+This chart bootstraps a [wasp-routing-service](https://github.com/digicatapult/wasp-routing-service/) deployment on a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
 
 ## Prerequisites
 
@@ -27,7 +27,8 @@ $ helm install my-release my-repo/wasp-routing-service
 To install the chart with the release name `my-release`:
 
 ```console
-helm install my-release my-repo/wasp-routing-service
+$ helm repo add digicatapult https://digicatapult.github.io/helm-charts
+$ helm install my-release digicatapult/wasp-routing-service
 ```
 
 The command deploys wasp-routing-service on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
@@ -46,31 +47,211 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ## Parameters
 
-See https://github.com/bitnami-labs/readme-generator-for-helm to create the table
+### Global parameters
 
-The above parameters map to the env variables defined in [bitnami/wasp-routing-service](https://github.com/bitnami/containers/tree/main/bitnami/wasp-routing-service). For more information please refer to the [bitnami/wasp-routing-service](https://github.com/bitnami/containers/tree/main/bitnami/wasp-routing-service) image documentation.
+| Name                      | Description                                     | Value |
+| ------------------------- | ----------------------------------------------- | ----- |
+| `global.imageRegistry`    | Global Docker image registry                    | `""`  |
+| `global.imagePullSecrets` | Global Docker registry secret names as an array | `[]`  |
+| `global.storageClass`     | Global StorageClass for Persistent Volume(s)    | `""`  |
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
-```console
-helm install my-release \
-  --set wasp-routing-serviceUsername=admin \
-  --set wasp-routing-servicePassword=password \
-  --set mariadb.auth.rootPassword=secretpassword \
-    my-repo/wasp-routing-service
-```
+### Common parameters
 
-The above command sets the wasp-routing-service administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
+| Name                     | Description                                                                             | Value           |
+| ------------------------ | --------------------------------------------------------------------------------------- | --------------- |
+| `kubeVersion`            | Override Kubernetes version                                                             | `""`            |
+| `nameOverride`           | String to partially override common.names.name                                          | `""`            |
+| `fullnameOverride`       | String to fully override common.names.fullname                                          | `""`            |
+| `namespaceOverride`      | String to fully override common.names.namespace                                         | `""`            |
+| `commonLabels`           | Labels to add to all deployed objects                                                   | `{}`            |
+| `commonAnnotations`      | Annotations to add to all deployed objects                                              | `{}`            |
+| `clusterDomain`          | Kubernetes cluster domain name                                                          | `cluster.local` |
+| `extraDeploy`            | Array of extra objects to deploy with the release                                       | `[]`            |
+| `diagnosticMode.enabled` | Enable diagnostic mode (all probes will be disabled and the command will be overridden) | `false`         |
+| `diagnosticMode.command` | Command to override all containers in the deployment                                    | `["sleep"]`     |
+| `diagnosticMode.args`    | Args to override all containers in the deployment                                       | `["infinity"]`  |
 
-> NOTE: Once this chart is deployed, it is not possible to change the application's access credentials, such as usernames or passwords, using Helm. To change these application credentials after deployment, delete any persistent volumes (PVs) used by the chart and re-deploy it, or use the application's built-in administrative tools if available.
 
-Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
+### WASP Routing Service config parameters
 
-```console
-helm install my-release -f values.yaml my-repo/wasp-routing-service
-```
+| Name                                              | Description                                                                                                                                                     | Value                               |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `logLevel`                                        | Allowed values: error, warn, info, debug                                                                                                                        | `info`                              |
+| `kafkaJsLogLevel`                                 | Allowed values: error, warn, info, debug                                                                                                                        | `error`                             |
+| `rawPayloadMatch`                                 | Javascript Regular Expression on which to subscribe to raw-payloads                                                                                             | `/^raw-payloads$/`                  |
+| `payloadRoutingPrefix`                            | Routing prefix to use when publishing routed messages                                                                                                           | `payloads`                          |
+| `image.registry`                                  | wasp-routing-service image registry                                                                                                                             | `docker.io`                         |
+| `image.repository`                                | wasp-routing-service image repository                                                                                                                           | `digicatapult/wasp-routing-service` |
+| `image.tag`                                       | wasp-routing-service image tag (immutable tags are recommended)                                                                                                 | `v2.1.2`                            |
+| `image.digest`                                    | wasp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                |
+| `image.pullPolicy`                                | wasp-routing-service image pull policy                                                                                                                          | `IfNotPresent`                      |
+| `image.pullSecrets`                               | wasp-routing-service image pull secrets                                                                                                                         | `[]`                                |
+| `image.debug`                                     | Enable wasp-routing-service image debug mode                                                                                                                    | `false`                             |
+| `replicaCount`                                    | Number of wasp-routing-service replicas to deploy                                                                                                               | `1`                                 |
+| `containerPorts.http`                             | wasp-routing-service HTTP container port                                                                                                                        | `3000`                              |
+| `livenessProbe.enabled`                           | Enable livenessProbe on wasp-routing-service containers                                                                                                         | `true`                              |
+| `livenessProbe.path`                              | Path for to check for livenessProbe                                                                                                                             | `/health`                           |
+| `livenessProbe.initialDelaySeconds`               | Initial delay seconds for livenessProbe                                                                                                                         | `10`                                |
+| `livenessProbe.periodSeconds`                     | Period seconds for livenessProbe                                                                                                                                | `10`                                |
+| `livenessProbe.timeoutSeconds`                    | Timeout seconds for livenessProbe                                                                                                                               | `5`                                 |
+| `livenessProbe.failureThreshold`                  | Failure threshold for livenessProbe                                                                                                                             | `3`                                 |
+| `livenessProbe.successThreshold`                  | Success threshold for livenessProbe                                                                                                                             | `1`                                 |
+| `readinessProbe.enabled`                          | Enable readinessProbe on wasp-routing-service containers                                                                                                        | `true`                              |
+| `readinessProbe.path`                             | Path for to check for readinessProbe                                                                                                                            | `/health`                           |
+| `readinessProbe.initialDelaySeconds`              | Initial delay seconds for readinessProbe                                                                                                                        | `5`                                 |
+| `readinessProbe.periodSeconds`                    | Period seconds for readinessProbe                                                                                                                               | `10`                                |
+| `readinessProbe.timeoutSeconds`                   | Timeout seconds for readinessProbe                                                                                                                              | `5`                                 |
+| `readinessProbe.failureThreshold`                 | Failure threshold for readinessProbe                                                                                                                            | `5`                                 |
+| `readinessProbe.successThreshold`                 | Success threshold for readinessProbe                                                                                                                            | `1`                                 |
+| `startupProbe.enabled`                            | Enable startupProbe on wasp-routing-service containers                                                                                                          | `false`                             |
+| `startupProbe.path`                               | Path for to check for startupProbe                                                                                                                              | `/health`                           |
+| `startupProbe.initialDelaySeconds`                | Initial delay seconds for startupProbe                                                                                                                          | `30`                                |
+| `startupProbe.periodSeconds`                      | Period seconds for startupProbe                                                                                                                                 | `10`                                |
+| `startupProbe.timeoutSeconds`                     | Timeout seconds for startupProbe                                                                                                                                | `5`                                 |
+| `startupProbe.failureThreshold`                   | Failure threshold for startupProbe                                                                                                                              | `10`                                |
+| `startupProbe.successThreshold`                   | Success threshold for startupProbe                                                                                                                              | `1`                                 |
+| `customLivenessProbe`                             | Custom livenessProbe that overrides the default one                                                                                                             | `{}`                                |
+| `customReadinessProbe`                            | Custom readinessProbe that overrides the default one                                                                                                            | `{}`                                |
+| `customStartupProbe`                              | Custom startupProbe that overrides the default one                                                                                                              | `{}`                                |
+| `resources.limits`                                | The resources limits for the wasp-routing-service containers                                                                                                    | `{}`                                |
+| `resources.requests`                              | The requested resources for the wasp-routing-service containers                                                                                                 | `{}`                                |
+| `podSecurityContext.enabled`                      | Enabled wasp-routing-service pods' Security Context                                                                                                             | `true`                              |
+| `podSecurityContext.fsGroup`                      | Set wasp-routing-service pod's Security Context fsGroup                                                                                                         | `1001`                              |
+| `containerSecurityContext.enabled`                | Enabled wasp-routing-service containers' Security Context                                                                                                       | `true`                              |
+| `containerSecurityContext.runAsUser`              | Set wasp-routing-service containers' Security Context runAsUser                                                                                                 | `1001`                              |
+| `containerSecurityContext.runAsNonRoot`           | Set wasp-routing-service containers' Security Context runAsNonRoot                                                                                              | `true`                              |
+| `containerSecurityContext.readOnlyRootFilesystem` | Set wasp-routing-service containers' Security Context runAsNonRoot                                                                                              | `false`                             |
+| `command`                                         | Override default container command (useful when using custom images)                                                                                            | `[]`                                |
+| `args`                                            | Override default container args (useful when using custom images)                                                                                               | `[]`                                |
+| `hostAliases`                                     | wasp-routing-service pods host aliases                                                                                                                          | `[]`                                |
+| `podLabels`                                       | Extra labels for wasp-routing-service pods                                                                                                                      | `{}`                                |
+| `podAnnotations`                                  | Annotations for wasp-routing-service pods                                                                                                                       | `{}`                                |
+| `podAffinityPreset`                               | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                             | `""`                                |
+| `podAntiAffinityPreset`                           | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                        | `soft`                              |
+| `pdb.create`                                      | Enable/disable a Pod Disruption Budget creation                                                                                                                 | `false`                             |
+| `pdb.minAvailable`                                | Minimum number/percentage of pods that should remain scheduled                                                                                                  | `1`                                 |
+| `pdb.maxUnavailable`                              | Maximum number/percentage of pods that may be made unavailable                                                                                                  | `""`                                |
+| `autoscaling.enabled`                             | Enable autoscaling for wasp-routing-service                                                                                                                     | `false`                             |
+| `autoscaling.minReplicas`                         | Minimum number of wasp-routing-service replicas                                                                                                                 | `""`                                |
+| `autoscaling.maxReplicas`                         | Maximum number of wasp-routing-service replicas                                                                                                                 | `""`                                |
+| `autoscaling.targetCPU`                           | Target CPU utilization percentage                                                                                                                               | `""`                                |
+| `autoscaling.targetMemory`                        | Target Memory utilization percentage                                                                                                                            | `""`                                |
+| `nodeAffinityPreset.type`                         | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                       | `""`                                |
+| `nodeAffinityPreset.key`                          | Node label key to match. Ignored if `affinity` is set                                                                                                           | `""`                                |
+| `nodeAffinityPreset.values`                       | Node label values to match. Ignored if `affinity` is set                                                                                                        | `[]`                                |
+| `affinity`                                        | Affinity for wasp-routing-service pods assignment                                                                                                               | `{}`                                |
+| `nodeSelector`                                    | Node labels for wasp-routing-service pods assignment                                                                                                            | `{}`                                |
+| `tolerations`                                     | Tolerations for wasp-routing-service pods assignment                                                                                                            | `[]`                                |
+| `updateStrategy.type`                             | wasp-routing-service statefulset strategy type                                                                                                                  | `RollingUpdate`                     |
+| `priorityClassName`                               | wasp-routing-service pods' priorityClassName                                                                                                                    | `""`                                |
+| `topologySpreadConstraints`                       | Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template                                        | `[]`                                |
+| `schedulerName`                                   | Name of the k8s scheduler (other than default) for wasp-routing-service pods                                                                                    | `""`                                |
+| `terminationGracePeriodSeconds`                   | Seconds Redmine pod needs to terminate gracefully                                                                                                               | `""`                                |
+| `lifecycleHooks`                                  | for the wasp-routing-service container(s) to automate configuration before or after startup                                                                     | `{}`                                |
+| `extraEnvVars`                                    | Array with extra environment variables to add to wasp-routing-service nodes                                                                                     | `[]`                                |
+| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for wasp-routing-service nodes                                                                             | `""`                                |
+| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for wasp-routing-service nodes                                                                                | `""`                                |
+| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the wasp-routing-service pod(s)                                                                         | `[]`                                |
+| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the wasp-routing-service container(s)                                                              | `[]`                                |
+| `sidecars`                                        | Add additional sidecar containers to the wasp-routing-service pod(s)                                                                                            | `[]`                                |
+| `initContainers`                                  | Add additional init containers to the wasp-routing-service pod(s)                                                                                               | `[]`                                |
 
-> **Tip**: You can use the default [values.yaml](values.yaml)
+
+### Traffic Exposure Parameters
+
+| Name                               | Description                                                                                                                      | Value                        |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `service.type`                     | wasp-routing-service service type                                                                                                | `ClusterIP`                  |
+| `service.ports.http`               | wasp-routing-service service HTTP port                                                                                           | `3000`                       |
+| `service.nodePorts.http`           | Node port for HTTP                                                                                                               | `""`                         |
+| `service.clusterIP`                | wasp-routing-service service Cluster IP                                                                                          | `""`                         |
+| `service.loadBalancerIP`           | wasp-routing-service service Load Balancer IP                                                                                    | `""`                         |
+| `service.loadBalancerSourceRanges` | wasp-routing-service service Load Balancer sources                                                                               | `[]`                         |
+| `service.externalTrafficPolicy`    | wasp-routing-service service external traffic policy                                                                             | `Cluster`                    |
+| `service.annotations`              | Additional custom annotations for wasp-routing-service service                                                                   | `{}`                         |
+| `service.extraPorts`               | Extra ports to expose in wasp-routing-service service (normally used with the `sidecars` value)                                  | `[]`                         |
+| `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
+| `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
+| `ingress.enabled`                  | Enable ingress record generation for wasp-routing-service                                                                        | `false`                      |
+| `ingress.pathType`                 | Ingress path type                                                                                                                | `ImplementationSpecific`     |
+| `ingress.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`                         |
+| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `wasp-routing-service.local` |
+| `ingress.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                         |
+| `ingress.path`                     | Default path for the ingress record                                                                                              | `/`                          |
+| `ingress.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                         |
+| `ingress.tls`                      | Enable TLS configuration for the host defined at `ingress.hostname` parameter                                                    | `false`                      |
+| `ingress.selfSigned`               | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`                      |
+| `ingress.extraHosts`               | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`                         |
+| `ingress.extraPaths`               | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
+| `ingress.extraTls`                 | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`                         |
+| `ingress.secrets`                  | Custom TLS certificates as secrets                                                                                               | `[]`                         |
+| `ingress.extraRules`               | Additional rules to be covered with this ingress record                                                                          | `[]`                         |
+
+
+### Init Container Parameters
+
+| Name                                | Description                                                                                                                                                     | Value           |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `initRawPayloads.enable`            | Initialise the raw-payloads topics as an init container                                                                                                         | `true`          |
+| `initRawPayloads.topic`             | Topic to create                                                                                                                                                 | `raw-payloads`  |
+| `initRawPayloads.partitions`        | Number of Partitions to create topic with                                                                                                                       | `30`            |
+| `initRawPayloads.replicationFactor` | Replication factor for topic                                                                                                                                    | `1`             |
+| `initRawPayloads.image.registry`    | wasp-routing-service image registry                                                                                                                             | `docker.io`     |
+| `initRawPayloads.image.repository`  | wasp-routing-service image repository                                                                                                                           | `bitnami/kafka` |
+| `initRawPayloads.image.tag`         | wasp-routing-service image tag (immutable tags are recommended)                                                                                                 | `3.3-debian-11` |
+| `initRawPayloads.image.digest`      | wasp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`            |
+| `initRawPayloads.image.pullPolicy`  | wasp-routing-service image pull policy                                                                                                                          | `IfNotPresent`  |
+| `initRawPayloads.image.pullSecrets` | wasp-routing-service image pull secrets                                                                                                                         | `[]`            |
+
+
+### Other Parameters
+
+| Name                                          | Description                                                      | Value   |
+| --------------------------------------------- | ---------------------------------------------------------------- | ------- |
+| `rbac.create`                                 | Specifies whether RBAC resources should be created               | `false` |
+| `rbac.rules`                                  | Custom RBAC rules to set                                         | `[]`    |
+| `serviceAccount.create`                       | Specifies whether a ServiceAccount should be created             | `true`  |
+| `serviceAccount.name`                         | The name of the ServiceAccount to use.                           | `""`    |
+| `serviceAccount.annotations`                  | Additional Service Account annotations (evaluated as a template) | `{}`    |
+| `serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account   | `true`  |
+
+
+### Kafka chart parameters
+
+| Name                                             | Description                                                                                                         | Value                |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `kafka.enabled`                                  | Enable/disable Kafka chart installation                                                                             | `true`               |
+| `kafka.replicaCount`                             | Number of Kafka brokers                                                                                             | `1`                  |
+| `kafka.auth.clientProtocol`                      | Authentication protocol for communications with clients. Allowed protocols: plaintext, tls, mtls, sasl and sasl_tls | `plaintext`          |
+| `kafka.auth.interBrokerProtocol`                 | Authentication protocol for inter-broker communications. Allowed protocols: plaintext, tls, mtls, sasl and sasl_tls | `plaintext`          |
+| `kafka.auth.tls.existingSecrets`                 | Array existing secrets containing the TLS certificates for the Kafka brokers                                        | `[]`                 |
+| `kafka.auth.tls.password`                        | Password to access the JKS files or PEM key when they are password-protected.                                       | `""`                 |
+| `kafka.auth.tls.endpointIdentificationAlgorithm` | The endpoint identification algorithm to validate server hostname using server certificate                          | `https`              |
+| `kafka.auth.sasl.jaas.clientUsers`               | Kafka client users for SASL authentication                                                                          | `[]`                 |
+| `kafka.auth.sasl.jaas.clientPasswords`           | Kafka client passwords for SASL authentication                                                                      | `[]`                 |
+| `kafka.auth.sasl.jaas.interBrokerUser`           | Kafka inter broker communication user for SASL authentication                                                       | `admin`              |
+| `kafka.auth.sasl.jaas.interBrokerPassword`       | Kafka inter broker communication password for SASL authentication                                                   | `""`                 |
+| `kafka.auth.sasl.jaas.zookeeperUser`             | Kafka Zookeeper user for SASL authentication                                                                        | `""`                 |
+| `kafka.auth.sasl.jaas.zookeeperPassword`         | Kafka Zookeeper password for SASL authentication                                                                    | `""`                 |
+| `kafka.auth.sasl.jaas.existingSecret`            | Name of the existing secret containing credentials for brokerUser, interBrokerUser and zookeeperUser                | `""`                 |
+| `kafka.service.ports.client`                     | Kafka service port for client connections                                                                           | `9092`               |
+| `kafka.zookeeper.enabled`                        | Enable/disable Zookeeper chart installation                                                                         | `true`               |
+| `kafka.zookeeper.replicaCount`                   | Number of Zookeeper replicas                                                                                        | `1`                  |
+| `kafka.zookeeper.auth`                           | Zookeeper auth settings                                                                                             | `{}`                 |
+| `externalKafka.brokers`                          | Array of Kafka brokers to connect to. Format: protocol://broker_hostname:port                                       | `["localhost:9092"]` |
+| `externalKafka.auth.protocol`                    | Authentication protocol. Allowed protocols: plaintext, tls, sasl and sasl_tls                                       | `plaintext`          |
+| `externalKafka.auth.jaas.user`                   | User for SASL authentication                                                                                        | `user`               |
+| `externalKafka.auth.jaas.password`               | Password for SASL authentication                                                                                    | `""`                 |
+
+
+### Thing service chart parameters
+
+| Name                        | Description                         | Value                |
+| --------------------------- | ----------------------------------- | -------------------- |
+| `externalThingService.host` | Host of the wasp-thing-service      | `wasp-thing-service` |
+| `externalThingService.port` | Http port of the wasp-thing-service | `80`                 |
+
 
 ## Configuration and installation details
 
@@ -78,26 +259,23 @@ helm install my-release -f values.yaml my-repo/wasp-routing-service
 
 It is strongly recommended to use immutable tags in a production environment. This ensures your deployment does not change automatically if the same tag is updated with a different image.
 
-Bitnami will release a new chart updating its containers if a new version of the main container, significant changes, or critical vulnerabilities exist.
+Digital Catapult will release a new chart updating its containers if a new version of the main container, significant changes, or critical vulnerabilities exist.
 
-### External database support
+### Using an external Kafka
 
-%%IF NEEDED%%
+Sometimes you may want to have Schema Registry connect to an external Kafka cluster rather than installing one as dependency. To do this, the chart allows you to specify credentials for an existing Kafka cluster under the [`externalKafka` parameter](#kafka-chart-parameters). You should also disable the Kafka installation with the `kafka.enabled` option.
 
-You may want to have wasp-routing-service connect to an external database rather than installing one inside your cluster. Typical reasons for this are to use a managed database service, or to share a common database server for all your applications. To achieve this, the chart allows you to specify credentials for an external database with the [`externalDatabase` parameter](#parameters). You should also disable the MariaDB installation with the `mariadb.enabled` option. Here is an example:
+For example, use the parameters below to connect Schema Registry with an existing Kafka installation using SASL authentication:
 
 ```console
-mariadb.enabled=false
-externalDatabase.host=myexternalhost
-externalDatabase.user=myuser
-externalDatabase.password=mypassword
-externalDatabase.database=mydatabase
-externalDatabase.port=3306
+kafka.enabled=false
+externalKafka.brokers=SASL_PLAINTEXT://kafka-0.kafka-headless.default.svc.cluster.local:9092
+externalKafka.auth.protocol=sasl
+externalKafka.auth.jaas.user=myuser
+externalKafka.auth.jaas.password=mypassword
 ```
 
 ### Ingress
-
-%%IF NEEDED%%
 
 This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress-controller](https://github.com/bitnami/charts/tree/main/bitnami/nginx-ingress-controller) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
 
@@ -107,21 +285,14 @@ To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hos
 
 The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://docs.bitnami.com/kubernetes/apps/wasp-routing-service/administration/enable-tls/).
 
-### %%OTHER_SECTIONS%%
-
-## Persistence
-
-The [Bitnami wasp-routing-service](https://github.com/bitnami/containers/tree/main/bitnami/wasp-routing-service) image stores the wasp-routing-service data and configurations at the `/bitnami` path of the container. Persistent Volume Claims are used to keep the data across deployments. [Learn more about persistence in the chart documentation](https://docs.bitnami.com/kubernetes/apps/wasp-routing-service/configuration/chart-persistence/).
-
 ### Additional environment variables
 
 In case you want to add extra environment variables (useful for advanced operations like custom init scripts), you can use the `extraEnvVars` property.
 
 ```yaml
-wasp-routing-service:
-  extraEnvVars:
-    - name: LOG_LEVEL
-      value: error
+extraEnvVars:
+  - name: LOG_LEVEL
+    value: error
 ```
 
 Alternatively, you can use a ConfigMap or a Secret with the environment variables. To do so, use the `extraEnvVarsCM` or the `extraEnvVarsSecret` values.
@@ -148,7 +319,7 @@ Copyright &copy; 2023 Digital Catapult
 
 ### Attribution
 
-This chart is derived form the [Bitnami chart template](https://github.com/bitnami/charts/tree/main/template) which is licensed under the Apache v2.0 License:
+This chart is adapted from The [charts]((https://github.com/bitnami/charts)) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");

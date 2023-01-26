@@ -361,13 +361,11 @@ service:
   ##
   type: ClusterIP
   ## @param service.ports.http wasp-routing-service service HTTP port
-  ## @param service.ports.https wasp-routing-service service HTTPS port
   ##
   ports:
     http: 3000
   ## Node ports to expose
   ## @param service.nodePorts.http Node port for HTTP
-  ## @param service.nodePorts.https Node port for HTTPS
   ## NOTE: choose port between <30000-32767>
   ##
   nodePorts:
