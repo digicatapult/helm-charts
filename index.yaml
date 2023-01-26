@@ -269,6 +269,39 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-0.0.19/wasp-reading-service-0.0.19.tgz
     version: 0.0.19
   wasp-routing-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2.1.2
+    created: "2023-01-26T13:45:24.625236318Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-routing-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 2a16dddadaf2e6531294ee83bb01f582f1b77694b45bac658325ebfa47e38c79
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-routing-service
+    sources:
+    - https://github.com/digicatapult/wasp-routing-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-3.0.0/wasp-routing-service-3.0.0.tgz
+    version: 3.0.0
   - apiVersion: v2
     appVersion: 2.1.0
     created: "2023-01-23T10:20:49.003971724Z"
@@ -387,4 +420,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-01-24T10:23:28.380481831Z"
+generated: "2023-01-26T13:45:24.625258518Z"
