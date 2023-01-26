@@ -11,6 +11,11 @@ $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
 $ helm install my-release digicatapult/wasp-routing-service
 ```
 
+While this will deploy a "healthy" service additional configuration will need to be provided to make this work in a `wasp` deployment. At a minimum, to allow the routing service to communicate with other services:
+
+- [Kafka chart parameters](#kafka-chart-parameters)
+- [Thing service chart parameters](#thing-service-chart-parameters)
+
 ## Introduction
 
 This chart bootstraps a [wasp-routing-service](https://github.com/digicatapult/wasp-routing-service/) deployment on a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
