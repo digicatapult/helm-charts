@@ -19,7 +19,7 @@ icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/ass
 keywords:
   - IoT
 maintainers:
-  - name: Digital Catapult
+  - name: digicatapult  # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
 name: wasp-routing-service
 sources:
