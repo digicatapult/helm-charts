@@ -7,6 +7,8 @@ apidocsmock:
 apidocsmockone:
   service:
     type: ClusterIP
+  containerPorts:
+    http: 8080
   serverBlock: |-
     server {
       listen 0.0.0.0:8080;
@@ -18,6 +20,8 @@ apidocsmockone:
 apidocsmocktwo:
   service:
     type: ClusterIP
+  containerPorts:
+    http: 8080
   serverBlock: |-
     server {
       listen 0.0.0.0:8080;
