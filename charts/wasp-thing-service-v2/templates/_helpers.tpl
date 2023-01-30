@@ -25,15 +25,15 @@ Return the proper wasp-thing-service image name
 {{/*
 Return the proper init container image name
 */}}
-{{- define "wasp-thing-service.initRawPayloads.image" -}}
-{{ include "common.images.image" (dict "imageRoot" .Values.initRawPayloads.image "global" .Values.global) }}
+{{- define "wasp-thing-service.initDbCreate.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.initDbCreate.image "global" .Values.global) }}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "wasp-thing-service.imagePullSecrets" -}}
-{{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.initRawPayloads.image ) "global" .Values.global) -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.initDbCreate.image ) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
@@ -51,7 +51,7 @@ Create the name of the service account to use
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "wasp-thing-servicd.postgresql.fullname" -}}
+{{- define "wasp-thing-service.postgresql.fullname" -}}
 {{- include "common.names.dependency.fullname" (dict "chartName" "postgresql" "chartValues" .Values.postgresql "context" $) -}}
 {{- end -}}
 
@@ -126,7 +126,7 @@ Return the PostgreSQL Secret Name
         {{- default (include "wasp-thing-service.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
     {{- end -}}
 {{- else -}}
-    {{- default (printf "%s-externaldb" .Release.Name | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}
+    {{- default (printf "%s-externaldb" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}
 {{- end -}}
 {{- end -}}
 
@@ -150,14 +150,57 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
+Add environment variables to configure database values
+*/}}
+{{- define "wasp-thing-service.databaseSecretPostgresPasswordKey" -}}
+{{- if .Values.postgresql.enabled -}}
+    {{- print "postgres-password" -}}
+{{- else -}}
+    {{- if .Values.externalDatabase.existingSecret -}}
+        {{- if .Values.externalDatabase.existingSecretPostgresPasswordKey -}}
+            {{- printf "%s" .Values.externalDatabase.existingSecretPostgresPasswordKey -}}
+        {{- else -}}
+            {{- print "postgres-password" -}}
+        {{- end -}}
+    {{- else -}}
+        {{- print "postgres-password" -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Compile all warnings into a single message, and call fail.
 */}}
 {{- define "wasp-thing-service.validateValues" -}}
 {{- $messages := list -}}
+{{- $messages := append $messages (include "wasp-thing-service.validateValues.databaseName" .) -}}
+{{- $messages := append $messages (include "wasp-thing-service.validateValues.databaseUser" .) -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
 {{- if $message -}}
 {{-   printf "\nVALUES VALIDATION:\n%s" $message | fail -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate database name */}}
+{{- define "wasp-thing-service.validateValues.databaseName" -}}
+{{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create -}}
+{{- $db_name := (include "wasp-thing-service.databaseName" .) -}}
+{{- if not (regexMatch "^[a-zA-Z_]+$" $db_name) -}}
+wasp-thing-service:
+    When creating a database the database name must consist of the characters a-z, A-Z and _ only
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate database username */}}
+{{- define "wasp-thing-service.validateValues.databaseUser" -}}
+{{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create -}}
+{{- $db_user := (include "wasp-thing-service.databaseUser" .) -}}
+{{- if not (regexMatch "^[a-zA-Z_]+$" $db_user) -}}
+wasp-thing-service:
+    When creating a database the username must consist of the characters a-z, A-Z and _ only
+{{- end -}}
 {{- end -}}
 {{- end -}}

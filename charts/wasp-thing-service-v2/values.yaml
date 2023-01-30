@@ -405,9 +405,39 @@ service:
 ## @section Init Container Parameters
 ##
 
-## @param initDbMigration.enable Initialise the raw-payloads topics as an init container
-## @param
-initDbMigration:
+initDbCreate:
+  ## PostreSQL image
+  ## ref: https://hub.docker.com/_/postgres/tags/
+  ## @param initDbCreate.image.registry wasp-routing-service image registry
+  ## @param initDbCreate.image.repository wasp-routing-service image repository
+  ## @param initDbCreate.image.tag wasp-routing-service image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.digest wasp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.pullPolicy wasp-routing-service image pull policy
+  ## @param initDbCreate.image.pullSecrets wasp-routing-service image pull secrets
+  ##
+  image:
+    registry: docker.io
+    repository: postgres
+    tag: '15-alpine'
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ## e.g:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+
+## @param initDbMigrate.enable Run database migration in an init container
+## @param initDbMigrate.environment Database configuration environment to run database into
+## @param initDbMigrate.args Argument to pass to knex to migrate the database
+initDbMigrate:
   enable: true
   environment: production
   args:
