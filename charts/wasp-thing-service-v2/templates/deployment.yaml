@@ -98,6 +98,11 @@ spec:
             - '-c'
             - |
               CONN_FLAGS="-h $DB_HOST -p $DB_PORT -U $DB_POSTGRES_USERNAME";
+              if [ "$( psql $CONN_FLAGS -tAc "SELECT 1 FROM pg_database WHERE datname=\$\$$DB_NAME\$\$" )" = '1' ]
+              then
+                echo "Database already exists doing nothing";
+                exit 0;
+              fi;
               createuser $CONN_FLAGS $DB_USERNAME;
               PSQL_ESC=$(echo $DB_PASSWORD | sed 's/./_/g');
               psql $CONN_FLAGS -c "ALTER ROLE $DB_USERNAME WITH PASSWORD \$$$PSQL_ESC\$$$DB_PASSWORD\$$$PSQL_ESC\$";
