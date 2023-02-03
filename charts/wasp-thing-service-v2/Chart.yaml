@@ -21,6 +21,7 @@ keywords:
 maintainers:
   - name: digicatapult  # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
+    email: opensource@digicatapult.org.uk
 name: wasp-thing-service
 sources:
   - https://github.com/digicatapult/wasp-thing-service
