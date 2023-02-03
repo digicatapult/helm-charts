@@ -28,7 +28,7 @@ spec:
         {{- else }}
         target:
           type: Utilization
-          averageUtilization: {{ .Values.worker.autoscaling.targetMemory }}
+          averageUtilization: {{ .Values.autoscaling.targetMemory }}
         {{- end }}
     {{- end }}
     {{- if .Values.autoscaling.targetCPU }}
@@ -40,7 +40,7 @@ spec:
         {{- else }}
         target:
           type: Utilization
-          averageUtilization: {{ .Values.worker.autoscaling.targetCPU }}
+          averageUtilization: {{ .Values.autoscaling.targetCPU }}
         {{- end }}
     {{- end }}
 {{- end }}
