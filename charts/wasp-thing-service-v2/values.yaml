@@ -420,7 +420,7 @@ ingress:
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
   ingressClassName: ""
-  ## @param ingress.paths Default paths for the ingress record
+  ## @param ingress.paths [array] Default paths for the ingress record
   ## e.g:
   ## paths:
   ##   - path: /

@@ -1,5 +1,3 @@
-<!--- app-name: wasp-thing-service -->
-
 # wasp-thing-service
 
 The wasp-thing-service is a component of the WASP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services into one place. The wasp-thing-service is responsible for managing the registered IoT devices in the system and exposes a REST API for this purpose. See [https://github.com/digicatapult/wasp-documentation](https://github.com/digicatapult/wasp-documentation) for details.
@@ -20,7 +18,6 @@ This chart bootstraps a [wasp-thing-service](https://github.com/digicatapult/was
 - Kubernetes 1.19+
 - Helm 3.2.0+
 - PV provisioner support in the underlying infrastructure
-- ReadWriteMany volumes for deployment scaling
 
 ## Installing the Chart
 
@@ -73,122 +70,132 @@ The command removes all the Kubernetes components associated with the chart and 
 | `diagnosticMode.args`    | Args to override all containers in the deployment                                       | `["infinity"]`  |
 
 
-### WASP Routing Service config parameters
+### WASP Thing Service config parameters
 
-| Name                                              | Description                                                                                                                                                     | Value                               |
-| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| `logLevel`                                        | Allowed values: error, warn, info, debug                                                                                                                        | `info`                              |
-| `kafkaJsLogLevel`                                 | Allowed values: error, warn, info, debug                                                                                                                        | `error`                             |
-| `rawPayloadMatch`                                 | Javascript Regular Expression on which to subscribe to raw-payloads                                                                                             | `/^raw-payloads$/`                  |
-| `payloadRoutingPrefix`                            | Routing prefix to use when publishing routed messages                                                                                                           | `payloads`                          |
-| `image.registry`                                  | wasp-thing-service image registry                                                                                                                             | `docker.io`                         |
+| Name                                              | Description                                                                                                                                                   | Value                             |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `logLevel`                                        | Allowed values: error, warn, info, debug                                                                                                                      | `info`                            |
+| `apiVersion`                                      | Override api version presented by the service's OpenAPI specification                                                                                         | `""`                              |
+| `image.registry`                                  | wasp-thing-service image registry                                                                                                                             | `docker.io`                       |
 | `image.repository`                                | wasp-thing-service image repository                                                                                                                           | `digicatapult/wasp-thing-service` |
-| `image.tag`                                       | wasp-thing-service image tag (immutable tags are recommended)                                                                                                 | `v2.1.2`                            |
-| `image.digest`                                    | wasp-thing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                |
-| `image.pullPolicy`                                | wasp-thing-service image pull policy                                                                                                                          | `IfNotPresent`                      |
-| `image.pullSecrets`                               | wasp-thing-service image pull secrets                                                                                                                         | `[]`                                |
-| `image.debug`                                     | Enable wasp-thing-service image debug mode                                                                                                                    | `false`                             |
-| `replicaCount`                                    | Number of wasp-thing-service replicas to deploy                                                                                                               | `1`                                 |
-| `containerPorts.http`                             | wasp-thing-service HTTP container port                                                                                                                        | `3000`                              |
-| `livenessProbe.enabled`                           | Enable livenessProbe on wasp-thing-service containers                                                                                                         | `true`                              |
-| `livenessProbe.path`                              | Path for to check for livenessProbe                                                                                                                             | `/health`                           |
-| `livenessProbe.initialDelaySeconds`               | Initial delay seconds for livenessProbe                                                                                                                         | `10`                                |
-| `livenessProbe.periodSeconds`                     | Period seconds for livenessProbe                                                                                                                                | `10`                                |
-| `livenessProbe.timeoutSeconds`                    | Timeout seconds for livenessProbe                                                                                                                               | `5`                                 |
-| `livenessProbe.failureThreshold`                  | Failure threshold for livenessProbe                                                                                                                             | `3`                                 |
-| `livenessProbe.successThreshold`                  | Success threshold for livenessProbe                                                                                                                             | `1`                                 |
-| `readinessProbe.enabled`                          | Enable readinessProbe on wasp-thing-service containers                                                                                                        | `true`                              |
-| `readinessProbe.path`                             | Path for to check for readinessProbe                                                                                                                            | `/health`                           |
-| `readinessProbe.initialDelaySeconds`              | Initial delay seconds for readinessProbe                                                                                                                        | `5`                                 |
-| `readinessProbe.periodSeconds`                    | Period seconds for readinessProbe                                                                                                                               | `10`                                |
-| `readinessProbe.timeoutSeconds`                   | Timeout seconds for readinessProbe                                                                                                                              | `5`                                 |
-| `readinessProbe.failureThreshold`                 | Failure threshold for readinessProbe                                                                                                                            | `5`                                 |
-| `readinessProbe.successThreshold`                 | Success threshold for readinessProbe                                                                                                                            | `1`                                 |
-| `startupProbe.enabled`                            | Enable startupProbe on wasp-thing-service containers                                                                                                          | `false`                             |
-| `startupProbe.path`                               | Path for to check for startupProbe                                                                                                                              | `/health`                           |
-| `startupProbe.initialDelaySeconds`                | Initial delay seconds for startupProbe                                                                                                                          | `30`                                |
-| `startupProbe.periodSeconds`                      | Period seconds for startupProbe                                                                                                                                 | `10`                                |
-| `startupProbe.timeoutSeconds`                     | Timeout seconds for startupProbe                                                                                                                                | `5`                                 |
-| `startupProbe.failureThreshold`                   | Failure threshold for startupProbe                                                                                                                              | `10`                                |
-| `startupProbe.successThreshold`                   | Success threshold for startupProbe                                                                                                                              | `1`                                 |
-| `customLivenessProbe`                             | Custom livenessProbe that overrides the default one                                                                                                             | `{}`                                |
-| `customReadinessProbe`                            | Custom readinessProbe that overrides the default one                                                                                                            | `{}`                                |
-| `customStartupProbe`                              | Custom startupProbe that overrides the default one                                                                                                              | `{}`                                |
-| `resources.limits`                                | The resources limits for the wasp-thing-service containers                                                                                                    | `{}`                                |
-| `resources.requests`                              | The requested resources for the wasp-thing-service containers                                                                                                 | `{}`                                |
-| `podSecurityContext.enabled`                      | Enabled wasp-thing-service pods' Security Context                                                                                                             | `true`                              |
-| `podSecurityContext.fsGroup`                      | Set wasp-thing-service pod's Security Context fsGroup                                                                                                         | `1001`                              |
-| `containerSecurityContext.enabled`                | Enabled wasp-thing-service containers' Security Context                                                                                                       | `true`                              |
-| `containerSecurityContext.runAsUser`              | Set wasp-thing-service containers' Security Context runAsUser                                                                                                 | `1001`                              |
-| `containerSecurityContext.runAsNonRoot`           | Set wasp-thing-service containers' Security Context runAsNonRoot                                                                                              | `true`                              |
-| `containerSecurityContext.readOnlyRootFilesystem` | Set wasp-thing-service containers' Security Context runAsNonRoot                                                                                              | `false`                             |
-| `command`                                         | Override default container command (useful when using custom images)                                                                                            | `[]`                                |
-| `args`                                            | Override default container args (useful when using custom images)                                                                                               | `[]`                                |
-| `hostAliases`                                     | wasp-thing-service pods host aliases                                                                                                                          | `[]`                                |
-| `podLabels`                                       | Extra labels for wasp-thing-service pods                                                                                                                      | `{}`                                |
-| `podAnnotations`                                  | Annotations for wasp-thing-service pods                                                                                                                       | `{}`                                |
-| `podAffinityPreset`                               | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                             | `""`                                |
-| `podAntiAffinityPreset`                           | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                        | `soft`                              |
-| `pdb.create`                                      | Enable/disable a Pod Disruption Budget creation                                                                                                                 | `false`                             |
-| `pdb.minAvailable`                                | Minimum number/percentage of pods that should remain scheduled                                                                                                  | `1`                                 |
-| `pdb.maxUnavailable`                              | Maximum number/percentage of pods that may be made unavailable                                                                                                  | `""`                                |
-| `autoscaling.enabled`                             | Enable autoscaling for wasp-thing-service                                                                                                                     | `false`                             |
-| `autoscaling.minReplicas`                         | Minimum number of wasp-thing-service replicas                                                                                                                 | `""`                                |
-| `autoscaling.maxReplicas`                         | Maximum number of wasp-thing-service replicas                                                                                                                 | `""`                                |
-| `autoscaling.targetCPU`                           | Target CPU utilization percentage                                                                                                                               | `""`                                |
-| `autoscaling.targetMemory`                        | Target Memory utilization percentage                                                                                                                            | `""`                                |
-| `nodeAffinityPreset.type`                         | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                       | `""`                                |
-| `nodeAffinityPreset.key`                          | Node label key to match. Ignored if `affinity` is set                                                                                                           | `""`                                |
-| `nodeAffinityPreset.values`                       | Node label values to match. Ignored if `affinity` is set                                                                                                        | `[]`                                |
-| `affinity`                                        | Affinity for wasp-thing-service pods assignment                                                                                                               | `{}`                                |
-| `nodeSelector`                                    | Node labels for wasp-thing-service pods assignment                                                                                                            | `{}`                                |
-| `tolerations`                                     | Tolerations for wasp-thing-service pods assignment                                                                                                            | `[]`                                |
-| `updateStrategy.type`                             | wasp-thing-service statefulset strategy type                                                                                                                  | `RollingUpdate`                     |
-| `priorityClassName`                               | wasp-thing-service pods' priorityClassName                                                                                                                    | `""`                                |
-| `topologySpreadConstraints`                       | Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template                                        | `[]`                                |
-| `schedulerName`                                   | Name of the k8s scheduler (other than default) for wasp-thing-service pods                                                                                    | `""`                                |
-| `terminationGracePeriodSeconds`                   | Seconds Redmine pod needs to terminate gracefully                                                                                                               | `""`                                |
-| `lifecycleHooks`                                  | for the wasp-thing-service container(s) to automate configuration before or after startup                                                                     | `{}`                                |
-| `extraEnvVars`                                    | Array with extra environment variables to add to wasp-thing-service nodes                                                                                     | `[]`                                |
-| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for wasp-thing-service nodes                                                                             | `""`                                |
-| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for wasp-thing-service nodes                                                                                | `""`                                |
-| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the wasp-thing-service pod(s)                                                                         | `[]`                                |
-| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the wasp-thing-service container(s)                                                              | `[]`                                |
-| `sidecars`                                        | Add additional sidecar containers to the wasp-thing-service pod(s)                                                                                            | `[]`                                |
-| `initContainers`                                  | Add additional init containers to the wasp-thing-service pod(s)                                                                                               | `[]`                                |
+| `image.tag`                                       | wasp-thing-service image tag (immutable tags are recommended)                                                                                                 | `v0.1.1`                          |
+| `image.digest`                                    | wasp-thing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                              |
+| `image.pullPolicy`                                | wasp-thing-service image pull policy                                                                                                                          | `IfNotPresent`                    |
+| `image.pullSecrets`                               | wasp-thing-service image pull secrets                                                                                                                         | `[]`                              |
+| `image.debug`                                     | Enable wasp-thing-service image debug mode                                                                                                                    | `false`                           |
+| `replicaCount`                                    | Number of wasp-thing-service replicas to deploy                                                                                                               | `1`                               |
+| `containerPorts.http`                             | wasp-thing-service HTTP container port                                                                                                                        | `3000`                            |
+| `livenessProbe.enabled`                           | Enable livenessProbe on wasp-thing-service containers                                                                                                         | `true`                            |
+| `livenessProbe.path`                              | Path for to check for livenessProbe                                                                                                                           | `/health`                         |
+| `livenessProbe.initialDelaySeconds`               | Initial delay seconds for livenessProbe                                                                                                                       | `10`                              |
+| `livenessProbe.periodSeconds`                     | Period seconds for livenessProbe                                                                                                                              | `10`                              |
+| `livenessProbe.timeoutSeconds`                    | Timeout seconds for livenessProbe                                                                                                                             | `5`                               |
+| `livenessProbe.failureThreshold`                  | Failure threshold for livenessProbe                                                                                                                           | `3`                               |
+| `livenessProbe.successThreshold`                  | Success threshold for livenessProbe                                                                                                                           | `1`                               |
+| `readinessProbe.enabled`                          | Enable readinessProbe on wasp-thing-service containers                                                                                                        | `true`                            |
+| `readinessProbe.path`                             | Path for to check for readinessProbe                                                                                                                          | `/health`                         |
+| `readinessProbe.initialDelaySeconds`              | Initial delay seconds for readinessProbe                                                                                                                      | `5`                               |
+| `readinessProbe.periodSeconds`                    | Period seconds for readinessProbe                                                                                                                             | `10`                              |
+| `readinessProbe.timeoutSeconds`                   | Timeout seconds for readinessProbe                                                                                                                            | `5`                               |
+| `readinessProbe.failureThreshold`                 | Failure threshold for readinessProbe                                                                                                                          | `5`                               |
+| `readinessProbe.successThreshold`                 | Success threshold for readinessProbe                                                                                                                          | `1`                               |
+| `startupProbe.enabled`                            | Enable startupProbe on wasp-thing-service containers                                                                                                          | `false`                           |
+| `startupProbe.path`                               | Path for to check for startupProbe                                                                                                                            | `/health`                         |
+| `startupProbe.initialDelaySeconds`                | Initial delay seconds for startupProbe                                                                                                                        | `30`                              |
+| `startupProbe.periodSeconds`                      | Period seconds for startupProbe                                                                                                                               | `10`                              |
+| `startupProbe.timeoutSeconds`                     | Timeout seconds for startupProbe                                                                                                                              | `5`                               |
+| `startupProbe.failureThreshold`                   | Failure threshold for startupProbe                                                                                                                            | `10`                              |
+| `startupProbe.successThreshold`                   | Success threshold for startupProbe                                                                                                                            | `1`                               |
+| `customLivenessProbe`                             | Custom livenessProbe that overrides the default one                                                                                                           | `{}`                              |
+| `customReadinessProbe`                            | Custom readinessProbe that overrides the default one                                                                                                          | `{}`                              |
+| `customStartupProbe`                              | Custom startupProbe that overrides the default one                                                                                                            | `{}`                              |
+| `resources.limits`                                | The resources limits for the wasp-thing-service containers                                                                                                    | `{}`                              |
+| `resources.requests`                              | The requested resources for the wasp-thing-service containers                                                                                                 | `{}`                              |
+| `podSecurityContext.enabled`                      | Enabled wasp-thing-service pods' Security Context                                                                                                             | `true`                            |
+| `podSecurityContext.fsGroup`                      | Set wasp-thing-service pod's Security Context fsGroup                                                                                                         | `1001`                            |
+| `containerSecurityContext.enabled`                | Enabled wasp-thing-service containers' Security Context                                                                                                       | `true`                            |
+| `containerSecurityContext.runAsUser`              | Set wasp-thing-service containers' Security Context runAsUser                                                                                                 | `1001`                            |
+| `containerSecurityContext.runAsNonRoot`           | Set wasp-thing-service containers' Security Context runAsNonRoot                                                                                              | `true`                            |
+| `containerSecurityContext.readOnlyRootFilesystem` | Set wasp-thing-service containers' Security Context runAsNonRoot                                                                                              | `false`                           |
+| `command`                                         | Override default container command (useful when using custom images)                                                                                          | `[]`                              |
+| `args`                                            | Override default container args (useful when using custom images)                                                                                             | `[]`                              |
+| `hostAliases`                                     | wasp-thing-service pods host aliases                                                                                                                          | `[]`                              |
+| `podLabels`                                       | Extra labels for wasp-thing-service pods                                                                                                                      | `{}`                              |
+| `podAnnotations`                                  | Annotations for wasp-thing-service pods                                                                                                                       | `{}`                              |
+| `podAffinityPreset`                               | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                           | `""`                              |
+| `podAntiAffinityPreset`                           | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                      | `soft`                            |
+| `pdb.create`                                      | Enable/disable a Pod Disruption Budget creation                                                                                                               | `false`                           |
+| `pdb.minAvailable`                                | Minimum number/percentage of pods that should remain scheduled                                                                                                | `1`                               |
+| `pdb.maxUnavailable`                              | Maximum number/percentage of pods that may be made unavailable                                                                                                | `""`                              |
+| `autoscaling.enabled`                             | Enable autoscaling for wasp-thing-service                                                                                                                     | `false`                           |
+| `autoscaling.minReplicas`                         | Minimum number of wasp-thing-service replicas                                                                                                                 | `""`                              |
+| `autoscaling.maxReplicas`                         | Maximum number of wasp-thing-service replicas                                                                                                                 | `""`                              |
+| `autoscaling.targetCPU`                           | Target CPU utilization percentage                                                                                                                             | `""`                              |
+| `autoscaling.targetMemory`                        | Target Memory utilization percentage                                                                                                                          | `""`                              |
+| `nodeAffinityPreset.type`                         | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                     | `""`                              |
+| `nodeAffinityPreset.key`                          | Node label key to match. Ignored if `affinity` is set                                                                                                         | `""`                              |
+| `nodeAffinityPreset.values`                       | Node label values to match. Ignored if `affinity` is set                                                                                                      | `[]`                              |
+| `affinity`                                        | Affinity for wasp-thing-service pods assignment                                                                                                               | `{}`                              |
+| `nodeSelector`                                    | Node labels for wasp-thing-service pods assignment                                                                                                            | `{}`                              |
+| `tolerations`                                     | Tolerations for wasp-thing-service pods assignment                                                                                                            | `[]`                              |
+| `updateStrategy.type`                             | wasp-thing-service statefulset strategy type                                                                                                                  | `RollingUpdate`                   |
+| `priorityClassName`                               | wasp-thing-service pods' priorityClassName                                                                                                                    | `""`                              |
+| `topologySpreadConstraints`                       | Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template                                      | `[]`                              |
+| `schedulerName`                                   | Name of the k8s scheduler (other than default) for wasp-thing-service pods                                                                                    | `""`                              |
+| `terminationGracePeriodSeconds`                   | Seconds Redmine pod needs to terminate gracefully                                                                                                             | `""`                              |
+| `lifecycleHooks`                                  | for the wasp-thing-service container(s) to automate configuration before or after startup                                                                     | `{}`                              |
+| `extraEnvVars`                                    | Array with extra environment variables to add to wasp-thing-service nodes                                                                                     | `[]`                              |
+| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for wasp-thing-service nodes                                                                             | `""`                              |
+| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for wasp-thing-service nodes                                                                                | `""`                              |
+| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the wasp-thing-service pod(s)                                                                         | `[]`                              |
+| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the wasp-thing-service container(s)                                                              | `[]`                              |
+| `sidecars`                                        | Add additional sidecar containers to the wasp-thing-service pod(s)                                                                                            | `[]`                              |
+| `initContainers`                                  | Add additional init containers to the wasp-thing-service pod(s)                                                                                               | `[]`                              |
 
 
 ### Traffic Exposure Parameters
 
-| Name                               | Description                                                                                     | Value       |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- |
-| `service.type`                     | wasp-thing-service service type                                                               | `ClusterIP` |
-| `service.ports.http`               | wasp-thing-service service HTTP port                                                          | `3000`      |
-| `service.nodePorts.http`           | Node port for HTTP                                                                              | `""`        |
-| `service.clusterIP`                | wasp-thing-service service Cluster IP                                                         | `""`        |
-| `service.loadBalancerIP`           | wasp-thing-service service Load Balancer IP                                                   | `""`        |
-| `service.loadBalancerSourceRanges` | wasp-thing-service service Load Balancer sources                                              | `[]`        |
-| `service.externalTrafficPolicy`    | wasp-thing-service service external traffic policy                                            | `Cluster`   |
-| `service.annotations`              | Additional custom annotations for wasp-thing-service service                                  | `{}`        |
-| `service.extraPorts`               | Extra ports to expose in wasp-thing-service service (normally used with the `sidecars` value) | `[]`        |
-| `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                | `None`      |
-| `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                     | `{}`        |
+| Name                               | Description                                                                                                                      | Value                      |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `service.type`                     | wasp-thing-service service type                                                                                                  | `ClusterIP`                |
+| `service.ports.http`               | wasp-thing-service service HTTP port                                                                                             | `3000`                     |
+| `service.nodePorts.http`           | Node port for HTTP                                                                                                               | `""`                       |
+| `service.clusterIP`                | wasp-thing-service service Cluster IP                                                                                            | `""`                       |
+| `service.loadBalancerIP`           | wasp-thing-service service Load Balancer IP                                                                                      | `""`                       |
+| `service.loadBalancerSourceRanges` | wasp-thing-service service Load Balancer sources                                                                                 | `[]`                       |
+| `service.externalTrafficPolicy`    | wasp-thing-service service external traffic policy                                                                               | `Cluster`                  |
+| `service.annotations`              | Additional custom annotations for wasp-thing-service service                                                                     | `{}`                       |
+| `service.extraPorts`               | Extra ports to expose in wasp-thing-service service (normally used with the `sidecars` value)                                    | `[]`                       |
+| `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`                     |
+| `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`                       |
+| `ingress.enabled`                  | Enable ingress record generation for wasp-thing-service                                                                          | `true`                     |
+| `ingress.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`                       |
+| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `wasp-thing-service.local` |
+| `ingress.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                       |
+| `ingress.paths`                    | Default paths for the ingress record                                                                                             | `[]`                       |
+| `ingress.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                       |
+| `ingress.tls`                      | Enable TLS configuration for the host defined at `ingress.hostname` parameter                                                    | `false`                    |
+| `ingress.selfSigned`               | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`                    |
+| `ingress.extraHosts`               | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`                       |
+| `ingress.extraPaths`               | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                       |
+| `ingress.extraTls`                 | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`                       |
+| `ingress.secrets`                  | Custom TLS certificates as secrets                                                                                               | `[]`                       |
+| `ingress.extraRules`               | Additional rules to be covered with this ingress record                                                                          | `[]`                       |
 
 
 ### Init Container Parameters
 
-| Name                                | Description                                                                                                                                                     | Value           |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| `initRawPayloads.enable`            | Initialise the raw-payloads topics as an init container                                                                                                         | `true`          |
-| `initRawPayloads.topic`             | Topic to create                                                                                                                                                 | `raw-payloads`  |
-| `initRawPayloads.partitions`        | Number of Partitions to create topic with                                                                                                                       | `30`            |
-| `initRawPayloads.replicationFactor` | Replication factor for topic                                                                                                                                    | `1`             |
-| `initRawPayloads.image.registry`    | wasp-thing-service image registry                                                                                                                             | `docker.io`     |
-| `initRawPayloads.image.repository`  | wasp-thing-service image repository                                                                                                                           | `bitnami/kafka` |
-| `initRawPayloads.image.tag`         | wasp-thing-service image tag (immutable tags are recommended)                                                                                                 | `3.3-debian-11` |
-| `initRawPayloads.image.digest`      | wasp-thing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`            |
-| `initRawPayloads.image.pullPolicy`  | wasp-thing-service image pull policy                                                                                                                          | `IfNotPresent`  |
-| `initRawPayloads.image.pullSecrets` | wasp-thing-service image pull secrets                                                                                                                         | `[]`            |
+| Name                             | Description                                                                                                                                                     | Value                |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `initDbCreate.image.registry`    | wasp-routing-service image registry                                                                                                                             | `docker.io`          |
+| `initDbCreate.image.repository`  | wasp-routing-service image repository                                                                                                                           | `postgres`           |
+| `initDbCreate.image.tag`         | wasp-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`          |
+| `initDbCreate.image.digest`      | wasp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                 |
+| `initDbCreate.image.pullPolicy`  | wasp-routing-service image pull policy                                                                                                                          | `IfNotPresent`       |
+| `initDbCreate.image.pullSecrets` | wasp-routing-service image pull secrets                                                                                                                         | `[]`                 |
+| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`               |
+| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`         |
+| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest"]` |
 
 
 ### Other Parameters
@@ -201,40 +208,27 @@ The command removes all the Kubernetes components associated with the chart and 
 | `serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account   | `true` |
 
 
-### Kafka chart parameters
+### Database Parameters
 
-| Name                                             | Description                                                                                                         | Value                |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `kafka.enabled`                                  | Enable/disable Kafka chart installation                                                                             | `true`               |
-| `kafka.replicaCount`                             | Number of Kafka brokers                                                                                             | `1`                  |
-| `kafka.auth.clientProtocol`                      | Authentication protocol for communications with clients. Allowed protocols: plaintext, tls, mtls, sasl and sasl_tls | `plaintext`          |
-| `kafka.auth.interBrokerProtocol`                 | Authentication protocol for inter-broker communications. Allowed protocols: plaintext, tls, mtls, sasl and sasl_tls | `plaintext`          |
-| `kafka.auth.tls.existingSecrets`                 | Array existing secrets containing the TLS certificates for the Kafka brokers                                        | `[]`                 |
-| `kafka.auth.tls.password`                        | Password to access the JKS files or PEM key when they are password-protected.                                       | `""`                 |
-| `kafka.auth.tls.endpointIdentificationAlgorithm` | The endpoint identification algorithm to validate server hostname using server certificate                          | `https`              |
-| `kafka.auth.sasl.jaas.clientUsers`               | Kafka client users for SASL authentication                                                                          | `[]`                 |
-| `kafka.auth.sasl.jaas.clientPasswords`           | Kafka client passwords for SASL authentication                                                                      | `[]`                 |
-| `kafka.auth.sasl.jaas.interBrokerUser`           | Kafka inter broker communication user for SASL authentication                                                       | `admin`              |
-| `kafka.auth.sasl.jaas.interBrokerPassword`       | Kafka inter broker communication password for SASL authentication                                                   | `""`                 |
-| `kafka.auth.sasl.jaas.zookeeperUser`             | Kafka Zookeeper user for SASL authentication                                                                        | `""`                 |
-| `kafka.auth.sasl.jaas.zookeeperPassword`         | Kafka Zookeeper password for SASL authentication                                                                    | `""`                 |
-| `kafka.auth.sasl.jaas.existingSecret`            | Name of the existing secret containing credentials for brokerUser, interBrokerUser and zookeeperUser                | `""`                 |
-| `kafka.service.ports.client`                     | Kafka service port for client connections                                                                           | `9092`               |
-| `kafka.zookeeper.enabled`                        | Enable/disable Zookeeper chart installation                                                                         | `true`               |
-| `kafka.zookeeper.replicaCount`                   | Number of Zookeeper replicas                                                                                        | `1`                  |
-| `kafka.zookeeper.auth`                           | Zookeeper auth settings                                                                                             | `{}`                 |
-| `externalKafka.brokers`                          | Array of Kafka brokers to connect to. Format: protocol://broker_hostname:port                                       | `["localhost:9092"]` |
-| `externalKafka.auth.protocol`                    | Authentication protocol. Allowed protocols: plaintext, tls, sasl and sasl_tls                                       | `plaintext`          |
-| `externalKafka.auth.jaas.user`                   | User for SASL authentication                                                                                        | `user`               |
-| `externalKafka.auth.jaas.password`               | Password for SASL authentication                                                                                    | `""`                 |
-
-
-### Thing service chart parameters
-
-| Name                        | Description                         | Value                |
-| --------------------------- | ----------------------------------- | -------------------- |
-| `externalThingService.host` | Host of the wasp-thing-service      | `wasp-thing-service` |
-| `externalThingService.port` | Http port of the wasp-thing-service | `80`                 |
+| Name                                                 | Description                                                              | Value            |
+| ---------------------------------------------------- | ------------------------------------------------------------------------ | ---------------- |
+| `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`           |
+| `postgresql.auth.username`                           | Name for a custom user to create                                         | `things_service` |
+| `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`             |
+| `postgresql.auth.database`                           | Name for a custom database to create                                     | `things`         |
+| `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`             |
+| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`     |
+| `externalDatabase.host`                              | Database host                                                            | `""`             |
+| `externalDatabase.port`                              | Database port number                                                     | `5432`           |
+| `externalDatabase.user`                              | Non-root username for wasp-thing-service                                 | `things_service` |
+| `externalDatabase.password`                          | Password for the non-root username for wasp-thing-service                | `""`             |
+| `externalDatabase.database`                          | wasp-thing-service database name                                         | `things`         |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`           |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`       |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`             |
+| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`             |
+| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`             |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`             |
 
 
 ## Configuration and installation details
