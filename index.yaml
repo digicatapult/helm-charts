@@ -367,6 +367,40 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-2.0.5/wasp-routing-service-2.0.5.tgz
     version: 2.0.5
   wasp-thing-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.1
+    created: "2023-02-07T08:03:21.691898752Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-thing-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 77691bc3e2f885c3f7c11ea157e54f56ed0ddd4074f4f6bbc0d5934678688e59
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-thing-service
+    sources:
+    - https://github.com/digicatapult/wasp-thing-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-thing-service-1.0.0/wasp-thing-service-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-01-19T13:14:47.431553571Z"
@@ -446,4 +480,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-01-26T16:02:23.892576806Z"
+generated: "2023-02-07T08:03:21.691928152Z"
