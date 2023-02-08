@@ -177,8 +177,8 @@ spec:
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ printf "%s-jwt" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" }}
-                  key: jwt-secret
+                  name: {{ include "wasp-authentication-service.jwtSecretName" . }}
+                  key: {{ include "wasp-authentication-service.jwtSecretKey" . }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}

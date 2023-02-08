@@ -48,6 +48,28 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
+Return the jwt secret
+*/}}
+{{- define "wasp-authentication-service.jwtSecretName" -}}
+{{- if .Values.existingJwtSecret -}}
+    {{- printf "%s" (tpl .Values.existingJwtSecret $) -}}
+{{- else -}}
+    {{- printf "%s-jwt" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Retrieve jwtsecret key
+*/}}
+{{- define "wasp-authentication-service.jwtSecretKey" -}}
+    {{- if .Values.existingJwtSecret -}}
+        {{- printf "%s" .Values.existingJwtSecretKey -}}
+    {{- else -}}
+        {{- print "jwt-secret" -}}
+    {{- end -}}
+{{- end -}}
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}

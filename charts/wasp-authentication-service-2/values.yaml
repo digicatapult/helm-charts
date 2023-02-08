@@ -72,7 +72,12 @@ apiVersion: ""
 ## @param jwtSecret Secret used to encode Authentication tokens.
 ##
 jwtSecret: ""
-
+## @param existingJwtSecret An existing secret used to encode Authentication tokens.
+##
+existingJwtSecret: ""
+## @param existingJwtSecretKey The key used for the existingJwtSecret.
+##
+existingJwtSecretKey: "jwt-secret"
 
 ## Digital Catapult wasp-authentication-service image
 ## ref: https://hub.docker.com/r/digicatapult/wasp-authentication-service/tags/
