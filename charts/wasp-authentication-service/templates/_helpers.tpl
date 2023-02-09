@@ -1,4 +1,11 @@
 {{/*
+Return the proper wasp-authentication-service image name
+*/}}
+{{- define "wasp-authentication-service.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
+{{- end -}}
+
+{{/*
 Return the proper init container image name
 */}}
 {{- define "wasp-authentication-service.initDbCreate.image" -}}

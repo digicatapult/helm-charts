@@ -1,3 +1,9 @@
+{{/*
+Return the proper wasp-thing-service image name
+*/}}
+{{- define "wasp-thing-service.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
+{{- end -}}
 
 {{/*
 Return the proper init container image name
