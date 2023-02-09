@@ -175,10 +175,14 @@ spec:
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: PORT
               value: {{ .Values.containerPorts.http | quote }}
+            {{- if .Values.apiVersion }}
             - name: API_VERSION
               value: {{ .Values.apiVersion }}
+            {{- end }}
+            {{- if Values.apiOffsetLimit }}
             - name: API_OFFSET_LIMIT
               value: {{ .Values.apiOffsetLimit | quote }}
+            {{- end }}
             - name: DB_HOST
               value: {{ template "wasp-event-service.databaseHost" . }}
             - name: DB_PORT
