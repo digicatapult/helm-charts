@@ -179,7 +179,7 @@ spec:
             - name: API_VERSION
               value: {{ .Values.apiVersion }}
             {{- end }}
-            {{- if Values.apiOffsetLimit }}
+            {{- if .Values.apiOffsetLimit }}
             - name: API_OFFSET_LIMIT
               value: {{ .Values.apiOffsetLimit | quote }}
             {{- end }}
