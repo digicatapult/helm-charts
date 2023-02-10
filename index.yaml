@@ -255,6 +255,44 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-authentication-service-0.0.19/wasp-authentication-service-0.0.19.tgz
     version: 0.0.19
   wasp-event-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-10T11:04:46.578548222Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-event-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: e1627ad0063b9abbca87b976e2f49e1d513be788aa5af6f55d627ed3f684f52d
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-event-service
+    sources:
+    - https://github.com/digicatapult/wasp-event-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-1.0.0/wasp-event-service-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-01-24T09:29:54.526395Z"
@@ -548,4 +586,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-02-09T11:48:33.611958893Z"
+generated: "2023-02-10T11:04:46.578709821Z"
