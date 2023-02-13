@@ -1,6 +1,6 @@
 # wasp-open-api
 
-The wasp-open-api is a component of the WASP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services into one place. The wasp-open-api servces a merged OpenAPI spec from several microservices and hosts a Swagger interface. See [https://github.com/digicatapult/wasp-documentation](https://github.com/digicatapult/wasp-documentation) for details.
+The wasp-open-api is a component of the WASP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services into one place. The wasp-open-api service creates a merged OpenAPI spec from several microservices and hosts a Swagger interface. See [https://github.com/digicatapult/wasp-documentation](https://github.com/digicatapult/wasp-documentation) for details.
 
 ## TL;DR
 
