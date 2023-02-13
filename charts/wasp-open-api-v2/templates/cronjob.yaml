@@ -35,7 +35,7 @@ spec:
           {{- if .Values.podSecurityContext.enabled }}
           securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
-          Volumes:
+          volumes:
             - name: config
               configMap:
                 name: {{ printf "%s-config" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" }}
