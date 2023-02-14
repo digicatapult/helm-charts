@@ -317,6 +317,46 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-0.0.10/wasp-event-service-0.0.10.tgz
     version: 0.0.10
   wasp-open-api:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-14T11:12:17.923731176Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-open-api is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: f2c634c25252b9b3fb2117b933b3273270f9189c757f703fa7c7e48924458184
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-open-api
+    sources:
+    - https://github.com/digicatapult/wasp-open-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-open-api-1.0.0/wasp-open-api-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-01-26T16:02:23.892551206Z"
@@ -586,4 +626,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-02-10T11:04:46.578709821Z"
+generated: "2023-02-14T11:12:17.923775477Z"
