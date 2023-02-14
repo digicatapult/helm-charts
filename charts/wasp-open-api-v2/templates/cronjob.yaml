@@ -97,5 +97,5 @@ spec:
               resources: {{- toYaml .Values.cronjob.resources | nindent 16 }}
               {{- end }}
               volumeMounts:
-                - name: outputs
+                - name: output
                   mountPath: /etc/openapi-merge-cli/output
