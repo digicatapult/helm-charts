@@ -383,6 +383,44 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-open-api-0.0.6/wasp-open-api-0.0.6.tgz
     version: 0.0.6
   wasp-reading-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-16T08:11:00.93758325Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-reading-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 64fd150c2a8acdd8f2a2f9d91847787b24fdcee9d60b5c2bb9bac633463340f8
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-reading-service
+    sources:
+    - https://github.com/digicatapult/wasp-reading-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-1.0.0/wasp-reading-service-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-01-23T10:20:48.758473648Z"
@@ -626,4 +664,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-02-14T11:12:17.923775477Z"
+generated: "2023-02-16T08:11:00.93775616Z"
