@@ -605,6 +605,40 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-thing-service-0.0.13/wasp-thing-service-0.0.13.tgz
     version: 0.0.13
   wasp-user-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-20T09:41:08.440040894Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-user-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: e09284fa76436713b6074944de7ec5e581e5f4957e9db27c396528913b5f5b3f
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-user-service
+    sources:
+    - https://github.com/digicatapult/wasp-user-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-user-service-1.0.0/wasp-user-service-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-01-20T14:11:56.521225421Z"
@@ -664,4 +698,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-02-16T08:11:00.93775616Z"
+generated: "2023-02-20T09:41:08.440204697Z"
