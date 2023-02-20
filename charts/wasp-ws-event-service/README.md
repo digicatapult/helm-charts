@@ -1,6 +1,6 @@
 # wasp-ws-event-service
 
-The wasp-ws-event-service is a component of the WASP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services into one place. The wasp-ws-event-service is responsible for managing storing readings in the system and exposes a REST API for this purpose. See [https://github.com/digicatapult/wasp-documentation](https://github.com/digicatapult/wasp-documentation) for details.
+The wasp-ws-event-service is a component of the WASP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services  into one place. The wasp-ws-event-service is a websocket service for streaming events to a client. See [https://github.com/digicatapult/wasp-documentation](https://github.com/digicatapult/wasp-documentation) for details.
 
 ## TL;DR
 
@@ -191,7 +191,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 | Name                                       | Description                                                                                                                                      | Value           |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- |
-| `initEventNotifications.enable`            | Initialise the readings topics as an init container                                                                                              | `true`          |
+| `initEventNotifications.enable`            | Initialise the event-notifications topics as an init container                                                                                   | `true`          |
 | `initEventNotifications.partitions`        | Number of Partitions to create topic with                                                                                                        | `30`            |
 | `initEventNotifications.replicationFactor` | Replication factor for topic                                                                                                                     | `1`             |
 | `initEventNotifications.image.registry`    | Kafka image registry                                                                                                                             | `docker.io`     |
