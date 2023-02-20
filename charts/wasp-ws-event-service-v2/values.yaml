@@ -80,7 +80,6 @@ eventsNotificationTopic: event-notifications
 wsPingInterval: 500
 
 
-
 ## Digital Catapult wasp-ws-event-service image
 ## ref: https://hub.docker.com/r/digicatapult/wasp-ws-event-service/tags/
 ## @param image.registry wasp-ws-event-service image registry
