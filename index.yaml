@@ -260,6 +260,44 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-21T10:01:38.685324806Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-event-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 03d096cf354b58233af1faf17fd319ebe1051a8a3634eca90f5bcc03b9cfb12e
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-event-service
+    sources:
+    - https://github.com/digicatapult/wasp-event-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-1.0.1/wasp-event-service-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-10T11:04:46.578548222Z"
     dependencies:
     - condition: postgresql.enabled
@@ -388,6 +426,44 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-21T10:01:39.089133816Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-reading-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 79ff73021e43690dbbd8b2a396f52a5b89435bd10c4d69e99e92e219fa0b8745
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-reading-service
+    sources:
+    - https://github.com/digicatapult/wasp-reading-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-1.0.1/wasp-reading-service-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-16T08:11:00.93758325Z"
     dependencies:
     - condition: postgresql.enabled
@@ -445,6 +521,39 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-0.0.19/wasp-reading-service-0.0.19.tgz
     version: 0.0.19
   wasp-routing-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2.1.2
+    created: "2023-02-21T10:01:39.239470004Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-routing-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 55ca865f3247c4e43cc6b98282208873562d425941cdc79ff50bba09cc0ee16d
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-routing-service
+    sources:
+    - https://github.com/digicatapult/wasp-routing-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-3.0.1/wasp-routing-service-3.0.1.tgz
+    version: 3.0.1
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -664,6 +773,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-21T10:01:39.404775788Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-ws-event-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: ab30d2140cd0fd463fb13f4dea6c9f131bb2eae67f89447d9028d93006848d76
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-ws-event-service
+    sources:
+    - https://github.com/digicatapult/wasp-ws-event-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-event-service-1.0.1/wasp-ws-event-service-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-20T13:55:30.756551146Z"
     dependencies:
     - condition: kafka.enabled
@@ -713,6 +856,40 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-event-service-0.0.8/wasp-ws-event-service-0.0.8.tgz
     version: 0.0.8
   wasp-ws-reading-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.1
+    created: "2023-02-21T10:01:39.5673551Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-ws-reading-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 4e7c4a4703154c31c80918c8ae8463c2517bf52f6e3b9fae4483385999060643
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-ws-reading-service
+    sources:
+    - https://github.com/digicatapult/wasp-ws-reading-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-1.0.0/wasp-ws-reading-service-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-01-24T10:23:28.380330121Z"
@@ -732,4 +909,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-02-20T13:55:30.756589446Z"
+generated: "2023-02-21T10:01:39.567409301Z"
