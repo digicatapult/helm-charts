@@ -166,7 +166,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `persistence.subPath`       | The subdirectory of the volume to mount to, useful in dev environments and one PV for multiple services | `""`                |
 | `persistence.storageClass`  | Storage class of backing PVC                                                                            | `""`                |
 | `persistence.annotations`   | Persistent Volume Claim annotations                                                                     | `{}`                |
-| `persistence.accessModes`   | Persistent Volume Access Modes                                                                          | `["ReadWriteMany"]` |
+| `persistence.accessModes`   | Persistent Volume Access Modes                                                                          | `["ReadWriteOnce"]` |
 | `persistence.size`          | Size of data volume                                                                                     | `1Gi`               |
 | `persistence.existingClaim` | The name of an existing PVC to use for persistence                                                      | `""`                |
 | `persistence.selector`      | Selector to match an existing Persistent Volume for WordPress data PVC                                  | `{}`                |
