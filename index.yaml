@@ -2,6 +2,31 @@ apiVersion: v1
 entries:
   dscp-api:
   - apiVersion: v2
+    appVersion: 4.8.4
+    created: "2023-03-08T13:08:29.092043933Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.4
+    - alias: dscpIpfs
+      condition: dscpIpfs.enabled
+      name: dscp-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 2.9.3
+    description: A Helm chart for dscp-api
+    digest: f52fdf99bfa3c0ae63410365148ed510c6c313c8e91ae4cb9f623dfa344c6344
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.5/dscp-api-4.8.5.tgz
+    version: 4.8.5
+  - apiVersion: v2
     appVersion: 4.8.2
     created: "2023-01-16T13:50:38.308689432Z"
     dependencies:
@@ -53,6 +78,30 @@ entries:
     version: 4.8.3
   dscp-identity-service:
   - apiVersion: v2
+    appVersion: 1.8.3
+    created: "2023-03-08T13:08:29.329681985Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.3
+    description: A Helm chart for dscp-identity-service
+    digest: 13ceec322bdfaa94bf53708ee1891e8b00e9e82a1d320962bd5a1de0cfc2c398
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-identity-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.3/dscp-identity-service-1.8.3.tgz
+    version: 1.8.3
+  - apiVersion: v2
     appVersion: 1.8.2
     created: "2023-01-13T12:30:17.9625745Z"
     dependencies:
@@ -77,6 +126,26 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.2/dscp-identity-service-1.8.2.tgz
     version: 1.8.2
   dscp-ipfs:
+  - apiVersion: v2
+    appVersion: 2.9.3
+    created: "2023-03-08T13:08:29.540315367Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.4
+    description: A Helm chart for veritable-ipfs
+    digest: 9d63dac1998e9a9470163d18940b9d42f4d65d60a435f362c538045d252bb5d0
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-ipfs
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-ipfs-2.9.4/dscp-ipfs-2.9.4.tgz
+    version: 2.9.4
   - apiVersion: v2
     appVersion: 2.9.1
     created: "2023-01-16T12:12:42.848770756Z"
@@ -138,6 +207,20 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-ipfs-2.9.1/dscp-ipfs-2.9.1.tgz
     version: 2.9.1
   dscp-node:
+  - apiVersion: v2
+    appVersion: 4.6.0
+    created: "2023-03-08T13:08:29.769581459Z"
+    description: A Helm chart to deploy DSCP nodes
+    digest: a2ed6782ef1e35a9c5486c13dff360569a3e86051308e615b8bfe86f4244306c
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-node-4.5.5/dscp-node-4.5.5.tgz
+    version: 4.5.5
   - apiVersion: v2
     appVersion: 4.5.1
     created: "2023-01-13T12:30:18.418182632Z"
@@ -1057,4 +1140,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-02-27T16:45:51.002753865Z"
+generated: "2023-03-08T13:08:29.769771358Z"
