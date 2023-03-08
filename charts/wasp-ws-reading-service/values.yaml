@@ -93,7 +93,7 @@ wsPingInterval: 500
 image:
   registry: docker.io
   repository: digicatapult/wasp-ws-reading-service
-  tag: v0.1.1
+  tag: v0.1.2
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -539,7 +539,7 @@ initReadingNotifications:
   image:
     registry: docker.io
     repository: bitnami/kafka
-    tag: '3.3-debian-11'
+    tag: '3.4-debian-11'
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

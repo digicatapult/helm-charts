@@ -84,7 +84,7 @@ apiVersion: ""
 image:
   registry: docker.io
   repository: digicatapult/wasp-thing-service
-  tag: v0.1.1
+  tag: v0.1.5
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

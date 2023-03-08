@@ -104,7 +104,7 @@ apiDocsMock:
 image:
   registry: docker.io
   repository: digicatapult/wasp-open-api
-  tag: v0.1.0
+  tag: v0.1.1
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -655,7 +655,7 @@ cronjob:
   image:
     registry: docker.io
     repository: curlimages/curl
-    tag: 7.87.0
+    tag: 7.88.1
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
