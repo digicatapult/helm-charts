@@ -92,7 +92,7 @@ existingJwtSecretKey: "jwt-secret"
 image:
   registry: docker.io
   repository: digicatapult/wasp-authentication-service
-  tag: v0.1.1
+  tag: v0.1.3
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
