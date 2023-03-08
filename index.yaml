@@ -3,6 +3,31 @@ entries:
   dscp-api:
   - apiVersion: v2
     appVersion: 4.8.4
+    created: "2023-03-08T13:30:32.949282948Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    - alias: dscpIpfs
+      condition: dscpIpfs.enabled
+      name: dscp-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 2.9.3
+    description: A Helm chart for dscp-api
+    digest: 86eadd214649646d580c94a5589618fffc03a588e9638bb4da76cb89248c23bb
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.6/dscp-api-4.8.6.tgz
+    version: 4.8.6
+  - apiVersion: v2
+    appVersion: 4.8.4
     created: "2023-03-08T13:08:29.092043933Z"
     dependencies:
     - alias: dscpNode
@@ -79,6 +104,30 @@ entries:
   dscp-identity-service:
   - apiVersion: v2
     appVersion: 1.8.3
+    created: "2023-03-08T13:30:33.145999329Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    description: A Helm chart for dscp-identity-service
+    digest: ed13ae6135555fa66fff4546c8435bffc5f7213fca43d2550901d7709657b220
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-identity-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.4/dscp-identity-service-1.8.4.tgz
+    version: 1.8.4
+  - apiVersion: v2
+    appVersion: 1.8.3
     created: "2023-03-08T13:08:29.329681985Z"
     dependencies:
     - condition: postgresql.enabled
@@ -126,6 +175,26 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.2/dscp-identity-service-1.8.2.tgz
     version: 1.8.2
   dscp-ipfs:
+  - apiVersion: v2
+    appVersion: 2.9.3
+    created: "2023-03-08T13:30:33.371210999Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    description: A Helm chart for veritable-ipfs
+    digest: 5ff6dc4971d65df0a01730440cc0e550b62a4f4cdb0a9edea408ab3b5d009d4d
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-ipfs
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-ipfs-2.9.5/dscp-ipfs-2.9.5.tgz
+    version: 2.9.5
   - apiVersion: v2
     appVersion: 2.9.3
     created: "2023-03-08T13:08:29.540315367Z"
@@ -1140,4 +1209,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-08T13:08:29.769771358Z"
+generated: "2023-03-08T13:30:33.371427302Z"
