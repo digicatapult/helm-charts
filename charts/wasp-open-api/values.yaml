@@ -104,7 +104,7 @@ apiDocsMock:
 image:
   registry: docker.io
   repository: digicatapult/wasp-open-api
-  tag: v0.1.0
+  tag: v0.1.1
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
