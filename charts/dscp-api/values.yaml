@@ -24,7 +24,7 @@ deployment:
   replicaCount: 1
 
 ingress:
-	host: ""
+  host: ""
   annotations: {}
   className: ""
   enabled: true
