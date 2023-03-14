@@ -2,6 +2,31 @@ apiVersion: v1
 entries:
   dscp-api:
   - apiVersion: v2
+    appVersion: 4.8.5
+    created: "2023-03-14T11:19:11.809318527Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    - alias: dscpIpfs
+      condition: dscpIpfs.enabled
+      name: dscp-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 2.9.5
+    description: A Helm chart for dscp-api
+    digest: 37115c263fa8ec0014cc9a0473f05c345d555e2b3f553f0169d83df004b01bff
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.8/dscp-api-4.8.8.tgz
+    version: 4.8.8
+  - apiVersion: v2
     appVersion: 4.8.4
     created: "2023-03-09T15:15:07.84756955Z"
     dependencies:
@@ -127,6 +152,30 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.3/dscp-api-4.8.3.tgz
     version: 4.8.3
   dscp-identity-service:
+  - apiVersion: v2
+    appVersion: 1.8.6
+    created: "2023-03-14T11:19:11.973156778Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    description: A Helm chart for dscp-identity-service
+    digest: d21e6abc1f1201b889171932adcd5e84b37066b5be5bfa8e5fa7c46c6c9bba40
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-identity-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.6/dscp-identity-service-1.8.6.tgz
+    version: 1.8.6
   - apiVersion: v2
     appVersion: 1.8.3
     created: "2023-03-09T15:15:08.047922032Z"
@@ -1258,4 +1307,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-09T15:15:08.048011437Z"
+generated: "2023-03-14T11:19:11.973241079Z"
