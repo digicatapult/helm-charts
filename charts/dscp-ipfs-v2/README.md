@@ -223,7 +223,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `persistence.enabled`       | Enable persistence using Persistent Volume Claims                                                       | `true`              |
 | `persistence.mountPath`     | Path to mount the volume at.                                                                            | `/ipfs`             |
 | `persistence.subPath`       | The subdirectory of the volume to mount to, useful in dev environments and one PV for multiple services | `""`                |
-| `persistence.storageClass`  | Storage class of backing PVC                                                                            | `standard`          |
+| `persistence.storageClass`  | Storage class of backing PVC                                                                            | `""`                |
 | `persistence.annotations`   | Persistent Volume Claim annotations                                                                     | `{}`                |
 | `persistence.accessModes`   | Persistent Volume Access Modes                                                                          | `["ReadWriteOnce"]` |
 | `persistence.size`          | Size of data volume                                                                                     | `1Gi`               |
