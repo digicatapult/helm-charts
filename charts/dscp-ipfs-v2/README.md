@@ -264,35 +264,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalDscpNode.host`     | External DSCP-Node hostname to query                                                      | `""`   |
 | `externalDscpNode.port`     | External DSCP-Node port to query                                                          | `""`   |
 
-
-### [Rolling VS Immutable tags](https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/)
-
-It is strongly recommended to use immutable tags in a production environment. This ensures your deployment does not change automatically if the same tag is updated with a different image.
-
-Digital Catapult will release a new chart updating its containers if a new version of the main container, significant changes, or critical vulnerabilities exist.
-
-### Using an external dscp-node
-
-Sometimes you may want to connect to an external dscp-node cluster rather than installing one as dependency. To do this, the chart allows you to specify credentials for an existing dscp-node under the [`externalDscpNode` parameter](#dscp-node-parameters). You should also disable the dscp-node installation with the `dscpNode.enabled` option.
-
-### Additional environment variables
-
-In case you want to add extra environment variables (useful for advanced operations like custom init scripts), you can use the `extraEnvVars` property.
-
-```yaml
-extraEnvVars:
-  - name: LOG_LEVEL
-    value: error
-```
-
-Alternatively, you can use a ConfigMap or a Secret with the environment variables. To do so, use the `extraEnvVarsCM` or the `extraEnvVarsSecret` values.
-
-### Sidecars
-
-If additional containers are needed in the same pod as dscp-ipfs (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://docs.bitnami.com/kubernetes/apps/dscp-ipfs/administration/configure-use-sidecars/).
-
-### Pod affinity
-
 This chart allows you to set your custom affinity using the `affinity` parameter. Find more information about Pod affinity in the [kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
 As an alternative, use one of the preset configurations for pod affinity, pod anti-affinity, and node affinity available at the [bitnami/common](https://github.com/bitnami/charts/tree/main/bitnami/common#affinities) chart. To do so, set the `podAffinityPreset`, `podAntiAffinityPreset`, or `nodeAffinityPreset` parameters.

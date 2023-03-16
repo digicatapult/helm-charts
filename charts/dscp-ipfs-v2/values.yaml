@@ -594,8 +594,6 @@ apiService:
   ##
   sessionAffinityConfig: {}
 
-
-
 ## @section Persistence Parameters
 ##
 
@@ -731,4 +729,3 @@ externalDscpNode:
   ## @param externalDscpNode.port External DSCP-Node port to query
   ##
   port: ""
-
