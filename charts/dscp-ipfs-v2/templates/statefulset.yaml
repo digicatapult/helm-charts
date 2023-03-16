@@ -109,7 +109,6 @@ spec:
             - /bin/sh
             - -c
             - -e
-            - -x
           {{- end }}
           {{ if .Values.ipfs.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.args "context" $) | nindent 12 }}
