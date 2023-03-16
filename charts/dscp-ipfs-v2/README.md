@@ -235,7 +235,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 | Name                                                   | Description                                                                                     | Value                   |
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------- |
-| `volumePermissions.enabled`                            | Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup` | `true`                  |
+| `volumePermissions.enabled`                            | Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup` | `false`                 |
 | `volumePermissions.image.registry`                     | Bitnami Shell image registry                                                                    | `docker.io`             |
 | `volumePermissions.image.repository`                   | Bitnami Shell image repository                                                                  | `bitnami/bitnami-shell` |
 | `volumePermissions.image.tag`                          | Bitnami Shell image tag (immutable tags are recommended)                                        | `latest`                |
