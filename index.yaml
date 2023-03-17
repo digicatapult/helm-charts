@@ -278,6 +278,42 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.9.5
+    created: "2023-03-17T12:11:45.845532304Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - dscp-node
+      version: 4.5.5
+    description: dscp-ipfs is a component of the DSCP project that provides a distributed
+      IPFS based storage solution for the DSCP platform.
+    digest: d7633e93df5869bee13ed86d62e75ca7064560859cb5d999a2faaa85b7f60a65
+    home: https://github.com/digicatapult/dscp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
+    keywords:
+    - DSCP
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: dscp-ipfs
+    sources:
+    - https://github.com/digicatapult/dscp-ipfs
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-ipfs-3.0.5/dscp-ipfs-3.0.5.tgz
+    version: 3.0.5
+  - annotations:
+      category: dscp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2.9.5
     created: "2023-03-17T12:02:55.916118284Z"
     dependencies:
     - name: common
@@ -1487,4 +1523,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-17T12:02:55.916314683Z"
+generated: "2023-03-17T12:11:45.845606204Z"
