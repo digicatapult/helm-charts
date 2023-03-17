@@ -116,11 +116,12 @@ spec:
           args:
             - |
               [ ! -f "{{ .Values.persistence.mountPath }}/config" ] && {{ .Values.ipfs.binary }} init --profile server;
+              export POD_INDEX="${HOSTNAME##*-}";
               {{ .Values.ipfs.binary }} config Addresses.API /ip4/0.0.0.0/tcp/{{ .Values.apiService.ports.api | default 5001 }};
               {{ .Values.ipfs.binary }} config --json Addresses.Swarm "[\"/ip4/0.0.0.0/tcp/{{ .Values.swarmService.ports.swarm }}\"]";
-              {{ .Values.ipfs.binary }} config --json Addresses.Announce "[\"/dns4/{{ include "common.names.fullname" . }}-swarm.{{ .Release.Namespace }}.svc.cluster.local/tcp/{{ .Values.swarmService.ports.swarm }}/\"]";
+              {{ .Values.ipfs.binary }} config --json Addresses.Announce "[\"/dns4/{{ include "common.names.fullname" . }}-$(echo "$POD_INDEX")-swarm.{{ .Release.Namespace }}.svc.cluster.local/tcp/{{ .Values.swarmService.ports.swarm }}/\"]";
               {{ .Values.ipfs.binary }} config Datastore.StorageMax {{ .Values.persistence.size | replace "Gi" "Gb" }};
-              {{ .Values.ipfs.binary }} config Routing.Type dht;
+              {{ .Values.ipfs.binary }} config Routing.Type --json {{ .Values.ipfs.routingType | toJson | quote }};
               {{ .Values.ipfs.binary }} config --json Discovery.MDNS.Enabled {{ true | toJson | quote }};
               {{ .Values.ipfs.binary }} config --json Swarm.AddrFilters {{ .Values.ipfs.swarmAddrFilters | toJson | quote }};
               {{ .Values.ipfs.binary }} config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"http://0.0.0.0:{{ .Values.apiService.ports.api }}\", \"http://127.0.0.1:{{ .Values.apiService.ports.api }}\"]";

@@ -93,6 +93,9 @@ ipfs:
   ## @param ipfs.bootNodeAddress IPFS boot node addresses in MultiAddress format for the IPFS subsystem
   ## ref: https://multiformats.io/multiaddr/
   bootNodeAddress: ""
+  ## @param ipfs.routingType IPFS routing type for the IPFS subsystem, Allowed values: "auto", "autoclient", "none", "dht", "dhtclient", and "custom".
+  ## ref: https://docs.ipfs.io/concepts/routing/
+  routingType: "dht"
   ## @param ipfs.binary Location of the ipfs binary in the container for the IPFS subsystem
   ##
   binary: /usr/local/bin/ipfs
