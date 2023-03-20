@@ -3,6 +3,31 @@ entries:
   dscp-api:
   - apiVersion: v2
     appVersion: 4.8.5
+    created: "2023-03-20T14:52:33.070266931Z"
+    dependencies:
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    - alias: dscpIpfs
+      condition: dscpIpfs.enabled
+      name: dscp-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 2.9.5
+    description: A Helm chart for dscp-api
+    digest: d2718dc26b40fc7a66551dab95b0ecd003fc5789c212a170488c159d7adb78eb
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.9/dscp-api-4.8.9.tgz
+    version: 4.8.9
+  - apiVersion: v2
+    appVersion: 4.8.5
     created: "2023-03-14T11:19:11.809318527Z"
     dependencies:
     - alias: dscpNode
@@ -154,6 +179,30 @@ entries:
   dscp-identity-service:
   - apiVersion: v2
     appVersion: 1.8.6
+    created: "2023-03-20T14:52:33.294487379Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.5
+    description: A Helm chart for dscp-identity-service
+    digest: e03f190ef6f5d948d27e0eccb437b776354bc3c7e460e647d89d5e7a1f9bb0a7
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-identity-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.7/dscp-identity-service-1.8.7.tgz
+    version: 1.8.7
+  - apiVersion: v2
+    appVersion: 1.8.6
     created: "2023-03-14T11:19:11.973156778Z"
     dependencies:
     - condition: postgresql.enabled
@@ -273,6 +322,42 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.2/dscp-identity-service-1.8.2.tgz
     version: 1.8.2
   dscp-ipfs:
+  - annotations:
+      category: dscp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2.9.5
+    created: "2023-03-20T14:52:33.534436118Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - dscp-node
+      version: 4.5.5
+    description: dscp-ipfs is a component of the DSCP project that provides a distributed
+      IPFS based storage solution for the DSCP platform.
+    digest: 8ba33739ea8cb15e60b6fb5a2ca1e5f520893d89a4d280b284af4af98e9e0b33
+    home: https://github.com/digicatapult/dscp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
+    keywords:
+    - DSCP
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: dscp-ipfs
+    sources:
+    - https://github.com/digicatapult/dscp-ipfs
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-ipfs-3.0.6/dscp-ipfs-3.0.6.tgz
+    version: 3.0.6
   - annotations:
       category: dscp
       licenses: Apache-2.0
@@ -592,6 +677,20 @@ entries:
   dscp-node:
   - apiVersion: v2
     appVersion: 4.6.0
+    created: "2023-03-20T14:52:33.738296395Z"
+    description: A Helm chart to deploy DSCP nodes
+    digest: 2cc1320971882e408a83deaab6816347b3be90071daa93df8f0a300268f27043
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-node-4.5.6/dscp-node-4.5.6.tgz
+    version: 4.5.6
+  - apiVersion: v2
+    appVersion: 4.6.0
     created: "2023-03-08T13:08:29.769581459Z"
     description: A Helm chart to deploy DSCP nodes
     digest: a2ed6782ef1e35a9c5486c13dff360569a3e86051308e615b8bfe86f4244306c
@@ -649,6 +748,25 @@ entries:
   inteli-api:
   - apiVersion: v2
     appVersion: 1.29.1
+    created: "2023-03-20T14:52:34.02467557Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^11.9.10
+    description: A Helm chart for inteli-api
+    digest: 6fa1fa8fd9dd9ae671cbf3ce130978be74fca10f437f125d62029aec2e2e6075
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: inteli-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.3/inteli-api-1.29.3.tgz
+    version: 1.29.3
+  - apiVersion: v2
+    appVersion: 1.29.1
     created: "2023-01-13T12:30:18.66674945Z"
     dependencies:
     - condition: postgresql.enabled
@@ -667,6 +785,40 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.2/inteli-api-1.29.2.tgz
     version: 1.29.2
   wasp-authentication-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.2
+    created: "2023-03-20T14:52:34.311561949Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-authentication-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 2921be83e1e1a20612d14d17ec8bfe48289df8b51dbe096cc52866f40ea64837
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-authentication-service
+    sources:
+    - https://github.com/digicatapult/wasp-authentication-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-authentication-service-1.0.2/wasp-authentication-service-1.0.2.tgz
+    version: 1.0.2
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -755,6 +907,44 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-authentication-service-0.0.19/wasp-authentication-service-0.0.19.tgz
     version: 0.0.19
   wasp-event-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-20T14:52:34.636304702Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-event-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 6ece468a8276b939dbfe88693da534ff6eee85195c96350788fff0cf8b7ef050
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-event-service
+    sources:
+    - https://github.com/digicatapult/wasp-event-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-1.0.2/wasp-event-service-1.0.2.tgz
+    version: 1.0.2
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -855,6 +1045,46 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-0.0.10/wasp-event-service-0.0.10.tgz
     version: 0.0.10
   wasp-open-api:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-20T14:52:34.901180621Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-open-api is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 8e9d170429e36d6f3129a2d4acf028c6e0e8b98d2114c447fca368ac019bd853
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-open-api
+    sources:
+    - https://github.com/digicatapult/wasp-open-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-open-api-1.1.1/wasp-open-api-1.1.1.tgz
+    version: 1.1.1
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -1006,6 +1236,44 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-03-20T14:52:35.188372447Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-reading-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: fc23688f40e950de823f8ee4975a7864cedcd41b9abf4e7c9b7302c8ac327cfe
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-reading-service
+    sources:
+    - https://github.com/digicatapult/wasp-reading-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-1.0.2/wasp-reading-service-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-21T10:01:39.089133816Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1101,6 +1369,39 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-reading-service-0.0.19/wasp-reading-service-0.0.19.tgz
     version: 0.0.19
   wasp-routing-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2.1.2
+    created: "2023-03-20T14:52:35.513610503Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-routing-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 3a182a2b970db54e80656589287b9d89961093191bf3107f5a7637c2b7645dd9
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-routing-service
+    sources:
+    - https://github.com/digicatapult/wasp-routing-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-routing-service-3.0.2/wasp-routing-service-3.0.2.tgz
+    version: 3.0.2
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -1211,6 +1512,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-03-20T14:52:35.784391749Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-thing-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: d64c974bff7054f210bad1a72b81f4d1e3bddb9b2f289d42de4bfa328eaa95f6
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-thing-service
+    sources:
+    - https://github.com/digicatapult/wasp-thing-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-thing-service-1.0.2/wasp-thing-service-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-02-09T11:48:33.611925393Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1294,6 +1629,40 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-thing-service-0.0.13/wasp-thing-service-0.0.13.tgz
     version: 0.0.13
   wasp-user-service:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-20T14:52:36.042474422Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-user-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: f4cacdc227e565397f34b267e7e37442c2a7613b148ba3d08a1cde772cc8ddc7
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-user-service
+    sources:
+    - https://github.com/digicatapult/wasp-user-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-user-service-1.0.2/wasp-user-service-1.0.2.tgz
+    version: 1.0.2
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -1387,6 +1756,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-03-20T14:52:36.338041209Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-ws-event-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 174c4581bcb035d6a2044b2a7b5194f7e419231c27278e84dfe18b29fcfbb8d0
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-ws-event-service
+    sources:
+    - https://github.com/digicatapult/wasp-ws-event-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-event-service-1.0.2/wasp-ws-event-service-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-21T10:01:39.404775788Z"
     dependencies:
     - condition: kafka.enabled
@@ -1475,6 +1878,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-03-20T14:52:36.653663711Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-ws-reading-service is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 9eada4430325518a7b56a35b9bf3b4cee1ec6e2cba04b2c5bfa4282900fbfe06
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-ws-reading-service
+    sources:
+    - https://github.com/digicatapult/wasp-ws-reading-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-1.0.1/wasp-ws-reading-service-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-02-21T10:01:39.5673551Z"
     dependencies:
     - condition: kafka.enabled
@@ -1523,4 +1960,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-17T12:11:45.845606204Z"
+generated: "2023-03-20T14:52:36.653863212Z"
