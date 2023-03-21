@@ -30,7 +30,7 @@ Template to define the dscp-node hostname.
   {{- else if .Values.dscpNode.enabled -}}
     {{- template "dscp-node.fullname" .Subcharts.dscpNode -}}
   {{- else if .Values.dscpIpfs.dscpNode.enabled -}}
-    {{- template "dscp-ipfs-node.fullname" .Subcharts.dscpIpfs -}}
+    {{- template "dscp-ipfs.dscpNodeHost" .Subcharts.dscpIpfs -}}
   {{- else }}
     {{- fail "Must supply either externalNodeHost or enable dscpNode or dscpIpfs" -}}
   {{- end -}}
