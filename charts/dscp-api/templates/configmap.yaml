@@ -21,7 +21,7 @@ data:
   {{- end }}
   {{- if .Values.config.externalIpfsPort }}
   ipfsPort: {{ .Values.config.externalIpfsPort | quote }}
-  {{- else if .Values.dscpIpfs.enabled }}s
+  {{- else if .Values.dscpIpfs.enabled }}
   ipfsPort: 5001
   {{- end }}
   {{- if eq .Values.config.auth.type "JWT" }}
