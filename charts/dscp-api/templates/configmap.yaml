@@ -17,12 +17,12 @@ data:
   {{- if .Values.config.externalIpfsHost }}
   ipfsHost: {{ .Values.config.externalIpfsHost }}
   {{- else if .Values.dscpIpfs.enabled }}
-  ipfsHost: {{ template "dscp-ipfs.fullname" .Subcharts.dscpIpfs }}-api
+  ipfsHost: {{ template "dscp-ipfs.dscpNodeHost" .Subcharts.dscpIpfs }}-api
   {{- end }}
   {{- if .Values.config.externalIpfsPort }}
   ipfsPort: {{ .Values.config.externalIpfsPort | quote }}
-  {{- else if .Values.dscpIpfs.enabled }}
-  ipfsPort: {{ template "dscp-ipfs.ipfsApiPort" .Subcharts.dscpIpfs }}
+  {{- else if .Values.dscpIpfs.enabled }}s
+  ipfsPort: 5001
   {{- end }}
   {{- if eq .Values.config.auth.type "JWT" }}
   authJwksUri: {{ .Values.config.auth.jwksUri }}
