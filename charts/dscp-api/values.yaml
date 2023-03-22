@@ -41,10 +41,10 @@ image:
   pullPolicy: IfNotPresent
   tag: 'v5.0.3'
 
-dscpNode:
+node:
   enabled: false
 
-dscpIpfs:
+ipfs:
   enabled: true
   dscpNode:
     enabled: true
