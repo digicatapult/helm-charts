@@ -21,7 +21,7 @@ dependencies:
       - dscp-node
     version: 4.5.6
     condition: node.enabled
-description: The dscp-identity-service is a component of the DSCP (Wide-Area-Sensor-Platform), an IoT platform designed to normalise and consolidate data from multiple IoT data services into one place.
+description: The dscp-identity-service is a component of the DSCP (Digital-Supply-Chain-Platform), a blockchain platform.
 home: https://github.com/digicatapult/dscp-documentation
 icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
 keywords:
