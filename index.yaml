@@ -2,6 +2,31 @@ apiVersion: v1
 entries:
   dscp-api:
   - apiVersion: v2
+    appVersion: 5.0.3
+    created: "2023-03-23T08:45:32.494591984Z"
+    dependencies:
+    - alias: node
+      condition: node.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.6
+    - alias: ipfs
+      condition: ipfs.enabled
+      name: dscp-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 3.0.6
+    description: A Helm chart for dscp-api
+    digest: 9d8bd83835c7fb3a93e9093d0791d2041e6b60903b94c534810e3b3533c2be43
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-api
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.9.0/dscp-api-4.9.0.tgz
+    version: 4.9.0
+  - apiVersion: v2
     appVersion: 4.8.5
     created: "2023-03-20T14:52:33.070266931Z"
     dependencies:
@@ -177,6 +202,30 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.3/dscp-api-4.8.3.tgz
     version: 4.8.3
   dscp-identity-service:
+  - apiVersion: v2
+    appVersion: 1.8.12
+    created: "2023-03-23T08:45:32.650100914Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^12.x.x
+    - alias: dscpNode
+      condition: dscpNode.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      version: 4.5.6
+    description: A Helm chart for dscp-identity-service
+    digest: 8f789e376f9f81d54675107713dd1b8bb0162e1aa49e64c4da950d29ed9ada5f
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-identity-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-1.8.8/dscp-identity-service-1.8.8.tgz
+    version: 1.8.8
   - apiVersion: v2
     appVersion: 1.8.6
     created: "2023-03-20T14:52:33.294487379Z"
@@ -1960,4 +2009,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-20T14:52:36.653863212Z"
+generated: "2023-03-23T08:45:32.650243518Z"
