@@ -60,7 +60,7 @@ diagnosticMode:
   args:
     - infinity
 
-## @section DSCP User Service config parameters
+## @section DSCP Identity Service config parameters
 ##
 
 ## @param logLevel Allowed values: error, warn, info, debug
@@ -90,7 +90,6 @@ authAudience: ""
 ## @param authIssuer The issuer for the JWT auth provider
 ##
 authIssuer: ""
-
 
 
 ## Digital Catapult dscp-identity-service image
