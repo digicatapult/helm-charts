@@ -202,6 +202,46 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/dscp-api-4.8.3/dscp-api-4.8.3.tgz
     version: 4.8.3
   dscp-identity-service:
+  - annotations:
+      category: dscp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v1.8.14
+    created: "2023-03-24T10:37:35.107446099Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - dscp-node
+      version: 4.5.6
+    description: The dscp-identity-service is a component of the DSCP (Digital-Supply-Chain-Platform),
+      a blockchain platform.
+    digest: 4300cbe57869c8986d3e74b80a0907e3b6b16ac675255a5098581dd496e40846
+    home: https://github.com/digicatapult/dscp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
+    keywords:
+    - DSCP
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: dscp-identity-service
+    sources:
+    - https://github.com/digicatapult/dscp-identity-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-identity-service-2.0.0/dscp-identity-service-2.0.0.tgz
+    version: 2.0.0
   - apiVersion: v2
     appVersion: 1.8.12
     created: "2023-03-23T08:45:32.650100914Z"
@@ -2009,4 +2049,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-23T08:45:32.650243518Z"
+generated: "2023-03-24T10:37:35.107826501Z"
