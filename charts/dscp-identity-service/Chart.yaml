@@ -25,7 +25,7 @@ description: The dscp-identity-service is a component of the DSCP (Digital-Suppl
 home: https://github.com/digicatapult/dscp-documentation
 icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
 keywords:
-  - IoT
+  - DSCP
 maintainers:
   - name: digicatapult  # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
