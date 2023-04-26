@@ -1138,6 +1138,46 @@ entries:
       category: wasp
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: 0.1.4
+    created: "2023-04-26T10:00:11.62074185Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-open-api is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: e19e4d10a0f49423b2eee44f0e6c3e680ff7cf53f146bb4fabab6414cbdf9cb6
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-open-api
+    sources:
+    - https://github.com/digicatapult/wasp-open-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-open-api-1.2.0/wasp-open-api-1.2.0.tgz
+    version: 1.2.0
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: 0.1.0
     created: "2023-03-20T14:52:34.901180621Z"
     dependencies:
@@ -2049,4 +2089,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-03-24T10:37:35.107826501Z"
+generated: "2023-04-26T10:00:11.62087946Z"
