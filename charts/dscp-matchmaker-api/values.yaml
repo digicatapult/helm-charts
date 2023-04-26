@@ -78,34 +78,22 @@ externalPathPrefix: ""
 ## @param selfAddress The SS58 address for this services owner
 ##
 selfAddress: ""
-## @param authType Allowed values: JWT, NONE, EXTERNAL
-##
-authType: "NONE"
-## @param authJwksUri The URI of the JWKS endpoint for the JWT auth provider
-##
-authJwksUri: ""
-## @param authAudience The audience for the JWT auth provider
-##
-authAudience: ""
-## @param authIssuer The issuer for the JWT auth provider
-##
-authIssuer: ""
 
 
-## Digital Catapult dscp-identity-service image
-## ref: https://hub.docker.com/r/digicatapult/dscp-identity-service/tags/
-## @param image.registry dscp-identity-service image registry
-## @param image.repository dscp-identity-service image repository
-## @param image.tag dscp-identity-service image tag (immutable tags are recommended)
-## @param image.digest dscp-identity-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-## @param image.pullPolicy dscp-identity-service image pull policy
-## @param image.pullSecrets dscp-identity-service image pull secrets
-## @param image.debug Enable dscp-identity-service image debug mode
+## Digital Catapult dscp-matchmaker-api image
+## ref: https://hub.docker.com/r/digicatapult/dscp-matchmaker-api/tags/
+## @param image.registry dscp-matchmaker-api image registry
+## @param image.repository dscp-matchmaker-api image repository
+## @param image.tag dscp-matchmaker-api image tag (immutable tags are recommended)
+## @param image.digest dscp-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+## @param image.pullPolicy dscp-matchmaker-api image pull policy
+## @param image.pullSecrets dscp-matchmaker-api image pull secrets
+## @param image.debug Enable dscp-matchmaker-api image debug mode
 ##
 image:
   registry: docker.io
-  repository: digicatapult/dscp-identity-service
-  tag: v1.8.20
+  repository: digicatapult/dscp-matchmaker-api
+  tag: v0.5.5
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -123,16 +111,16 @@ image:
   ## Enable debug mode
   ##
   debug: false
-## @param replicaCount Number of dscp-identity-service replicas to deploy
+## @param replicaCount Number of dscp-matchmaker-api replicas to deploy
 ##
 replicaCount: 1
-## @param containerPorts.http dscp-identity-service HTTP container port
+## @param containerPorts.http dscp-matchmaker-api HTTP container port
 ##
 containerPorts:
   http: 3000
-## Configure extra options for dscp-identity-service containers' liveness and readiness probes
+## Configure extra options for dscp-matchmaker-api containers' liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe on dscp-identity-service containers
+## @param livenessProbe.enabled Enable livenessProbe on dscp-matchmaker-api containers
 ## @param livenessProbe.path Path for to check for livenessProbe
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
@@ -148,7 +136,7 @@ livenessProbe:
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
-## @param readinessProbe.enabled Enable readinessProbe on dscp-identity-service containers
+## @param readinessProbe.enabled Enable readinessProbe on dscp-matchmaker-api containers
 ## @param readinessProbe.path Path for to check for readinessProbe
 ## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
 ## @param readinessProbe.periodSeconds Period seconds for readinessProbe
@@ -164,7 +152,7 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 5
   successThreshold: 1
-## @param startupProbe.enabled Enable startupProbe on dscp-identity-service containers
+## @param startupProbe.enabled Enable startupProbe on dscp-matchmaker-api containers
 ## @param startupProbe.path Path for to check for startupProbe
 ## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
 ## @param startupProbe.periodSeconds Period seconds for startupProbe
@@ -189,28 +177,28 @@ customReadinessProbe: {}
 ## @param customStartupProbe Custom startupProbe that overrides the default one
 ##
 customStartupProbe: {}
-## dscp-identity-service resource requests and limits
+## dscp-matchmaker-api resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources.limits The resources limits for the dscp-identity-service containers
-## @param resources.requests The requested resources for the dscp-identity-service containers
+## @param resources.limits The resources limits for the dscp-matchmaker-api containers
+## @param resources.requests The requested resources for the dscp-matchmaker-api containers
 ##
 resources:
   limits: {}
   requests: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled dscp-identity-service pods' Security Context
-## @param podSecurityContext.fsGroup Set dscp-identity-service pod's Security Context fsGroup
+## @param podSecurityContext.enabled Enabled dscp-matchmaker-api pods' Security Context
+## @param podSecurityContext.fsGroup Set dscp-matchmaker-api pod's Security Context fsGroup
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enabled dscp-identity-service containers' Security Context
-## @param containerSecurityContext.runAsUser Set dscp-identity-service containers' Security Context runAsUser
-## @param containerSecurityContext.runAsNonRoot Set dscp-identity-service containers' Security Context runAsNonRoot
-## @param containerSecurityContext.readOnlyRootFilesystem Set dscp-identity-service containers' Security Context runAsNonRoot
+## @param containerSecurityContext.enabled Enabled dscp-matchmaker-api containers' Security Context
+## @param containerSecurityContext.runAsUser Set dscp-matchmaker-api containers' Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set dscp-matchmaker-api containers' Security Context runAsNonRoot
+## @param containerSecurityContext.readOnlyRootFilesystem Set dscp-matchmaker-api containers' Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
@@ -224,15 +212,15 @@ command: []
 ## @param args Override default container args (useful when using custom images)
 ##
 args: []
-## @param hostAliases dscp-identity-service pods host aliases
+## @param hostAliases dscp-matchmaker-api pods host aliases
 ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
 ##
 hostAliases: []
-## @param podLabels Extra labels for dscp-identity-service pods
+## @param podLabels Extra labels for dscp-matchmaker-api pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
-## @param podAnnotations Annotations for dscp-identity-service pods
+## @param podAnnotations Annotations for dscp-matchmaker-api pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
@@ -256,9 +244,9 @@ pdb:
   maxUnavailable: ""
 ## Autoscaling configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for dscp-identity-service
-## @param autoscaling.minReplicas Minimum number of dscp-identity-service replicas
-## @param autoscaling.maxReplicas Maximum number of dscp-identity-service replicas
+## @param autoscaling.enabled Enable autoscaling for dscp-matchmaker-api
+## @param autoscaling.minReplicas Minimum number of dscp-matchmaker-api replicas
+## @param autoscaling.maxReplicas Maximum number of dscp-matchmaker-api replicas
 ## @param autoscaling.targetCPU Target CPU utilization percentage
 ## @param autoscaling.targetMemory Target Memory utilization percentage
 ##
@@ -285,20 +273,20 @@ nodeAffinityPreset:
   ##   - e2e-az2
   ##
   values: []
-## @param affinity Affinity for dscp-identity-service pods assignment
+## @param affinity Affinity for dscp-matchmaker-api pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: `podAffinityPreset`, `podAntiAffinityPreset`, and `nodeAffinityPreset` will be ignored when it's set
 ##
 affinity: {}
-## @param nodeSelector Node labels for dscp-identity-service pods assignment
+## @param nodeSelector Node labels for dscp-matchmaker-api pods assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## @param tolerations Tolerations for dscp-identity-service pods assignment
+## @param tolerations Tolerations for dscp-matchmaker-api pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
-## @param updateStrategy.type dscp-identity-service statefulset strategy type
+## @param updateStrategy.type dscp-matchmaker-api statefulset strategy type
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
 updateStrategy:
@@ -307,14 +295,14 @@ updateStrategy:
   ##
   type: RollingUpdate
 
-## @param priorityClassName dscp-identity-service pods' priorityClassName
+## @param priorityClassName dscp-matchmaker-api pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
 ##
 topologySpreadConstraints: []
-## @param schedulerName Name of the k8s scheduler (other than default) for dscp-identity-service pods
+## @param schedulerName Name of the k8s scheduler (other than default) for dscp-matchmaker-api pods
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
 ##
 schedulerName: ""
@@ -322,29 +310,29 @@ schedulerName: ""
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 ##
 terminationGracePeriodSeconds: ""
-## @param lifecycleHooks for the dscp-identity-service container(s) to automate configuration before or after startup
+## @param lifecycleHooks for the dscp-matchmaker-api container(s) to automate configuration before or after startup
 ##
 lifecycleHooks: {}
-## @param extraEnvVars Array with extra environment variables to add to dscp-identity-service nodes
+## @param extraEnvVars Array with extra environment variables to add to dscp-matchmaker-api nodes
 ## e.g:
 ## extraEnvVars:
 ##   - name: FOO
 ##     value: "bar"
 ##
 extraEnvVars: []
-## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for dscp-identity-service nodes
+## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for dscp-matchmaker-api nodes
 ##
 extraEnvVarsCM: ""
-## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for dscp-identity-service nodes
+## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for dscp-matchmaker-api nodes
 ##
 extraEnvVarsSecret: ""
-## @param extraVolumes Optionally specify extra list of additional volumes for the dscp-identity-service pod(s)
+## @param extraVolumes Optionally specify extra list of additional volumes for the dscp-matchmaker-api pod(s)
 ##
 extraVolumes: []
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the dscp-identity-service container(s)
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the dscp-matchmaker-api container(s)
 ##
 extraVolumeMounts: []
-## @param sidecars Add additional sidecar containers to the dscp-identity-service pod(s)
+## @param sidecars Add additional sidecar containers to the dscp-matchmaker-api pod(s)
 ## e.g:
 ## sidecars:
 ##   - name: your-image-name
@@ -355,7 +343,7 @@ extraVolumeMounts: []
 ##         containerPort: 1234
 ##
 sidecars: []
-## @param initContainers Add additional init containers to the dscp-identity-service pod(s)
+## @param initContainers Add additional init containers to the dscp-matchmaker-api pod(s)
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 ## e.g:
 ## initContainers:
@@ -369,13 +357,13 @@ initContainers: []
 ## @section Traffic Exposure Parameters
 ##
 
-## dscp-identity-service service parameters
+## dscp-matchmaker-api service parameters
 ##
 service:
-  ## @param service.type dscp-identity-service service type
+  ## @param service.type dscp-matchmaker-api service type
   ##
   type: ClusterIP
-  ## @param service.ports.http dscp-identity-service service HTTP port
+  ## @param service.ports.http dscp-matchmaker-api service HTTP port
   ##
   ports:
     http: 3000
@@ -385,30 +373,30 @@ service:
   ##
   nodePorts:
     http: ""
-  ## @param service.clusterIP dscp-identity-service service Cluster IP
+  ## @param service.clusterIP dscp-matchmaker-api service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.loadBalancerIP dscp-identity-service service Load Balancer IP
+  ## @param service.loadBalancerIP dscp-matchmaker-api service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param service.loadBalancerSourceRanges dscp-identity-service service Load Balancer sources
+  ## @param service.loadBalancerSourceRanges dscp-matchmaker-api service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param service.externalTrafficPolicy dscp-identity-service service external traffic policy
+  ## @param service.externalTrafficPolicy dscp-matchmaker-api service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param service.annotations Additional custom annotations for dscp-identity-service service
+  ## @param service.annotations Additional custom annotations for dscp-matchmaker-api service
   ##
   annotations: {}
-  ## @param service.extraPorts Extra ports to expose in dscp-identity-service service (normally used with the `sidecars` value)
+  ## @param service.extraPorts Extra ports to expose in dscp-matchmaker-api service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -423,11 +411,11 @@ service:
   ##
   sessionAffinityConfig: {}
 
-## dscp-identity-service ingress parameters
+## dscp-matchmaker-api ingress parameters
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
 ingress:
-  ## @param ingress.enabled Enable ingress record generation for dscp-identity-service
+  ## @param ingress.enabled Enable ingress record generation for dscp-matchmaker-api
   ##
   enabled: true
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
@@ -435,7 +423,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: dscp-identity-service.local
+  hostname: dscp-matchmaker-api.local
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
@@ -472,7 +460,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: dscp-identity-service.local
+  ##   - name: dscp-matchmaker-api.local
   ##     path: /
   ##
   extraHosts: []
@@ -499,8 +487,8 @@ ingress:
   ## e.g:
   ## extraTls:
   ## - hosts:
-  ##     - dscp-identity-service.local
-  ##   secretName: dscp-identity-service.local-tls
+  ##     - dscp-matchmaker-api.local
+  ##   secretName: dscp-matchmaker-api.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets Custom TLS certificates as secrets
@@ -512,7 +500,7 @@ ingress:
   ## Please see README.md for more information
   ## e.g:
   ## secrets:
-  ##   - name: dscp-identity-service.local-tls
+  ##   - name: dscp-matchmaker-api.local-tls
   ##     key: |-
   ##       -----BEGIN RSA PRIVATE KEY-----
   ##       ...
@@ -612,18 +600,18 @@ serviceAccount:
 postgresql:
   enabled: true
   auth:
-    username: identity_service
+    username: matchmaker_service
     password: ""
-    database: identity
+    database: matchmaker
     existingSecret: ""
   architecture: standalone
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
 ## @param externalDatabase.port Database port number
-## @param externalDatabase.user Non-root username for dscp-identity-service
-## @param externalDatabase.password Password for the non-root username for dscp-identity-service
-## @param externalDatabase.database dscp-identity-service database name
+## @param externalDatabase.user Non-root username for dscp-matchmaker-api
+## @param externalDatabase.password Password for the non-root username for dscp-matchmaker-api
+## @param externalDatabase.database dscp-matchmaker-api database name
 ## @param externalDatabase.create Enable PostgreSQL user and database creation (when using an external db)
 ## @param externalDatabase.postgresqlPostgresUser External Database admin username
 ## @param externalDatabase.postgresqlPostgresPassword External Database admin password
@@ -634,9 +622,9 @@ postgresql:
 externalDatabase:
   host: ""
   port: 5432
-  user: identity_service
+  user: matchmaker_service
   password: ""
-  database: identity
+  database: matchmaker
   create: true
   postgresqlPostgresUser: "postgres"
   postgresqlPostgresPassword: ""
@@ -647,7 +635,7 @@ externalDatabase:
 ## @section DSCP-Node Parameters
 node:
   ## @param node.enabled Enable DSCP-Node subchart
-  enabled: true
+  enabled: false
   ## @param node.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
@@ -659,5 +647,44 @@ node:
 externalDscpNode:
   host: ""
   ## @param externalDscpNode.port External DSCP-Node port to query
+  ##
+  port: ""
+
+## @section DSCP-Ipfs parameters
+ipfs:
+  ## @param ipfs.enabled Enable DSCP-Ipfs subchart
+  enabled: true
+  ## @param ipfs.nameOverride String to partially override dscp-ipfs.fullname template (will maintain the release name)
+  ##
+  nameOverride: ""
+  ## @param ipfs.fullnameOverride String to fully override dscp-ipfs.fullname template
+  ##
+  fullnameOverride: ""
+  ## @param.ipfs.node.enabled Enable dscp-node created by dscp-ipfs subchart
+  node:
+    enabled: true
+## @param externalDscpIpfs.host External DSCP-Ipfs hostname
+##
+externalDscpIpfs:
+  host: ""
+  ## @param externalDscpIpfs.port External DSCP-Ipfs port
+  ##
+  port: ""
+
+## @section DSCP-Identity-Service parameters
+identity:
+  ## @param identity.enabled Enable DSCP-Identity-Service subchart
+  enabled: true
+  ## @param identity.nameOverride String to partially override dscp-identity.fullname template (will maintain the release name)
+  ##
+  nameOverride: ""
+  ## @param identity.fullnameOverride String to fully override dscp-identity.fullname template
+  ##
+  fullnameOverride: ""
+## @param externalDscpIdentity.host External DSCP-Identity-Service hostname
+##
+externalDscpIdentity:
+  host: ""
+  ## @param externalDscpIdentity.port External DSCP-Identity-Service port
   ##
   port: ""
