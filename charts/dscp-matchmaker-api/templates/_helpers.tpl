@@ -48,11 +48,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Return the dscp-node api hostname
 */}}
 {{- define "dscp-matchmaker-api.dscpNodeHost" -}}
-{{- if and ( .Values.node.enabled) (not .Values.ipfs.node.enabled) }}
 {{- ternary (include "dscp-matchmaker-api.dscpNode.fullname" .) .Values.externalDscpNode.host .Values.node.enabled | quote -}}
-{{- else if and ( .Values.node.enabled) ( .Values.ipfs.node.enabled) }}
-{{ printf }}
-{{- end -}}
 {{- end -}}
 
 {{/*
