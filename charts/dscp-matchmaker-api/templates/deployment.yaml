@@ -159,12 +159,10 @@ spec:
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: PORT
               value: {{ .Values.containerPorts.http | quote }}
-            - name: API_VERSION
-              value: {{ .Values.apiVersion }}
             - name: LOG_LEVEL
               value: {{ .Values.logLevel }}
-            - name: SELF_ADDRESS
-              value: {{ .Values.selfAddress }}
+            - name: USER_URI
+              value: {{ .Values.userUri }}
             - name: DB_HOST
               value: {{ template "dscp-matchmaker-api.databaseHost" . }}
             - name: DB_PORT
@@ -183,21 +181,15 @@ spec:
             - name: NODE_PORT
               value: {{ include "dscp-matchmaker-api.dscpNodePort" . }}
             - name: IPFS_HOST
-              value: {{ include "dscp-matchmaker-api.dscpIpfsHost" . }}
+              value: {{ .Values.externalDscpIpfs.host }}
             - name: IPFS_PORT
-              value: {{ include "dscp-matchmaker-api.dscpIpfsPort" . }}
+              value: {{ .Values.externalDscpIpfs.port }}
             - name: IDENTITY_SERVICE_HOST
-              value: {{ include "dscp-matchmaker-api.dscpIdentityHost" . }}
+              value: {{ .Values.externalDscpIdentity.host }}
             - name: IDENTITY_SERVICE_PORT
-              value: {{ include "dscp-matchmaker-api.dscpIdentityPort" . }}
-            {{ if .Values.externalOrigin }}
-            - name: EXTERNAL_ORIGIN
-              value: {{ .Values.externalOrigin }}
-            {{ end }}
-            {{ if .Values.externalPathPrefix }}
-            - name: EXTERNAL_PATH_PREFIX
-              value: {{ .Values.externalPathPrefix }}
-            {{ end }}
+              value: {{ .Values.externalDscpIdentity.port }}
+            - name: ENABLE_INDEXER
+              value: {{ .Values.enableIndexer }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}

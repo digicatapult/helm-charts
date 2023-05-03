@@ -10,4 +10,10 @@ node:
     - "--rpc-cors=all"
     - "--unsafe-ws-external"
     - "--unsafe-rpc-external"
-selfAddress: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+userUri: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
+startupProbe:
+  enabled: false

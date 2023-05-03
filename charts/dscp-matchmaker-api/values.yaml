@@ -66,18 +66,12 @@ diagnosticMode:
 ## @param logLevel Allowed values: error, warn, info, debug
 ##
 logLevel: "info"
-## @param apiVersion Override api version presented by the service's OpenAPI specification
+## @param userUri The SS58 address for this services owner
 ##
-apiVersion: ""
-## @param externalOrigin The external domain name this service is hosted on
+userUri: "//Alice"
+## @param enableIndexer Enable the indexer
 ##
-externalOrigin: ""
-## @param externalPathPrefix The external path prefix this service is hosted on
-##
-externalPathPrefix: ""
-## @param selfAddress The SS58 address for this services owner
-##
-selfAddress: ""
+enableIndexer: true
 
 
 ## Digital Catapult dscp-matchmaker-api image
@@ -93,7 +87,7 @@ selfAddress: ""
 image:
   registry: docker.io
   repository: digicatapult/dscp-matchmaker-api
-  tag: v0.5.5
+  tag: v0.8.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -435,8 +429,15 @@ ingress:
   ##   - path: /
   ##     pathType: Prefix
   paths:
-    - path: /v1/members
+    - path: /v1/attachment
       pathType: Prefix
+    - path: /v1/capacity
+      pathType: Prefix
+    - path: /v1/match2
+      pathType: Prefix
+    - path: /v1/order
+      pathType: Prefix
+    - path: /v1/transaction
   ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -635,7 +636,7 @@ externalDatabase:
 ## @section DSCP-Node Parameters
 node:
   ## @param node.enabled Enable DSCP-Node subchart
-  enabled: false
+  enabled: true
   ## @param node.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
@@ -651,18 +652,6 @@ externalDscpNode:
   port: ""
 
 ## @section DSCP-Ipfs parameters
-ipfs:
-  ## @param ipfs.enabled Enable DSCP-Ipfs subchart
-  enabled: true
-  ## @param ipfs.nameOverride String to partially override dscp-ipfs.fullname template (will maintain the release name)
-  ##
-  nameOverride: ""
-  ## @param ipfs.fullnameOverride String to fully override dscp-ipfs.fullname template
-  ##
-  fullnameOverride: ""
-  ## @param.ipfs.node.enabled Enable dscp-node created by dscp-ipfs subchart
-  node:
-    enabled: true
 ## @param externalDscpIpfs.host External DSCP-Ipfs hostname
 ##
 externalDscpIpfs:
@@ -672,15 +661,6 @@ externalDscpIpfs:
   port: ""
 
 ## @section DSCP-Identity-Service parameters
-identity:
-  ## @param identity.enabled Enable DSCP-Identity-Service subchart
-  enabled: true
-  ## @param identity.nameOverride String to partially override dscp-identity.fullname template (will maintain the release name)
-  ##
-  nameOverride: ""
-  ## @param identity.fullnameOverride String to fully override dscp-identity.fullname template
-  ##
-  fullnameOverride: ""
 ## @param externalDscpIdentity.host External DSCP-Identity-Service hostname
 ##
 externalDscpIdentity:

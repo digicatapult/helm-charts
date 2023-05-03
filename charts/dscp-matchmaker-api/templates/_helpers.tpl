@@ -48,7 +48,11 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Return the dscp-node api hostname
 */}}
 {{- define "dscp-matchmaker-api.dscpNodeHost" -}}
+{{- if and ( .Values.node.enabled) (not .Values.ipfs.node.enabled) }}
 {{- ternary (include "dscp-matchmaker-api.dscpNode.fullname" .) .Values.externalDscpNode.host .Values.node.enabled | quote -}}
+{{- else if and ( .Values.node.enabled) ( .Values.ipfs.node.enabled) }}
+{{ printf }}
+{{- end -}}
 {{- end -}}
 
 {{/*
@@ -56,62 +60,6 @@ Return the dscp-node API port
 */}}
 {{- define "dscp-matchmaker-api.dscpNodePort" -}}
 {{- ternary "9944" .Values.externalDscpNode.port .Values.node.enabled | quote -}}
-{{- end -}}
-
-{{/*
-Create a default fully qualified app name for dscp-ipfs subchart
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "dscp-matchmaker-api.dscpIpfs.fullname" -}}
-{{- if .Values.ipfs.fullnameOverride -}}
-{{- .Values.ipfs.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default "ipfs-api" .Values.ipfs.nameOverride -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-
-
-{{/*
-Return the dscp-ipfs api hostname
-*/}}
-{{- define "dscp-matchmaker-api.dscpIpfsHost" -}}
-{{- ternary (include "dscp-matchmaker-api.dscpIpfs.fullname" .) .Values.externalDscpIpfs.host .Values.ipfs.enabled | quote -}}
-{{- end -}}
-
-{{/*
-Return the dscp-ipfs API port
-*/}}
-{{- define "dscp-matchmaker-api.dscpIpfsPort" -}}
-{{- ternary "5001" .Values.externalDscpIpfs.port .Values.ipfs.enabled | quote -}}
-{{- end -}}
-
-{{/*
-Create a default fully qualified app name for dscp-ipfs subchart
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "dscp-matchmaker-api.dscpIdentity.fullname" -}}
-{{- if .Values.identity.fullnameOverride -}}
-{{- .Values.identity.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default "dscpidentity" .Values.identity.nameOverride -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-
-
-{{/*
-Return the dscp-identity api hostname
-*/}}
-{{- define "dscp-matchmaker-api.dscpIdentityHost" -}}
-{{- ternary (include "dscp-matchmaker-api.dscpIdentity.fullname" .) .Values.externalDscpIdentity.host .Values.identity.enabled | quote -}}
-{{- end -}}
-
-{{/*
-Return the dscp-idetity port
-*/}}
-{{- define "dscp-matchmaker-api.dscpIdentityPort" -}}
-{{- ternary "3000" .Values.externalDscpIdentity.port .Values.identity.enabled | quote -}}
 {{- end -}}
 
 {{/*
