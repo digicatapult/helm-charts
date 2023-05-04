@@ -181,15 +181,15 @@ spec:
             - name: NODE_PORT
               value: {{ include "dscp-matchmaker-api.dscpNodePort" . }}
             - name: IPFS_HOST
-              value: {{ .Values.externalDscpIpfs.host }}
+              value: {{ .Values.externalDscpIpfs.host | quote}}
             - name: IPFS_PORT
-              value: {{ .Values.externalDscpIpfs.port }}
+              value: {{ .Values.externalDscpIpfs.port | quote }}
             - name: IDENTITY_SERVICE_HOST
-              value: {{ .Values.externalDscpIdentity.host }}
+              value: {{ .Values.externalDscpIdentity.host | quote}}
             - name: IDENTITY_SERVICE_PORT
-              value: {{ .Values.externalDscpIdentity.port }}
+              value: {{ .Values.externalDscpIdentity.port | quote }}
             - name: ENABLE_INDEXER
-              value: {{ .Values.enableIndexer }}
+              value: {{ .Values.enableIndexer | quote }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
