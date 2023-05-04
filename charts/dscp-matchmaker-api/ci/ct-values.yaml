@@ -1,4 +1,6 @@
 node:
+  image:
+    tag: v8.0.0
   enabled: true
   node:
     chain: dev
