@@ -614,7 +614,7 @@ postgresql:
   auth:
     username: identity_service
     password: ""
-    database: identity
+    database: user
     existingSecret: ""
   architecture: standalone
 ## External PostgreSQL configuration
@@ -636,7 +636,7 @@ externalDatabase:
   port: 5432
   user: identity_service
   password: ""
-  database: identity
+  database: user
   create: true
   postgresqlPostgresUser: "postgres"
   postgresqlPostgresPassword: ""
