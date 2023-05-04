@@ -431,11 +431,11 @@ ingress:
   paths:
     - path: /v1/attachment
       pathType: Prefix
-    - path: /v1/capacity
+    - path: /v1/demandA
+      pathType: Prefix
+    - path: /v1/demandB
       pathType: Prefix
     - path: /v1/match2
-      pathType: Prefix
-    - path: /v1/order
       pathType: Prefix
     - path: /v1/transaction
       pathType: Prefix
