@@ -80,7 +80,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `enableIndexer`                                   | Enable the indexer                                                                                                                                             | `true`                             |
 | `image.registry`                                  | dscp-matchmaker-api image registry                                                                                                                             | `docker.io`                        |
 | `image.repository`                                | dscp-matchmaker-api image repository                                                                                                                           | `digicatapult/dscp-matchmaker-api` |
-| `image.tag`                                       | dscp-matchmaker-api image tag (immutable tags are recommended)                                                                                                 | `v0.8.0`                           |
+| `image.tag`                                       | dscp-matchmaker-api image tag (immutable tags are recommended)                                                                                                 | `v0.9.0`                           |
 | `image.digest`                                    | dscp-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                               |
 | `image.pullPolicy`                                | dscp-matchmaker-api image pull policy                                                                                                                          | `IfNotPresent`                     |
 | `image.pullSecrets`                               | dscp-matchmaker-api image pull secrets                                                                                                                         | `[]`                               |
@@ -186,17 +186,17 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Init Container Parameters
 
-| Name                             | Description                                                                                                                                                     | Value                |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `initDbCreate.image.registry`    | dscp-routing-service image registry                                                                                                                             | `docker.io`          |
-| `initDbCreate.image.repository`  | dscp-routing-service image repository                                                                                                                           | `postgres`           |
-| `initDbCreate.image.tag`         | dscp-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`          |
-| `initDbCreate.image.digest`      | dscp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                 |
-| `initDbCreate.image.pullPolicy`  | dscp-routing-service image pull policy                                                                                                                          | `IfNotPresent`       |
-| `initDbCreate.image.pullSecrets` | dscp-routing-service image pull secrets                                                                                                                         | `[]`                 |
-| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`               |
-| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`         |
-| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest"]` |
+| Name                             | Description                                                                                                                                                     | Value                                               |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `initDbCreate.image.registry`    | dscp-routing-service image registry                                                                                                                             | `docker.io`                                         |
+| `initDbCreate.image.repository`  | dscp-routing-service image repository                                                                                                                           | `postgres`                                          |
+| `initDbCreate.image.tag`         | dscp-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`                                         |
+| `initDbCreate.image.digest`      | dscp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                                |
+| `initDbCreate.image.pullPolicy`  | dscp-routing-service image pull policy                                                                                                                          | `IfNotPresent`                                      |
+| `initDbCreate.image.pullSecrets` | dscp-routing-service image pull secrets                                                                                                                         | `[]`                                                |
+| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`                                              |
+| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`                                        |
+| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest","--knexfile","lib/db/knexfile"]` |
 
 ### Other Parameters
 
