@@ -806,6 +806,20 @@ entries:
     version: 0.0.1
   dscp-node:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2023-05-10T08:33:58.85587402Z"
+    description: A Helm chart to deploy DSCP nodes
+    digest: cabd1223be5e6f244d5afe2d40a91d575954c7317557c99f82b4794c8276cd0c
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: dscp-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-node-5.0.0/dscp-node-5.0.0.tgz
+    version: 5.0.0
+  - apiVersion: v2
     appVersion: 4.6.0
     created: "2023-03-20T14:52:33.738296395Z"
     description: A Helm chart to deploy DSCP nodes
@@ -2130,4 +2144,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-05-05T14:09:43.441049655Z"
+generated: "2023-05-10T08:33:58.85598782Z"
