@@ -33,4 +33,4 @@ maintainers:
 name: dscp-matchmaker-api
 sources:
   - https://github.com/digicatapult/dscp-matchmaker-api
-version: 0.0.2
+version: 0.0.3
