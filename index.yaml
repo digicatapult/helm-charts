@@ -880,6 +880,46 @@ entries:
       category: dscp
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v1.2.1
+    created: "2023-05-11T14:58:58.371901447Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: dscp-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - dscp-node
+      version: 5.x.x
+    description: The dscp-matchmaker-api is a component of the DSCP (Digital-Supply-Chain-Platform),
+      a blockchain platform.
+    digest: aab8c988619a91336fb0c16a8fde60aaf09f964cb5b8401ae320db554720695c
+    home: https://github.com/digicatapult/dscp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
+    keywords:
+    - DSCP
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: dscp-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/dscp-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/dscp-matchmaker-api-0.0.4/dscp-matchmaker-api-0.0.4.tgz
+    version: 0.0.4
+  - annotations:
+      category: dscp
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v1.1.3
     created: "2023-05-11T09:45:22.80374072Z"
     dependencies:
@@ -2336,4 +2376,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-05-11T09:45:22.803908332Z"
+generated: "2023-05-11T14:58:58.372040447Z"
