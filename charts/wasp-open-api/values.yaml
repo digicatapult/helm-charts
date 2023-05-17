@@ -658,7 +658,7 @@ cronjob:
   image:
     registry: docker.io
     repository: curlimages/curl
-    tag: 7.87.0
+    tag: 8.1.0
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
