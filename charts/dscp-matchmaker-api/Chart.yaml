@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/dscp-matchmaker-api
-appVersion: v1.2.1
+appVersion: v1.2.15
 dependencies:
   - condition: postgresql.enabled
     name: postgresql

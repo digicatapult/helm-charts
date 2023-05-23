@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/dscp-identity-service
-appVersion: v1.9.3
+appVersion: v1.9.7
 dependencies:
   - condition: postgresql.enabled
     name: postgresql

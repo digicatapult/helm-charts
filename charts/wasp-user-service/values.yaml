@@ -99,7 +99,7 @@ authTokenExpiryDays: 1
 image:
   registry: docker.io
   repository: digicatapult/wasp-user-service
-  tag: v0.1.0
+  tag: v0.1.4
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

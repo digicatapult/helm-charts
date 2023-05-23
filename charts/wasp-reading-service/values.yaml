@@ -96,7 +96,7 @@ readingsNotificationTopic: reading-notifications
 image:
   registry: docker.io
   repository: digicatapult/wasp-reading-service
-  tag: v0.1.0
+  tag: v0.1.3
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -543,7 +543,7 @@ initReadings:
   image:
     registry: docker.io
     repository: bitnami/kafka
-    tag: '3.3-debian-11'
+    tag: '3.4-debian-11'
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

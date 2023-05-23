@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/wasp-authentication-service
-appVersion: 0.1.2
+appVersion: v0.1.6
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
