@@ -33,4 +33,4 @@ maintainers:
 name: dscp-identity-service
 sources:
   - https://github.com/digicatapult/dscp-identity-service
-version: 2.0.1
+version: 2.0.2
