@@ -69,12 +69,6 @@ logLevel: "info"
 ## @param apiVersion Override api version presented by the service's OpenAPI specification
 ##
 apiVersion: ""
-## @param externalOrigin The external domain name this service is hosted on
-##
-externalOrigin: ""
-## @param externalPathPrefix The external path prefix this service is hosted on
-##
-externalPathPrefix: ""
 ## @param selfAddress The SS58 address for this services owner
 ##
 selfAddress: ""

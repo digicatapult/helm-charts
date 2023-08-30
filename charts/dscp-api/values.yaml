@@ -1,12 +1,8 @@
 # fullNameOverride:
 config:
   port: 80
-  # externalOrigin: "http://localhost:3000" # Overrides the server url in the openapi spec
-  # externalPathPrefix: "alice/dscp-api" # Path prefix to be applied to served API routes
   logLevel: info
   accountKey: //Alice
-  # externalIpfsHost: "" # This overrides dscpIpfs.enabled when setting the IPFS_HOST envar
-  # externalIpfsPort: 5001 # This overrides dscpIpfs.enabled when setting the IPFS_PORT envar
   enableLivenessProbe: true
   substrateStatusPollPeriodMs: 10000
   substrateStatusTimeoutMs: 2000
