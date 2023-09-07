@@ -17,7 +17,7 @@ dependencies:
     tags:
       - bitnami-common
     version: 2.x.x
-description: NGINX Open Source is a web server that can be also used as a reverse proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due to its ability to provide faster content.
+description: The nginx-mock-server is a very simple helm chart that brings up an nginx instance and mocks out specific responses at specific locations on specific ports, with specific headers. It is intended to be used for testing purposes only, I.E testing out helm charts whereby the chart being tested requires a specific response from a specific 3rd party endpoint.
 home: https://github.com/digicatapult/helm-charts/charts/nginx-mock-server
 icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
 keywords:
