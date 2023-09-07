@@ -1,0 +1,26 @@
+{{- if .Values.customResponses }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" $ }}-custom-responses
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" $.Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $.Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  {{- range $customResponses := .Values.customResponses }}
+  {{ $customResponses.portName }}.conf: |-
+    server {
+      listen 0.0.0.0:{{ $customResponses.port }};
+      {{- range $locations := $customResponses.locations }}
+      location {{ $locations.path }} {
+        default_type {{ $locations.mimeType }};
+        return {{ $locations.responseCode }} {{ $locations.body | squote }};{{ range $header := $locations.addHeaders }}
+        add_header {{ $header.name }} {{ $header.value }};
+        {{- end }}
+      }
+      {{- end }}
+    }
+  {{- end }}
+{{- end }}
