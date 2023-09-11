@@ -3,12 +3,12 @@ customResponses:
     portName: http-custom
     locations:
       - path: /health
-      responseCode: 200
-      body: '{"status": "OK"}'
-      mimeType: application/json
-      addHeaders:
-        - name: Referrer-Policy
-          value: '"no-referrer" always'
+        responseCode: 200
+        body: '{"status": "OK"}'
+        mimeType: application/json
+        addHeaders:
+          - name: Referrer-Policy
+            value: '"no-referrer" always'
   - port: 3081
     portName: http-custom2
     locations:
