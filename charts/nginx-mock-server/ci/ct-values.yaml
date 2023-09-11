@@ -1,0 +1,18 @@
+customResponses:
+  - port: 3080
+    portName: http-custom
+    locations:
+      - path: /health
+      responseCode: 200
+      body: '{"status": "OK"}'
+      mimeType: application/json
+      addHeaders:
+        - name: Referrer-Policy
+          value: '"no-referrer" always'
+  - port: 3081
+    portName: http-custom2
+    locations:
+      - path: /blah
+        responseCode: 404
+        body: '{"status": "Not Found"}'
+        mimeType: application/json
