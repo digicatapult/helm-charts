@@ -1,0 +1,32 @@
+annotations:
+  licenses: Apache-2.0
+apiVersion: v2
+# renovate: image=digicatapult/openapi-merger
+appVersion: 1.0.19
+dependencies:
+  - condition: apiDocsMock.enabled
+    name: nginx
+    alias: apiDocsMockOne
+    repository: https://charts.bitnami.com/bitnami
+    version: 13.x.x
+  - condition: apiDocsMock.enabled
+    name: nginx
+    alias: apiDocsMockTwo
+    repository: https://charts.bitnami.com/bitnami
+    version: 13.x.x
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 2.x.x
+description: The openapi-merger is designed to merge several openapi files into one and present a unified swagger interface
+keywords:
+  - IoT
+maintainers:
+  - name: digicatapult  # Digital Catapult
+    url: https://github.com/digicatapult/helm-charts
+    email: opensource@digicatapult.org.uk
+name: openapi-merger
+sources:
+  - https://github.com/digicatapult/openapi-merger
+version: 1.0.0
