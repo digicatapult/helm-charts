@@ -32,4 +32,4 @@ maintainers:
 name: wasp-open-api
 sources:
   - https://github.com/digicatapult/wasp-open-api
-version: 1.2.0
+version: 1.2.1
