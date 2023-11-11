@@ -95,7 +95,7 @@ apiDocsMock:
   enabled: false
 ## @param security Enable JWT Bearer security configuration in the merged OpenAPI spec
 ##
-security: false
+security: true
 
 ## Digital Catapult openapi-merger image
 ## ref: https://hub.docker.com/r/digicatapult/openapi-merger/tags/
@@ -489,8 +489,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: ""
-  #hostname: openapi-merger.local
+  hostname: openapi-merger.local
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/

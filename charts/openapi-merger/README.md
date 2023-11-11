@@ -79,7 +79,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `prepend`                                         | what to prepend to the pathModification in the merged OpenAPI spec                                                                                        | `""`                                                                                                                                                                                                                  |
 | `openApiTitle`                                    | The title of the merged OpenAPI spec                                                                                                                      | `Merged OpenAPI spec`                                                                                                                                                                                                 |
 | `apiDocsMock.enabled`                             | Enable API docs mock                                                                                                                                      | `false`                                                                                                                                                                                                               |
-| `security`                                        | Enable JWT Bearer security configuration in the merged OpenAPI spec                                                                                       | `false`                                                                                                                                                                                                               |
+| `security`                                        | Enable JWT Bearer security configuration in the merged OpenAPI spec                                                                                       | `true`                                                                                                                                                                                                                |
 | `image.registry`                                  | openapi-merger image registry                                                                                                                             | `docker.io`                                                                                                                                                                                                           |
 | `image.repository`                                | openapi-merger image repository                                                                                                                           | `digicatapult/openapi-merger`                                                                                                                                                                                         |
 | `image.tag`                                       | openapi-merger image tag (immutable tags are recommended)                                                                                                 | `v1.0.19`                                                                                                                                                                                                             |
@@ -173,32 +173,32 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Traffic Exposure Parameters
 
-| Name                               | Description                                                                                                                      | Value       |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `service.type`                     | openapi-merger service type                                                                                                      | `ClusterIP` |
-| `service.ports.http`               | openapi-merger service HTTP port                                                                                                 | `3000`      |
-| `service.nodePorts.http`           | Node port for HTTP                                                                                                               | `""`        |
-| `service.clusterIP`                | openapi-merger service Cluster IP                                                                                                | `""`        |
-| `service.loadBalancerIP`           | openapi-merger service Load Balancer IP                                                                                          | `""`        |
-| `service.loadBalancerSourceRanges` | openapi-merger service Load Balancer sources                                                                                     | `[]`        |
-| `service.externalTrafficPolicy`    | openapi-merger service external traffic policy                                                                                   | `Cluster`   |
-| `service.annotations`              | Additional custom annotations for openapi-merger service                                                                         | `{}`        |
-| `service.extraPorts`               | Extra ports to expose in openapi-merger service (normally used with the `sidecars` value)                                        | `[]`        |
-| `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`      |
-| `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`        |
-| `ingress.enabled`                  | Enable ingress record generation for openapi-merger                                                                              | `true`      |
-| `ingress.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`        |
-| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `""`        |
-| `ingress.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`        |
-| `ingress.paths`                    | Default paths for the ingress record                                                                                             | `[]`        |
-| `ingress.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |
-| `ingress.tls`                      | Enable TLS configuration for the host defined at `ingress.hostname` parameter                                                    | `false`     |
-| `ingress.selfSigned`               | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`     |
-| `ingress.extraHosts`               | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`        |
-| `ingress.extraPaths`               | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`        |
-| `ingress.extraTls`                 | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`        |
-| `ingress.secrets`                  | Custom TLS certificates as secrets                                                                                               | `[]`        |
-| `ingress.extraRules`               | Additional rules to be covered with this ingress record                                                                          | `[]`        |
+| Name                               | Description                                                                                                                      | Value                  |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `service.type`                     | openapi-merger service type                                                                                                      | `ClusterIP`            |
+| `service.ports.http`               | openapi-merger service HTTP port                                                                                                 | `3000`                 |
+| `service.nodePorts.http`           | Node port for HTTP                                                                                                               | `""`                   |
+| `service.clusterIP`                | openapi-merger service Cluster IP                                                                                                | `""`                   |
+| `service.loadBalancerIP`           | openapi-merger service Load Balancer IP                                                                                          | `""`                   |
+| `service.loadBalancerSourceRanges` | openapi-merger service Load Balancer sources                                                                                     | `[]`                   |
+| `service.externalTrafficPolicy`    | openapi-merger service external traffic policy                                                                                   | `Cluster`              |
+| `service.annotations`              | Additional custom annotations for openapi-merger service                                                                         | `{}`                   |
+| `service.extraPorts`               | Extra ports to expose in openapi-merger service (normally used with the `sidecars` value)                                        | `[]`                   |
+| `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`                 |
+| `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`                   |
+| `ingress.enabled`                  | Enable ingress record generation for openapi-merger                                                                              | `true`                 |
+| `ingress.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`                   |
+| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `openapi-merger.local` |
+| `ingress.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                   |
+| `ingress.paths`                    | Default paths for the ingress record                                                                                             | `[]`                   |
+| `ingress.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                   |
+| `ingress.tls`                      | Enable TLS configuration for the host defined at `ingress.hostname` parameter                                                    | `false`                |
+| `ingress.selfSigned`               | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`                |
+| `ingress.extraHosts`               | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`                   |
+| `ingress.extraPaths`               | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                   |
+| `ingress.extraTls`                 | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`                   |
+| `ingress.secrets`                  | Custom TLS certificates as secrets                                                                                               | `[]`                   |
+| `ingress.extraRules`               | Additional rules to be covered with this ingress record                                                                          | `[]`                   |
 
 ### cronJob parameters
 
