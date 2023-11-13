@@ -1174,6 +1174,43 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.2/inteli-api-1.29.2.tgz
     version: 1.29.2
+  openapi-merger:
+  - annotations:
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 1.0.19
+    created: "2023-11-13T10:55:53.41056957Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The openapi-merger is designed to merge several openapi files into
+      one and present a unified swagger interface
+    digest: 6c3aeedaf288a8ac76611511adfb18458cd6446945d3e4ef4fb96fba39d831ab
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: openapi-merger
+    sources:
+    - https://github.com/digicatapult/openapi-merger
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/openapi-merger-1.0.0/openapi-merger-1.0.0.tgz
+    version: 1.0.0
   wasp-authentication-service:
   - annotations:
       category: wasp
@@ -1435,6 +1472,46 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-event-service-0.0.10/wasp-event-service-0.0.10.tgz
     version: 0.0.10
   wasp-open-api:
+  - annotations:
+      category: wasp
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.4
+    created: "2023-11-13T10:55:53.540555214Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The wasp-open-api is a component of the WASP (Wide-Area-Sensor-Platform),
+      an IoT platform designed to normalise and consolidate data from multiple IoT
+      data services into one place.
+    digest: 17d38c7964a5867ba9fcc9489c30b9165b9fc415f2438ccbd52a7f060732f7a2
+    home: https://github.com/digicatapult/wasp-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: wasp-open-api
+    sources:
+    - https://github.com/digicatapult/wasp-open-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/wasp-open-api-1.2.1/wasp-open-api-1.2.1.tgz
+    version: 1.2.1
   - annotations:
       category: wasp
       licenses: Apache-2.0
@@ -2390,4 +2467,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2023-09-12T11:41:04.754845363Z"
+generated: "2023-11-13T10:55:53.540711908Z"
