@@ -79,7 +79,7 @@ paths:
 output: output/output.swagger.json
 ## @param baseUrl The base URL of the API
 ##
-baseUrl: 
+baseUrl:
   - http://localhost:3000/api
 ## @param apiDocsFilePath The path to the API docs file
 ##
