@@ -1,7 +1,7 @@
 {{/*
 Create name to be used with deployment.
 */}}
-{{- define "dscp-api.fullname" -}}
+{{- define "sqnc-api.fullname" -}}
     {{- if .Values.fullnameOverride -}}
         {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-"| lower -}}
     {{- else -}}
@@ -17,20 +17,20 @@ Create name to be used with deployment.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "dscp-api.chart" -}}
+{{- define "sqnc-api.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | lower }}
 {{- end }}
 
 {{/*
-Template to define the dscp-node hostname.
+Template to define the sqnc-node hostname.
 */}}
-{{- define "dscp-api.node-host" -}}
+{{- define "sqnc-api.node-host" -}}
   {{- if .Values.config.externalNodeHost -}}
     {{- .Values.config.externalNodeHost -}}
   {{- else if .Values.node.enabled -}}
-    {{- template "dscp-node.fullname" .Subcharts.node -}}
-  {{- else if .Values.ipfs.dscpNode.enabled -}}
-    {{- template "dscp-ipfs.dscpNodeHost" .Subcharts.ipfs -}}
+    {{- template "sqnc-node.fullname" .Subcharts.node -}}
+  {{- else if .Values.ipfs.sqncNode.enabled -}}
+    {{- template "sqnc-ipfs.sqncNodeHost" .Subcharts.ipfs -}}
   {{- else }}
     {{- fail "Must supply either externalNodeHost or enable node or ipfs" -}}
   {{- end -}}
@@ -39,16 +39,16 @@ Template to define the dscp-node hostname.
 {{/*
 Selector labels
 */}}
-{{- define "dscp-api.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "dscp-api.fullname" . }}
+{{- define "sqnc-api.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sqnc-api.fullname" . }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "dscp-api.labels" -}}
-helm.sh/chart: {{ include "dscp-api.chart" . }}
-{{ include "dscp-api.selectorLabels" . }}
+{{- define "sqnc-api.labels" -}}
+helm.sh/chart: {{ include "sqnc-api.chart" . }}
+{{ include "sqnc-api.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -58,7 +58,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Conditionally populate imagePullSecrets if present in the context
 */}}
-{{- define "dscp-api.imagePullSecrets" -}}
+{{- define "sqnc-api.imagePullSecrets" -}}
   {{- if (not (empty .Values.image.pullSecrets)) }}
 imagePullSecrets:
     {{- range .Values.image.pullSecrets }}

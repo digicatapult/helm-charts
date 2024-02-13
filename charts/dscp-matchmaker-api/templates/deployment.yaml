@@ -4,7 +4,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-matchmaker-api
+    app.kubernetes.io/component: sqnc-matchmaker-api
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -20,20 +20,20 @@ spec:
   {{- end }}
   selector:
     matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: dscp-matchmaker-api
+      app.kubernetes.io/component: sqnc-matchmaker-api
   template:
     metadata:
       {{- if .Values.podAnnotations }}
       annotations: {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
       {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: dscp-matchmaker-api
+        app.kubernetes.io/component: sqnc-matchmaker-api
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "dscp-matchmaker-api.serviceAccountName" . }}
-      {{- include "dscp-matchmaker-api.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "sqnc-matchmaker-api.serviceAccountName" . }}
+      {{- include "sqnc-matchmaker-api.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
       {{- end }}
@@ -41,8 +41,8 @@ spec:
       affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- else }}
       affinity:
-        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "dscp-matchmaker-api" "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "dscp-matchmaker-api" "context" $) | nindent 10 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "sqnc-matchmaker-api" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "sqnc-matchmaker-api" "context" $) | nindent 10 }}
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- if .Values.nodeSelector }}
@@ -70,29 +70,29 @@ spec:
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
         - name: database-create
-          image: {{ template "dscp-matchmaker-api.initDbCreate.image" . }}
+          image: {{ template "sqnc-matchmaker-api.initDbCreate.image" . }}
           imagePullPolicy: {{ .Values.initDbCreate.image.pullPolicy }}
           env:
             - name: DB_HOST
-              value: {{ template "dscp-matchmaker-api.databaseHost" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseHost" . }}
             - name: DB_PORT
-              value: {{ template "dscp-matchmaker-api.databasePort" . }}
+              value: {{ template "sqnc-matchmaker-api.databasePort" . }}
             - name: DB_NAME
-              value: {{ template "dscp-matchmaker-api.databaseName" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseName" . }}
             - name: DB_USERNAME
-              value: {{ template "dscp-matchmaker-api.databaseUser" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseUser" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-matchmaker-api.databaseSecretName" . }}
-                  key: {{ include "dscp-matchmaker-api.databaseSecretPasswordKey" . }}
+                  name: {{ include "sqnc-matchmaker-api.databaseSecretName" . }}
+                  key: {{ include "sqnc-matchmaker-api.databaseSecretPasswordKey" . }}
             - name: DB_POSTGRES_USERNAME
               value: {{ .Values.externalDatabase.postgresqlPostgresUser }}
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-matchmaker-api.databaseSecretName" . }}
-                  key: {{ include "dscp-matchmaker-api.databaseSecretPostgresPasswordKey" . }}
+                  name: {{ include "sqnc-matchmaker-api.databaseSecretName" . }}
+                  key: {{ include "sqnc-matchmaker-api.databaseSecretPostgresPasswordKey" . }}
           command:
             - '/bin/sh'
             - '-c'
@@ -110,7 +110,7 @@ spec:
         {{- end }}
         {{- if .Values.initDbMigrate.enable }}
         - name: database-migrate
-          image: {{ template "dscp-matchmaker-api.image" . }}
+          image: {{ template "sqnc-matchmaker-api.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ['npx', 'knex']
           {{- if .Values.initDbMigrate.args }}
@@ -120,26 +120,26 @@ spec:
             - name: NODE_ENV
               value: {{ .Values.initDbMigrate.environment }}
             - name: DB_HOST
-              value: {{ template "dscp-matchmaker-api.databaseHost" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseHost" . }}
             - name: DB_PORT
-              value: {{ template "dscp-matchmaker-api.databasePort" . }}
+              value: {{ template "sqnc-matchmaker-api.databasePort" . }}
             - name: DB_NAME
-              value: {{ template "dscp-matchmaker-api.databaseName" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseName" . }}
             - name: DB_USERNAME
-              value: {{ template "dscp-matchmaker-api.databaseUser" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseUser" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-matchmaker-api.databaseSecretName" . }}
-                  key: {{ include "dscp-matchmaker-api.databaseSecretPasswordKey" . }}
+                  name: {{ include "sqnc-matchmaker-api.databaseSecretName" . }}
+                  key: {{ include "sqnc-matchmaker-api.databaseSecretPasswordKey" . }}
         {{- end }}
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       {{- end }}
       containers:
-        - name: dscp-matchmaker-api
-          image: {{ template "dscp-matchmaker-api.image" . }}
+        - name: sqnc-matchmaker-api
+          image: {{ template "sqnc-matchmaker-api.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -155,7 +155,7 @@ spec:
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
           {{- end }}
           env:
-            - name: DSCP_DEBUG
+            - name: SQNC_DEBUG
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: PORT
               value: {{ .Values.containerPorts.http | quote }}
@@ -164,30 +164,30 @@ spec:
             - name: USER_URI
               value: {{ .Values.userUri }}
             - name: DB_HOST
-              value: {{ template "dscp-matchmaker-api.databaseHost" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseHost" . }}
             - name: DB_PORT
-              value: {{ template "dscp-matchmaker-api.databasePort" . }}
+              value: {{ template "sqnc-matchmaker-api.databasePort" . }}
             - name: DB_NAME
-              value: {{ template "dscp-matchmaker-api.databaseName" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseName" . }}
             - name: DB_USERNAME
-              value: {{ template "dscp-matchmaker-api.databaseUser" . }}
+              value: {{ template "sqnc-matchmaker-api.databaseUser" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-matchmaker-api.databaseSecretName" . }}
-                  key: {{ include "dscp-matchmaker-api.databaseSecretPasswordKey" . }}
+                  name: {{ include "sqnc-matchmaker-api.databaseSecretName" . }}
+                  key: {{ include "sqnc-matchmaker-api.databaseSecretPasswordKey" . }}
             - name: NODE_HOST
-              value: {{ include "dscp-matchmaker-api.dscpNodeHost" . }}
+              value: {{ include "sqnc-matchmaker-api.sqncNodeHost" . }}
             - name: NODE_PORT
-              value: {{ include "dscp-matchmaker-api.dscpNodePort" . }}
+              value: {{ include "sqnc-matchmaker-api.sqncNodePort" . }}
             - name: IPFS_HOST
-              value: {{ .Values.externalDscpIpfs.host | quote}}
+              value: {{ .Values.externalSqncIpfs.host | quote}}
             - name: IPFS_PORT
-              value: {{ .Values.externalDscpIpfs.port | quote }}
+              value: {{ .Values.externalSqncIpfs.port | quote }}
             - name: IDENTITY_SERVICE_HOST
-              value: {{ .Values.externalDscpIdentity.host | quote}}
+              value: {{ .Values.externalSqncIdentity.host | quote}}
             - name: IDENTITY_SERVICE_PORT
-              value: {{ .Values.externalDscpIdentity.port | quote }}
+              value: {{ .Values.externalSqncIdentity.port | quote }}
             - name: ENABLE_INDEXER
               value: {{ .Values.enableIndexer | quote }}
             {{- if .Values.extraEnvVars }}

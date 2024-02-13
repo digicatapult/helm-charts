@@ -17,9 +17,9 @@ readinessProbe:
   enabled: false
 startupProbe:
   enabled: false
-externalDscpIpfs:
+externalSqncIpfs:
   host: localhost
   port: 3000
-externalDscpIdentity:
+externalSqncIdentity:
   host: localhost
   port: 3000

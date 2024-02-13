@@ -2,16 +2,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "dscp-api.fullname" . }}
+  name: {{ include "sqnc-api.fullname" . }}
   labels:
-    {{- include "dscp-api.labels" . | nindent 4 }}
+    {{- include "sqnc-api.labels" . | nindent 4 }}
   {{- with .Values.service.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   selector:
-    name: {{ include "dscp-api.fullname" . }}
+    name: {{ include "sqnc-api.fullname" . }}
   ports:
     - protocol: 'TCP'
       port: {{ .Values.service.port }}

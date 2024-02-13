@@ -1,18 +1,18 @@
-# dscp-matchmaker-api
+# sqnc-matchmaker-api
 
-The dscp-matchmaker-api is a component of the DSCP (Digital-Supply-Chain-Platform), a blockchain platform. The dscp-matchmaker-api responsible for matching orders, and transactions as well as indexing blocks locally, it exposes  API for this purpose. See [https://github.com/digicatapult/dscp-documentation](https://github.com/digicatapult/dscp-documentation) for details.
+The sqnc-matchmaker-api is a component of the Sequence (SQNC) distributed ledger system. The sqnc-matchmaker-api responsible for matching orders, and transactions as well as indexing blocks locally, it exposes  API for this purpose. See [https://github.com/digicatapult/sqnc-documentation](https://github.com/digicatapult/sqnc-documentation) for details.
 
 
 ## TL;DR
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/dscp-matchmaker-api
+$ helm install my-release digicatapult/sqnc-matchmaker-api
 ```
 
 ## Introduction
 
-This chart bootstraps a [dscp-matchmaker-api](https://github.com/digicatapult/dscp-matchmaker-api/) deployment on a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
+This chart bootstraps a [sqnc-matchmaker-api](https://github.com/digicatapult/sqnc-matchmaker-api/) deployment on a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
 
 ## Prerequisites
 
@@ -26,12 +26,12 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/dscp-matchmaker-api
+$ helm install my-release digicatapult/sqnc-matchmaker-api
 ```
 
-The command deploys dscp-matchmaker-api on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys sqnc-matchmaker-api on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
-You will need to specify the `externalDscpIpfs` host and port as well as the `externalDscpIdentityService` host and port.
+You will need to specify the `externalSqncIpfs` host and port as well as the `externalSqncIdentityService` host and port.
 
 > **Tip**: List all releases using `helm list`
 
@@ -71,37 +71,37 @@ The command removes all the Kubernetes components associated with the chart and 
 | `diagnosticMode.command` | Command to override all containers in the deployment                                    | `["sleep"]`     |
 | `diagnosticMode.args`    | Args to override all containers in the deployment                                       | `["infinity"]`  |
 
-### DSCP Identity Service config parameters
+### SQNC Identity Service config parameters
 
 | Name                                              | Description                                                                                                                                                    | Value                              |
 | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
 | `logLevel`                                        | Allowed values: error, warn, info, debug                                                                                                                       | `info`                             |
 | `userUri`                                         | The SS58 address for this services owner                                                                                                                       | `//Alice`                          |
 | `enableIndexer`                                   | Enable the indexer                                                                                                                                             | `true`                             |
-| `image.registry`                                  | dscp-matchmaker-api image registry                                                                                                                             | `docker.io`                        |
-| `image.repository`                                | dscp-matchmaker-api image repository                                                                                                                           | `digicatapult/dscp-matchmaker-api` |
-| `image.tag`                                       | dscp-matchmaker-api image tag (immutable tags are recommended)                                                                                                 | `v1.2.1`                           |
-| `image.digest`                                    | dscp-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                               |
-| `image.pullPolicy`                                | dscp-matchmaker-api image pull policy                                                                                                                          | `IfNotPresent`                     |
-| `image.pullSecrets`                               | dscp-matchmaker-api image pull secrets                                                                                                                         | `[]`                               |
-| `image.debug`                                     | Enable dscp-matchmaker-api image debug mode                                                                                                                    | `false`                            |
-| `replicaCount`                                    | Number of dscp-matchmaker-api replicas to deploy                                                                                                               | `1`                                |
-| `containerPorts.http`                             | dscp-matchmaker-api HTTP container port                                                                                                                        | `3000`                             |
-| `livenessProbe.enabled`                           | Enable livenessProbe on dscp-matchmaker-api containers                                                                                                         | `true`                             |
+| `image.registry`                                  | sqnc-matchmaker-api image registry                                                                                                                             | `docker.io`                        |
+| `image.repository`                                | sqnc-matchmaker-api image repository                                                                                                                           | `digicatapult/sqnc-matchmaker-api` |
+| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                 | `v1.2.1`                           |
+| `image.digest`                                    | sqnc-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                               |
+| `image.pullPolicy`                                | sqnc-matchmaker-api image pull policy                                                                                                                          | `IfNotPresent`                     |
+| `image.pullSecrets`                               | sqnc-matchmaker-api image pull secrets                                                                                                                         | `[]`                               |
+| `image.debug`                                     | Enable sqnc-matchmaker-api image debug mode                                                                                                                    | `false`                            |
+| `replicaCount`                                    | Number of sqnc-matchmaker-api replicas to deploy                                                                                                               | `1`                                |
+| `containerPorts.http`                             | sqnc-matchmaker-api HTTP container port                                                                                                                        | `3000`                             |
+| `livenessProbe.enabled`                           | Enable livenessProbe on sqnc-matchmaker-api containers                                                                                                         | `true`                             |
 | `livenessProbe.path`                              | Path for to check for livenessProbe                                                                                                                            | `/health`                          |
 | `livenessProbe.initialDelaySeconds`               | Initial delay seconds for livenessProbe                                                                                                                        | `10`                               |
 | `livenessProbe.periodSeconds`                     | Period seconds for livenessProbe                                                                                                                               | `10`                               |
 | `livenessProbe.timeoutSeconds`                    | Timeout seconds for livenessProbe                                                                                                                              | `5`                                |
 | `livenessProbe.failureThreshold`                  | Failure threshold for livenessProbe                                                                                                                            | `3`                                |
 | `livenessProbe.successThreshold`                  | Success threshold for livenessProbe                                                                                                                            | `1`                                |
-| `readinessProbe.enabled`                          | Enable readinessProbe on dscp-matchmaker-api containers                                                                                                        | `true`                             |
+| `readinessProbe.enabled`                          | Enable readinessProbe on sqnc-matchmaker-api containers                                                                                                        | `true`                             |
 | `readinessProbe.path`                             | Path for to check for readinessProbe                                                                                                                           | `/health`                          |
 | `readinessProbe.initialDelaySeconds`              | Initial delay seconds for readinessProbe                                                                                                                       | `5`                                |
 | `readinessProbe.periodSeconds`                    | Period seconds for readinessProbe                                                                                                                              | `10`                               |
 | `readinessProbe.timeoutSeconds`                   | Timeout seconds for readinessProbe                                                                                                                             | `5`                                |
 | `readinessProbe.failureThreshold`                 | Failure threshold for readinessProbe                                                                                                                           | `5`                                |
 | `readinessProbe.successThreshold`                 | Success threshold for readinessProbe                                                                                                                           | `1`                                |
-| `startupProbe.enabled`                            | Enable startupProbe on dscp-matchmaker-api containers                                                                                                          | `false`                            |
+| `startupProbe.enabled`                            | Enable startupProbe on sqnc-matchmaker-api containers                                                                                                          | `false`                            |
 | `startupProbe.path`                               | Path for to check for startupProbe                                                                                                                             | `/health`                          |
 | `startupProbe.initialDelaySeconds`                | Initial delay seconds for startupProbe                                                                                                                         | `30`                               |
 | `startupProbe.periodSeconds`                      | Period seconds for startupProbe                                                                                                                                | `10`                               |
@@ -111,67 +111,67 @@ The command removes all the Kubernetes components associated with the chart and 
 | `customLivenessProbe`                             | Custom livenessProbe that overrides the default one                                                                                                            | `{}`                               |
 | `customReadinessProbe`                            | Custom readinessProbe that overrides the default one                                                                                                           | `{}`                               |
 | `customStartupProbe`                              | Custom startupProbe that overrides the default one                                                                                                             | `{}`                               |
-| `resources.limits`                                | The resources limits for the dscp-matchmaker-api containers                                                                                                    | `{}`                               |
-| `resources.requests`                              | The requested resources for the dscp-matchmaker-api containers                                                                                                 | `{}`                               |
-| `podSecurityContext.enabled`                      | Enabled dscp-matchmaker-api pods' Security Context                                                                                                             | `true`                             |
-| `podSecurityContext.fsGroup`                      | Set dscp-matchmaker-api pod's Security Context fsGroup                                                                                                         | `1001`                             |
-| `containerSecurityContext.enabled`                | Enabled dscp-matchmaker-api containers' Security Context                                                                                                       | `true`                             |
-| `containerSecurityContext.runAsUser`              | Set dscp-matchmaker-api containers' Security Context runAsUser                                                                                                 | `1001`                             |
-| `containerSecurityContext.runAsNonRoot`           | Set dscp-matchmaker-api containers' Security Context runAsNonRoot                                                                                              | `true`                             |
-| `containerSecurityContext.readOnlyRootFilesystem` | Set dscp-matchmaker-api containers' Security Context runAsNonRoot                                                                                              | `false`                            |
+| `resources.limits`                                | The resources limits for the sqnc-matchmaker-api containers                                                                                                    | `{}`                               |
+| `resources.requests`                              | The requested resources for the sqnc-matchmaker-api containers                                                                                                 | `{}`                               |
+| `podSecurityContext.enabled`                      | Enabled sqnc-matchmaker-api pods' Security Context                                                                                                             | `true`                             |
+| `podSecurityContext.fsGroup`                      | Set sqnc-matchmaker-api pod's Security Context fsGroup                                                                                                         | `1001`                             |
+| `containerSecurityContext.enabled`                | Enabled sqnc-matchmaker-api containers' Security Context                                                                                                       | `true`                             |
+| `containerSecurityContext.runAsUser`              | Set sqnc-matchmaker-api containers' Security Context runAsUser                                                                                                 | `1001`                             |
+| `containerSecurityContext.runAsNonRoot`           | Set sqnc-matchmaker-api containers' Security Context runAsNonRoot                                                                                              | `true`                             |
+| `containerSecurityContext.readOnlyRootFilesystem` | Set sqnc-matchmaker-api containers' Security Context runAsNonRoot                                                                                              | `false`                            |
 | `command`                                         | Override default container command (useful when using custom images)                                                                                           | `[]`                               |
 | `args`                                            | Override default container args (useful when using custom images)                                                                                              | `[]`                               |
-| `hostAliases`                                     | dscp-matchmaker-api pods host aliases                                                                                                                          | `[]`                               |
-| `podLabels`                                       | Extra labels for dscp-matchmaker-api pods                                                                                                                      | `{}`                               |
-| `podAnnotations`                                  | Annotations for dscp-matchmaker-api pods                                                                                                                       | `{}`                               |
+| `hostAliases`                                     | sqnc-matchmaker-api pods host aliases                                                                                                                          | `[]`                               |
+| `podLabels`                                       | Extra labels for sqnc-matchmaker-api pods                                                                                                                      | `{}`                               |
+| `podAnnotations`                                  | Annotations for sqnc-matchmaker-api pods                                                                                                                       | `{}`                               |
 | `podAffinityPreset`                               | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                            | `""`                               |
 | `podAntiAffinityPreset`                           | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                       | `soft`                             |
 | `pdb.create`                                      | Enable/disable a Pod Disruption Budget creation                                                                                                                | `false`                            |
 | `pdb.minAvailable`                                | Minimum number/percentage of pods that should remain scheduled                                                                                                 | `1`                                |
 | `pdb.maxUnavailable`                              | Maximum number/percentage of pods that may be made unavailable                                                                                                 | `""`                               |
-| `autoscaling.enabled`                             | Enable autoscaling for dscp-matchmaker-api                                                                                                                     | `false`                            |
-| `autoscaling.minReplicas`                         | Minimum number of dscp-matchmaker-api replicas                                                                                                                 | `""`                               |
-| `autoscaling.maxReplicas`                         | Maximum number of dscp-matchmaker-api replicas                                                                                                                 | `""`                               |
+| `autoscaling.enabled`                             | Enable autoscaling for sqnc-matchmaker-api                                                                                                                     | `false`                            |
+| `autoscaling.minReplicas`                         | Minimum number of sqnc-matchmaker-api replicas                                                                                                                 | `""`                               |
+| `autoscaling.maxReplicas`                         | Maximum number of sqnc-matchmaker-api replicas                                                                                                                 | `""`                               |
 | `autoscaling.targetCPU`                           | Target CPU utilization percentage                                                                                                                              | `""`                               |
 | `autoscaling.targetMemory`                        | Target Memory utilization percentage                                                                                                                           | `""`                               |
 | `nodeAffinityPreset.type`                         | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                      | `""`                               |
 | `nodeAffinityPreset.key`                          | Node label key to match. Ignored if `affinity` is set                                                                                                          | `""`                               |
 | `nodeAffinityPreset.values`                       | Node label values to match. Ignored if `affinity` is set                                                                                                       | `[]`                               |
-| `affinity`                                        | Affinity for dscp-matchmaker-api pods assignment                                                                                                               | `{}`                               |
-| `nodeSelector`                                    | Node labels for dscp-matchmaker-api pods assignment                                                                                                            | `{}`                               |
-| `tolerations`                                     | Tolerations for dscp-matchmaker-api pods assignment                                                                                                            | `[]`                               |
-| `updateStrategy.type`                             | dscp-matchmaker-api statefulset strategy type                                                                                                                  | `RollingUpdate`                    |
-| `priorityClassName`                               | dscp-matchmaker-api pods' priorityClassName                                                                                                                    | `""`                               |
+| `affinity`                                        | Affinity for sqnc-matchmaker-api pods assignment                                                                                                               | `{}`                               |
+| `nodeSelector`                                    | Node labels for sqnc-matchmaker-api pods assignment                                                                                                            | `{}`                               |
+| `tolerations`                                     | Tolerations for sqnc-matchmaker-api pods assignment                                                                                                            | `[]`                               |
+| `updateStrategy.type`                             | sqnc-matchmaker-api statefulset strategy type                                                                                                                  | `RollingUpdate`                    |
+| `priorityClassName`                               | sqnc-matchmaker-api pods' priorityClassName                                                                                                                    | `""`                               |
 | `topologySpreadConstraints`                       | Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template                                       | `[]`                               |
-| `schedulerName`                                   | Name of the k8s scheduler (other than default) for dscp-matchmaker-api pods                                                                                    | `""`                               |
+| `schedulerName`                                   | Name of the k8s scheduler (other than default) for sqnc-matchmaker-api pods                                                                                    | `""`                               |
 | `terminationGracePeriodSeconds`                   | Seconds Redmine pod needs to terminate gracefully                                                                                                              | `""`                               |
-| `lifecycleHooks`                                  | for the dscp-matchmaker-api container(s) to automate configuration before or after startup                                                                     | `{}`                               |
-| `extraEnvVars`                                    | Array with extra environment variables to add to dscp-matchmaker-api nodes                                                                                     | `[]`                               |
-| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for dscp-matchmaker-api nodes                                                                             | `""`                               |
-| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for dscp-matchmaker-api nodes                                                                                | `""`                               |
-| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the dscp-matchmaker-api pod(s)                                                                         | `[]`                               |
-| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the dscp-matchmaker-api container(s)                                                              | `[]`                               |
-| `sidecars`                                        | Add additional sidecar containers to the dscp-matchmaker-api pod(s)                                                                                            | `[]`                               |
-| `initContainers`                                  | Add additional init containers to the dscp-matchmaker-api pod(s)                                                                                               | `[]`                               |
+| `lifecycleHooks`                                  | for the sqnc-matchmaker-api container(s) to automate configuration before or after startup                                                                     | `{}`                               |
+| `extraEnvVars`                                    | Array with extra environment variables to add to sqnc-matchmaker-api nodes                                                                                     | `[]`                               |
+| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for sqnc-matchmaker-api nodes                                                                             | `""`                               |
+| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for sqnc-matchmaker-api nodes                                                                                | `""`                               |
+| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the sqnc-matchmaker-api pod(s)                                                                         | `[]`                               |
+| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the sqnc-matchmaker-api container(s)                                                              | `[]`                               |
+| `sidecars`                                        | Add additional sidecar containers to the sqnc-matchmaker-api pod(s)                                                                                            | `[]`                               |
+| `initContainers`                                  | Add additional init containers to the sqnc-matchmaker-api pod(s)                                                                                               | `[]`                               |
 
 ### Traffic Exposure Parameters
 
 | Name                               | Description                                                                                                                      | Value                       |
 | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `service.type`                     | dscp-matchmaker-api service type                                                                                                 | `ClusterIP`                 |
-| `service.ports.http`               | dscp-matchmaker-api service HTTP port                                                                                            | `3000`                      |
+| `service.type`                     | sqnc-matchmaker-api service type                                                                                                 | `ClusterIP`                 |
+| `service.ports.http`               | sqnc-matchmaker-api service HTTP port                                                                                            | `3000`                      |
 | `service.nodePorts.http`           | Node port for HTTP                                                                                                               | `""`                        |
-| `service.clusterIP`                | dscp-matchmaker-api service Cluster IP                                                                                           | `""`                        |
-| `service.loadBalancerIP`           | dscp-matchmaker-api service Load Balancer IP                                                                                     | `""`                        |
-| `service.loadBalancerSourceRanges` | dscp-matchmaker-api service Load Balancer sources                                                                                | `[]`                        |
-| `service.externalTrafficPolicy`    | dscp-matchmaker-api service external traffic policy                                                                              | `Cluster`                   |
-| `service.annotations`              | Additional custom annotations for dscp-matchmaker-api service                                                                    | `{}`                        |
-| `service.extraPorts`               | Extra ports to expose in dscp-matchmaker-api service (normally used with the `sidecars` value)                                   | `[]`                        |
+| `service.clusterIP`                | sqnc-matchmaker-api service Cluster IP                                                                                           | `""`                        |
+| `service.loadBalancerIP`           | sqnc-matchmaker-api service Load Balancer IP                                                                                     | `""`                        |
+| `service.loadBalancerSourceRanges` | sqnc-matchmaker-api service Load Balancer sources                                                                                | `[]`                        |
+| `service.externalTrafficPolicy`    | sqnc-matchmaker-api service external traffic policy                                                                              | `Cluster`                   |
+| `service.annotations`              | Additional custom annotations for sqnc-matchmaker-api service                                                                    | `{}`                        |
+| `service.extraPorts`               | Extra ports to expose in sqnc-matchmaker-api service (normally used with the `sidecars` value)                                   | `[]`                        |
 | `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`                      |
 | `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`                        |
-| `ingress.enabled`                  | Enable ingress record generation for dscp-matchmaker-api                                                                         | `true`                      |
+| `ingress.enabled`                  | Enable ingress record generation for sqnc-matchmaker-api                                                                         | `true`                      |
 | `ingress.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`                        |
-| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `dscp-matchmaker-api.local` |
+| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `sqnc-matchmaker-api.local` |
 | `ingress.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                        |
 | `ingress.paths`                    | Default paths for the ingress record                                                                                             | `[]`                        |
 | `ingress.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                        |
@@ -188,12 +188,12 @@ The command removes all the Kubernetes components associated with the chart and 
 
 | Name                             | Description                                                                                                                                                     | Value                                               |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| `initDbCreate.image.registry`    | dscp-routing-service image registry                                                                                                                             | `docker.io`                                         |
-| `initDbCreate.image.repository`  | dscp-routing-service image repository                                                                                                                           | `postgres`                                          |
-| `initDbCreate.image.tag`         | dscp-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`                                         |
-| `initDbCreate.image.digest`      | dscp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                                |
-| `initDbCreate.image.pullPolicy`  | dscp-routing-service image pull policy                                                                                                                          | `IfNotPresent`                                      |
-| `initDbCreate.image.pullSecrets` | dscp-routing-service image pull secrets                                                                                                                         | `[]`                                                |
+| `initDbCreate.image.registry`    | sqnc-routing-service image registry                                                                                                                             | `docker.io`                                         |
+| `initDbCreate.image.repository`  | sqnc-routing-service image repository                                                                                                                           | `postgres`                                          |
+| `initDbCreate.image.tag`         | sqnc-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`                                         |
+| `initDbCreate.image.digest`      | sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                                |
+| `initDbCreate.image.pullPolicy`  | sqnc-routing-service image pull policy                                                                                                                          | `IfNotPresent`                                      |
+| `initDbCreate.image.pullSecrets` | sqnc-routing-service image pull secrets                                                                                                                         | `[]`                                                |
 | `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`                                              |
 | `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`                                        |
 | `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest","--knexfile","lib/db/knexfile"]` |
@@ -219,9 +219,9 @@ The command removes all the Kubernetes components associated with the chart and 
 | `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`         |
 | `externalDatabase.host`                              | Database host                                                            | `""`                 |
 | `externalDatabase.port`                              | Database port number                                                     | `5432`               |
-| `externalDatabase.user`                              | Non-root username for dscp-matchmaker-api                                | `matchmaker_service` |
-| `externalDatabase.password`                          | Password for the non-root username for dscp-matchmaker-api               | `""`                 |
-| `externalDatabase.database`                          | dscp-matchmaker-api database name                                        | `matchmaker`         |
+| `externalDatabase.user`                              | Non-root username for sqnc-matchmaker-api                                | `matchmaker_service` |
+| `externalDatabase.password`                          | Password for the non-root username for sqnc-matchmaker-api               | `""`                 |
+| `externalDatabase.database`                          | sqnc-matchmaker-api database name                                        | `matchmaker`         |
 | `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`               |
 | `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`           |
 | `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`                 |
@@ -229,29 +229,29 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                 |
 | `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                 |
 
-### DSCP-Node Parameters
+### SQNC-Node Parameters
 
 | Name                    | Description                                                                               | Value  |
 | ----------------------- | ----------------------------------------------------------------------------------------- | ------ |
-| `node.enabled`          | Enable DSCP-Node subchart                                                                 | `true` |
-| `node.nameOverride`     | String to partially override dscp-node.fullname template (will maintain the release name) | `""`   |
-| `node.fullnameOverride` | String to fully override dscp-node.fullname template                                      | `""`   |
-| `externalDscpNode.host` | External DSCP-Node hostname to query                                                      | `""`   |
-| `externalDscpNode.port` | External DSCP-Node port to query                                                          | `""`   |
+| `node.enabled`          | Enable SQNC-Node subchart                                                                 | `true` |
+| `node.nameOverride`     | String to partially override sqnc-node.fullname template (will maintain the release name) | `""`   |
+| `node.fullnameOverride` | String to fully override sqnc-node.fullname template                                      | `""`   |
+| `externalSqncNode.host` | External SQNC-Node hostname to query                                                      | `""`   |
+| `externalSqncNode.port` | External SQNC-Node port to query                                                          | `""`   |
 
-### DSCP-Ipfs parameters
+### SQNC-Ipfs parameters
 
 | Name                    | Description                 | Value |
 | ----------------------- | --------------------------- | ----- |
-| `externalDscpIpfs.host` | External DSCP-Ipfs hostname | `""`  |
-| `externalDscpIpfs.port` | External DSCP-Ipfs port     | `""`  |
+| `externalSqncIpfs.host` | External SQNC-Ipfs hostname | `""`  |
+| `externalSqncIpfs.port` | External SQNC-Ipfs port     | `""`  |
 
-### DSCP-Identity-Service parameters
+### SQNC-Identity-Service parameters
 
 | Name                        | Description                             | Value |
 | --------------------------- | --------------------------------------- | ----- |
-| `externalDscpIdentity.host` | External DSCP-Identity-Service hostname | `""`  |
-| `externalDscpIdentity.port` | External DSCP-Identity-Service port     | `""`  |
+| `externalSqncIdentity.host` | External SQNC-Identity-Service hostname | `""`  |
+| `externalSqncIdentity.port` | External SQNC-Identity-Service port     | `""`  |
 
 
 ## Configuration and installation details
@@ -266,11 +266,11 @@ Digital Catapult will release a new chart updating its containers if a new versi
 
 This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress-controller](https://github.com/bitnami/charts/tree/main/bitnami/nginx-ingress-controller) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
 
-To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hostname` property can be used to set the host name. The `ingress.tls` parameter can be used to add the TLS configuration for this host. It is also possible to have more than one host, with a separate TLS configuration for each host. [Learn more about configuring and using Ingress](https://docs.bitnami.com/kubernetes/apps/dscp-matchmaker-api/configuration/configure-use-ingress/).
+To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hostname` property can be used to set the host name. The `ingress.tls` parameter can be used to add the TLS configuration for this host. It is also possible to have more than one host, with a separate TLS configuration for each host. [Learn more about configuring and using Ingress](https://docs.bitnami.com/kubernetes/apps/sqnc-matchmaker-api/configuration/configure-use-ingress/).
 
 ### TLS secrets
 
-The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://docs.bitnami.com/kubernetes/apps/dscp-matchmaker-api/administration/enable-tls/).
+The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://docs.bitnami.com/kubernetes/apps/sqnc-matchmaker-api/administration/enable-tls/).
 
 ### Additional environment variables
 
@@ -286,7 +286,7 @@ Alternatively, you can use a ConfigMap or a Secret with the environment variable
 
 ### Sidecars
 
-If additional containers are needed in the same pod as dscp-matchmaker-api (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://docs.bitnami.com/kubernetes/apps/dscp-matchmaker-api/administration/configure-use-sidecars/).
+If additional containers are needed in the same pod as sqnc-matchmaker-api (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://docs.bitnami.com/kubernetes/apps/sqnc-matchmaker-api/administration/configure-use-sidecars/).
 
 ### Pod affinity
 

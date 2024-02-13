@@ -132,7 +132,7 @@ ipfs:
     ##
     privateKey: privateKey
 
-## @section DSCP IPFS Service config parameters
+## @section SQNC IPFS Service config parameters
 ##
 
 ## @param logLevel logLevel for nodeJS service Allowed values: error, warn, info, debug
@@ -144,19 +144,19 @@ healthCheckPollPeriod: 30000
 ## @param healthCheckTimeout Health check timeout in milliseconds
 ##
 healthCheckTimeout: 2000
-## Digital Catapult dscp-ipfs image
-## ref: https://hub.docker.com/r/digicatapult/dscp-ipfs/tags/
-## @param image.registry dscp-ipfs image registry
-## @param image.repository dscp-ipfs image repository
-## @param image.tag dscp-ipfs image tag (immutable tags are recommended)
-## @param image.digest dscp-ipfs image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-## @param image.pullPolicy dscp-ipfs image pull policy
-## @param image.pullSecrets dscp-ipfs image pull secrets
-## @param image.debug Enable dscp-ipfs image debug mode
+## Digital Catapult sqnc-ipfs image
+## ref: https://hub.docker.com/r/digicatapult/sqnc-ipfs/tags/
+## @param image.registry sqnc-ipfs image registry
+## @param image.repository sqnc-ipfs image repository
+## @param image.tag sqnc-ipfs image tag (immutable tags are recommended)
+## @param image.digest sqnc-ipfs image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+## @param image.pullPolicy sqnc-ipfs image pull policy
+## @param image.pullSecrets sqnc-ipfs image pull secrets
+## @param image.debug Enable sqnc-ipfs image debug mode
 ##
 image:
   registry: docker.io
-  repository: digicatapult/dscp-ipfs
+  repository: digicatapult/sqnc-ipfs
   tag: v2.9.32
   digest: ""
   ## Specify a imagePullPolicy
@@ -175,20 +175,20 @@ image:
   ## Enable debug mode
   ##
   debug: false
-## @param replicaCount Number of dscp-ipfs replicas to deploy
+## @param replicaCount Number of sqnc-ipfs replicas to deploy
 ##
 replicaCount: 1
-## @param containerPorts.http dscp-ipfs HTTP container port
-## @param containerPorts.swarm dscp-ipfs IPFS subsystem Swarm container port
-## @param containerPorts.api dscp-ipfs IPFS subsystem api container port
+## @param containerPorts.http sqnc-ipfs HTTP container port
+## @param containerPorts.swarm sqnc-ipfs IPFS subsystem Swarm container port
+## @param containerPorts.api sqnc-ipfs IPFS subsystem api container port
 ##
 containerPorts:
   http: 3000
   api: 5001
   swarm: 4001
-## Configure extra options for dscp-ipfs containers' liveness and readiness probes
+## Configure extra options for sqnc-ipfs containers' liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe on dscp-ipfs containers
+## @param livenessProbe.enabled Enable livenessProbe on sqnc-ipfs containers
 ## @param livenessProbe.httpGet.path Path for to check for livenessProbe
 ## @param livenessProbe.httpGet.port Port for to check for livenessProbe
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
@@ -207,7 +207,7 @@ livenessProbe:
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
-## @param readinessProbe.enabled Enable readinessProbe on dscp-ipfs containers
+## @param readinessProbe.enabled Enable readinessProbe on sqnc-ipfs containers
 ## @param readinessProbe.httpGet.path Path for to check for readinessProbe
 ## @param readinessProbe.httpGet.port Port for to check for readinessProbe
 ## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
@@ -226,7 +226,7 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 5
   successThreshold: 1
-## @param startupProbe.enabled Enable startupProbe on dscp-ipfs containers
+## @param startupProbe.enabled Enable startupProbe on sqnc-ipfs containers
 ## @param startupProbe.httpGet.path Path for to check for startupProbe
 ## @param startupProbe.httpGet.port Port for to check for startupProbe
 ## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
@@ -254,28 +254,28 @@ customReadinessProbe: {}
 ## @param customStartupProbe Custom startupProbe that overrides the default one
 ##
 customStartupProbe: {}
-## dscp-ipfs resource requests and limits
+## sqnc-ipfs resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources.limits The resources limits for the dscp-ipfs containers
-## @param resources.requests The requested resources for the dscp-ipfs containers
+## @param resources.limits The resources limits for the sqnc-ipfs containers
+## @param resources.requests The requested resources for the sqnc-ipfs containers
 ##
 resources:
   limits: {}
   requests: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled dscp-ipfs pods' Security Context
-## @param podSecurityContext.fsGroup Set dscp-ipfs pod's Security Context fsGroup
+## @param podSecurityContext.enabled Enabled sqnc-ipfs pods' Security Context
+## @param podSecurityContext.fsGroup Set sqnc-ipfs pod's Security Context fsGroup
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enabled dscp-ipfs containers' Security Context
-## @param containerSecurityContext.runAsUser Set dscp-ipfs containers' Security Context runAsUser
-## @param containerSecurityContext.runAsNonRoot Set dscp-ipfs containers' Security Context runAsNonRoot
-## @param containerSecurityContext.readOnlyRootFilesystem Set dscp-ipfs containers' Security Context runAsNonRoot
+## @param containerSecurityContext.enabled Enabled sqnc-ipfs containers' Security Context
+## @param containerSecurityContext.runAsUser Set sqnc-ipfs containers' Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set sqnc-ipfs containers' Security Context runAsNonRoot
+## @param containerSecurityContext.readOnlyRootFilesystem Set sqnc-ipfs containers' Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
@@ -290,15 +290,15 @@ command: ['./app/index.js']
 ## @param args Override default container args (useful when using custom images)
 ##
 args: []
-## @param hostAliases dscp-ipfs pods host aliases
+## @param hostAliases sqnc-ipfs pods host aliases
 ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
 ##
 hostAliases: []
-## @param podLabels Extra labels for dscp-ipfs pods
+## @param podLabels Extra labels for sqnc-ipfs pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
-## @param podAnnotations Annotations for dscp-ipfs pods
+## @param podAnnotations Annotations for sqnc-ipfs pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
@@ -322,9 +322,9 @@ pdb:
   maxUnavailable: ""
 ## Autoscaling configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for dscp-ipfs
-## @param autoscaling.minReplicas Minimum number of dscp-ipfs replicas
-## @param autoscaling.maxReplicas Maximum number of dscp-ipfs replicas
+## @param autoscaling.enabled Enable autoscaling for sqnc-ipfs
+## @param autoscaling.minReplicas Minimum number of sqnc-ipfs replicas
+## @param autoscaling.maxReplicas Maximum number of sqnc-ipfs replicas
 ## @param autoscaling.targetCPU Target CPU utilization percentage
 ## @param autoscaling.targetMemory Target Memory utilization percentage
 ##
@@ -351,20 +351,20 @@ nodeAffinityPreset:
   ##   - e2e-az2
   ##
   values: []
-## @param affinity Affinity for dscp-ipfs pods assignment
+## @param affinity Affinity for sqnc-ipfs pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: `podAffinityPreset`, `podAntiAffinityPreset`, and `nodeAffinityPreset` will be ignored when it's set
 ##
 affinity: {}
-## @param nodeSelector Node labels for dscp-ipfs pods assignment
+## @param nodeSelector Node labels for sqnc-ipfs pods assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## @param tolerations Tolerations for dscp-ipfs pods assignment
+## @param tolerations Tolerations for sqnc-ipfs pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
-## @param updateStrategy.type dscp-ipfs statefulset strategy type
+## @param updateStrategy.type sqnc-ipfs statefulset strategy type
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
 updateStrategy:
@@ -377,14 +377,14 @@ updateStrategy:
 ##
 podManagementPolicy: OrderedReady
 
-## @param priorityClassName dscp-ipfs pods' priorityClassName
+## @param priorityClassName sqnc-ipfs pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
 ##
 topologySpreadConstraints: []
-## @param schedulerName Name of the k8s scheduler (other than default) for dscp-ipfs pods
+## @param schedulerName Name of the k8s scheduler (other than default) for sqnc-ipfs pods
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
 ##
 schedulerName: ""
@@ -392,29 +392,29 @@ schedulerName: ""
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 ##
 terminationGracePeriodSeconds: ""
-## @param lifecycleHooks for the dscp-ipfs container(s) to automate configuration before or after startup
+## @param lifecycleHooks for the sqnc-ipfs container(s) to automate configuration before or after startup
 ##
 lifecycleHooks: {}
-## @param extraEnvVars Array with extra environment variables to add to dscp-ipfs nodes
+## @param extraEnvVars Array with extra environment variables to add to sqnc-ipfs nodes
 ## e.g:
 ## extraEnvVars:
 ##   - name: FOO
 ##     value: "bar"
 ##
 extraEnvVars: []
-## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for dscp-ipfs nodes
+## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for sqnc-ipfs nodes
 ##
 extraEnvVarsCM: ""
-## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for dscp-ipfs nodes
+## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for sqnc-ipfs nodes
 ##
 extraEnvVarsSecret: ""
-## @param extraVolumes Optionally specify extra list of additional volumes for the dscp-ipfs pod(s)
+## @param extraVolumes Optionally specify extra list of additional volumes for the sqnc-ipfs pod(s)
 ##
 extraVolumes: []
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the dscp-ipfs container(s)
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the sqnc-ipfs container(s)
 ##
 extraVolumeMounts: []
-## @param sidecars Add additional sidecar containers to the dscp-ipfs pod(s)
+## @param sidecars Add additional sidecar containers to the sqnc-ipfs pod(s)
 ## e.g:
 ## sidecars:
 ##   - name: your-image-name
@@ -425,7 +425,7 @@ extraVolumeMounts: []
 ##         containerPort: 1234
 ##
 sidecars: []
-## @param initContainers Add additional init containers to the dscp-ipfs pod(s)
+## @param initContainers Add additional init containers to the sqnc-ipfs pod(s)
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 ## e.g:
 ## initContainers:
@@ -439,13 +439,13 @@ initContainers: []
 ## @section Traffic Exposure Parameters
 ##
 
-## dscp-ipfs api service parameters
+## sqnc-ipfs api service parameters
 ##
 service:
-  ## @param service.type dscp-ipfs service type
+  ## @param service.type sqnc-ipfs service type
   ##
   type: ClusterIP
-  ## @param service.ports.http dscp-ipfs service HTTP port
+  ## @param service.ports.http sqnc-ipfs service HTTP port
   ##
   ports:
     http: 80
@@ -455,30 +455,30 @@ service:
   ##
   nodePorts:
     http: ""
-  ## @param service.clusterIP dscp-ipfs service Cluster IP
+  ## @param service.clusterIP sqnc-ipfs service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.loadBalancerIP dscp-ipfs service Load Balancer IP
+  ## @param service.loadBalancerIP sqnc-ipfs service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param service.loadBalancerSourceRanges dscp-ipfs service Load Balancer sources
+  ## @param service.loadBalancerSourceRanges sqnc-ipfs service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param service.externalTrafficPolicy dscp-ipfs service external traffic policy
+  ## @param service.externalTrafficPolicy sqnc-ipfs service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param service.annotations Additional custom annotations for dscp-ipfs service
+  ## @param service.annotations Additional custom annotations for sqnc-ipfs service
   ##
   annotations: {}
-  ## @param service.extraPorts Extra ports to expose in dscp-ipfs service (normally used with the `sidecars` value)
+  ## @param service.extraPorts Extra ports to expose in sqnc-ipfs service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -494,10 +494,10 @@ service:
   sessionAffinityConfig: {}
 
 swarmService:
-  ## @param swarmService.type dscp-ipfs dscp-ipfs swarm service type
+  ## @param swarmService.type sqnc-ipfs sqnc-ipfs swarm service type
   ##
   type: ClusterIP
-  ## @param swarmService.ports.swarm dscp-ipfs swarm service HTTP port
+  ## @param swarmService.ports.swarm sqnc-ipfs swarm service HTTP port
   ##
   ports:
     swarm: 4001
@@ -507,30 +507,30 @@ swarmService:
   ##
   nodePorts:
     swarm: ""
-  ## @param swarmService.clusterIP dscp-ipfs swarm service Cluster IP
+  ## @param swarmService.clusterIP sqnc-ipfs swarm service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param  swarmService.loadBalancerIP dscp-ipfs swarm service Load Balancer IP
+  ## @param  swarmService.loadBalancerIP sqnc-ipfs swarm service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param swarmService.loadBalancerSourceRanges dscp-ipfs service Load Balancer sources
+  ## @param swarmService.loadBalancerSourceRanges sqnc-ipfs service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param swarmService.externalTrafficPolicy dscp-ipfs swarm service external traffic policy
+  ## @param swarmService.externalTrafficPolicy sqnc-ipfs swarm service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param swarmService.annotations Additional custom annotations for dscp-ipfs swarm service
+  ## @param swarmService.annotations Additional custom annotations for sqnc-ipfs swarm service
   ##
   annotations: {}
-  ## @param swarmService.extraPorts Extra ports to expose in dscp-ipfs swarm service (normally used with the `sidecars` value)
+  ## @param swarmService.extraPorts Extra ports to expose in sqnc-ipfs swarm service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param swarmService.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -546,10 +546,10 @@ swarmService:
   sessionAffinityConfig: {}
 
 apiService:
-  ## @param apiService.type dscp-ipfs dscp-ipfs api service type
+  ## @param apiService.type sqnc-ipfs sqnc-ipfs api service type
   ##
   type: ClusterIP
-  ## @param apiService.ports.api dscp-ipfs api service HTTP port
+  ## @param apiService.ports.api sqnc-ipfs api service HTTP port
   ##
   ports:
     api: 5001
@@ -559,30 +559,30 @@ apiService:
   ##
   nodePorts:
     api: ""
-  ## @param apiService.clusterIP dscp-ipfs api service Cluster IP
+  ## @param apiService.clusterIP sqnc-ipfs api service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param  apiService.loadBalancerIP dscp-ipfs api service Load Balancer IP
+  ## @param  apiService.loadBalancerIP sqnc-ipfs api service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param apiService.loadBalancerSourceRanges dscp-ipfs service Load Balancer sources
+  ## @param apiService.loadBalancerSourceRanges sqnc-ipfs service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param apiService.externalTrafficPolicy dscp-ipfs api service external traffic policy
+  ## @param apiService.externalTrafficPolicy sqnc-ipfs api service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param apiService.annotations Additional custom annotations for dscp-ipfs api service
+  ## @param apiService.annotations Additional custom annotations for sqnc-ipfs api service
   ##
   annotations: {}
-  ## @param apiService.extraPorts Extra ports to expose in dscp-ipfs api service (normally used with the `sidecars` value)
+  ## @param apiService.extraPorts Extra ports to expose in sqnc-ipfs api service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param apiService.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -715,20 +715,20 @@ serviceAccount:
   ##
   automountServiceAccountToken: true
 
-## @section DSCP-Node Parameters
-dscpNode:
-  ## @param dscpNode.enabled Enable DSCP-Node subchart
+## @section SQNC-Node Parameters
+sqncNode:
+  ## @param sqncNode.enabled Enable SQNC-Node subchart
   enabled: true
-  ## @param dscpNode.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
+  ## @param sqncNode.nameOverride String to partially override sqnc-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
-  ## @param dscpNode.fullnameOverride String to fully override dscp-node.fullname template
+  ## @param sqncNode.fullnameOverride String to fully override sqnc-node.fullname template
   ##
   fullnameOverride: ""
-## @param externalDscpNode.host External DSCP-Node hostname to query
+## @param externalSqncNode.host External SQNC-Node hostname to query
 ##
-externalDscpNode:
+externalSqncNode:
   host: ""
-  ## @param externalDscpNode.port External DSCP-Node port to query
+  ## @param externalSqncNode.port External SQNC-Node port to query
   ##
   port: ""

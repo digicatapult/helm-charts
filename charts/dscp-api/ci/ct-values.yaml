@@ -20,7 +20,7 @@ ipfs:
     enabled: false
   command: []
   args: []
-  dscpNode:
+  sqncNode:
     enabled: true
     node:
       chain: dev

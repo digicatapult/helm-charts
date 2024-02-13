@@ -1,18 +1,18 @@
-# dscp-identity-service
+# sqnc-identity-service
 
-The dscp-identity-service is a component of the DSCP (Digital-Supply-Chain-Platform), a blockchain platform. The dscp-identity-service is responsible maintaining an index of chain participants and identifying them, it exposes  API for this purpose. See [https://github.com/digicatapult/dscp-documentation](https://github.com/digicatapult/dscp-documentation) for details.
+The sqnc-identity-service is a component of the Sequence (SQNC) distributed ledger system. The sqnc-identity-service is responsible maintaining an index of chain participants and identifying them, it exposes  API for this purpose. See [https://github.com/digicatapult/sqnc-documentation](https://github.com/digicatapult/sqnc-documentation) for details.
 
 
 ## TL;DR
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/dscp-identity-service
+$ helm install my-release digicatapult/sqnc-identity-service
 ```
 
 ## Introduction
 
-This chart bootstraps a [dscp-identity-service](https://github.com/digicatapult/dscp-identity-service/) deployment on a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
+This chart bootstraps a [sqnc-identity-service](https://github.com/digicatapult/sqnc-identity-service/) deployment on a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
 
 ## Prerequisites
 
@@ -26,10 +26,10 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/dscp-identity-service
+$ helm install my-release digicatapult/sqnc-identity-service
 ```
 
-The command deploys dscp-identity-service on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys sqnc-identity-service on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -69,7 +69,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `diagnosticMode.command` | Command to override all containers in the deployment                                    | `["sleep"]`     |
 | `diagnosticMode.args`    | Args to override all containers in the deployment                                       | `["infinity"]`  |
 
-### DSCP Identity Service config parameters
+### SQNC Identity Service config parameters
 
 | Name                                              | Description                                                                                                                                                      | Value                                |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
@@ -82,30 +82,30 @@ The command removes all the Kubernetes components associated with the chart and 
 | `authJwksUri`                                     | The URI of the JWKS endpoint for the JWT auth provider                                                                                                           | `""`                                 |
 | `authAudience`                                    | The audience for the JWT auth provider                                                                                                                           | `""`                                 |
 | `authIssuer`                                      | The issuer for the JWT auth provider                                                                                                                             | `""`                                 |
-| `image.registry`                                  | dscp-identity-service image registry                                                                                                                             | `docker.io`                          |
-| `image.repository`                                | dscp-identity-service image repository                                                                                                                           | `digicatapult/dscp-identity-service` |
-| `image.tag`                                       | dscp-identity-service image tag (immutable tags are recommended)                                                                                                 | `v1.9.3`                             |
-| `image.digest`                                    | dscp-identity-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                 |
-| `image.pullPolicy`                                | dscp-identity-service image pull policy                                                                                                                          | `IfNotPresent`                       |
-| `image.pullSecrets`                               | dscp-identity-service image pull secrets                                                                                                                         | `[]`                                 |
-| `image.debug`                                     | Enable dscp-identity-service image debug mode                                                                                                                    | `false`                              |
-| `replicaCount`                                    | Number of dscp-identity-service replicas to deploy                                                                                                               | `1`                                  |
-| `containerPorts.http`                             | dscp-identity-service HTTP container port                                                                                                                        | `3000`                               |
-| `livenessProbe.enabled`                           | Enable livenessProbe on dscp-identity-service containers                                                                                                         | `true`                               |
+| `image.registry`                                  | sqnc-identity-service image registry                                                                                                                             | `docker.io`                          |
+| `image.repository`                                | sqnc-identity-service image repository                                                                                                                           | `digicatapult/sqnc-identity-service` |
+| `image.tag`                                       | sqnc-identity-service image tag (immutable tags are recommended)                                                                                                 | `v1.9.3`                             |
+| `image.digest`                                    | sqnc-identity-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                 |
+| `image.pullPolicy`                                | sqnc-identity-service image pull policy                                                                                                                          | `IfNotPresent`                       |
+| `image.pullSecrets`                               | sqnc-identity-service image pull secrets                                                                                                                         | `[]`                                 |
+| `image.debug`                                     | Enable sqnc-identity-service image debug mode                                                                                                                    | `false`                              |
+| `replicaCount`                                    | Number of sqnc-identity-service replicas to deploy                                                                                                               | `1`                                  |
+| `containerPorts.http`                             | sqnc-identity-service HTTP container port                                                                                                                        | `3000`                               |
+| `livenessProbe.enabled`                           | Enable livenessProbe on sqnc-identity-service containers                                                                                                         | `true`                               |
 | `livenessProbe.path`                              | Path for to check for livenessProbe                                                                                                                              | `/health`                            |
 | `livenessProbe.initialDelaySeconds`               | Initial delay seconds for livenessProbe                                                                                                                          | `10`                                 |
 | `livenessProbe.periodSeconds`                     | Period seconds for livenessProbe                                                                                                                                 | `10`                                 |
 | `livenessProbe.timeoutSeconds`                    | Timeout seconds for livenessProbe                                                                                                                                | `5`                                  |
 | `livenessProbe.failureThreshold`                  | Failure threshold for livenessProbe                                                                                                                              | `3`                                  |
 | `livenessProbe.successThreshold`                  | Success threshold for livenessProbe                                                                                                                              | `1`                                  |
-| `readinessProbe.enabled`                          | Enable readinessProbe on dscp-identity-service containers                                                                                                        | `true`                               |
+| `readinessProbe.enabled`                          | Enable readinessProbe on sqnc-identity-service containers                                                                                                        | `true`                               |
 | `readinessProbe.path`                             | Path for to check for readinessProbe                                                                                                                             | `/health`                            |
 | `readinessProbe.initialDelaySeconds`              | Initial delay seconds for readinessProbe                                                                                                                         | `5`                                  |
 | `readinessProbe.periodSeconds`                    | Period seconds for readinessProbe                                                                                                                                | `10`                                 |
 | `readinessProbe.timeoutSeconds`                   | Timeout seconds for readinessProbe                                                                                                                               | `5`                                  |
 | `readinessProbe.failureThreshold`                 | Failure threshold for readinessProbe                                                                                                                             | `5`                                  |
 | `readinessProbe.successThreshold`                 | Success threshold for readinessProbe                                                                                                                             | `1`                                  |
-| `startupProbe.enabled`                            | Enable startupProbe on dscp-identity-service containers                                                                                                          | `false`                              |
+| `startupProbe.enabled`                            | Enable startupProbe on sqnc-identity-service containers                                                                                                          | `false`                              |
 | `startupProbe.path`                               | Path for to check for startupProbe                                                                                                                               | `/health`                            |
 | `startupProbe.initialDelaySeconds`                | Initial delay seconds for startupProbe                                                                                                                           | `30`                                 |
 | `startupProbe.periodSeconds`                      | Period seconds for startupProbe                                                                                                                                  | `10`                                 |
@@ -115,67 +115,67 @@ The command removes all the Kubernetes components associated with the chart and 
 | `customLivenessProbe`                             | Custom livenessProbe that overrides the default one                                                                                                              | `{}`                                 |
 | `customReadinessProbe`                            | Custom readinessProbe that overrides the default one                                                                                                             | `{}`                                 |
 | `customStartupProbe`                              | Custom startupProbe that overrides the default one                                                                                                               | `{}`                                 |
-| `resources.limits`                                | The resources limits for the dscp-identity-service containers                                                                                                    | `{}`                                 |
-| `resources.requests`                              | The requested resources for the dscp-identity-service containers                                                                                                 | `{}`                                 |
-| `podSecurityContext.enabled`                      | Enabled dscp-identity-service pods' Security Context                                                                                                             | `true`                               |
-| `podSecurityContext.fsGroup`                      | Set dscp-identity-service pod's Security Context fsGroup                                                                                                         | `1001`                               |
-| `containerSecurityContext.enabled`                | Enabled dscp-identity-service containers' Security Context                                                                                                       | `true`                               |
-| `containerSecurityContext.runAsUser`              | Set dscp-identity-service containers' Security Context runAsUser                                                                                                 | `1001`                               |
-| `containerSecurityContext.runAsNonRoot`           | Set dscp-identity-service containers' Security Context runAsNonRoot                                                                                              | `true`                               |
-| `containerSecurityContext.readOnlyRootFilesystem` | Set dscp-identity-service containers' Security Context runAsNonRoot                                                                                              | `false`                              |
+| `resources.limits`                                | The resources limits for the sqnc-identity-service containers                                                                                                    | `{}`                                 |
+| `resources.requests`                              | The requested resources for the sqnc-identity-service containers                                                                                                 | `{}`                                 |
+| `podSecurityContext.enabled`                      | Enabled sqnc-identity-service pods' Security Context                                                                                                             | `true`                               |
+| `podSecurityContext.fsGroup`                      | Set sqnc-identity-service pod's Security Context fsGroup                                                                                                         | `1001`                               |
+| `containerSecurityContext.enabled`                | Enabled sqnc-identity-service containers' Security Context                                                                                                       | `true`                               |
+| `containerSecurityContext.runAsUser`              | Set sqnc-identity-service containers' Security Context runAsUser                                                                                                 | `1001`                               |
+| `containerSecurityContext.runAsNonRoot`           | Set sqnc-identity-service containers' Security Context runAsNonRoot                                                                                              | `true`                               |
+| `containerSecurityContext.readOnlyRootFilesystem` | Set sqnc-identity-service containers' Security Context runAsNonRoot                                                                                              | `false`                              |
 | `command`                                         | Override default container command (useful when using custom images)                                                                                             | `[]`                                 |
 | `args`                                            | Override default container args (useful when using custom images)                                                                                                | `[]`                                 |
-| `hostAliases`                                     | dscp-identity-service pods host aliases                                                                                                                          | `[]`                                 |
-| `podLabels`                                       | Extra labels for dscp-identity-service pods                                                                                                                      | `{}`                                 |
-| `podAnnotations`                                  | Annotations for dscp-identity-service pods                                                                                                                       | `{}`                                 |
+| `hostAliases`                                     | sqnc-identity-service pods host aliases                                                                                                                          | `[]`                                 |
+| `podLabels`                                       | Extra labels for sqnc-identity-service pods                                                                                                                      | `{}`                                 |
+| `podAnnotations`                                  | Annotations for sqnc-identity-service pods                                                                                                                       | `{}`                                 |
 | `podAffinityPreset`                               | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                              | `""`                                 |
 | `podAntiAffinityPreset`                           | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                         | `soft`                               |
 | `pdb.create`                                      | Enable/disable a Pod Disruption Budget creation                                                                                                                  | `false`                              |
 | `pdb.minAvailable`                                | Minimum number/percentage of pods that should remain scheduled                                                                                                   | `1`                                  |
 | `pdb.maxUnavailable`                              | Maximum number/percentage of pods that may be made unavailable                                                                                                   | `""`                                 |
-| `autoscaling.enabled`                             | Enable autoscaling for dscp-identity-service                                                                                                                     | `false`                              |
-| `autoscaling.minReplicas`                         | Minimum number of dscp-identity-service replicas                                                                                                                 | `""`                                 |
-| `autoscaling.maxReplicas`                         | Maximum number of dscp-identity-service replicas                                                                                                                 | `""`                                 |
+| `autoscaling.enabled`                             | Enable autoscaling for sqnc-identity-service                                                                                                                     | `false`                              |
+| `autoscaling.minReplicas`                         | Minimum number of sqnc-identity-service replicas                                                                                                                 | `""`                                 |
+| `autoscaling.maxReplicas`                         | Maximum number of sqnc-identity-service replicas                                                                                                                 | `""`                                 |
 | `autoscaling.targetCPU`                           | Target CPU utilization percentage                                                                                                                                | `""`                                 |
 | `autoscaling.targetMemory`                        | Target Memory utilization percentage                                                                                                                             | `""`                                 |
 | `nodeAffinityPreset.type`                         | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                                                        | `""`                                 |
 | `nodeAffinityPreset.key`                          | Node label key to match. Ignored if `affinity` is set                                                                                                            | `""`                                 |
 | `nodeAffinityPreset.values`                       | Node label values to match. Ignored if `affinity` is set                                                                                                         | `[]`                                 |
-| `affinity`                                        | Affinity for dscp-identity-service pods assignment                                                                                                               | `{}`                                 |
-| `nodeSelector`                                    | Node labels for dscp-identity-service pods assignment                                                                                                            | `{}`                                 |
-| `tolerations`                                     | Tolerations for dscp-identity-service pods assignment                                                                                                            | `[]`                                 |
-| `updateStrategy.type`                             | dscp-identity-service statefulset strategy type                                                                                                                  | `RollingUpdate`                      |
-| `priorityClassName`                               | dscp-identity-service pods' priorityClassName                                                                                                                    | `""`                                 |
+| `affinity`                                        | Affinity for sqnc-identity-service pods assignment                                                                                                               | `{}`                                 |
+| `nodeSelector`                                    | Node labels for sqnc-identity-service pods assignment                                                                                                            | `{}`                                 |
+| `tolerations`                                     | Tolerations for sqnc-identity-service pods assignment                                                                                                            | `[]`                                 |
+| `updateStrategy.type`                             | sqnc-identity-service statefulset strategy type                                                                                                                  | `RollingUpdate`                      |
+| `priorityClassName`                               | sqnc-identity-service pods' priorityClassName                                                                                                                    | `""`                                 |
 | `topologySpreadConstraints`                       | Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template                                         | `[]`                                 |
-| `schedulerName`                                   | Name of the k8s scheduler (other than default) for dscp-identity-service pods                                                                                    | `""`                                 |
+| `schedulerName`                                   | Name of the k8s scheduler (other than default) for sqnc-identity-service pods                                                                                    | `""`                                 |
 | `terminationGracePeriodSeconds`                   | Seconds Redmine pod needs to terminate gracefully                                                                                                                | `""`                                 |
-| `lifecycleHooks`                                  | for the dscp-identity-service container(s) to automate configuration before or after startup                                                                     | `{}`                                 |
-| `extraEnvVars`                                    | Array with extra environment variables to add to dscp-identity-service nodes                                                                                     | `[]`                                 |
-| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for dscp-identity-service nodes                                                                             | `""`                                 |
-| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for dscp-identity-service nodes                                                                                | `""`                                 |
-| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the dscp-identity-service pod(s)                                                                         | `[]`                                 |
-| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the dscp-identity-service container(s)                                                              | `[]`                                 |
-| `sidecars`                                        | Add additional sidecar containers to the dscp-identity-service pod(s)                                                                                            | `[]`                                 |
-| `initContainers`                                  | Add additional init containers to the dscp-identity-service pod(s)                                                                                               | `[]`                                 |
+| `lifecycleHooks`                                  | for the sqnc-identity-service container(s) to automate configuration before or after startup                                                                     | `{}`                                 |
+| `extraEnvVars`                                    | Array with extra environment variables to add to sqnc-identity-service nodes                                                                                     | `[]`                                 |
+| `extraEnvVarsCM`                                  | Name of existing ConfigMap containing extra env vars for sqnc-identity-service nodes                                                                             | `""`                                 |
+| `extraEnvVarsSecret`                              | Name of existing Secret containing extra env vars for sqnc-identity-service nodes                                                                                | `""`                                 |
+| `extraVolumes`                                    | Optionally specify extra list of additional volumes for the sqnc-identity-service pod(s)                                                                         | `[]`                                 |
+| `extraVolumeMounts`                               | Optionally specify extra list of additional volumeMounts for the sqnc-identity-service container(s)                                                              | `[]`                                 |
+| `sidecars`                                        | Add additional sidecar containers to the sqnc-identity-service pod(s)                                                                                            | `[]`                                 |
+| `initContainers`                                  | Add additional init containers to the sqnc-identity-service pod(s)                                                                                               | `[]`                                 |
 
 ### Traffic Exposure Parameters
 
 | Name                               | Description                                                                                                                      | Value                         |
 | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| `service.type`                     | dscp-identity-service service type                                                                                               | `ClusterIP`                   |
-| `service.ports.http`               | dscp-identity-service service HTTP port                                                                                          | `3000`                        |
+| `service.type`                     | sqnc-identity-service service type                                                                                               | `ClusterIP`                   |
+| `service.ports.http`               | sqnc-identity-service service HTTP port                                                                                          | `3000`                        |
 | `service.nodePorts.http`           | Node port for HTTP                                                                                                               | `""`                          |
-| `service.clusterIP`                | dscp-identity-service service Cluster IP                                                                                         | `""`                          |
-| `service.loadBalancerIP`           | dscp-identity-service service Load Balancer IP                                                                                   | `""`                          |
-| `service.loadBalancerSourceRanges` | dscp-identity-service service Load Balancer sources                                                                              | `[]`                          |
-| `service.externalTrafficPolicy`    | dscp-identity-service service external traffic policy                                                                            | `Cluster`                     |
-| `service.annotations`              | Additional custom annotations for dscp-identity-service service                                                                  | `{}`                          |
-| `service.extraPorts`               | Extra ports to expose in dscp-identity-service service (normally used with the `sidecars` value)                                 | `[]`                          |
+| `service.clusterIP`                | sqnc-identity-service service Cluster IP                                                                                         | `""`                          |
+| `service.loadBalancerIP`           | sqnc-identity-service service Load Balancer IP                                                                                   | `""`                          |
+| `service.loadBalancerSourceRanges` | sqnc-identity-service service Load Balancer sources                                                                              | `[]`                          |
+| `service.externalTrafficPolicy`    | sqnc-identity-service service external traffic policy                                                                            | `Cluster`                     |
+| `service.annotations`              | Additional custom annotations for sqnc-identity-service service                                                                  | `{}`                          |
+| `service.extraPorts`               | Extra ports to expose in sqnc-identity-service service (normally used with the `sidecars` value)                                 | `[]`                          |
 | `service.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`                        |
 | `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`                          |
-| `ingress.enabled`                  | Enable ingress record generation for dscp-identity-service                                                                       | `true`                        |
+| `ingress.enabled`                  | Enable ingress record generation for sqnc-identity-service                                                                       | `true`                        |
 | `ingress.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`                          |
-| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `dscp-identity-service.local` |
+| `ingress.hostname`                 | Default host for the ingress record                                                                                              | `sqnc-identity-service.local` |
 | `ingress.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                          |
 | `ingress.paths`                    | Default paths for the ingress record                                                                                             | `[]`                          |
 | `ingress.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                          |
@@ -192,12 +192,12 @@ The command removes all the Kubernetes components associated with the chart and 
 
 | Name                             | Description                                                                                                                                                     | Value                |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `initDbCreate.image.registry`    | dscp-routing-service image registry                                                                                                                             | `docker.io`          |
-| `initDbCreate.image.repository`  | dscp-routing-service image repository                                                                                                                           | `postgres`           |
-| `initDbCreate.image.tag`         | dscp-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`          |
-| `initDbCreate.image.digest`      | dscp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                 |
-| `initDbCreate.image.pullPolicy`  | dscp-routing-service image pull policy                                                                                                                          | `IfNotPresent`       |
-| `initDbCreate.image.pullSecrets` | dscp-routing-service image pull secrets                                                                                                                         | `[]`                 |
+| `initDbCreate.image.registry`    | sqnc-routing-service image registry                                                                                                                             | `docker.io`          |
+| `initDbCreate.image.repository`  | sqnc-routing-service image repository                                                                                                                           | `postgres`           |
+| `initDbCreate.image.tag`         | sqnc-routing-service image tag (immutable tags are recommended)                                                                                                 | `15-alpine`          |
+| `initDbCreate.image.digest`      | sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                 |
+| `initDbCreate.image.pullPolicy`  | sqnc-routing-service image pull policy                                                                                                                          | `IfNotPresent`       |
+| `initDbCreate.image.pullSecrets` | sqnc-routing-service image pull secrets                                                                                                                         | `[]`                 |
 | `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`               |
 | `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`         |
 | `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest"]` |
@@ -223,9 +223,9 @@ The command removes all the Kubernetes components associated with the chart and 
 | `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`       |
 | `externalDatabase.host`                              | Database host                                                            | `""`               |
 | `externalDatabase.port`                              | Database port number                                                     | `5432`             |
-| `externalDatabase.user`                              | Non-root username for dscp-identity-service                              | `identity_service` |
-| `externalDatabase.password`                          | Password for the non-root username for dscp-identity-service             | `""`               |
-| `externalDatabase.database`                          | dscp-identity-service database name                                      | `user`             |
+| `externalDatabase.user`                              | Non-root username for sqnc-identity-service                              | `identity_service` |
+| `externalDatabase.password`                          | Password for the non-root username for sqnc-identity-service             | `""`               |
+| `externalDatabase.database`                          | sqnc-identity-service database name                                      | `user`             |
 | `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`             |
 | `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`         |
 | `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`               |
@@ -233,15 +233,15 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`               |
 | `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`               |
 
-### DSCP-Node Parameters
+### SQNC-Node Parameters
 
 | Name                    | Description                                                                               | Value  |
 | ----------------------- | ----------------------------------------------------------------------------------------- | ------ |
-| `node.enabled`          | Enable DSCP-Node subchart                                                                 | `true` |
-| `node.nameOverride`     | String to partially override dscp-node.fullname template (will maintain the release name) | `""`   |
-| `node.fullnameOverride` | String to fully override dscp-node.fullname template                                      | `""`   |
-| `externalDscpNode.host` | External DSCP-Node hostname to query                                                      | `""`   |
-| `externalDscpNode.port` | External DSCP-Node port to query                                                          | `""`   |
+| `node.enabled`          | Enable SQNC-Node subchart                                                                 | `true` |
+| `node.nameOverride`     | String to partially override sqnc-node.fullname template (will maintain the release name) | `""`   |
+| `node.fullnameOverride` | String to fully override sqnc-node.fullname template                                      | `""`   |
+| `externalSqncNode.host` | External SQNC-Node hostname to query                                                      | `""`   |
+| `externalSqncNode.port` | External SQNC-Node port to query                                                          | `""`   |
 
 
 ## Configuration and installation details
@@ -256,11 +256,11 @@ Digital Catapult will release a new chart updating its containers if a new versi
 
 This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress-controller](https://github.com/bitnami/charts/tree/main/bitnami/nginx-ingress-controller) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
 
-To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hostname` property can be used to set the host name. The `ingress.tls` parameter can be used to add the TLS configuration for this host. It is also possible to have more than one host, with a separate TLS configuration for each host. [Learn more about configuring and using Ingress](https://docs.bitnami.com/kubernetes/apps/dscp-identity-service/configuration/configure-use-ingress/).
+To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hostname` property can be used to set the host name. The `ingress.tls` parameter can be used to add the TLS configuration for this host. It is also possible to have more than one host, with a separate TLS configuration for each host. [Learn more about configuring and using Ingress](https://docs.bitnami.com/kubernetes/apps/sqnc-identity-service/configuration/configure-use-ingress/).
 
 ### TLS secrets
 
-The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://docs.bitnami.com/kubernetes/apps/dscp-identity-service/administration/enable-tls/).
+The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://docs.bitnami.com/kubernetes/apps/sqnc-identity-service/administration/enable-tls/).
 
 ### Additional environment variables
 
@@ -276,7 +276,7 @@ Alternatively, you can use a ConfigMap or a Secret with the environment variable
 
 ### Sidecars
 
-If additional containers are needed in the same pod as dscp-identity-service (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://docs.bitnami.com/kubernetes/apps/dscp-identity-service/administration/configure-use-sidecars/).
+If additional containers are needed in the same pod as sqnc-identity-service (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://docs.bitnami.com/kubernetes/apps/sqnc-identity-service/administration/configure-use-sidecars/).
 
 ### Pod affinity
 

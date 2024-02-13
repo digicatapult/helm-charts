@@ -60,7 +60,7 @@ diagnosticMode:
   args:
     - infinity
 
-## @section DSCP Identity Service config parameters
+## @section SQNC Identity Service config parameters
 ##
 
 ## @param logLevel Allowed values: error, warn, info, debug
@@ -74,19 +74,19 @@ userUri: "//Alice"
 enableIndexer: true
 
 
-## Digital Catapult dscp-matchmaker-api image
-## ref: https://hub.docker.com/r/digicatapult/dscp-matchmaker-api/tags/
-## @param image.registry dscp-matchmaker-api image registry
-## @param image.repository dscp-matchmaker-api image repository
-## @param image.tag dscp-matchmaker-api image tag (immutable tags are recommended)
-## @param image.digest dscp-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-## @param image.pullPolicy dscp-matchmaker-api image pull policy
-## @param image.pullSecrets dscp-matchmaker-api image pull secrets
-## @param image.debug Enable dscp-matchmaker-api image debug mode
+## Digital Catapult sqnc-matchmaker-api image
+## ref: https://hub.docker.com/r/digicatapult/sqnc-matchmaker-api/tags/
+## @param image.registry sqnc-matchmaker-api image registry
+## @param image.repository sqnc-matchmaker-api image repository
+## @param image.tag sqnc-matchmaker-api image tag (immutable tags are recommended)
+## @param image.digest sqnc-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+## @param image.pullPolicy sqnc-matchmaker-api image pull policy
+## @param image.pullSecrets sqnc-matchmaker-api image pull secrets
+## @param image.debug Enable sqnc-matchmaker-api image debug mode
 ##
 image:
   registry: docker.io
-  repository: digicatapult/dscp-matchmaker-api
+  repository: digicatapult/sqnc-matchmaker-api
   tag: v1.2.1
   digest: ""
   ## Specify a imagePullPolicy
@@ -105,16 +105,16 @@ image:
   ## Enable debug mode
   ##
   debug: false
-## @param replicaCount Number of dscp-matchmaker-api replicas to deploy
+## @param replicaCount Number of sqnc-matchmaker-api replicas to deploy
 ##
 replicaCount: 1
-## @param containerPorts.http dscp-matchmaker-api HTTP container port
+## @param containerPorts.http sqnc-matchmaker-api HTTP container port
 ##
 containerPorts:
   http: 3000
-## Configure extra options for dscp-matchmaker-api containers' liveness and readiness probes
+## Configure extra options for sqnc-matchmaker-api containers' liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe on dscp-matchmaker-api containers
+## @param livenessProbe.enabled Enable livenessProbe on sqnc-matchmaker-api containers
 ## @param livenessProbe.path Path for to check for livenessProbe
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
@@ -130,7 +130,7 @@ livenessProbe:
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
-## @param readinessProbe.enabled Enable readinessProbe on dscp-matchmaker-api containers
+## @param readinessProbe.enabled Enable readinessProbe on sqnc-matchmaker-api containers
 ## @param readinessProbe.path Path for to check for readinessProbe
 ## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
 ## @param readinessProbe.periodSeconds Period seconds for readinessProbe
@@ -146,7 +146,7 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 5
   successThreshold: 1
-## @param startupProbe.enabled Enable startupProbe on dscp-matchmaker-api containers
+## @param startupProbe.enabled Enable startupProbe on sqnc-matchmaker-api containers
 ## @param startupProbe.path Path for to check for startupProbe
 ## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
 ## @param startupProbe.periodSeconds Period seconds for startupProbe
@@ -171,28 +171,28 @@ customReadinessProbe: {}
 ## @param customStartupProbe Custom startupProbe that overrides the default one
 ##
 customStartupProbe: {}
-## dscp-matchmaker-api resource requests and limits
+## sqnc-matchmaker-api resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources.limits The resources limits for the dscp-matchmaker-api containers
-## @param resources.requests The requested resources for the dscp-matchmaker-api containers
+## @param resources.limits The resources limits for the sqnc-matchmaker-api containers
+## @param resources.requests The requested resources for the sqnc-matchmaker-api containers
 ##
 resources:
   limits: {}
   requests: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled dscp-matchmaker-api pods' Security Context
-## @param podSecurityContext.fsGroup Set dscp-matchmaker-api pod's Security Context fsGroup
+## @param podSecurityContext.enabled Enabled sqnc-matchmaker-api pods' Security Context
+## @param podSecurityContext.fsGroup Set sqnc-matchmaker-api pod's Security Context fsGroup
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enabled dscp-matchmaker-api containers' Security Context
-## @param containerSecurityContext.runAsUser Set dscp-matchmaker-api containers' Security Context runAsUser
-## @param containerSecurityContext.runAsNonRoot Set dscp-matchmaker-api containers' Security Context runAsNonRoot
-## @param containerSecurityContext.readOnlyRootFilesystem Set dscp-matchmaker-api containers' Security Context runAsNonRoot
+## @param containerSecurityContext.enabled Enabled sqnc-matchmaker-api containers' Security Context
+## @param containerSecurityContext.runAsUser Set sqnc-matchmaker-api containers' Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set sqnc-matchmaker-api containers' Security Context runAsNonRoot
+## @param containerSecurityContext.readOnlyRootFilesystem Set sqnc-matchmaker-api containers' Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
@@ -206,15 +206,15 @@ command: []
 ## @param args Override default container args (useful when using custom images)
 ##
 args: []
-## @param hostAliases dscp-matchmaker-api pods host aliases
+## @param hostAliases sqnc-matchmaker-api pods host aliases
 ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
 ##
 hostAliases: []
-## @param podLabels Extra labels for dscp-matchmaker-api pods
+## @param podLabels Extra labels for sqnc-matchmaker-api pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
-## @param podAnnotations Annotations for dscp-matchmaker-api pods
+## @param podAnnotations Annotations for sqnc-matchmaker-api pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
@@ -238,9 +238,9 @@ pdb:
   maxUnavailable: ""
 ## Autoscaling configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for dscp-matchmaker-api
-## @param autoscaling.minReplicas Minimum number of dscp-matchmaker-api replicas
-## @param autoscaling.maxReplicas Maximum number of dscp-matchmaker-api replicas
+## @param autoscaling.enabled Enable autoscaling for sqnc-matchmaker-api
+## @param autoscaling.minReplicas Minimum number of sqnc-matchmaker-api replicas
+## @param autoscaling.maxReplicas Maximum number of sqnc-matchmaker-api replicas
 ## @param autoscaling.targetCPU Target CPU utilization percentage
 ## @param autoscaling.targetMemory Target Memory utilization percentage
 ##
@@ -267,20 +267,20 @@ nodeAffinityPreset:
   ##   - e2e-az2
   ##
   values: []
-## @param affinity Affinity for dscp-matchmaker-api pods assignment
+## @param affinity Affinity for sqnc-matchmaker-api pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: `podAffinityPreset`, `podAntiAffinityPreset`, and `nodeAffinityPreset` will be ignored when it's set
 ##
 affinity: {}
-## @param nodeSelector Node labels for dscp-matchmaker-api pods assignment
+## @param nodeSelector Node labels for sqnc-matchmaker-api pods assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## @param tolerations Tolerations for dscp-matchmaker-api pods assignment
+## @param tolerations Tolerations for sqnc-matchmaker-api pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
-## @param updateStrategy.type dscp-matchmaker-api statefulset strategy type
+## @param updateStrategy.type sqnc-matchmaker-api statefulset strategy type
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
 updateStrategy:
@@ -289,14 +289,14 @@ updateStrategy:
   ##
   type: RollingUpdate
 
-## @param priorityClassName dscp-matchmaker-api pods' priorityClassName
+## @param priorityClassName sqnc-matchmaker-api pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
 ##
 topologySpreadConstraints: []
-## @param schedulerName Name of the k8s scheduler (other than default) for dscp-matchmaker-api pods
+## @param schedulerName Name of the k8s scheduler (other than default) for sqnc-matchmaker-api pods
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
 ##
 schedulerName: ""
@@ -304,29 +304,29 @@ schedulerName: ""
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 ##
 terminationGracePeriodSeconds: ""
-## @param lifecycleHooks for the dscp-matchmaker-api container(s) to automate configuration before or after startup
+## @param lifecycleHooks for the sqnc-matchmaker-api container(s) to automate configuration before or after startup
 ##
 lifecycleHooks: {}
-## @param extraEnvVars Array with extra environment variables to add to dscp-matchmaker-api nodes
+## @param extraEnvVars Array with extra environment variables to add to sqnc-matchmaker-api nodes
 ## e.g:
 ## extraEnvVars:
 ##   - name: FOO
 ##     value: "bar"
 ##
 extraEnvVars: []
-## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for dscp-matchmaker-api nodes
+## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for sqnc-matchmaker-api nodes
 ##
 extraEnvVarsCM: ""
-## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for dscp-matchmaker-api nodes
+## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for sqnc-matchmaker-api nodes
 ##
 extraEnvVarsSecret: ""
-## @param extraVolumes Optionally specify extra list of additional volumes for the dscp-matchmaker-api pod(s)
+## @param extraVolumes Optionally specify extra list of additional volumes for the sqnc-matchmaker-api pod(s)
 ##
 extraVolumes: []
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the dscp-matchmaker-api container(s)
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the sqnc-matchmaker-api container(s)
 ##
 extraVolumeMounts: []
-## @param sidecars Add additional sidecar containers to the dscp-matchmaker-api pod(s)
+## @param sidecars Add additional sidecar containers to the sqnc-matchmaker-api pod(s)
 ## e.g:
 ## sidecars:
 ##   - name: your-image-name
@@ -337,7 +337,7 @@ extraVolumeMounts: []
 ##         containerPort: 1234
 ##
 sidecars: []
-## @param initContainers Add additional init containers to the dscp-matchmaker-api pod(s)
+## @param initContainers Add additional init containers to the sqnc-matchmaker-api pod(s)
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 ## e.g:
 ## initContainers:
@@ -351,13 +351,13 @@ initContainers: []
 ## @section Traffic Exposure Parameters
 ##
 
-## dscp-matchmaker-api service parameters
+## sqnc-matchmaker-api service parameters
 ##
 service:
-  ## @param service.type dscp-matchmaker-api service type
+  ## @param service.type sqnc-matchmaker-api service type
   ##
   type: ClusterIP
-  ## @param service.ports.http dscp-matchmaker-api service HTTP port
+  ## @param service.ports.http sqnc-matchmaker-api service HTTP port
   ##
   ports:
     http: 3000
@@ -367,30 +367,30 @@ service:
   ##
   nodePorts:
     http: ""
-  ## @param service.clusterIP dscp-matchmaker-api service Cluster IP
+  ## @param service.clusterIP sqnc-matchmaker-api service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.loadBalancerIP dscp-matchmaker-api service Load Balancer IP
+  ## @param service.loadBalancerIP sqnc-matchmaker-api service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param service.loadBalancerSourceRanges dscp-matchmaker-api service Load Balancer sources
+  ## @param service.loadBalancerSourceRanges sqnc-matchmaker-api service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param service.externalTrafficPolicy dscp-matchmaker-api service external traffic policy
+  ## @param service.externalTrafficPolicy sqnc-matchmaker-api service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param service.annotations Additional custom annotations for dscp-matchmaker-api service
+  ## @param service.annotations Additional custom annotations for sqnc-matchmaker-api service
   ##
   annotations: {}
-  ## @param service.extraPorts Extra ports to expose in dscp-matchmaker-api service (normally used with the `sidecars` value)
+  ## @param service.extraPorts Extra ports to expose in sqnc-matchmaker-api service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -405,11 +405,11 @@ service:
   ##
   sessionAffinityConfig: {}
 
-## dscp-matchmaker-api ingress parameters
+## sqnc-matchmaker-api ingress parameters
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
 ingress:
-  ## @param ingress.enabled Enable ingress record generation for dscp-matchmaker-api
+  ## @param ingress.enabled Enable ingress record generation for sqnc-matchmaker-api
   ##
   enabled: true
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
@@ -417,7 +417,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: dscp-matchmaker-api.local
+  hostname: sqnc-matchmaker-api.local
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
@@ -462,7 +462,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: dscp-matchmaker-api.local
+  ##   - name: sqnc-matchmaker-api.local
   ##     path: /
   ##
   extraHosts: []
@@ -489,8 +489,8 @@ ingress:
   ## e.g:
   ## extraTls:
   ## - hosts:
-  ##     - dscp-matchmaker-api.local
-  ##   secretName: dscp-matchmaker-api.local-tls
+  ##     - sqnc-matchmaker-api.local
+  ##   secretName: sqnc-matchmaker-api.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets Custom TLS certificates as secrets
@@ -502,7 +502,7 @@ ingress:
   ## Please see README.md for more information
   ## e.g:
   ## secrets:
-  ##   - name: dscp-matchmaker-api.local-tls
+  ##   - name: sqnc-matchmaker-api.local-tls
   ##     key: |-
   ##       -----BEGIN RSA PRIVATE KEY-----
   ##       ...
@@ -533,12 +533,12 @@ ingress:
 initDbCreate:
   ## PostreSQL image
   ## ref: https://hub.docker.com/_/postgres/tags/
-  ## @param initDbCreate.image.registry dscp-routing-service image registry
-  ## @param initDbCreate.image.repository dscp-routing-service image repository
-  ## @param initDbCreate.image.tag dscp-routing-service image tag (immutable tags are recommended)
-  ## @param initDbCreate.image.digest dscp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-  ## @param initDbCreate.image.pullPolicy dscp-routing-service image pull policy
-  ## @param initDbCreate.image.pullSecrets dscp-routing-service image pull secrets
+  ## @param initDbCreate.image.registry sqnc-routing-service image registry
+  ## @param initDbCreate.image.repository sqnc-routing-service image repository
+  ## @param initDbCreate.image.tag sqnc-routing-service image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.digest sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.pullPolicy sqnc-routing-service image pull policy
+  ## @param initDbCreate.image.pullSecrets sqnc-routing-service image pull secrets
   ##
   image:
     registry: docker.io
@@ -613,9 +613,9 @@ postgresql:
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
 ## @param externalDatabase.port Database port number
-## @param externalDatabase.user Non-root username for dscp-matchmaker-api
-## @param externalDatabase.password Password for the non-root username for dscp-matchmaker-api
-## @param externalDatabase.database dscp-matchmaker-api database name
+## @param externalDatabase.user Non-root username for sqnc-matchmaker-api
+## @param externalDatabase.password Password for the non-root username for sqnc-matchmaker-api
+## @param externalDatabase.database sqnc-matchmaker-api database name
 ## @param externalDatabase.create Enable PostgreSQL user and database creation (when using an external db)
 ## @param externalDatabase.postgresqlPostgresUser External Database admin username
 ## @param externalDatabase.postgresqlPostgresPassword External Database admin password
@@ -636,38 +636,38 @@ externalDatabase:
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
 
-## @section DSCP-Node Parameters
+## @section SQNC-Node Parameters
 node:
-  ## @param node.enabled Enable DSCP-Node subchart
+  ## @param node.enabled Enable SQNC-Node subchart
   enabled: true
-  ## @param node.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
+  ## @param node.nameOverride String to partially override sqnc-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
-  ## @param node.fullnameOverride String to fully override dscp-node.fullname template
+  ## @param node.fullnameOverride String to fully override sqnc-node.fullname template
   ##
   fullnameOverride: ""
-## @param externalDscpNode.host External DSCP-Node hostname to query
+## @param externalSqncNode.host External SQNC-Node hostname to query
 ##
-externalDscpNode:
+externalSqncNode:
   host: ""
-  ## @param externalDscpNode.port External DSCP-Node port to query
+  ## @param externalSqncNode.port External SQNC-Node port to query
   ##
   port: ""
 
-## @section DSCP-Ipfs parameters
-## @param externalDscpIpfs.host External DSCP-Ipfs hostname
+## @section SQNC-Ipfs parameters
+## @param externalSqncIpfs.host External SQNC-Ipfs hostname
 ##
-externalDscpIpfs:
+externalSqncIpfs:
   host: ""
-  ## @param externalDscpIpfs.port External DSCP-Ipfs port
+  ## @param externalSqncIpfs.port External SQNC-Ipfs port
   ##
   port: ""
 
-## @section DSCP-Identity-Service parameters
-## @param externalDscpIdentity.host External DSCP-Identity-Service hostname
+## @section SQNC-Identity-Service parameters
+## @param externalSqncIdentity.host External SQNC-Identity-Service hostname
 ##
-externalDscpIdentity:
+externalSqncIdentity:
   host: ""
-  ## @param externalDscpIdentity.port External DSCP-Identity-Service port
+  ## @param externalSqncIdentity.port External SQNC-Identity-Service port
   ##
   port: ""
