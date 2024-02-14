@@ -1,29 +1,29 @@
 
 {{/*
-Return the proper dscp-ipfs image name
+Return the proper sqnc-ipfs image name
 */}}
-{{- define "dscp-ipfs.image" -}}
+{{- define "sqnc-ipfs.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
 
 {{/*
 Return the proper image name (for the init container volume-permissions image)
 */}}
-{{- define "dscp-ipfs.volumePermissions.image" -}}
+{{- define "sqnc-ipfs.volumePermissions.image" -}}
 {{- include "common.images.image" ( dict "imageRoot" .Values.volumePermissions.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "dscp-ipfs.imagePullSecrets" -}}
+{{- define "sqnc-ipfs.imagePullSecrets" -}}
 {{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.volumePermissions.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "dscp-ipfs.serviceAccountName" -}}
+{{- define "sqnc-ipfs.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
     {{ default (include "common.names.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
@@ -34,7 +34,7 @@ Create the name of the service account to use
 {{/*
 Get the keys secret.
 */}}
-{{- define "dscp-ipfs.secretName" -}}
+{{- define "sqnc-ipfs.secretName" -}}
 {{- if .Values.ipfs.existingSecret -}}
     {{- printf "%s" (tpl .Values.ipfs.existingSecret $) -}}
 {{- else -}}
@@ -45,7 +45,7 @@ Get the keys secret.
 {{/*
 Get the ipfs publicKey key.
 */}}
-{{- define "dscp-ipfs.publicKeyKey" -}}
+{{- define "sqnc-ipfs.publicKeyKey" -}}
 {{- if .Values.ipfs.existingSecret }}
     {{- if .Values.ipfs.secretKeys.publicKey -}}
         {{- printf "%s" (tpl .Values.ipfs.secretKeys.publicKey $) -}}
@@ -60,7 +60,7 @@ Get the ipfs publicKey key.
 {{/*
 Get the ipfs privateKey key.
 */}}
-{{- define "dscp-ipfs.privateKeyKey" -}}
+{{- define "sqnc-ipfs.privateKeyKey" -}}
 {{- if .Values.ipfs.existingSecret }}
     {{- if .Values.ipfs.secretKeys.privateKey -}}
         {{- printf "%s" (tpl .Values.ipfs.secretKeys.privateKey $) -}}
@@ -73,37 +73,37 @@ Get the ipfs privateKey key.
 {{- end -}}
 
 {{/*
-Create a default fully qualified app name for dscp-node subchart
+Create a default fully qualified app name for sqnc-node subchart
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "dscp-ipfs.dscpNode.fullname" -}}
-{{- if .Values.dscpNode.fullnameOverride -}}
-{{- .Values.dscpNode.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "sqnc-ipfs.sqncNode.fullname" -}}
+{{- if .Values.sqncNode.fullnameOverride -}}
+{{- .Values.sqncNode.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default "dscpnode-0" .Values.dscpNode.nameOverride -}}
+{{- $name := default "sqncnode-0" .Values.sqncNode.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 
 
 {{/*
-Return the dscp-node api hostname
+Return the sqnc-node api hostname
 */}}
-{{- define "dscp-ipfs.dscpNodeHost" -}}
-{{- ternary (include "dscp-ipfs.dscpNode.fullname" .) .Values.externalDscpNode.host .Values.dscpNode.enabled | quote -}}
+{{- define "sqnc-ipfs.sqncNodeHost" -}}
+{{- ternary (include "sqnc-ipfs.sqncNode.fullname" .) .Values.externalSqncNode.host .Values.sqncNode.enabled | quote -}}
 {{- end -}}
 
 {{/*
-Return the dscp-node API port
+Return the sqnc-node API port
 */}}
-{{- define "dscp-ipfs.dscpNodePort" -}}
-{{- ternary "9944" .Values.externalDscpNode.port .Values.dscpNode.enabled | quote -}}
+{{- define "sqnc-ipfs.sqncNodePort" -}}
+{{- ternary "9944" .Values.externalSqncNode.port .Values.sqncNode.enabled | quote -}}
 {{- end -}}
 
 {{/*
 Compile all warnings into a single message, and call fail.
 */}}
-{{- define "dscp-ipfs.validateValues" -}}
+{{- define "sqnc-ipfs.validateValues" -}}
 {{- $messages := list -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}

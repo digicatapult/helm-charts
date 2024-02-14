@@ -1,28 +1,28 @@
 {{/*
-Return the proper dscp-matchmaker-api image name
+Return the proper sqnc-matchmaker-api image name
 */}}
-{{- define "dscp-matchmaker-api.image" -}}
+{{- define "sqnc-matchmaker-api.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
 
 {{/*
 Return the proper init container image name
 */}}
-{{- define "dscp-matchmaker-api.initDbCreate.image" -}}
+{{- define "sqnc-matchmaker-api.initDbCreate.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.initDbCreate.image "global" .Values.global) }}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "dscp-matchmaker-api.imagePullSecrets" -}}
+{{- define "sqnc-matchmaker-api.imagePullSecrets" -}}
 {{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.initDbCreate.image ) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "dscp-matchmaker-api.serviceAccountName" -}}
+{{- define "sqnc-matchmaker-api.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
     {{ default (include "common.names.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
@@ -31,59 +31,59 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Create a default fully qualified app name for dscp-node subchart
+Create a default fully qualified app name for sqnc-node subchart
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "dscp-matchmaker-api.dscpNode.fullname" -}}
+{{- define "sqnc-matchmaker-api.sqncNode.fullname" -}}
 {{- if .Values.node.fullnameOverride -}}
 {{- .Values.node.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default "dscpnode-0" .Values.node.nameOverride -}}
+{{- $name := default "sqncnode-0" .Values.node.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 
 
 {{/*
-Return the dscp-node api hostname
+Return the sqnc-node api hostname
 */}}
-{{- define "dscp-matchmaker-api.dscpNodeHost" -}}
-{{- ternary (include "dscp-matchmaker-api.dscpNode.fullname" .) .Values.externalDscpNode.host .Values.node.enabled | quote -}}
+{{- define "sqnc-matchmaker-api.sqncNodeHost" -}}
+{{- ternary (include "sqnc-matchmaker-api.sqncNode.fullname" .) .Values.externalSqncNode.host .Values.node.enabled | quote -}}
 {{- end -}}
 
 {{/*
-Return the dscp-node API port
+Return the sqnc-node API port
 */}}
-{{- define "dscp-matchmaker-api.dscpNodePort" -}}
-{{- ternary "9944" .Values.externalDscpNode.port .Values.node.enabled | quote -}}
+{{- define "sqnc-matchmaker-api.sqncNodePort" -}}
+{{- ternary "9944" .Values.externalSqncNode.port .Values.node.enabled | quote -}}
 {{- end -}}
 
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "dscp-matchmaker-api.postgresql.fullname" -}}
+{{- define "sqnc-matchmaker-api.postgresql.fullname" -}}
 {{- include "common.names.dependency.fullname" (dict "chartName" "postgresql" "chartValues" .Values.postgresql "context" $) -}}
 {{- end -}}
 
 {{/*
 Return the Postgresql hostname
 */}}
-{{- define "dscp-matchmaker-api.databaseHost" -}}
-{{- ternary (include "dscp-matchmaker-api.postgresql.fullname" .) .Values.externalDatabase.host .Values.postgresql.enabled | quote -}}
+{{- define "sqnc-matchmaker-api.databaseHost" -}}
+{{- ternary (include "sqnc-matchmaker-api.postgresql.fullname" .) .Values.externalDatabase.host .Values.postgresql.enabled | quote -}}
 {{- end -}}
 
 {{/*
 Return the Postgresql port
 */}}
-{{- define "dscp-matchmaker-api.databasePort" -}}
+{{- define "sqnc-matchmaker-api.databasePort" -}}
 {{- ternary "5432" .Values.externalDatabase.port .Values.postgresql.enabled | quote -}}
 {{- end -}}
 
 {{/*
 Return the Postgresql database name
 */}}
-{{- define "dscp-matchmaker-api.databaseName" -}}
+{{- define "sqnc-matchmaker-api.databaseName" -}}
 {{- if .Values.postgresql.enabled -}}
     {{- if .Values.global.postgresql -}}
         {{- if .Values.global.postgresql.auth -}}
@@ -102,7 +102,7 @@ Return the Postgresql database name
 {{/*
 Return the Postgresql user
 */}}
-{{- define "dscp-matchmaker-api.databaseUser" -}}
+{{- define "sqnc-matchmaker-api.databaseUser" -}}
 {{- if .Values.postgresql.enabled -}}
     {{- if .Values.global.postgresql -}}
         {{- if .Values.global.postgresql.auth -}}
@@ -121,20 +121,20 @@ Return the Postgresql user
 {{/*
 Return the PostgreSQL Secret Name
 */}}
-{{- define "dscp-matchmaker-api.databaseSecretName" -}}
+{{- define "sqnc-matchmaker-api.databaseSecretName" -}}
 {{- if .Values.postgresql.enabled -}}
     {{- if .Values.global.postgresql -}}
         {{- if .Values.global.postgresql.auth -}}
             {{- if .Values.global.postgresql.auth.existingSecret -}}
                 {{- tpl .Values.global.postgresql.auth.existingSecret $ -}}
             {{- else -}}
-                {{- default (include "dscp-matchmaker-api.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
+                {{- default (include "sqnc-matchmaker-api.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
             {{- end -}}
         {{- else -}}
-            {{- default (include "dscp-matchmaker-api.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
+            {{- default (include "sqnc-matchmaker-api.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
         {{- end -}}
     {{- else -}}
-        {{- default (include "dscp-matchmaker-api.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
+        {{- default (include "sqnc-matchmaker-api.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
     {{- end -}}
 {{- else -}}
     {{- default (printf "%s-externaldb" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}
@@ -144,7 +144,7 @@ Return the PostgreSQL Secret Name
 {{/*
 Add environment variables to configure database values
 */}}
-{{- define "dscp-matchmaker-api.databaseSecretPasswordKey" -}}
+{{- define "sqnc-matchmaker-api.databaseSecretPasswordKey" -}}
 {{- if .Values.postgresql.enabled -}}
     {{- print "password" -}}
 {{- else -}}
@@ -163,7 +163,7 @@ Add environment variables to configure database values
 {{/*
 Add environment variables to configure database values
 */}}
-{{- define "dscp-matchmaker-api.databaseSecretPostgresPasswordKey" -}}
+{{- define "sqnc-matchmaker-api.databaseSecretPostgresPasswordKey" -}}
 {{- if .Values.postgresql.enabled -}}
     {{- print "postgres-password" -}}
 {{- else -}}
@@ -182,10 +182,10 @@ Add environment variables to configure database values
 {{/*
 Compile all warnings into a single message, and call fail.
 */}}
-{{- define "dscp-matchmaker-api.validateValues" -}}
+{{- define "sqnc-matchmaker-api.validateValues" -}}
 {{- $messages := list -}}
-{{- $messages := append $messages (include "dscp-matchmaker-api.validateValues.databaseName" .) -}}
-{{- $messages := append $messages (include "dscp-matchmaker-api.validateValues.databaseUser" .) -}}
+{{- $messages := append $messages (include "sqnc-matchmaker-api.validateValues.databaseName" .) -}}
+{{- $messages := append $messages (include "sqnc-matchmaker-api.validateValues.databaseUser" .) -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
@@ -195,22 +195,22 @@ Compile all warnings into a single message, and call fail.
 {{- end -}}
 
 {{/* Validate database name */}}
-{{- define "dscp-matchmaker-api.validateValues.databaseName" -}}
+{{- define "sqnc-matchmaker-api.validateValues.databaseName" -}}
 {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create -}}
-{{- $db_name := (include "dscp-matchmaker-api.databaseName" .) -}}
+{{- $db_name := (include "sqnc-matchmaker-api.databaseName" .) -}}
 {{- if not (regexMatch "^[a-zA-Z_]+$" $db_name) -}}
-dscp-matchmaker-api:
+sqnc-matchmaker-api:
     When creating a database the database name must consist of the characters a-z, A-Z and _ only
 {{- end -}}
 {{- end -}}
 {{- end -}}
 
 {{/* Validate database username */}}
-{{- define "dscp-matchmaker-api.validateValues.databaseUser" -}}
+{{- define "sqnc-matchmaker-api.validateValues.databaseUser" -}}
 {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create -}}
-{{- $db_user := (include "dscp-matchmaker-api.databaseUser" .) -}}
+{{- $db_user := (include "sqnc-matchmaker-api.databaseUser" .) -}}
 {{- if not (regexMatch "^[a-zA-Z_]+$" $db_user) -}}
-dscp-matchmaker-api:
+sqnc-matchmaker-api:
     When creating a database the username must consist of the characters a-z, A-Z and _ only
 {{- end -}}
 {{- end -}}
