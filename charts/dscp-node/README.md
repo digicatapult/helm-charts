@@ -5,7 +5,7 @@ Forked from https://paritytech.github.io/helm-charts/
 
 ```console
 helm repo add digicatapult https://digicatapult.github.io/helm-charts/
-helm install dscp-node helm-charts/dscp-node
+helm install sqnc-node helm-charts/sqnc-node
 ```
 
 This will deploy a single Polkadot node with the default configuration.

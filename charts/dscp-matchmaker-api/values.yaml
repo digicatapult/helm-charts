@@ -636,21 +636,21 @@ externalDatabase:
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
 
-## @section DSCP-Node Parameters
+## @section SQNC-Node Parameters
 node:
-  ## @param node.enabled Enable DSCP-Node subchart
+  ## @param node.enabled Enable SQNC-Node subchart
   enabled: true
-  ## @param node.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
+  ## @param node.nameOverride String to partially override sqnc-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
-  ## @param node.fullnameOverride String to fully override dscp-node.fullname template
+  ## @param node.fullnameOverride String to fully override sqnc-node.fullname template
   ##
   fullnameOverride: ""
-## @param externalDscpNode.host External DSCP-Node hostname to query
+## @param externalDscpNode.host External SQNC-Node hostname to query
 ##
 externalDscpNode:
   host: ""
-  ## @param externalDscpNode.port External DSCP-Node port to query
+  ## @param externalDscpNode.port External SQNC-Node port to query
   ##
   port: ""
 

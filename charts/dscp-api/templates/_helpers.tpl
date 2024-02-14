@@ -22,7 +22,7 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
-Template to define the dscp-node hostname.
+Template to define the sqnc-node hostname.
 */}}
 {{- define "dscp-api.node-host" -}}
   {{- if .Values.config.externalNodeHost -}}

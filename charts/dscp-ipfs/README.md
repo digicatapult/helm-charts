@@ -255,15 +255,15 @@ The command removes all the Kubernetes components associated with the chart and 
 | `serviceAccount.annotations`                  | Additional Service Account annotations (evaluated as a template) | `{}`   |
 | `serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account   | `true` |
 
-### DSCP-Node Parameters
+### SQNC-Node Parameters
 
 | Name                        | Description                                                                               | Value  |
 | --------------------------- | ----------------------------------------------------------------------------------------- | ------ |
-| `dscpNode.enabled`          | Enable DSCP-Node subchart                                                                 | `true` |
-| `dscpNode.nameOverride`     | String to partially override dscp-node.fullname template (will maintain the release name) | `""`   |
-| `dscpNode.fullnameOverride` | String to fully override dscp-node.fullname template                                      | `""`   |
-| `externalDscpNode.host`     | External DSCP-Node hostname to query                                                      | `""`   |
-| `externalDscpNode.port`     | External DSCP-Node port to query                                                          | `""`   |
+| `dscpNode.enabled`          | Enable SQNC-Node subchart                                                                 | `true` |
+| `dscpNode.nameOverride`     | String to partially override sqnc-node.fullname template (will maintain the release name) | `""`   |
+| `dscpNode.fullnameOverride` | String to fully override sqnc-node.fullname template                                      | `""`   |
+| `externalDscpNode.host`     | External SQNC-Node hostname to query                                                      | `""`   |
+| `externalDscpNode.port`     | External SQNC-Node port to query                                                          | `""`   |
 
 This chart allows you to set your custom affinity using the `affinity` parameter. Find more information about Pod affinity in the [kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 

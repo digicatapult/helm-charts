@@ -31,7 +31,7 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Create a default fully qualified app name for dscp-node subchart
+Create a default fully qualified app name for sqnc-node subchart
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "dscp-matchmaker-api.dscpNode.fullname" -}}
@@ -45,14 +45,14 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 
 {{/*
-Return the dscp-node api hostname
+Return the sqnc-node api hostname
 */}}
 {{- define "dscp-matchmaker-api.dscpNodeHost" -}}
 {{- ternary (include "dscp-matchmaker-api.dscpNode.fullname" .) .Values.externalDscpNode.host .Values.node.enabled | quote -}}
 {{- end -}}
 
 {{/*
-Return the dscp-node API port
+Return the sqnc-node API port
 */}}
 {{- define "dscp-matchmaker-api.dscpNodePort" -}}
 {{- ternary "9944" .Values.externalDscpNode.port .Values.node.enabled | quote -}}

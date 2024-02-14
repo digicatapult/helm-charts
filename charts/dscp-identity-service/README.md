@@ -233,15 +233,15 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`               |
 | `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`               |
 
-### DSCP-Node Parameters
+### SQNC-Node Parameters
 
 | Name                    | Description                                                                               | Value  |
 | ----------------------- | ----------------------------------------------------------------------------------------- | ------ |
-| `node.enabled`          | Enable DSCP-Node subchart                                                                 | `true` |
-| `node.nameOverride`     | String to partially override dscp-node.fullname template (will maintain the release name) | `""`   |
-| `node.fullnameOverride` | String to fully override dscp-node.fullname template                                      | `""`   |
-| `externalDscpNode.host` | External DSCP-Node hostname to query                                                      | `""`   |
-| `externalDscpNode.port` | External DSCP-Node port to query                                                          | `""`   |
+| `node.enabled`          | Enable SQNC-Node subchart                                                                 | `true` |
+| `node.nameOverride`     | String to partially override sqnc-node.fullname template (will maintain the release name) | `""`   |
+| `node.fullnameOverride` | String to fully override sqnc-node.fullname template                                      | `""`   |
+| `externalDscpNode.host` | External SQNC-Node hostname to query                                                      | `""`   |
+| `externalDscpNode.port` | External SQNC-Node port to query                                                          | `""`   |
 
 
 ## Configuration and installation details

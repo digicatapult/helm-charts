@@ -715,20 +715,20 @@ serviceAccount:
   ##
   automountServiceAccountToken: true
 
-## @section DSCP-Node Parameters
+## @section SQNC-Node Parameters
 dscpNode:
-  ## @param dscpNode.enabled Enable DSCP-Node subchart
+  ## @param dscpNode.enabled Enable SQNC-Node subchart
   enabled: true
-  ## @param dscpNode.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
+  ## @param dscpNode.nameOverride String to partially override sqnc-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
-  ## @param dscpNode.fullnameOverride String to fully override dscp-node.fullname template
+  ## @param dscpNode.fullnameOverride String to fully override sqnc-node.fullname template
   ##
   fullnameOverride: ""
-## @param externalDscpNode.host External DSCP-Node hostname to query
+## @param externalDscpNode.host External SQNC-Node hostname to query
 ##
 externalDscpNode:
   host: ""
-  ## @param externalDscpNode.port External DSCP-Node port to query
+  ## @param externalDscpNode.port External SQNC-Node port to query
   ##
   port: ""
