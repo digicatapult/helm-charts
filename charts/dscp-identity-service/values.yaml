@@ -60,7 +60,7 @@ diagnosticMode:
   args:
     - infinity
 
-## @section DSCP Identity Service config parameters
+## @section SQNC Identity Service config parameters
 ##
 
 ## @param logLevel Allowed values: error, warn, info, debug
@@ -92,19 +92,19 @@ authAudience: ""
 authIssuer: ""
 
 
-## Digital Catapult dscp-identity-service image
-## ref: https://hub.docker.com/r/digicatapult/dscp-identity-service/tags/
-## @param image.registry dscp-identity-service image registry
-## @param image.repository dscp-identity-service image repository
-## @param image.tag dscp-identity-service image tag (immutable tags are recommended)
-## @param image.digest dscp-identity-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-## @param image.pullPolicy dscp-identity-service image pull policy
-## @param image.pullSecrets dscp-identity-service image pull secrets
-## @param image.debug Enable dscp-identity-service image debug mode
+## Digital Catapult sqnc-identity-service image
+## ref: https://hub.docker.com/r/digicatapult/sqnc-identity-service/tags/
+## @param image.registry sqnc-identity-service image registry
+## @param image.repository sqnc-identity-service image repository
+## @param image.tag sqnc-identity-service image tag (immutable tags are recommended)
+## @param image.digest sqnc-identity-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+## @param image.pullPolicy sqnc-identity-service image pull policy
+## @param image.pullSecrets sqnc-identity-service image pull secrets
+## @param image.debug Enable sqnc-identity-service image debug mode
 ##
 image:
   registry: docker.io
-  repository: digicatapult/dscp-identity-service
+  repository: digicatapult/sqnc-identity-service
   tag: v1.9.3
   digest: ""
   ## Specify a imagePullPolicy
@@ -123,16 +123,16 @@ image:
   ## Enable debug mode
   ##
   debug: false
-## @param replicaCount Number of dscp-identity-service replicas to deploy
+## @param replicaCount Number of sqnc-identity-service replicas to deploy
 ##
 replicaCount: 1
-## @param containerPorts.http dscp-identity-service HTTP container port
+## @param containerPorts.http sqnc-identity-service HTTP container port
 ##
 containerPorts:
   http: 3000
-## Configure extra options for dscp-identity-service containers' liveness and readiness probes
+## Configure extra options for sqnc-identity-service containers' liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe on dscp-identity-service containers
+## @param livenessProbe.enabled Enable livenessProbe on sqnc-identity-service containers
 ## @param livenessProbe.path Path for to check for livenessProbe
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
@@ -148,7 +148,7 @@ livenessProbe:
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
-## @param readinessProbe.enabled Enable readinessProbe on dscp-identity-service containers
+## @param readinessProbe.enabled Enable readinessProbe on sqnc-identity-service containers
 ## @param readinessProbe.path Path for to check for readinessProbe
 ## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
 ## @param readinessProbe.periodSeconds Period seconds for readinessProbe
@@ -164,7 +164,7 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 5
   successThreshold: 1
-## @param startupProbe.enabled Enable startupProbe on dscp-identity-service containers
+## @param startupProbe.enabled Enable startupProbe on sqnc-identity-service containers
 ## @param startupProbe.path Path for to check for startupProbe
 ## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
 ## @param startupProbe.periodSeconds Period seconds for startupProbe
@@ -189,28 +189,28 @@ customReadinessProbe: {}
 ## @param customStartupProbe Custom startupProbe that overrides the default one
 ##
 customStartupProbe: {}
-## dscp-identity-service resource requests and limits
+## sqnc-identity-service resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources.limits The resources limits for the dscp-identity-service containers
-## @param resources.requests The requested resources for the dscp-identity-service containers
+## @param resources.limits The resources limits for the sqnc-identity-service containers
+## @param resources.requests The requested resources for the sqnc-identity-service containers
 ##
 resources:
   limits: {}
   requests: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled dscp-identity-service pods' Security Context
-## @param podSecurityContext.fsGroup Set dscp-identity-service pod's Security Context fsGroup
+## @param podSecurityContext.enabled Enabled sqnc-identity-service pods' Security Context
+## @param podSecurityContext.fsGroup Set sqnc-identity-service pod's Security Context fsGroup
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enabled dscp-identity-service containers' Security Context
-## @param containerSecurityContext.runAsUser Set dscp-identity-service containers' Security Context runAsUser
-## @param containerSecurityContext.runAsNonRoot Set dscp-identity-service containers' Security Context runAsNonRoot
-## @param containerSecurityContext.readOnlyRootFilesystem Set dscp-identity-service containers' Security Context runAsNonRoot
+## @param containerSecurityContext.enabled Enabled sqnc-identity-service containers' Security Context
+## @param containerSecurityContext.runAsUser Set sqnc-identity-service containers' Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set sqnc-identity-service containers' Security Context runAsNonRoot
+## @param containerSecurityContext.readOnlyRootFilesystem Set sqnc-identity-service containers' Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
@@ -224,15 +224,15 @@ command: []
 ## @param args Override default container args (useful when using custom images)
 ##
 args: []
-## @param hostAliases dscp-identity-service pods host aliases
+## @param hostAliases sqnc-identity-service pods host aliases
 ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
 ##
 hostAliases: []
-## @param podLabels Extra labels for dscp-identity-service pods
+## @param podLabels Extra labels for sqnc-identity-service pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
-## @param podAnnotations Annotations for dscp-identity-service pods
+## @param podAnnotations Annotations for sqnc-identity-service pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
@@ -256,9 +256,9 @@ pdb:
   maxUnavailable: ""
 ## Autoscaling configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for dscp-identity-service
-## @param autoscaling.minReplicas Minimum number of dscp-identity-service replicas
-## @param autoscaling.maxReplicas Maximum number of dscp-identity-service replicas
+## @param autoscaling.enabled Enable autoscaling for sqnc-identity-service
+## @param autoscaling.minReplicas Minimum number of sqnc-identity-service replicas
+## @param autoscaling.maxReplicas Maximum number of sqnc-identity-service replicas
 ## @param autoscaling.targetCPU Target CPU utilization percentage
 ## @param autoscaling.targetMemory Target Memory utilization percentage
 ##
@@ -285,20 +285,20 @@ nodeAffinityPreset:
   ##   - e2e-az2
   ##
   values: []
-## @param affinity Affinity for dscp-identity-service pods assignment
+## @param affinity Affinity for sqnc-identity-service pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: `podAffinityPreset`, `podAntiAffinityPreset`, and `nodeAffinityPreset` will be ignored when it's set
 ##
 affinity: {}
-## @param nodeSelector Node labels for dscp-identity-service pods assignment
+## @param nodeSelector Node labels for sqnc-identity-service pods assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## @param tolerations Tolerations for dscp-identity-service pods assignment
+## @param tolerations Tolerations for sqnc-identity-service pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
-## @param updateStrategy.type dscp-identity-service statefulset strategy type
+## @param updateStrategy.type sqnc-identity-service statefulset strategy type
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
 updateStrategy:
@@ -307,14 +307,14 @@ updateStrategy:
   ##
   type: RollingUpdate
 
-## @param priorityClassName dscp-identity-service pods' priorityClassName
+## @param priorityClassName sqnc-identity-service pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
 ##
 topologySpreadConstraints: []
-## @param schedulerName Name of the k8s scheduler (other than default) for dscp-identity-service pods
+## @param schedulerName Name of the k8s scheduler (other than default) for sqnc-identity-service pods
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
 ##
 schedulerName: ""
@@ -322,29 +322,29 @@ schedulerName: ""
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 ##
 terminationGracePeriodSeconds: ""
-## @param lifecycleHooks for the dscp-identity-service container(s) to automate configuration before or after startup
+## @param lifecycleHooks for the sqnc-identity-service container(s) to automate configuration before or after startup
 ##
 lifecycleHooks: {}
-## @param extraEnvVars Array with extra environment variables to add to dscp-identity-service nodes
+## @param extraEnvVars Array with extra environment variables to add to sqnc-identity-service nodes
 ## e.g:
 ## extraEnvVars:
 ##   - name: FOO
 ##     value: "bar"
 ##
 extraEnvVars: []
-## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for dscp-identity-service nodes
+## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars for sqnc-identity-service nodes
 ##
 extraEnvVarsCM: ""
-## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for dscp-identity-service nodes
+## @param extraEnvVarsSecret Name of existing Secret containing extra env vars for sqnc-identity-service nodes
 ##
 extraEnvVarsSecret: ""
-## @param extraVolumes Optionally specify extra list of additional volumes for the dscp-identity-service pod(s)
+## @param extraVolumes Optionally specify extra list of additional volumes for the sqnc-identity-service pod(s)
 ##
 extraVolumes: []
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the dscp-identity-service container(s)
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the sqnc-identity-service container(s)
 ##
 extraVolumeMounts: []
-## @param sidecars Add additional sidecar containers to the dscp-identity-service pod(s)
+## @param sidecars Add additional sidecar containers to the sqnc-identity-service pod(s)
 ## e.g:
 ## sidecars:
 ##   - name: your-image-name
@@ -355,7 +355,7 @@ extraVolumeMounts: []
 ##         containerPort: 1234
 ##
 sidecars: []
-## @param initContainers Add additional init containers to the dscp-identity-service pod(s)
+## @param initContainers Add additional init containers to the sqnc-identity-service pod(s)
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 ## e.g:
 ## initContainers:
@@ -369,13 +369,13 @@ initContainers: []
 ## @section Traffic Exposure Parameters
 ##
 
-## dscp-identity-service service parameters
+## sqnc-identity-service service parameters
 ##
 service:
-  ## @param service.type dscp-identity-service service type
+  ## @param service.type sqnc-identity-service service type
   ##
   type: ClusterIP
-  ## @param service.ports.http dscp-identity-service service HTTP port
+  ## @param service.ports.http sqnc-identity-service service HTTP port
   ##
   ports:
     http: 3000
@@ -385,30 +385,30 @@ service:
   ##
   nodePorts:
     http: ""
-  ## @param service.clusterIP dscp-identity-service service Cluster IP
+  ## @param service.clusterIP sqnc-identity-service service Cluster IP
   ## e.g.:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.loadBalancerIP dscp-identity-service service Load Balancer IP
+  ## @param service.loadBalancerIP sqnc-identity-service service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
   loadBalancerIP: ""
-  ## @param service.loadBalancerSourceRanges dscp-identity-service service Load Balancer sources
+  ## @param service.loadBalancerSourceRanges sqnc-identity-service service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
   ## loadBalancerSourceRanges:
   ##   - 10.10.10.0/24
   ##
   loadBalancerSourceRanges: []
-  ## @param service.externalTrafficPolicy dscp-identity-service service external traffic policy
+  ## @param service.externalTrafficPolicy sqnc-identity-service service external traffic policy
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
-  ## @param service.annotations Additional custom annotations for dscp-identity-service service
+  ## @param service.annotations Additional custom annotations for sqnc-identity-service service
   ##
   annotations: {}
-  ## @param service.extraPorts Extra ports to expose in dscp-identity-service service (normally used with the `sidecars` value)
+  ## @param service.extraPorts Extra ports to expose in sqnc-identity-service service (normally used with the `sidecars` value)
   ##
   extraPorts: []
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
@@ -423,11 +423,11 @@ service:
   ##
   sessionAffinityConfig: {}
 
-## dscp-identity-service ingress parameters
+## sqnc-identity-service ingress parameters
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
 ingress:
-  ## @param ingress.enabled Enable ingress record generation for dscp-identity-service
+  ## @param ingress.enabled Enable ingress record generation for sqnc-identity-service
   ##
   enabled: true
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
@@ -435,7 +435,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: dscp-identity-service.local
+  hostname: sqnc-identity-service.local
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
@@ -472,7 +472,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: dscp-identity-service.local
+  ##   - name: sqnc-identity-service.local
   ##     path: /
   ##
   extraHosts: []
@@ -499,8 +499,8 @@ ingress:
   ## e.g:
   ## extraTls:
   ## - hosts:
-  ##     - dscp-identity-service.local
-  ##   secretName: dscp-identity-service.local-tls
+  ##     - sqnc-identity-service.local
+  ##   secretName: sqnc-identity-service.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets Custom TLS certificates as secrets
@@ -512,7 +512,7 @@ ingress:
   ## Please see README.md for more information
   ## e.g:
   ## secrets:
-  ##   - name: dscp-identity-service.local-tls
+  ##   - name: sqnc-identity-service.local-tls
   ##     key: |-
   ##       -----BEGIN RSA PRIVATE KEY-----
   ##       ...
@@ -543,12 +543,12 @@ ingress:
 initDbCreate:
   ## PostreSQL image
   ## ref: https://hub.docker.com/_/postgres/tags/
-  ## @param initDbCreate.image.registry dscp-routing-service image registry
-  ## @param initDbCreate.image.repository dscp-routing-service image repository
-  ## @param initDbCreate.image.tag dscp-routing-service image tag (immutable tags are recommended)
-  ## @param initDbCreate.image.digest dscp-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-  ## @param initDbCreate.image.pullPolicy dscp-routing-service image pull policy
-  ## @param initDbCreate.image.pullSecrets dscp-routing-service image pull secrets
+  ## @param initDbCreate.image.registry sqnc-routing-service image registry
+  ## @param initDbCreate.image.repository sqnc-routing-service image repository
+  ## @param initDbCreate.image.tag sqnc-routing-service image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.digest sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.pullPolicy sqnc-routing-service image pull policy
+  ## @param initDbCreate.image.pullSecrets sqnc-routing-service image pull secrets
   ##
   image:
     registry: docker.io
@@ -621,9 +621,9 @@ postgresql:
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
 ## @param externalDatabase.port Database port number
-## @param externalDatabase.user Non-root username for dscp-identity-service
-## @param externalDatabase.password Password for the non-root username for dscp-identity-service
-## @param externalDatabase.database dscp-identity-service database name
+## @param externalDatabase.user Non-root username for sqnc-identity-service
+## @param externalDatabase.password Password for the non-root username for sqnc-identity-service
+## @param externalDatabase.database sqnc-identity-service database name
 ## @param externalDatabase.create Enable PostgreSQL user and database creation (when using an external db)
 ## @param externalDatabase.postgresqlPostgresUser External Database admin username
 ## @param externalDatabase.postgresqlPostgresPassword External Database admin password
@@ -644,20 +644,20 @@ externalDatabase:
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
 
-## @section DSCP-Node Parameters
+## @section SQNC-Node Parameters
 node:
-  ## @param node.enabled Enable DSCP-Node subchart
+  ## @param node.enabled Enable SQNC-Node subchart
   enabled: true
-  ## @param node.nameOverride String to partially override dscp-node.fullname template (will maintain the release name)
+  ## @param node.nameOverride String to partially override sqnc-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
-  ## @param node.fullnameOverride String to fully override dscp-node.fullname template
+  ## @param node.fullnameOverride String to fully override sqnc-node.fullname template
   ##
   fullnameOverride: ""
-## @param externalDscpNode.host External DSCP-Node hostname to query
+## @param externalSqncNode.host External SQNC-Node hostname to query
 ##
-externalDscpNode:
+externalSqncNode:
   host: ""
-  ## @param externalDscpNode.port External DSCP-Node port to query
+  ## @param externalSqncNode.port External SQNC-Node port to query
   ##
   port: ""

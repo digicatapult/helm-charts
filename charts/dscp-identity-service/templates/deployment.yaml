@@ -4,7 +4,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-identity-service
+    app.kubernetes.io/component: sqnc-identity-service
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -20,20 +20,20 @@ spec:
   {{- end }}
   selector:
     matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: dscp-identity-service
+      app.kubernetes.io/component: sqnc-identity-service
   template:
     metadata:
       {{- if .Values.podAnnotations }}
       annotations: {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
       {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: dscp-identity-service
+        app.kubernetes.io/component: sqnc-identity-service
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "dscp-identity-service.serviceAccountName" . }}
-      {{- include "dscp-identity-service.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "sqnc-identity-service.serviceAccountName" . }}
+      {{- include "sqnc-identity-service.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
       {{- end }}
@@ -41,8 +41,8 @@ spec:
       affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- else }}
       affinity:
-        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "dscp-identity-service" "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "dscp-identity-service" "context" $) | nindent 10 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "sqnc-identity-service" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "sqnc-identity-service" "context" $) | nindent 10 }}
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- if .Values.nodeSelector }}
@@ -70,29 +70,29 @@ spec:
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
         - name: database-create
-          image: {{ template "dscp-identity-service.initDbCreate.image" . }}
+          image: {{ template "sqnc-identity-service.initDbCreate.image" . }}
           imagePullPolicy: {{ .Values.initDbCreate.image.pullPolicy }}
           env:
             - name: DB_HOST
-              value: {{ template "dscp-identity-service.databaseHost" . }}
+              value: {{ template "sqnc-identity-service.databaseHost" . }}
             - name: DB_PORT
-              value: {{ template "dscp-identity-service.databasePort" . }}
+              value: {{ template "sqnc-identity-service.databasePort" . }}
             - name: DB_NAME
-              value: {{ template "dscp-identity-service.databaseName" . }}
+              value: {{ template "sqnc-identity-service.databaseName" . }}
             - name: DB_USERNAME
-              value: {{ template "dscp-identity-service.databaseUser" . }}
+              value: {{ template "sqnc-identity-service.databaseUser" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-identity-service.databaseSecretName" . }}
-                  key: {{ include "dscp-identity-service.databaseSecretPasswordKey" . }}
+                  name: {{ include "sqnc-identity-service.databaseSecretName" . }}
+                  key: {{ include "sqnc-identity-service.databaseSecretPasswordKey" . }}
             - name: DB_POSTGRES_USERNAME
               value: {{ .Values.externalDatabase.postgresqlPostgresUser }}
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-identity-service.databaseSecretName" . }}
-                  key: {{ include "dscp-identity-service.databaseSecretPostgresPasswordKey" . }}
+                  name: {{ include "sqnc-identity-service.databaseSecretName" . }}
+                  key: {{ include "sqnc-identity-service.databaseSecretPostgresPasswordKey" . }}
           command:
             - '/bin/sh'
             - '-c'
@@ -110,7 +110,7 @@ spec:
         {{- end }}
         {{- if .Values.initDbMigrate.enable }}
         - name: database-migrate
-          image: {{ template "dscp-identity-service.image" . }}
+          image: {{ template "sqnc-identity-service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ['npx', 'knex']
           {{- if .Values.initDbMigrate.args }}
@@ -120,26 +120,26 @@ spec:
             - name: NODE_ENV
               value: {{ .Values.initDbMigrate.environment }}
             - name: DB_HOST
-              value: {{ template "dscp-identity-service.databaseHost" . }}
+              value: {{ template "sqnc-identity-service.databaseHost" . }}
             - name: DB_PORT
-              value: {{ template "dscp-identity-service.databasePort" . }}
+              value: {{ template "sqnc-identity-service.databasePort" . }}
             - name: DB_NAME
-              value: {{ template "dscp-identity-service.databaseName" . }}
+              value: {{ template "sqnc-identity-service.databaseName" . }}
             - name: DB_USERNAME
-              value: {{ template "dscp-identity-service.databaseUser" . }}
+              value: {{ template "sqnc-identity-service.databaseUser" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-identity-service.databaseSecretName" . }}
-                  key: {{ include "dscp-identity-service.databaseSecretPasswordKey" . }}
+                  name: {{ include "sqnc-identity-service.databaseSecretName" . }}
+                  key: {{ include "sqnc-identity-service.databaseSecretPasswordKey" . }}
         {{- end }}
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       {{- end }}
       containers:
-        - name: dscp-identity-service
-          image: {{ template "dscp-identity-service.image" . }}
+        - name: sqnc-identity-service
+          image: {{ template "sqnc-identity-service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -155,7 +155,7 @@ spec:
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
           {{- end }}
           env:
-            - name: DSCP_DEBUG
+            - name: SQNC_DEBUG
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: PORT
               value: {{ .Values.containerPorts.http | quote }}
@@ -166,22 +166,22 @@ spec:
             - name: SELF_ADDRESS
               value: {{ .Values.selfAddress }}
             - name: DB_HOST
-              value: {{ template "dscp-identity-service.databaseHost" . }}
+              value: {{ template "sqnc-identity-service.databaseHost" . }}
             - name: DB_PORT
-              value: {{ template "dscp-identity-service.databasePort" . }}
+              value: {{ template "sqnc-identity-service.databasePort" . }}
             - name: DB_NAME
-              value: {{ template "dscp-identity-service.databaseName" . }}
+              value: {{ template "sqnc-identity-service.databaseName" . }}
             - name: DB_USERNAME
-              value: {{ template "dscp-identity-service.databaseUser" . }}
+              value: {{ template "sqnc-identity-service.databaseUser" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-identity-service.databaseSecretName" . }}
-                  key: {{ include "dscp-identity-service.databaseSecretPasswordKey" . }}
+                  name: {{ include "sqnc-identity-service.databaseSecretName" . }}
+                  key: {{ include "sqnc-identity-service.databaseSecretPasswordKey" . }}
             - name: API_HOST
-              value: {{ include "dscp-identity-service.dscpNodeHost" . }}
+              value: {{ include "sqnc-identity-service.sqncNodeHost" . }}
             - name: API_PORT
-              value: {{ include "dscp-identity-service.dscpNodePort" . }}
+              value: {{ include "sqnc-identity-service.sqncNodePort" . }}
             - name: AUTH_TYPE
               value: {{ .Values.authType }}
             {{- if or (eq .Values.authType "jwt") (eq .Values.authType "JWT") }}

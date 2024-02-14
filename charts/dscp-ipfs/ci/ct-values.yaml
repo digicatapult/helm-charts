@@ -1,4 +1,4 @@
-dscpNode:
+sqncNode:
   enabled: true
   node:
     chain: dev

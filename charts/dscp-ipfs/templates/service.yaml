@@ -4,7 +4,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -50,7 +50,7 @@ spec:
     {{- include "common.tplvalues.render" (dict "value" .Values.service.extraPorts "context" $) | nindent 4 }}
     {{- end }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs
 
 {{range $i := until (max ( .Values.replicaCount ) ( .Values.autoscaling.maxReplicas ) | int) }}
 ---
@@ -60,7 +60,7 @@ metadata:
   name: {{ template "common.names.fullname" $ }}-{{ $i }}-swarm
   namespace: {{ include "common.names.namespace" $ | quote }}
   labels: {{- include "common.labels.standard" $ | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs
     instance: {{ template "common.names.fullname" $ }}-{{ $i }}
     {{- if $.Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
@@ -107,7 +107,7 @@ spec:
     {{- include "common.tplvalues.render" (dict "value" .Values.swarmService.extraPorts "context" $) | nindent 4 }}
     {{- end }}
   selector: {{- include "common.labels.matchLabels" $ | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs
     statefulset.kubernetes.io/pod-name: {{ template "common.names.fullname" $ }}-{{ $i }}
 {{ end }}
 ---
@@ -117,7 +117,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}-api
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -163,4 +163,4 @@ spec:
     {{- include "common.tplvalues.render" (dict "value" .Values.apiService.extraPorts "context" $) | nindent 4 }}
     {{- end }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs

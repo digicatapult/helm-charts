@@ -4,7 +4,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: dscp-ipfs
+    app.kubernetes.io/component: sqnc-ipfs
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -18,7 +18,7 @@ spec:
   podManagementPolicy: {{ .Values.podManagementPolicy | quote }}
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: dscp-ipfs
+      app.kubernetes.io/component: sqnc-ipfs
   serviceName: {{ template "common.names.fullname" . }}
   {{- if .Values.updateStrategy }}
   updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
@@ -29,7 +29,7 @@ spec:
       annotations: {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
       {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: dscp-ipfs
+        app.kubernetes.io/component: sqnc-ipfs
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
@@ -37,8 +37,8 @@ spec:
         {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "dscp-ipfs.serviceAccountName" . }}
-      {{- include "dscp-ipfs.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "sqnc-ipfs.serviceAccountName" . }}
+      {{- include "sqnc-ipfs.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
       {{- end }}
@@ -46,8 +46,8 @@ spec:
       affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- else }}
       affinity:
-        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "dscp-ipfs" "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "dscp-ipfs" "context" $) | nindent 10 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "sqnc-ipfs" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "sqnc-ipfs" "context" $) | nindent 10 }}
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- if .Values.nodeSelector }}
@@ -74,7 +74,7 @@ spec:
       initContainers:
         {{- if and .Values.volumePermissions.enabled .Values.persistence.enabled }}
         - name: volume-permissions
-          image: {{ include "dscp-ipfs.volumePermissions.image" . }}
+          image: {{ include "sqnc-ipfs.volumePermissions.image" . }}
           imagePullPolicy: {{ .Values.volumePermissions.image.pullPolicy | quote }}
           command:
             - /bin/sh
@@ -93,7 +93,7 @@ spec:
         {{- end }}
         {{- if .Values.ipfs.initConfig.enabled }}
         - name: init-ipfs-config
-          image: {{ include "dscp-ipfs.image" . }}
+          image: {{ include "sqnc-ipfs.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -183,20 +183,20 @@ spec:
             - name: IPFS_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-ipfs.secretName" . }}
-                  key: {{ include "dscp-ipfs.publicKeyKey" . }}
+                  name: {{ include "sqnc-ipfs.secretName" . }}
+                  key: {{ include "sqnc-ipfs.publicKeyKey" . }}
             - name: IPFS_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dscp-ipfs.secretName" . }}
-                  key: {{ include "dscp-ipfs.privateKeyKey" . }}
+                  name: {{ include "sqnc-ipfs.secretName" . }}
+                  key: {{ include "sqnc-ipfs.privateKeyKey" . }}
         {{- end }}
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
-        - name: dscp-ipfs
-          image: {{ template "dscp-ipfs.image" . }}
+        - name: sqnc-ipfs
+          image: {{ template "sqnc-ipfs.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -212,7 +212,7 @@ spec:
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
           {{- end }}
           env:
-            - name: DSCP_DEBUG
+            - name: SQNC_DEBUG
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: LOG_LEVEL
               value: {{ .Values.logLevel | quote }}
@@ -235,9 +235,9 @@ spec:
             - name: IPFS_API_PORT
               value: {{ .Values.containerPorts.api | quote }}
             - name: NODE_HOST
-              value: {{ include "dscp-ipfs.dscpNodeHost" . }}
+              value: {{ include "sqnc-ipfs.sqncNodeHost" . }}
             - name: NODE_PORT
-              value: {{ include "dscp-ipfs.dscpNodePort" . }}
+              value: {{ include "sqnc-ipfs.sqncNodePort" . }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}

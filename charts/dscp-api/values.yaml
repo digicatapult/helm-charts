@@ -2,11 +2,11 @@
 config:
   port: 80
   # externalOrigin: "http://localhost:3000" # Overrides the server url in the openapi spec
-  # externalPathPrefix: "alice/dscp-api" # Path prefix to be applied to served API routes
+  # externalPathPrefix: "alice/sqnc-api" # Path prefix to be applied to served API routes
   logLevel: info
   accountKey: //Alice
-  # externalIpfsHost: "" # This overrides dscpIpfs.enabled when setting the IPFS_HOST envar
-  # externalIpfsPort: 5001 # This overrides dscpIpfs.enabled when setting the IPFS_PORT envar
+  # externalIpfsHost: "" # This overrides sqncIpfs.enabled when setting the IPFS_HOST envar
+  # externalIpfsPort: 5001 # This overrides sqncIpfs.enabled when setting the IPFS_PORT envar
   enableLivenessProbe: true
   substrateStatusPollPeriodMs: 10000
   substrateStatusTimeoutMs: 2000
@@ -24,7 +24,7 @@ deployment:
   replicaCount: 1
 
 ingress:
-  host: "dscp-api.local"
+  host: "sqnc-api.local"
   annotations: {}
   className: ""
   enabled: true
@@ -37,7 +37,7 @@ service:
   port: 80
 
 image:
-  repository: digicatapult/dscp-api
+  repository: digicatapult/sqnc-api
   pullPolicy: IfNotPresent
   tag: 'v5.0.3'
 
@@ -46,5 +46,5 @@ node:
 
 ipfs:
   enabled: true
-  dscpNode:
+  sqncNode:
     enabled: true
