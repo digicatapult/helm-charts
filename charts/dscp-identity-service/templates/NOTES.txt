@@ -24,7 +24,7 @@ In order to replicate the container startup scripts execute this command:
 
 {{- else }}
 
-1. Get a dscp-identity-service URL by running these commands:
+1. Get a sqnc-identity-service URL by running these commands:
 
 {{- if contains "NodePort" .Values.service.type }}
 
@@ -49,11 +49,11 @@ In order to replicate the container startup scripts execute this command:
 
 {{- end }}
 
-2. Access dscp-identity-service using the obtained URL. For example for the ClusterIP url http://127.0.0.1:3000:
+2. Access sqnc-identity-service using the obtained URL. For example for the ClusterIP url http://127.0.0.1:3000:
 
 curl http://127.0.0.1:3000/health
 
 {{- end }}
 
 {{- include "common.warnings.rollingTag" .Values.image }}
-{{- include "dscp-identity-service.validateValues" . }}
+{{- include "sqnc-identity-service.validateValues" . }}
