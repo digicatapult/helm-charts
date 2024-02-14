@@ -1,5 +1,5 @@
 image:
-  repository: digicatapult/dscp-node
+  repository: digicatapult/sqnc-node
   tag: v9.0.0
   pullPolicy: Always
 
@@ -57,7 +57,7 @@ ingress:
 
 node:
   chain: "local"
-  command: "./dscp-node"
+  command: "./sqnc-node"
   dataVolumeSize: 10Gi
   replicas: 1
   role: full
