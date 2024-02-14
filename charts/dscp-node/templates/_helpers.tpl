@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "dscp-node.name" -}}
+{{- define "sqnc-node.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "dscp-node.fullname" -}}
+{{- define "sqnc-node.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" | lower }}
 {{- else }}
@@ -26,17 +26,17 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "dscp-node.chart" -}}
+{{- define "sqnc-node.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | lower }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "dscp-node.labels" -}}
-helm.sh/chart: {{ include "dscp-node.chart" . }}
-{{ include "dscp-node.selectorLabels" . }}
-{{ include "dscp-node.serviceLabels" . }}
+{{- define "sqnc-node.labels" -}}
+helm.sh/chart: {{ include "sqnc-node.chart" . }}
+{{ include "sqnc-node.selectorLabels" . }}
+{{ include "sqnc-node.serviceLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -49,15 +49,15 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "dscp-node.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "dscp-node.name" . }}
+{{- define "sqnc-node.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sqnc-node.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Service labels
 */}}
-{{- define "dscp-node.serviceLabels" -}}
+{{- define "sqnc-node.serviceLabels" -}}
 {{- if .Values.node.chain }}
 chain: {{ .Values.node.chain }}
 {{- end }}
@@ -68,9 +68,9 @@ role: {{ .Values.node.role }}
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "dscp-node.serviceAccountName" -}}
+{{- define "sqnc-node.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "dscp-node.fullname" .) .Values.serviceAccount.name | lower}}
+{{- default (include "sqnc-node.fullname" .) .Values.serviceAccount.name | lower}}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name | lower }}
 {{- end }}
@@ -79,7 +79,7 @@ Create the name of the service account to use
 {{/*
 Template the logic for serviceType
 */}}
-{{- define "dscp-node.serviceType" -}}
+{{- define "sqnc-node.serviceType" -}}
 {{- if eq $.Values.node.perNodeServices.p2pServiceType "NodePort" }}
 type: NodePort
 externalTrafficPolicy: Local

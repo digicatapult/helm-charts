@@ -28,7 +28,7 @@ Template to define the sqnc-node hostname.
   {{- if .Values.config.externalNodeHost -}}
     {{- .Values.config.externalNodeHost -}}
   {{- else if .Values.node.enabled -}}
-    {{- template "dscp-node.fullname" .Subcharts.node -}}
+    {{- template "sqnc-node.fullname" .Subcharts.node -}}
   {{- else if .Values.ipfs.dscpNode.enabled -}}
     {{- template "dscp-ipfs.dscpNodeHost" .Subcharts.ipfs -}}
   {{- else }}
