@@ -1,10 +1,10 @@
 annotations:
-  category: dscp
+  category: sqnc
   licenses: Apache-2.0
 apiVersion: v2
-name: dscp-ipfs
-description: dscp-ipfs is a component of the DSCP project that provides a distributed IPFS based storage solution for the DSCP platform.
-# renovate: image=digicatapult/dscp-ipfs
+name: sqnc-ipfs
+description: sqnc-ipfs is a component of the SQNC project that provides a distributed IPFS based storage solution for the SQNC platform.
+# renovate: image=digicatapult/sqnc-ipfs
 appVersion: 2.9.32
 version: 3.0.8
 dependencies:
@@ -20,13 +20,13 @@ dependencies:
       - dscp-node
     version: 5.x.x
     condition: dscpNode.enabled
-home: https://github.com/digicatapult/dscp-documentation
-icon: https://raw.githubusercontent.com/digicatapult/dscp-documentation/main/assets/icon.png
+home: https://github.com/digicatapult/sqnc-documentation
+icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
 keywords:
-  - DSCP
+  - SQNC
 maintainers:
   - name: digicatapult  # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
     email: opensource@digicatapult.org.uk
 sources:
-  - https://github.com/digicatapult/dscp-ipfs
+  - https://github.com/digicatapult/sqnc-ipfs
