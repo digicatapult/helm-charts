@@ -22,15 +22,15 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
-Template to define the sqnc-node hostname.
+Template to define the dscp-node hostname.
 */}}
 {{- define "dscp-api.node-host" -}}
   {{- if .Values.config.externalNodeHost -}}
     {{- .Values.config.externalNodeHost -}}
   {{- else if .Values.node.enabled -}}
-    {{- template "sqnc-node.fullname" .Subcharts.node -}}
-  {{- else if .Values.ipfs.sqncNode.enabled -}}
-    {{- template "sqnc-ipfs.sqncNodeHost" .Subcharts.ipfs -}}
+    {{- template "dscp-node.fullname" .Subcharts.node -}}
+  {{- else if .Values.ipfs.dscpNode.enabled -}}
+    {{- template "dscp-ipfs.dscpNodeHost" .Subcharts.ipfs -}}
   {{- else }}
     {{- fail "Must supply either externalNodeHost or enable node or ipfs" -}}
   {{- end -}}
