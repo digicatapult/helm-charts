@@ -1,9 +1,9 @@
 apiVersion: v2
-name: sqnc-api
-# renovate: image=digicatapult/sqnc-api
+name: dscp-api
+# renovate: image=digicatapult/dscp-api
 appVersion: '5.0.3'
-description: A Helm chart for sqnc-api
-version: 4.10.0
+description: A Helm chart for dscp-api
+version: '4.9.0'
 type: application
 dependencies:
   - name: dscp-node

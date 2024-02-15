@@ -8,7 +8,7 @@ A collection of [helm](https://helm.sh) charts created by [Digital Catapult](htt
 * [sqnc-ipfs](charts/sqnc-ipfs/Chart.yaml) - Deploy sqnc-ipfs
 * [sqnc-identity-service](charts/sqnc-identity-service/Chart.yaml) - Deploy sqnc-identity-service
 * [inteli-api](charts/inteli-api/Chart.yaml) - Deploy inteli-api
-* [sqnc-api](charts/sqnc-api/Chart.yaml) - Deploy sqnc-api
+* [dscp-api](charts/dscp-api/Chart.yaml) - Deploy dscp-api
 * [wasp-routing-service](charts/wasp-routing-service/README.md) - Deploy wasp-routing-service
 * [wasp-authentication-service](charts/wasp-authentication-service/README.md) - Deploy wasp-authentication-service
 * [wasp-thing-service](charts/wasp-thing-service/README.md) - Deploy wasp-thing-service

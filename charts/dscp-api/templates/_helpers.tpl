@@ -1,7 +1,7 @@
 {{/*
 Create name to be used with deployment.
 */}}
-{{- define "sqnc-api.fullname" -}}
+{{- define "dscp-api.fullname" -}}
     {{- if .Values.fullnameOverride -}}
         {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-"| lower -}}
     {{- else -}}
@@ -17,14 +17,14 @@ Create name to be used with deployment.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "sqnc-api.chart" -}}
+{{- define "dscp-api.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | lower }}
 {{- end }}
 
 {{/*
 Template to define the sqnc-node hostname.
 */}}
-{{- define "sqnc-api.node-host" -}}
+{{- define "dscp-api.node-host" -}}
   {{- if .Values.config.externalNodeHost -}}
     {{- .Values.config.externalNodeHost -}}
   {{- else if .Values.node.enabled -}}
@@ -39,16 +39,16 @@ Template to define the sqnc-node hostname.
 {{/*
 Selector labels
 */}}
-{{- define "sqnc-api.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "sqnc-api.fullname" . }}
+{{- define "dscp-api.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "dscp-api.fullname" . }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "sqnc-api.labels" -}}
-helm.sh/chart: {{ include "sqnc-api.chart" . }}
-{{ include "sqnc-api.selectorLabels" . }}
+{{- define "dscp-api.labels" -}}
+helm.sh/chart: {{ include "dscp-api.chart" . }}
+{{ include "dscp-api.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -58,7 +58,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Conditionally populate imagePullSecrets if present in the context
 */}}
-{{- define "sqnc-api.imagePullSecrets" -}}
+{{- define "dscp-api.imagePullSecrets" -}}
   {{- if (not (empty .Values.image.pullSecrets)) }}
 imagePullSecrets:
     {{- range .Values.image.pullSecrets }}

@@ -90,16 +90,16 @@ spec:
                 configMapKeyRef:
                   name: {{ include "inteli-api.fullname" . }}-config
                   key: logLevel
-            - name: SQNC_API_HOST
+            - name: DSCP_API_HOST
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "inteli-api.fullname" . }}-config
-                  key: sqncApiHost
-            - name: SQNC_API_PORT
+                  key: dscpApiHost
+            - name: DSCP_API_PORT
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "inteli-api.fullname" . }}-config
-                  key: sqncApiPort
+                  key: dscpApiPort
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
