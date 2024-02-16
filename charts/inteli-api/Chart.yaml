@@ -5,6 +5,7 @@ appVersion: '1.29.1'
 description: A Helm chart for inteli-api
 version: '1.30.0'
 type: application
+deprecated: true
 maintainers:
   - name: digicatapult
     email: opensource@digicatapult.org.uk

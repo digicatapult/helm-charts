@@ -5,6 +5,7 @@ appVersion: '5.0.3'
 description: A Helm chart for dscp-api
 version: '4.10.0'
 type: application
+deprecated: true
 dependencies:
   - name: dscp-node
     version: '4.5.6'

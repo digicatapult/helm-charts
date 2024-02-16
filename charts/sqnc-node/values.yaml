@@ -81,10 +81,8 @@ node:
   enableReadinessProbe: true
   flags:
     - "--rpc-external"
-    - "--ws-external"
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
-    - "--unsafe-ws-external"
     - "--unsafe-rpc-external"
     # - "--prometheus-external"
   keys: {}
