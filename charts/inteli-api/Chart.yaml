@@ -6,10 +6,6 @@ description: A Helm chart for inteli-api
 version: '1.30.0'
 type: application
 deprecated: true
-maintainers:
-  - name: digicatapult
-    email: opensource@digicatapult.org.uk
-    url: www.digicatapult.org.uk
 dependencies:
   - name: postgresql
     version: '^11.9.10'
