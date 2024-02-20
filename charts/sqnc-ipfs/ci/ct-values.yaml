@@ -5,6 +5,8 @@ sqncNode:
     flags:
     - "--rpc-external"
     - "--alice"
+    - "--ws-external"
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
+    - "--unsafe-ws-external"
     - "--unsafe-rpc-external"
