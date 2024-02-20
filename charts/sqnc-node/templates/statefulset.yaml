@@ -360,17 +360,17 @@ spec:
               port: rpc
           {{- end }}
           {{- if .Values.node.enableReadinessProbe }}
-          # Continuously retry the connection to the WS endpoint every 10s for 24h until success before marking the container as ready
-          # If the WS endpoint is still not reachable (ie. node not fully synced) after 24 hours have passed, the container will be stuck in 'Not Ready' state
+          # Continuously retry the connection to the rps endpoint every 10s for 24h until success before marking the container as ready
+          # If the RPC endpoint is still not reachable (ie. node not fully synced) after 24 hours have passed, the container will be stuck in 'Not Ready' state
           readinessProbe:
             failureThreshold: 8640
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-            # Important: the readiness probe will only work properly if the WS endpoint is exposed with --ws-external
+            # Important: the readiness probe will only work properly if the RPC endpoint is exposed with --rpc-external
             tcpSocket:
-              port: websocket-rpc
+              port: rpc
           {{- end }}
           resources:
           {{- toYaml .Values.node.resources | nindent 12 }}
