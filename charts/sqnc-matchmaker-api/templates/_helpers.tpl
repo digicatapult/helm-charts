@@ -38,7 +38,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- if .Values.node.fullnameOverride -}}
 {{- .Values.node.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default "sqncnode-0" .Values.node.nameOverride -}}
+{{- $name := default "node-0" .Values.node.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
