@@ -336,11 +336,8 @@ spec:
                   apiVersion: v1
                   fieldPath: metadata.name
           ports:
-            - containerPort: 9933
-              name: http-rpc
-              protocol: TCP
             - containerPort: 9944
-              name: websocket-rpc
+              name: rpc
               protocol: TCP
             - containerPort: 9615
               name: prometheus
@@ -360,7 +357,7 @@ spec:
             periodSeconds: 10
             httpGet:
               path: /health
-              port: http-rpc
+              port: rpc
           {{- end }}
           {{- if .Values.node.enableReadinessProbe }}
           # Continuously retry the connection to the WS endpoint every 10s for 24h until success before marking the container as ready
