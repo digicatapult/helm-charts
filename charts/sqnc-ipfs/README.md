@@ -99,7 +99,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `healthCheckTimeout`                              | Health check timeout in milliseconds                                                                                                                 | `2000`                   |
 | `image.registry`                                  | sqnc-ipfs image registry                                                                                                                             | `docker.io`              |
 | `image.repository`                                | sqnc-ipfs image repository                                                                                                                           | `digicatapult/sqnc-ipfs` |
-| `image.tag`                                       | sqnc-ipfs image tag (immutable tags are recommended)                                                                                                 | `v2.9.32`                |
+| `image.tag`                                       | sqnc-ipfs image tag (immutable tags are recommended)                                                                                                 | `v2.10.2`                |
 | `image.digest`                                    | sqnc-ipfs image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                     |
 | `image.pullPolicy`                                | sqnc-ipfs image pull policy                                                                                                                          | `IfNotPresent`           |
 | `image.pullSecrets`                               | sqnc-ipfs image pull secrets                                                                                                                         | `[]`                     |
@@ -281,7 +281,7 @@ Copyright &copy; 2023 Digital Catapult
 
 ### Attribution
 
-This chart is adapted from The [charts]((https://github.com/bitnami/charts)) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
+This chart is adapted from The [charts](<(https://github.com/bitnami/charts)>) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");

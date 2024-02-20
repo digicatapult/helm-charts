@@ -1,7 +1,6 @@
 # sqnc-identity-service
 
-The sqnc-identity-service is a component of the Sequence (SQNC) ledger-based system. The sqnc-identity-service is responsible maintaining an index of chain participants and identifying them, it exposes  API for this purpose. See [https://github.com/digicatapult/sqnc-documentation](https://github.com/digicatapult/sqnc-documentation) for details.
-
+The sqnc-identity-service is a component of the Sequence (SQNC) ledger-based system. The sqnc-identity-service is responsible maintaining an index of chain participants and identifying them, it exposes API for this purpose. See [https://github.com/digicatapult/sqnc-documentation](https://github.com/digicatapult/sqnc-documentation) for details.
 
 ## TL;DR
 
@@ -84,7 +83,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `authIssuer`                                      | The issuer for the JWT auth provider                                                                                                                             | `""`                                 |
 | `image.registry`                                  | sqnc-identity-service image registry                                                                                                                             | `docker.io`                          |
 | `image.repository`                                | sqnc-identity-service image repository                                                                                                                           | `digicatapult/sqnc-identity-service` |
-| `image.tag`                                       | sqnc-identity-service image tag (immutable tags are recommended)                                                                                                 | `v1.9.3`                             |
+| `image.tag`                                       | sqnc-identity-service image tag (immutable tags are recommended)                                                                                                 | `v1.10.1`                            |
 | `image.digest`                                    | sqnc-identity-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                 |
 | `image.pullPolicy`                                | sqnc-identity-service image pull policy                                                                                                                          | `IfNotPresent`                       |
 | `image.pullSecrets`                               | sqnc-identity-service image pull secrets                                                                                                                         | `[]`                                 |
@@ -243,7 +242,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalSqncNode.host` | External SQNC-Node hostname to query                                                      | `""`   |
 | `externalSqncNode.port` | External SQNC-Node port to query                                                          | `""`   |
 
-
 ## Configuration and installation details
 
 ### [Rolling VS Immutable tags](https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/)
@@ -296,7 +294,7 @@ Copyright &copy; 2023 Digital Catapult
 
 ### Attribution
 
-This chart is adapted from The [charts]((https://github.com/bitnami/charts)) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
+This chart is adapted from The [charts](<(https://github.com/bitnami/charts)>) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");

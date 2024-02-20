@@ -1,7 +1,6 @@
 # sqnc-matchmaker-api
 
-The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based system. The sqnc-matchmaker-api responsible for matching orders, and transactions as well as indexing blocks locally, it exposes  API for this purpose. See [https://github.com/digicatapult/sqnc-documentation](https://github.com/digicatapult/sqnc-documentation) for details.
-
+The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based system. The sqnc-matchmaker-api responsible for matching orders, and transactions as well as indexing blocks locally, it exposes API for this purpose. See [https://github.com/digicatapult/sqnc-documentation](https://github.com/digicatapult/sqnc-documentation) for details.
 
 ## TL;DR
 
@@ -80,7 +79,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `enableIndexer`                                   | Enable the indexer                                                                                                                                             | `true`                             |
 | `image.registry`                                  | sqnc-matchmaker-api image registry                                                                                                                             | `docker.io`                        |
 | `image.repository`                                | sqnc-matchmaker-api image repository                                                                                                                           | `digicatapult/sqnc-matchmaker-api` |
-| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                 | `v1.2.1`                           |
+| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                 | `v2.2.4`                           |
 | `image.digest`                                    | sqnc-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                               |
 | `image.pullPolicy`                                | sqnc-matchmaker-api image pull policy                                                                                                                          | `IfNotPresent`                     |
 | `image.pullSecrets`                               | sqnc-matchmaker-api image pull secrets                                                                                                                         | `[]`                               |
@@ -253,7 +252,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalSqncIdentity.host` | External SQNC-Identity-Service hostname | `""`  |
 | `externalSqncIdentity.port` | External SQNC-Identity-Service port     | `""`  |
 
-
 ## Configuration and installation details
 
 ### [Rolling VS Immutable tags](https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/)
@@ -306,7 +304,7 @@ Copyright &copy; 2023 Digital Catapult
 
 ### Attribution
 
-This chart is adapted from The [charts]((https://github.com/bitnami/charts)) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
+This chart is adapted from The [charts](<(https://github.com/bitnami/charts)>) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
