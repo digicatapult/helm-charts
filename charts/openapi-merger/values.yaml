@@ -97,9 +97,16 @@ openApiTitle: "Merged OpenAPI spec"
 ##
 apiDocsMock:
   enabled: false
-## @param security Enable JWT Bearer security configuration in the merged OpenAPI spec
-##
-security: true
+## @param security.type Options are ["bearer", "oauth2", ""] to enable security configuration in the merged OpenAPI spec
+## @param security.oauth2.authorizationUrl The URL for the oauth2 authorization
+## @param security.oauth2.tokenUrl The URL for the oauth2 token
+## ref: https://swagger.io/docs/specification/authentication/oauth2/
+security:
+  type: ""
+  oauth2:
+    authorizationUrl: "/auth/realms/simple/protocol/openid-connect/auth"
+    tokenUrl: "/auth/realms/simple/protocol/openid-connect/token"
+
 
 ## Digital Catapult openapi-merger image
 ## ref: https://hub.docker.com/r/digicatapult/openapi-merger/tags/
