@@ -58,7 +58,8 @@ data:
             "flows": {
                 "authorizationCode": {
                   "authorizationUrl": {{ .Values.security.oauth2.authorizationUrl | quote }},
-                  "tokenUrl": {{ .Values.security.oauth2.tokenUrl | quote }}
+                  "tokenUrl": {{ .Values.security.oauth2.tokenUrl | quote }},
+                  "scopes": {{ .Values.security.oauth2.scopes | toJson | default "{}" }}
               }
             }
           }
