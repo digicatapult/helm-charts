@@ -104,7 +104,7 @@ apiDocsMock:
 ## @skip security.oauth2.scopes.users:example
 ## ref: https://swagger.io/docs/specification/authentication/oauth2/
 security:
-  type: "oauth2"
+  type: ""
   oauth2:
     authorizationUrl: "/auth/realms/simple/protocol/openid-connect/auth"
     tokenUrl: "/auth/realms/simple/protocol/openid-connect/token"
