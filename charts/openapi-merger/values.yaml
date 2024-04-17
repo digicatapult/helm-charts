@@ -126,7 +126,7 @@ security:
 image:
   registry: docker.io
   repository: digicatapult/openapi-merger
-  tag: v1.0.71
+  tag: v1.0.72
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
