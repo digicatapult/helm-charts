@@ -44,10 +44,14 @@ Return the proper cronjob container image name
     {{- $_ := set $securitySchema $securityScheme.name (omit . "name") -}}
 {{- end -}}
 
+{{- $output := dict -}}
 {{- range $name, $scheme := $securitySchema -}}
-
+    {{- if eq $scheme.type "bearer" -}}
+        {{- $value := dict "type" "bearer" "scheme" "bearer" "bearerFormat" $scheme.bearer.format -}}
+        {{- $_ := set $output $name $value -}}
+    {{- end -}}
 {{- end -}}
-
+{{- $output | toJson -}}
 {{- end -}}
 
 {{/*

@@ -38,4 +38,7 @@ data:
         }{{- if ne $index (sub (len $.Values.baseUrl) 1) }},{{- end }}
         {{- end }}
       ]
+      "components": {
+        "securitySchema": {{ include "openapi-merger.base.securitySchemes" . }}
+      }
     }
