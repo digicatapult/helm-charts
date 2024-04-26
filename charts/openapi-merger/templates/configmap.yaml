@@ -37,8 +37,9 @@ data:
         "url": {{ $element | toJson }}
         }{{- if ne $index (sub (len $.Values.baseUrl) 1) }},{{- end }}
         {{- end }}
-      ]
+      ],
       "components": {
-        "securitySchema": {{ include "openapi-merger.base.securitySchemes" . }}
-      }
+        "securitySchemes": {{ include "openapi-merger.base.securitySchemes" . }}
+      },
+      "paths": {}
     }

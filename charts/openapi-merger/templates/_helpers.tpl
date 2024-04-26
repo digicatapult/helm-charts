@@ -39,16 +39,63 @@ Return the proper cronjob container image name
 {{- end -}}
 
 {{- define "openapi-merger.base.securitySchemes" -}}
-{{- $securitySchema := dict .Values.securitySchema.name (omit .Values.securitySchema "name") -}}
-{{- range $securityScheme := .Values.extraSecuritySchemas -}}
-    {{- $_ := set $securitySchema $securityScheme.name (omit . "name") -}}
-{{- end -}}
-
 {{- $output := dict -}}
-{{- range $name, $scheme := $securitySchema -}}
-    {{- if eq $scheme.type "bearer" -}}
-        {{- $value := dict "type" "bearer" "scheme" "bearer" "bearerFormat" $scheme.bearer.format -}}
-        {{- $_ := set $output $name $value -}}
+{{- if .Values.securitySchema.enabled -}}
+    {{- $securitySchema := dict .Values.securitySchema.name (omit .Values.securitySchema "name") -}}
+    {{- range $securityScheme := .Values.extraSecuritySchemas -}}
+        {{- $_ := set $securitySchema $securityScheme.name (omit . "name") -}}
+    {{- end -}}
+
+    {{- range $name, $scheme := $securitySchema -}}
+        {{- if eq $scheme.type "bearer" -}}
+            {{- $value := dict "type" "http" "scheme" "bearer" "bearerFormat" $scheme.bearer.format -}}
+            {{- $_ := set $output $name $value -}}
+        {{- end -}}
+
+        {{- if eq $scheme.type "oauth2" -}}
+            {{- $flowsValue := dict -}}
+            {{- range $flow := $scheme.oauth2.flows -}}
+                {{- if eq $flow "authorizationCode" -}}
+                    {{- $flowValue := dict -}}
+                    {{- $_ := set $flowValue "authorizationUrl" $scheme.oauth2.authorizationUrl -}}
+                    {{- $_ := set $flowValue "tokenUrl" $scheme.oauth2.tokenUrl -}}
+                    {{- if $scheme.oauth2.refreshUrl -}}
+                        {{- $_ := set $flowValue "refreshUrl" $scheme.oauth2.refreshUrl -}}
+                    {{- end -}}
+                    {{- if $scheme.oauth2.scopes -}}
+                        {{- $_ := set $flowValue "scopes" $scheme.oauth2.scopes -}}
+                    {{- end -}}
+                    {{ $_ := set $flowsValue $flow $flowValue }}
+                {{- end -}}
+
+                {{- if eq $flow "implicit" -}}
+                    {{- $flowValue := dict -}}
+                    {{- $_ := set $flowValue "authorizationUrl" $scheme.oauth2.authorizationUrl -}}
+                    {{- if $scheme.oauth2.refreshUrl -}}
+                        {{- $_ := set $flowValue "refreshUrl" $scheme.oauth2.refreshUrl -}}
+                    {{- end -}}
+                    {{- if $scheme.oauth2.scopes -}}
+                        {{- $_ := set $flowValue "scopes" $scheme.oauth2.scopes -}}
+                    {{- end -}}
+                    {{ $_ := set $flowsValue $flow $flowValue }}
+                {{- end -}}
+
+                {{- if or (eq $flow "password") (eq $flow "clientCredentials") -}}
+                    {{- $flowValue := dict -}}
+                    {{- $_ := set $flowValue "tokenUrl" $scheme.oauth2.tokenUrl -}}
+                    {{- if $scheme.oauth2.refreshUrl -}}
+                        {{- $_ := set $flowValue "refreshUrl" $scheme.oauth2.refreshUrl -}}
+                    {{- end -}}
+                    {{- if $scheme.oauth2.scopes -}}
+                        {{- $_ := set $flowValue "scopes" $scheme.oauth2.scopes -}}
+                    {{- end -}}
+                    {{ $_ := set $flowsValue $flow $flowValue }}
+                {{- end -}}
+            {{- end -}}
+
+            {{- $value := dict "type" "oauth2" "flows" $flowsValue -}}
+            {{- $_ := set $output $name $value -}}
+        {{- end -}}
     {{- end -}}
 {{- end -}}
 {{- $output | toJson -}}
@@ -113,6 +160,11 @@ securitySchema.types:
 securitySchema.oauth2:
     Missing oauth2 configuration for {{ $name }}
             {{- else -}}
+                {{- if ne 0 (len (without $securityScheme.oauth2.flows "authorizationCode" "implicit" "password" "clientCredentials")) -}}
+securitySchema.oauth2:
+    Invalid oauth2 flows provided {{ without $securityScheme.oauth2.flows "authorizationCode" "implicit" "password" "clientCredentials" }} for {{ $name }}
+                {{- end -}}
+
                 {{- if and (or (has "authorizationCode" $securityScheme.oauth2.flows) (has "implicit" $securityScheme.oauth2.flows)) (not (hasKey $securityScheme.oauth2 "authorizationUrl")) -}}
 securitySchema.oauth2:
     Missing oauth2 parameter "authorizationUrl" for scheme {{ $name }}. This error has occured because flows contains either "authorizationCode" or "implicit"

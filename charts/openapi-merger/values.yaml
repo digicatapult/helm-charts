@@ -116,7 +116,7 @@ apiDocsMock:
 securitySchema:
   name: "oauth2"
   type: "oauth2"
-  enabled: true
+  enabled: false
   oauth2:
     flows:
       - authorizationCode
