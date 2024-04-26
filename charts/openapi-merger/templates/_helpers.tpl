@@ -1,6 +1,6 @@
 
-Return the proper openapi-merger image name
 {{/*
+Return the proper openapi-merger image name
 */}}
 {{- define "openapi-merger.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
