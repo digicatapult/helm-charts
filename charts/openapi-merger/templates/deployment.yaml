@@ -112,7 +112,7 @@ spec:
             {{- end }}
             {{- if .Values.oauthUsePkce }}
             - name: OAUTH_USE_PKCE
-              value: {{ .Values.oauthUsePkce }}
+              value: {{ .Values.oauthUsePkce | quote }}
             {{- end }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
