@@ -93,6 +93,16 @@ prepend: ""
 ## @param openApiTitle The title of the merged OpenAPI spec
 ##
 openApiTitle: "Merged OpenAPI spec"
+## @param oauthClientId Oauth2 client-id to preconfigure the swagger UI with
+##
+oauthClientId: ""
+## @param oauthAppName App name to display during oauth2 authentication
+##
+oauthAppName: ""
+## @param oauthUsePkce Enables proof-key-for-code-exchange when performing oauth2 authentication
+##
+oauthUsePkce: true
+
 ## @param apiDocsMock.enabled Enable API docs mock
 ##
 apiDocsMock:
