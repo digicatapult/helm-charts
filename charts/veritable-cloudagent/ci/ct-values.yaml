@@ -1,0 +1,23 @@
+node:
+  enabled: true
+  node:
+    chain: dev
+    flags:
+    - "--rpc-external"
+    - "--alice"
+    - "--rpc-methods=Unsafe"
+    - "--rpc-cors=all"
+    - "--unsafe-rpc-external"
+userUri: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
+startupProbe:
+  enabled: false
+externalveritableIpfs:
+  host: localhost
+  port: 3000
+externalveritableIdentity:
+  host: localhost
+  port: 3000
