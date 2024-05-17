@@ -146,7 +146,7 @@ spec:
             - name: AFJ_REST_STORAGE_TYPE
               value: {{ .Values.storageType | quote }}
             - name: AFJ_REST_ENDPOINT
-              value: {{ .Values.endpoint }}
+              value: {{ .Values.endpoint | quote }}
             - name: AFJ_REST_LOG_LEVEL
               value: {{ .Values.logLevel | quote }}
             - name: AFJ_REST_USE_DID_SOV_PREFIX_WHERE_ALLOWED
@@ -154,11 +154,11 @@ spec:
             - name: AFJ_REST_USE_DID_KEY_IN_PROTOCOLS
               value: {{ .Values.useDidKeyInProtocols | quote }}
             - name: AFJ_REST_OUTBOUND_TRANSPORT
-              value: {{ .Values.outboundTransport }}
+              value: {{ .Values.outboundTransport | quote }}
             - name: AFJ_REST_AUTO_ACCEPT_CONNECTIONS
               value: {{ .Values.autoAcceptConnections | quote }}
             - name: AFJ_REST_AUTO_ACCEPT_CREDENTIALS
-              value: {{ .Values.autoAcceptCredentials }}
+              value: {{ .Values.autoAcceptCredentials | quote }}
             - name: AFJ_REST_AUTO_ACCEPT_MEDIATION_REQUESTS
               value: {{ .Values.autoAcceptMediationRequests | quote }}
             - name: AFJ_REST_AUTO_ACCEPT_PROOFS
@@ -167,7 +167,7 @@ spec:
               value: {{ .Values.autoUpdateStorageOnStartup | quote }}
             - name: AFJ_REST_BACKUP_BEFORE_STORAGE_UPDATE
               value: {{ .Values.backupBeforeStorageUpdate | quote }}
-            {{- if .Values.connectionImageUrl}}
+            {{- if .Values.connectionImageUrl }}
             - name: AFJ_REST_CONNECTION_IMAGE_URL
               value: {{ .Values.connectionImageUrl | quote }}
             {{- end }}

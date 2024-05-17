@@ -76,7 +76,7 @@ walletKey:
 ## @param storageType veritable-cloudagent storage type (can be either postgres sqlite)
 storageType: "postgres"
 ## @param endpoint an array of veritable-cloudagent endpoints to be used in creating invitations in the format http(s)://FQDN:PORT or ws(s)://FQDN:PORT - only the first option in the array is actually used
-endpoint: ["http://localhost:5002", "ws://localhost:5003"]
+endpoint: ["http://localhost:5002"]
 ## @param logLevel veritable-cloudagent log level from 1 to 5
 logLevel: 3
 ## @param useDidSovPrefixWhereAllowed veritable-cloudagent use did sov prefix where allowed
@@ -84,7 +84,7 @@ useDidSovPrefixWhereAllowed: false
 ## @param useDidKeyInProtocols veritable-cloudagent use did key in protocols
 useDidKeyInProtocols: true
 ## @param outboundTransport choice of outbound transport mechanisms for veritable-cloudagent can be http, ws, or both in an array
-outboundTransport: ["http", "ws"]
+outboundTransport: "http"
 ## @param autoAcceptConnections veritable-cloudagent auto accept connections
 autoAcceptConnections: false
 ## @param autoAcceptCredentials veritable-cloudagent auto accept credentials choices are always, never and contentApproved
@@ -238,8 +238,8 @@ replicaCount: 1
 ## @param containerPorts.admin veritable-cloudagent admin container port
 ##
 containerPorts:
-  http: 5000
-  ws: 5001
+  http: 5002
+  ws: 5003
   admin: 3000
 ## Configure extra options for veritable-cloudagent containers' liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
@@ -490,7 +490,7 @@ service:
   ## @param service.ports.ws veritable-cloudagent service WS port
   ##
   ports:
-    http: 5000
+    http: 5002
     ws: 5003
   ## Node ports to expose
   ## @param service.nodePorts.http Node port for HTTP
