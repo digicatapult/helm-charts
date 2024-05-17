@@ -71,8 +71,8 @@ walletId: "walletId"
 ## @param walletKey.existingSecretKey veritable-cloudagent wallet key existing secret key
 walletKey:
   secret: "walletKey"
-  #existingSecret: ""
-  #existingSecretKey: ""
+  existingSecret: ""
+  existingSecretKey: ""
 ## @param storageType veritable-cloudagent storage type (can be either postgres sqlite)
 storageType: "postgres"
 ## @param endpoint an array of veritable-cloudagent endpoints to be used in creating invitations in the format http(s)://FQDN:PORT or ws(s)://FQDN:PORT - only the first option in the array is actually used
@@ -106,10 +106,99 @@ adminPort: 3000
 ## @param ipfsOrigin veritable-cloudagent ipfs origin url (we currently use a local ipfs node within the pod)
 ipfsOrigin: "http://localhost:5001"
 
+## @section IPFS Container Parameters
 
+## IPFS container image parameters
+## ref: https://hub.docker.com/r/ipfs/go-ipfs/tags/
+## @param ipfs.image.registry IPFS image registry
+## @param ipfs.image.repository IPFS image repository
+## @param ipfs.image.tag IPFS image tag (immutable tags are recommended)
+## @param ipfs.image.digest IPFS image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+## @param ipfs.image.pullPolicy IPFS image pull policy
+##
+ipfs:
+  image:
+    registry: docker.io
+    repository: ipfs/kubo
+    tag: v0.28.0
+    digest: ""
+    pullPolicy: IfNotPresent
 
+## @param ipfs.containerPorts.api IPFS container API port
+##
+  containerPorts:
+    api: 5001
 
+## IPFS container resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+## @param ipfs.resources.limits.cpu The resources limits for the IPFS container for CPU
+## @param ipfs.resources.limits.memory The resources limits for the IPFS container for memory
+## @param ipfs.resources.requests.cpu The requested resources for the IPFS container for CPU
+## @param ipfs.resources.requests.memory The requested resources for the IPFS container for memory
+##
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
 
+## IPFS container liveness probe parameters
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+## @param ipfs.livenessProbe.enabled Enable livenessProbe on IPFS container
+## @param ipfs.livenessProbe.path Path to check for livenessProbe
+## @param ipfs.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param ipfs.livenessProbe.periodSeconds Period seconds for livenessProbe
+## @param ipfs.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param ipfs.livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param ipfs.livenessProbe.successThreshold Success threshold for livenessProbe
+##
+  livenessProbe:
+    enabled: true
+    path: /api/v0/version
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+
+## IPFS container readiness probe parameters
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+## @param ipfs.readinessProbe.enabled Enable readinessProbe on IPFS container
+## @param ipfs.readinessProbe.path Path to check for readinessProbe
+## @param ipfs.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param ipfs.readinessProbe.periodSeconds Period seconds for readinessProbe
+## @param ipfs.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param ipfs.readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param ipfs.readinessProbe.successThreshold Success threshold for readinessProbe
+##
+  readinessProbe:
+    enabled: true
+    path: /api/v0/version
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 5
+    successThreshold: 1
+
+## @param ipfs.extraEnvVars Extra environment variables for the IPFS container
+## e.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+  extraEnvVars: []
+
+## @param ipfs.volumeMounts Optionally specify extra list of additional volumeMounts for the IPFS container
+##
+  volumeMounts: []
+
+## @param ipfs.volumes Optionally specify extra list of additional volumes for the IPFS pod(s)
+##
+  volumes: []
+
+## @section veritable-cloudagent deployment parameters
 ## Digital Catapult veritable-cloudagent image
 ## ref: https://hub.docker.com/r/digicatapult/veritable-cloudagent/tags/
 ## @param image.registry veritable-cloudagent image registry

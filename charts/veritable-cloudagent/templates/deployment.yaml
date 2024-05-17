@@ -247,10 +247,55 @@ spec:
           {{- if .Values.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
+        - name: ipfs
+          image: {{ .Values.ipfs.image.registry }}/{{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
+          imagePullPolicy: {{ .Values.ipfs.image.pullPolicy }}
+          ports:
+            - name: api
+              containerPort: {{ .Values.ipfs.containerPorts.api }}
+          volumeMounts:
+            - name: ipfs-data
+              mountPath: /data/ipfs
+            {{- if .Values.ipfs.volumeMounts }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.volumeMounts "context" $) | nindent 6 }}
+            {{- end }}
+          {{- if .Values.ipfs.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.ipfs.livenessProbe.path }}
+              port: api
+            initialDelaySeconds: {{ .Values.ipfs.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.ipfs.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.ipfs.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.ipfs.livenessProbe.failureThreshold }}
+            successThreshold: {{ .Values.ipfs.livenessProbe.successThreshold }}
+          {{- end }}
+          {{- if .Values.ipfs.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.ipfs.readinessProbe.path }}
+              port: api
+            initialDelaySeconds: {{ .Values.ipfs.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.ipfs.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.ipfs.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.ipfs.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.ipfs.readinessProbe.successThreshold }}
+          {{- end }}
+          env:
+            {{- if .Values.ipfs.extraEnvVars }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.extraEnvVars "context" $) | nindent 6 }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.ipfs.resources | nindent 6 }}
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- end }}
+        - name: ipfs-data
+          emptyDir: {}
+        {{- if .Values.ipfs.volumes }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.volumes "context" $) | nindent 4 }}
         {{- end }}
