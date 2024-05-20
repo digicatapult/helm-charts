@@ -1217,6 +1217,42 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.1.0
+    created: "2024-05-20T16:07:56.826791045Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The openapi-merger is designed to merge several openapi files into
+      one and present a unified swagger interface
+    digest: 560bb94ec495067c6b5c5d9a4b86e340c6e51427dc9937cd51e05d6ed7ce8276
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: openapi-merger
+    sources:
+    - https://github.com/digicatapult/openapi-merger
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/openapi-merger-2.1.2/openapi-merger-2.1.2.tgz
+    version: 2.1.2
+  - annotations:
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 1.1.0
     created: "2024-04-26T14:51:12.796616694Z"
     dependencies:
     - alias: apiDocsMockOne
@@ -1579,6 +1615,46 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v2.0.4
+    created: "2024-05-20T16:07:57.016720506Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: The sqnc-identity-service is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: a713517f5b05b40a3db65272e90e0851a8d0923775eab2634162556be6b55c1d
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-identity-service
+    sources:
+    - https://github.com/digicatapult/sqnc-identity-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-identity-service-4.0.1/sqnc-identity-service-4.0.1.tgz
+    version: 4.0.1
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v2.0.4
     created: "2024-05-20T13:51:17.327201772Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1933,6 +2009,46 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v3.0.2
+    created: "2024-05-20T16:07:57.196088313Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: d164b9e292fc8436a1e9c20547d7a8ea81395312356295f6e406316a6dce92cf
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/sqnc-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-2.0.1/sqnc-matchmaker-api-2.0.1.tgz
+    version: 2.0.1
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v3.0.2
     created: "2024-05-20T13:51:17.46918017Z"
     dependencies:
     - condition: postgresql.enabled
@@ -2118,6 +2234,39 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-node-7.0.0/sqnc-node-7.0.0.tgz
     version: 7.0.0
   veritable-cloudagent:
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.7.20
+    created: "2024-05-20T16:07:57.363995175Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The veritable-cloudagent is a component of the veritable distributed
+      identity system.
+    digest: a6d09be2490c61d6af1e4026fd7d1daae03c66f859a66c68555c2a22b39fb420
+    home: https://github.com/digicatapult/veritable-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/main/assets/icon.png
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-cloudagent
+    sources:
+    - https://github.com/digicatapult/veritable-cloudagent
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-1.0.1/veritable-cloudagent-1.0.1.tgz
+    version: 1.0.1
   - annotations:
       category: veritable
       licenses: Apache-2.0
@@ -3700,4 +3849,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2024-05-20T15:27:21.47012743Z"
+generated: "2024-05-20T16:07:57.364159774Z"
