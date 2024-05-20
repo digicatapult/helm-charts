@@ -147,7 +147,6 @@ ipfs:
 ## IPFS container liveness probe parameters
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
 ## @param ipfs.livenessProbe.enabled Enable livenessProbe on IPFS container
-## @param ipfs.livenessProbe.path Path to check for livenessProbe
 ## @param ipfs.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param ipfs.livenessProbe.periodSeconds Period seconds for livenessProbe
 ## @param ipfs.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
@@ -156,8 +155,7 @@ ipfs:
 ##
   livenessProbe:
     enabled: true
-    path: /api/v0/version
-    initialDelaySeconds: 10
+    initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
@@ -166,7 +164,6 @@ ipfs:
 ## IPFS container readiness probe parameters
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
 ## @param ipfs.readinessProbe.enabled Enable readinessProbe on IPFS container
-## @param ipfs.readinessProbe.path Path to check for readinessProbe
 ## @param ipfs.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
 ## @param ipfs.readinessProbe.periodSeconds Period seconds for readinessProbe
 ## @param ipfs.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
@@ -175,8 +172,7 @@ ipfs:
 ##
   readinessProbe:
     enabled: true
-    path: /api/v0/version
-    initialDelaySeconds: 5
+    initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 5
@@ -212,7 +208,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.7.18
+  tag: v0.7.20
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

@@ -261,9 +261,10 @@ spec:
             {{- end }}
           {{- if .Values.ipfs.livenessProbe.enabled }}
           livenessProbe:
-            httpGet:
-              path: {{ .Values.ipfs.livenessProbe.path }}
-              port: api
+            exec:
+              command:
+              - ipfs
+              - version
             initialDelaySeconds: {{ .Values.ipfs.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.ipfs.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.ipfs.livenessProbe.timeoutSeconds }}
@@ -272,8 +273,7 @@ spec:
           {{- end }}
           {{- if .Values.ipfs.readinessProbe.enabled }}
           readinessProbe:
-            httpGet:
-              path: {{ .Values.ipfs.readinessProbe.path }}
+            tcpSocket:
               port: api
             initialDelaySeconds: {{ .Values.ipfs.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.ipfs.readinessProbe.periodSeconds }}
