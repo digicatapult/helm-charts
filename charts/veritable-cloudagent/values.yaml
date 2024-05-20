@@ -103,11 +103,11 @@ connectionImageUrl: ""
 webhookUrl: ""
 ## @param adminPort veritable-cloudagent admin port
 adminPort: 3000
-## @param ipfsOrigin veritable-cloudagent ipfs origin url (we currently use a local ipfs node within the pod)
-ipfsOrigin: "http://localhost:5001"
+## @param ipfsExternalOrigin veritable-cloudagent ipfs external origin url (if ipfs.enabled is set to true then we will always point to http://localhost:5001)
+ipfsExternalOrigin: ""
 
 ## @section IPFS Container Parameters
-
+## @param ipfs.enabled Enable IPFS container within pod
 ## IPFS container image parameters
 ## ref: https://hub.docker.com/r/ipfs/go-ipfs/tags/
 ## @param ipfs.image.registry IPFS image registry
@@ -117,6 +117,7 @@ ipfsOrigin: "http://localhost:5001"
 ## @param ipfs.image.pullPolicy IPFS image pull policy
 ##
 ipfs:
+  enabled: true
   image:
     registry: docker.io
     repository: ipfs/kubo

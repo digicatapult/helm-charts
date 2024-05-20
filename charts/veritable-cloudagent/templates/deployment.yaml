@@ -178,7 +178,11 @@ spec:
             - name: AFJ_REST_ADMIN_PORT
               value: {{ .Values.adminPort | quote }}
             - name: AFJ_REST_IPFS_ORIGIN
-              value: {{ .Values.ipfsOrigin | quote }}
+            {{- if .Values.ipfs.enabled }}
+              value: "http://localhost:{{ .Values.ipfs.containerPorts.api }}"
+            {{- else }}
+              value: {{ .Values.ipfsExternalOrigin | quote }}
+            {{- end }}
             {{- if eq .Values.storageType "postgres" }}
             - name: AFJ_REST_POSTGRES_HOST
               value: {{ template "veritable-cloudagent.databaseHost" . }}
@@ -247,6 +251,7 @@ spec:
           {{- if .Values.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
+        {{- if eq .Values.ipfs.enabled true }}
         - name: ipfs
           image: {{ .Values.ipfs.image.registry }}/{{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
           imagePullPolicy: {{ .Values.ipfs.image.pullPolicy }}
@@ -290,12 +295,15 @@ spec:
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
+      {{- end }}
       volumes:
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
+        {{- if eq .Values.ipfs.enabled true }}
         - name: ipfs-data
           emptyDir: {}
         {{- if .Values.ipfs.volumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.volumes "context" $) | nindent 4 }}
+        {{- end }}
         {{- end }}

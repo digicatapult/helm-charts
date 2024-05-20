@@ -94,12 +94,13 @@ The command removes all the Kubernetes components associated with the chart and 
 | `connectionImageUrl`          | veritable-cloudagent connection image url                                                                                                                                                  | `""`                            |
 | `webhookUrl`                  | veritable-cloudagent web hook url                                                                                                                                                          | `""`                            |
 | `adminPort`                   | veritable-cloudagent admin port                                                                                                                                                            | `3000`                          |
-| `ipfsOrigin`                  | veritable-cloudagent ipfs origin url (we currently use a local ipfs node within the pod)                                                                                                   | `http://localhost:5001`         |
+| `ipfsExternalOrigin`          | veritable-cloudagent ipfs external origin url (if ipfs.enabled is set to true then we will always point to http://localhost:5001)                                                          | `""`                            |
 
 ### IPFS Container Parameters
 
 | Name                                      | Description                                                                                                                                     | Value          |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `ipfs.enabled`                            | Enable IPFS container within pod                                                                                                                | `true`         |
 | `ipfs.image.registry`                     | IPFS image registry                                                                                                                             | `docker.io`    |
 | `ipfs.image.repository`                   | IPFS image repository                                                                                                                           | `ipfs/kubo`    |
 | `ipfs.image.tag`                          | IPFS image tag (immutable tags are recommended)                                                                                                 | `v0.28.0`      |
