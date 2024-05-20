@@ -3,12 +3,12 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/veritable-cloudagent
-appVersion: v2.3.0
+appVersion: v0.7.20
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 14.x.x
+    version: 15.x.x
   - name: common
     repository: https://charts.bitnami.com/bitnami
     tags:
@@ -26,4 +26,4 @@ maintainers:
 name: veritable-cloudagent
 sources:
   - https://github.com/digicatapult/veritable-cloudagent
-version: 1.0.2
+version: 1.0.0
