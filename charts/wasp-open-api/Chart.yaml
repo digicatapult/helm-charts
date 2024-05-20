@@ -26,10 +26,6 @@ home: https://github.com/digicatapult/wasp-documentation
 icon: https://raw.githubusercontent.com/digicatapult/wasp-documentation/main/assets/icon.png
 keywords:
   - IoT
-maintainers:
-  - name: digicatapult  # Digital Catapult
-    url: https://github.com/digicatapult/helm-charts
-    email: opensource@digicatapult.org.uk
 name: wasp-open-api
 sources:
   - https://github.com/digicatapult/wasp-open-api
