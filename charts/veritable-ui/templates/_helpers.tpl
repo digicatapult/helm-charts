@@ -252,6 +252,8 @@ Compile all warnings into a single message, and call fail.
 {{- $messages := list -}}
 {{- $messages := append $messages (include "veritable-ui.validateValues.databaseName" .) -}}
 {{- $messages := append $messages (include "veritable-ui.validateValues.databaseUser" .) -}}
+{{- $messages := append $messages (include "veritable-ui.validateSecretKeys" .) -}}
+{{- $messages := append $messages (include "veritable-ui.validateSecretValues" .) -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
@@ -278,6 +280,50 @@ veritable-ui:
 {{- if not (regexMatch "^[a-zA-Z_]+$" $db_user) -}}
 veritable-ui:
     When creating a database the username must consist of the characters a-z, A-Z and _ only
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate if secret keys are being set or if a pre-existing secret is being used*/}}
+{{- define "veritable-ui.validateSecretKeys" -}}
+{{- if .Values.cookieSessionKeys.existingSecret -}}
+{{- if not .Values.cookieSessionKeys.existingSecretKey -}}
+veritable-ui:
+    If an existing secret is being used for the cookie session keys, a key must be provided
+{{- end -}}
+{{- end -}}
+{{- if .Values.invitationPin.existingSecret -}}
+{{- if not .Values.invitationPin.existingSecretKey -}}
+veritable-ui:
+    If an existing secret is being used for the invitation pin, a key must be provided
+{{- end -}}
+{{- end -}}
+{{- if .Values.companysHouseApiKey.existingSecret -}}
+{{- if not .Values.companysHouseApiKey.existingSecretKey -}}
+veritable-ui:
+    If an existing secret is being used for the company house api key, a key must be provided
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate if the value of a secret is being set, if it is not, the existing secret must be set instead*/}}
+{{- define "veritable-ui.validateSecretValues" -}}
+{{- if not .Values.cookieSessionKeys.existingSecret -}}
+{{- if not .Values.cookieSessionKeys.value -}}
+veritable-ui:
+    If a secret is not being used for the cookie session keys, a value must be provided
+{{- end -}}
+{{- end -}}
+{{- if not .Values.invitationPin.existingSecret -}}
+{{- if not .Values.invitationPin.value -}}
+veritable-ui:
+    If a secret is not being used for the invitation pin, a value must be provided
+{{- end -}}
+{{- end -}}
+{{- if not .Values.companysHouseApiKey.existingSecret -}}
+{{- if not .Values.companysHouseApiKey.value -}}
+veritable-ui:
+    If a secret is not being used for the company house api key, a value must be provided
 {{- end -}}
 {{- end -}}
 {{- end -}}
