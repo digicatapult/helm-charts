@@ -61,6 +61,35 @@ Add environment variables to configure cookie session keys
 {{- end -}}
 {{- end -}}
 
+{{/*
+Create a default fully qualified app name for the session cookies.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "veritable-ui.invitationPin.fullname" -}}
+{{- printf "%s-invitation-pin" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-"  -}}
+{{- end -}}
+
+{{/*
+Return the invitation pin Secret Name
+*/}}
+{{- define "veritable-ui.invitationPinSecretName" -}}
+{{- if .Values.invitationPin.existingSecret -}}
+    {{- tpl .Values.invitationPin.existingSecret $ -}}
+{{- else -}}
+    {{- include "veritable-ui.invitationPin.fullname" . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Add environment variables to configure invitation pin keys 
+*/}}
+{{- define "veritable-ui.invitationPinSecretKey" -}}
+{{- if .Values.invitationPin.existingSecretKey -}}
+    {{- printf "%s" .Values.invitationPin.existingSecretKey -}}
+{{- else -}}
+    {{- print "pin" -}}
+{{- end -}}
+{{- end -}}
 
 {{/*
 Create a default fully qualified app name for the company house.
