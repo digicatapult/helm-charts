@@ -309,19 +309,19 @@ veritable-ui:
 {{/* Validate if the value of a secret is being set, if it is not, the existing secret must be set instead*/}}
 {{- define "veritable-ui.validateSecretValues" -}}
 {{- if not .Values.cookieSessionKeys.existingSecret -}}
-{{- if not .Values.cookieSessionKeys.value -}}
+{{- if not .Values.cookieSessionKeys.secret -}}
 veritable-ui:
     If a secret is not being used for the cookie session keys, a value must be provided
 {{- end -}}
 {{- end -}}
 {{- if not .Values.invitationPin.existingSecret -}}
-{{- if not .Values.invitationPin.value -}}
+{{- if not .Values.invitationPin.secret -}}
 veritable-ui:
     If a secret is not being used for the invitation pin, a value must be provided
 {{- end -}}
 {{- end -}}
 {{- if not .Values.companysHouseApiKey.existingSecret -}}
-{{- if not .Values.companysHouseApiKey.value -}}
+{{- if not .Values.companysHouseApiKey.secret -}}
 veritable-ui:
     If a secret is not being used for the company house api key, a value must be provided
 {{- end -}}
