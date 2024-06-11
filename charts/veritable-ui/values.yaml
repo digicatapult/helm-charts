@@ -612,8 +612,6 @@ initDbMigrate:
   environment: production
   args:
     - "migrate:latest"
-    - "--knexfile"
-    - "build/models/db/knexfile.js"
 
 ## ServiceAccount configuration
 ##
