@@ -115,6 +115,8 @@ emailFromAddress: "hello@veritable.com"
 emailAdminAddress: "admin@veritable.com"
 ## @param cloudagentAdminOrigin veritable-ui cloudagent admin origin URL
 cloudagentAdminOrigin: "http://localhost:3080"
+## @param cloudagentAdminWsOrigin veritable-ui cloudagent admin origin websocket URL
+cloudagentAdminWsOrigin: "ws://localhost:3080"
 ## @param invitationFromCompanyNumber Companies House number to claim created invitations are from
 invitationFromCompanyNumber: "00000000"
 ## @param invitationPin.enabled Enable Invitation pin secret
@@ -140,7 +142,7 @@ invitationPin:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.4.0
+  tag: v0.5.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

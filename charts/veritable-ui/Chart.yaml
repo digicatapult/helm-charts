@@ -2,7 +2,7 @@ annotations:
   category: veritable
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v0.4.0
+appVersion: v0.5.0
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -18,10 +18,10 @@ home: https://github.com/digicatapult/veritable-ui
 keywords:
   - veritable
 maintainers:
-  - name: digicatapult  # Digital Catapult
+  - name: digicatapult # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
     email: opensource@digicatapult.org.uk
 name: veritable-ui
 sources:
   - https://github.com/digicatapult/veritable-ui
-version: 1.0.3
+version: 1.0.4

@@ -97,6 +97,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `emailFromAddress`                      | veritable-ui email from address                                | `hello@veritable.com`                                            |
 | `emailAdminAddress`                     | veritable-ui email admin address                               | `admin@veritable.com`                                            |
 | `cloudagentAdminOrigin`                 | veritable-ui cloudagent admin origin URL                       | `http://localhost:3080`                                          |
+| `cloudagentAdminWsOrigin`               | veritable-ui cloudagent admin origin websocket URL             | `ws://localhost:3080`                                            |
 | `invitationFromCompanyNumber`           | Companies House number to claim created invitations are from   | `00000000`                                                       |
 | `invitationPin.enabled`                 | Enable Invitation pin secret                                   | `true`                                                           |
 | `invitationPin.secret`                  | the secret value                                               | `""`                                                             |
@@ -109,7 +110,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
 | `image.registry`                                  | veritable-ui image registry                                                                                                                             | `docker.io`                 |
 | `image.repository`                                | veritable-ui image repository                                                                                                                           | `digicatapult/veritable-ui` |
-| `image.tag`                                       | veritable-ui image tag (immutable tags are recommended)                                                                                                 | `v0.4.0`                    |
+| `image.tag`                                       | veritable-ui image tag (immutable tags are recommended)                                                                                                 | `v0.5.0`                    |
 | `image.digest`                                    | veritable-ui image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                        |
 | `image.pullPolicy`                                | veritable-ui image pull policy                                                                                                                          | `IfNotPresent`              |
 | `image.pullSecrets`                               | veritable-ui image pull secrets                                                                                                                         | `[]`                        |
