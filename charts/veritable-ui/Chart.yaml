@@ -18,7 +18,7 @@ home: https://github.com/digicatapult/veritable-ui
 keywords:
   - veritable
 maintainers:
-  - name: digicatapult # Digital Catapult
+  - name: digicatapult  # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
     email: opensource@digicatapult.org.uk
 name: veritable-ui
