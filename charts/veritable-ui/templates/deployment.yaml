@@ -215,6 +215,8 @@ spec:
               value: {{ .Values.emailAdminAddress | quote }}
             - name: CLOUDAGENT_ADMIN_ORIGIN
               value: {{ .Values.cloudagentAdminOrigin | quote }}
+            - name: CLOUDAGENT_ADMIN_WS_ORIGIN
+              value: {{ .Values.cloudagentAdminWsOrigin | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
               value: {{ .Values.invitationFromCompanyNumber | quote }}
             - name: INVITATION_PIN_SECRET
