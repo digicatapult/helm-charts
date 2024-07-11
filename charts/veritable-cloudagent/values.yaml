@@ -83,6 +83,8 @@ logLevel: 3
 useDidSovPrefixWhereAllowed: false
 ## @param useDidKeyInProtocols veritable-cloudagent use did key in protocols
 useDidKeyInProtocols: true
+## @param inboundTransport choice of inbound transport mechanisms for veritable-cloudagent can be http, ws, or both in a comma delimited string
+inboundTransport: "http"
 ## @param outboundTransport choice of outbound transport mechanisms for veritable-cloudagent can be http, ws, or both in a comma delimited string
 outboundTransport: "http"
 ## @param autoAcceptConnections veritable-cloudagent auto accept connections
@@ -105,6 +107,20 @@ webhookUrl: ""
 adminPort: 3000
 ## @param ipfsExternalOrigin veritable-cloudagent ipfs external origin url (if ipfs.enabled is set to true then we will always point to http://localhost:5001)
 ipfsExternalOrigin: ""
+## @param personaTitle veritable-cloudagent represents current persona
+personaTitle: "Veritable Cloudagent"
+## @param personaColorl veritable-cloudagent represents current persona
+personaColorl: "white"
+## @param opaOrigin veritable-cloudagent OPA service's URL
+opaOrigin: "http://localhost:8181"
+## @param verifiedDrpcOptionsProofTimeoutMs veritable-cloudagent timeout ins miliseconds for DRPC credentials proof
+verifiedDrpcOptionsProofTimeoutMs: 5000
+## @param verifiedDrpcOptionsRequestTimeoutMs veritable-cloudagent timeout ins miliseconds for DRPC requests
+verifiedDrpcOptionsRequestTimeoutMs: 5000
+## @param verifiedDrpcOptionsProofRequestOptions veritable-cloudagent TODO this meant to be a JSON object -> https://github.com/digicatapult/veritable-cloudagent/blob/main/src/env.ts#L94
+verifiedDrpcOptionsProofRequestOptions: ""
+## @param verifiedDrpcOptionsCredDefId veritable-cloudagent default credential identifier
+verifiedDrpcOptionsCredDefId: "some-cred-def-id"
 
 ## @section IPFS Container Parameters
 ## @param ipfs.enabled Enable IPFS container within pod
