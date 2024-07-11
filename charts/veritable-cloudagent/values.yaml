@@ -83,8 +83,6 @@ logLevel: 3
 useDidSovPrefixWhereAllowed: false
 ## @param useDidKeyInProtocols veritable-cloudagent use did key in protocols
 useDidKeyInProtocols: true
-## @param inboundTransport choice of inbound transport mechanisms for veritable-cloudagent can be http, ws, or both in a comma delimited string
-inboundTransport: "http"
 ## @param outboundTransport choice of outbound transport mechanisms for veritable-cloudagent can be http, ws, or both in a comma delimited string
 outboundTransport: "http"
 ## @param autoAcceptConnections veritable-cloudagent auto accept connections
