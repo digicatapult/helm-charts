@@ -107,8 +107,8 @@ adminPort: 3000
 ipfsExternalOrigin: ""
 ## @param personaTitle veritable-cloudagent represents current persona
 personaTitle: "Veritable Cloudagent"
-## @param personaColorl veritable-cloudagent represents current persona
-personaColorl: "white"
+## @param personaColor veritable-cloudagent represents current persona
+personaColor: "white"
 ## @param opaOrigin veritable-cloudagent OPA service's URL
 opaOrigin: "http://localhost:8181"
 ## @param verifiedDrpcOptionsProofTimeoutMs veritable-cloudagent timeout ins miliseconds for DRPC credentials proof

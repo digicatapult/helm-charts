@@ -199,7 +199,7 @@ spec:
             - name: PERSONA_TITLE
               value: {{ .Values.personaTitle | quote }}
             - name: PERONA_COLOR
-              value: {{ .Values.personaColorl | quote }}
+              value: {{ .Values.personaColor | quote }}
             - name: OPA_ORIGIN
               value: {{ .Values.opaOrigin | quote }}
             - name: VERIFIED_DRPC_OPTOPNS_PROOF_TIMEOUT_MS
