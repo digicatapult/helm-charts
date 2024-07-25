@@ -134,6 +134,26 @@ spec:
                   name: {{ include "veritable-ui.databaseSecretName" . }}
                   key: {{ include "veritable-ui.databaseSecretPasswordKey" . }}
         {{- end }}
+        {{- if .Values.initIssueancePolicies.enable }}
+        - name: issueance-policies
+          image: {{ template "veritable-ui.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['npm', 'run', 'init']
+          {{- if .Values.initIssueancePolicy.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.initIssueancePolicy.args "context" $) | nindent 12 }}
+          {{- end }}
+          env:
+            - name: CLOUDAGENT_ADMIN_ORIGIN
+              value: {{ template "veritable-ui.veritableCloudagentHost" . |quote }}
+            - name: LOG_LEVEL
+              value: {{ .Values.initIssueancePolicy.logLevel | quote }}
+            - name: ISSUEANCE_DID_OLICY
+              value: {{ .Values.initIssueancePolicy.didPolicy | quote }}
+            - name: ISSUEANCE_SCHEMA_POLICY
+              value: {{ .Values.initIssueancePolicy.schemaPolicy | quote }}
+            - name: ISSUEANCE_CRED_DEF_POLICY
+              value: {{ .Values.initIssueancePolicy.credentialPolicy | quote }}
+        {{- end }}
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
@@ -214,7 +234,7 @@ spec:
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
             - name: CLOUDAGENT_ADMIN_ORIGIN
-              value: {{ .Values.cloudagentAdminOrigin | quote }}
+              value: {{ include "veritable-ui.veritableCloudagentHost" . | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
               value: {{ .Values.invitationFromCompanyNumber | quote }}
             - name: INVITATION_PIN_SECRET
@@ -222,6 +242,14 @@ spec:
                 secretKeyRef:
                   name: {{ include "veritable-ui.invitationPinSecretName" . }}
                   key: {{ include "veritable-ui.invitationPinSecretKey" . }}
+            - name: INVITATION_PIN_ATTEMPT_LIMIT
+              value: {{ .Values.invitationPin.attemptLimit | quote }}
+            - name: ISSUEANCE_DID_POLICY
+              value: {{ .Values.DidPolicy | quote }}
+            - name: ISSUEANCE_SCHEMA_POLICY
+              value: {{ .Values.schemaPolicy | quote }}
+            - name: ISSUEANCE_CRED_DEF_POLICY
+              value: {{ .Values.credentialPolicy | quote }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}

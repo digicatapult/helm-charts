@@ -113,19 +113,42 @@ emailTransport: "STREAM"
 emailFromAddress: "hello@veritable.com"
 ## @param emailAdminAddress veritable-ui email admin address
 emailAdminAddress: "admin@veritable.com"
-## @param cloudagentAdminOrigin veritable-ui cloudagent admin origin URL
-cloudagentAdminOrigin: "http://localhost:3080"
 ## @param invitationFromCompanyNumber Companies House number to claim created invitations are from
 invitationFromCompanyNumber: "00000000"
+## @param didPolicy veritable-ui DID policy
+didPolicy: "FIND_EXISTING"
+## @param schemaPolicy veritable-ui schema policy
+schemaPolicy: "FIND_EXISTING"
+## @param credentialPolicy veritable-ui credential policy
+credentialPolicy: "FIND_EXISTING"
 ## @param invitationPin.enabled Enable Invitation pin secret
 ## @param invitationPin.secret the secret value
 ## @param invitationPin.existingSecret If there is an existing secret for the invitationPin
 ## @param invitationPin.existingSecretKey the key to use within the existing secret
+## @param invitationPin.attemptLimit the number of attempts to enter the pin
 invitationPin:
   enabled: true
   secret: ""
   existingSecret: ""
   existingSecretKey: ""
+  attemptLimit: 3
+
+## @section veritable-ui Issueance Policy Parameters
+##
+## @param initIssueancePolicy.enabled Enable issueance policy
+## @param initIssueancePolicy.logLevel veritable-ui issueance policy logging level
+## @param initIssueancePolicy.didPolicy veritable-ui issueance DID policy
+## @param initIssueancePolicy.schemaPolicy veritable-ui issueance schema policy
+## @param initIssueancePolicy.credentialPolicy veritable-ui issueance credential definition policy
+## @param initIssueancePolicy.args veritable-ui issueance policy arguments
+##
+initIssueancePolicy:
+  enabled: true
+  logLevel: "debug"
+  didPolicy: "EXISTING_OR_NEW"
+  schemaPolicy: "EXISTING_OR_NEW"
+  credentialPolicy: "EXISTING_OR_NEW"
+  args: []
 ## @section veritable-ui deployment parameters
 ## Digital Catapult veritable-ui image
 ## ref: https://hub.docker.com/r/digicatapult/veritable-ui/tags/
@@ -140,7 +163,7 @@ invitationPin:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.4.0
+  tag: v0.8.12
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -675,3 +698,18 @@ externalDatabase:
   existingSecret: ""
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
+
+## @section Veritable-Cloudagent section
+##
+## @param veritableCloudagent.enabled Enable veritable-cloudagent
+##
+veritableCloudagent:
+  enabled: false
+
+
+## @section External vertiable-cloudagent section
+##
+externalVeritableCloudagent:
+  ## @param externalCloudagent.url External veritable-cloudagent URL
+  ##
+  url: ""
