@@ -710,6 +710,6 @@ veritableCloudagent:
 ## @section External vertiable-cloudagent section
 ##
 externalVeritableCloudagent:
-  ## @param externalCloudagent.url External veritable-cloudagent URL
+  ## @param externalVeritableCloudagent.url External veritable-cloudagent URL
   ##
   url: ""
