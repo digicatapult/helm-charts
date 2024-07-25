@@ -627,11 +627,11 @@ initDbCreate:
     ##
     pullSecrets: []
 
-## @param initDbMigrate.enable Run database migration in an init container
+## @param initDbMigrate.enabled Run database migration in an init container
 ## @param initDbMigrate.environment Database configuration environment to run database into
 ## @param initDbMigrate.args Argument to pass to knex to migrate the database
 initDbMigrate:
-  enable: true
+  enabled: true
   environment: production
   args:
     - "migrate:latest"

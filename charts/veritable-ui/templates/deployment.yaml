@@ -109,7 +109,7 @@ spec:
               psql $CONN_FLAGS -c "ALTER ROLE $DB_USERNAME WITH PASSWORD \$$$PSQL_ESC\$$$DB_PASSWORD\$$$PSQL_ESC\$";
               createdb $CONN_FLAGS -O $DB_USERNAME $DB_NAME;
         {{- end }}
-        {{- if .Values.initDbMigrate.enable }}
+        {{- if .Values.initDbMigrate.enabled }}
         - name: database-migrate
           image: {{ template "veritable-ui.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -134,7 +134,7 @@ spec:
                   name: {{ include "veritable-ui.databaseSecretName" . }}
                   key: {{ include "veritable-ui.databaseSecretPasswordKey" . }}
         {{- end }}
-        {{- if .Values.initIssueancePolicies.enable }}
+        {{- if .Values.initIssueancePolicies.enabled }}
         - name: issueance-policies
           image: {{ template "veritable-ui.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
