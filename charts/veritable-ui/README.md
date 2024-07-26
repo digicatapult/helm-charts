@@ -270,16 +270,16 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Veritable-Cloudagent section
 
-| Name                                          | Description                                             | Value                             |
-| --------------------------------------------- | ------------------------------------------------------- | --------------------------------- |
-| `veritableCloudagent.enabled`                 | Enable veritable-cloudagent                             | `false`                           |
-| `veritableCloudagent.postgresql.nameOverride` | Name for the veritable-cloudagent PostgreSQL dependency | `veritable-cloudagent-postgresql` |
+| Name                                 | Description                                             | Value                             |
+| ------------------------------------ | ------------------------------------------------------- | --------------------------------- |
+| `cloudagent.enabled`                 | Enable veritable-cloudagent                             | `false`                           |
+| `cloudagent.postgresql.nameOverride` | Name for the veritable-cloudagent PostgreSQL dependency | `veritable-cloudagent-postgresql` |
 
 ### External vertiable-cloudagent section
 
-| Name                              | Description                       | Value |
-| --------------------------------- | --------------------------------- | ----- |
-| `externalVeritableCloudagent.url` | External veritable-cloudagent URL | `""`  |
+| Name                     | Description                       | Value |
+| ------------------------ | --------------------------------- | ----- |
+| `externalCloudagent.url` | External veritable-cloudagent URL | `""`  |
 
 ## Configuration and installation details
 

@@ -703,10 +703,10 @@ externalDatabase:
 
 ## @section Veritable-Cloudagent section
 ##
-## @param veritableCloudagent.enabled Enable veritable-cloudagent
-## @param veritableCloudagent.postgresql.nameOverride Name for the veritable-cloudagent PostgreSQL dependency
+## @param cloudagent.enabled Enable veritable-cloudagent
+## @param cloudagent.postgresql.nameOverride Name for the veritable-cloudagent PostgreSQL dependency
 ##
-veritableCloudagent:
+cloudagent:
   enabled: false
   postgresql:
     nameOverride: veritable-cloudagent-postgresql
@@ -714,7 +714,7 @@ veritableCloudagent:
 
 ## @section External vertiable-cloudagent section
 ##
-externalVeritableCloudagent:
-  ## @param externalVeritableCloudagent.url External veritable-cloudagent URL
+externalCloudagent:
+  ## @param externalCloudagent.url External veritable-cloudagent URL
   ##
   url: ""

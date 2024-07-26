@@ -249,25 +249,25 @@ Add environment variables to configure database values
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "veritable-ui.vertiableCloudagent.fullname" -}}
-{{- include "common.names.dependency.fullname" (dict "chartName" "veritable-cloudagent" "chartValues" .Values.veritableCloudagent "context" $) -}}
+{{- define "veritable-ui.cloudagent.fullname" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "veritable-cloudagent" "chartValues" .Values.cloudagent "context" $) -}}
 {{- end -}}
 
 {{/*
 Return the veritable-cloudagent hostname
 */}}
-{{- define "veritable-ui.veritableCloudagentHost" -}}
+{{- define "veritable-ui.cloudagentHost" -}}
 {{- $host := include "veritable-ui.vertiableCloudagent.fullname" . -}}
-{{- $port := include "veritable-ui.veritableCloudagentPort" . | replace "\"" "" -}}
-{{- ternary (printf "http://%s-admin:%s" $host $port) .Values.externalVeritableCloudagent.host .Values.veritableCloudagent.enabled -}}
+{{- $port := include "veritable-ui.cloudagentPort" . | replace "\"" "" -}}
+{{- ternary (printf "http://%s-admin:%s" $host $port) .Values.externalCloudagent.host .Values.cloudagent.enabled -}}
 {{- end -}}
 
 
 {{/*
 Return the veritable-cloudagent port
 */}}
-{{- define "veritable-ui.veritableCloudagentPort" -}}
-{{- ternary "3000" .Values.externalVeritableCloudagent.port .Values.veritableCloudagent.enabled | quote -}}
+{{- define "veritable-ui.cloudagentPort" -}}
+{{- ternary "3000" .Values.externalCloudagent.port .Values.cloudagent.enabled | quote -}}
 {{- end -}}
 
 
@@ -360,21 +360,21 @@ veritable-ui:
 {{- end -}}
 
 {{/*
-Validate if either the cloudagent has been enabled or if an externalVeritableCloudagent.host has been set
+Validate if either the cloudagent has been enabled or if an externalCloudagent.host has been set
 */}}
 {{- define "veritable-ui.validateCloudagentHost" -}}
-{{- if not (or .Values.veritableCloudagent.enabled .Values.externalVeritableCloudagent.host) -}}
+{{- if not (or .Values.cloudagent.enabled .Values.externalCloudagent.host) -}}
 veritable-ui:
-    Either veritableCloudagent.enabled must be true or externalVeritableCloudagent.host must be set.
+    Either cloudagent.enabled must be true or externalCloudagent.host must be set.
 {{- end -}}
 {{- end -}}
 
 {{/*
-Validate if either the cloudagent has been enabled or if an externalVeritableCloudagent.port has been set
+Validate if either the cloudagent has been enabled or if an externalCloudagent.port has been set
 */}}
 {{- define "veritable-ui.validateCloudagentPort" -}}
-{{- if not (or .Values.veritableCloudagent.enabled .Values.externalVeritableCloudagent.port) -}}
+{{- if not (or .Values.cloudagent.enabled .Values.externalCloudagent.port) -}}
 veritable-ui:
-    Either veritableCloudagent.enabled must be true or externalVeritableCloudagent.port must be set.
+    Either cloudagent.enabled must be true or externalCloudagent.port must be set.
 {{- end -}}
 {{- end -}}

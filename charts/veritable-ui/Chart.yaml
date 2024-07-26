@@ -14,10 +14,10 @@ dependencies:
       - bitnami-common
     version: 2.x.x
   - name: veritable-cloudagent
-    condition: veritableCloudagent.enabled
+    condition: cloudagent.enabled
     repository: https://digicatapult.github.io/helm-charts
     version: 1.0.6
-    alias: veritableCloudagent
+    alias: cloudagent
 description: The veritable user interface for managing connections
 home: https://github.com/digicatapult/veritable-ui
 keywords:

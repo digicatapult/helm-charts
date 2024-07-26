@@ -144,7 +144,7 @@ spec:
           {{- end }}
           env:
             - name: CLOUDAGENT_ADMIN_ORIGIN
-              value: {{ template "veritable-ui.veritableCloudagentHost" . |quote }}
+              value: {{ template "veritable-ui.cloudagentHost" . |quote }}
             - name: LOG_LEVEL
               value: {{ .Values.initIssueancePolicy.logLevel | quote }}
             - name: ISSUEANCE_DID_OLICY
@@ -234,7 +234,7 @@ spec:
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
             - name: CLOUDAGENT_ADMIN_ORIGIN
-              value: {{ include "veritable-ui.veritableCloudagentHost" . | quote }}
+              value: {{ include "veritable-ui.cloudagentHost" . | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
               value: {{ .Values.invitationFromCompanyNumber | quote }}
             - name: INVITATION_PIN_SECRET
