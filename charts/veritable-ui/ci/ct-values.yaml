@@ -1,4 +1,4 @@
 invitationPin:
   secret: blah
-veritableCloudagent:
+cloudagent:
   enabled: true
