@@ -234,7 +234,9 @@ spec:
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
             - name: CLOUDAGENT_ADMIN_WS_ORIGIN
-              value: {{ include "veritable-ui.cloudagentHost" . | quote }}
+              value: {{ include "veritable-ui.cloudagentAdminWsUri" . | quote }}
+            - name: CLOUDAGENT_ADMIN_ORIGIN
+              value: {{ include "veritable-ui.cloudagentAdminHttpUri" . | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
               value: {{ .Values.invitationFromCompanyNumber | quote }}
             - name: INVITATION_PIN_SECRET
