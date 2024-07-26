@@ -233,7 +233,7 @@ spec:
               value: {{ .Values.emailFromAddress | quote }}
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
-            - name: CLOUDAGENT_ADMIN_ORIGIN
+            - name: CLOUDAGENT_ADMIN_WS_ORIGIN
               value: {{ include "veritable-ui.cloudagentHost" . | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
               value: {{ .Values.invitationFromCompanyNumber | quote }}
@@ -244,11 +244,11 @@ spec:
                   key: {{ include "veritable-ui.invitationPinSecretKey" . }}
             - name: INVITATION_PIN_ATTEMPT_LIMIT
               value: {{ .Values.invitationPin.attemptLimit | quote }}
-            - name: ISSUEANCE_DID_POLICY
-              value: {{ .Values.DidPolicy | quote }}
-            - name: ISSUEANCE_SCHEMA_POLICY
+            - name: ISSUANCE_DID_POLICY
+              value: {{ .Values.didPolicy | quote }}
+            - name: ISSUANCE_SCHEMA_POLICY
               value: {{ .Values.schemaPolicy | quote }}
-            - name: ISSUEANCE_CRED_DEF_POLICY
+            - name: ISSUANCE_CRED_DEF_POLICY
               value: {{ .Values.credentialPolicy | quote }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
