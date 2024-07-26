@@ -257,7 +257,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Return the veritable-cloudagent hostname
 */}}
 {{- define "veritable-ui.cloudagentHost" -}}
-{{- $host := include "veritable-ui.vertiableCloudagent.fullname" . -}}
+{{- $host := include "veritable-ui.cloudagent.fullname" . -}}
 {{- $port := include "veritable-ui.cloudagentPort" . | replace "\"" "" -}}
 {{- ternary (printf "http://%s-admin:%s" $host $port) .Values.externalCloudagent.host .Values.cloudagent.enabled -}}
 {{- end -}}
