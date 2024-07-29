@@ -133,7 +133,7 @@ invitationPin:
   existingSecretKey: ""
   attemptLimit: 3
 
-## @section veritable-ui Issueance Policy Parameters
+## @section veritable-ui Issuance Policy Parameters
 ##
 ## @param initIssuancePolicy.enabled Enable issueance policy
 ## @param initIssuancePolicy.logLevel veritable-ui issueance policy logging level
@@ -163,7 +163,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.8.12
+  tag: v0.8.13
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
