@@ -135,14 +135,14 @@ invitationPin:
 
 ## @section veritable-ui Issueance Policy Parameters
 ##
-## @param initIssueancePolicy.enabled Enable issueance policy
-## @param initIssueancePolicy.logLevel veritable-ui issueance policy logging level
-## @param initIssueancePolicy.didPolicy veritable-ui issueance DID policy
-## @param initIssueancePolicy.schemaPolicy veritable-ui issueance schema policy
-## @param initIssueancePolicy.credentialPolicy veritable-ui issueance credential definition policy
-## @param initIssueancePolicy.args veritable-ui issueance policy arguments
+## @param initIssuancePolicy.enabled Enable issueance policy
+## @param initIssuancePolicy.logLevel veritable-ui issueance policy logging level
+## @param initIssuancePolicy.didPolicy veritable-ui issueance DID policy
+## @param initIssuancePolicy.schemaPolicy veritable-ui issueance schema policy
+## @param initIssuancePolicy.credentialPolicy veritable-ui issueance credential definition policy
+## @param initIssuancePolicy.args veritable-ui issueance policy arguments
 ##
-initIssueancePolicy:
+initIssuancePolicy:
   enabled: true
   logLevel: "debug"
   didPolicy: "EXISTING_OR_NEW"

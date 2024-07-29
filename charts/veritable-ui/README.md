@@ -108,14 +108,14 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### veritable-ui Issueance Policy Parameters
 
-| Name                                   | Description                                         | Value             |
-| -------------------------------------- | --------------------------------------------------- | ----------------- |
-| `initIssueancePolicy.enabled`          | Enable issueance policy                             | `true`            |
-| `initIssueancePolicy.logLevel`         | veritable-ui issueance policy logging level         | `debug`           |
-| `initIssueancePolicy.didPolicy`        | veritable-ui issueance DID policy                   | `EXISTING_OR_NEW` |
-| `initIssueancePolicy.schemaPolicy`     | veritable-ui issueance schema policy                | `EXISTING_OR_NEW` |
-| `initIssueancePolicy.credentialPolicy` | veritable-ui issueance credential definition policy | `EXISTING_OR_NEW` |
-| `initIssueancePolicy.args`             | veritable-ui issueance policy arguments             | `[]`              |
+| Name                                  | Description                                         | Value             |
+| ------------------------------------- | --------------------------------------------------- | ----------------- |
+| `initIssuancePolicy.enabled`          | Enable issueance policy                             | `true`            |
+| `initIssuancePolicy.logLevel`         | veritable-ui issueance policy logging level         | `debug`           |
+| `initIssuancePolicy.didPolicy`        | veritable-ui issueance DID policy                   | `EXISTING_OR_NEW` |
+| `initIssuancePolicy.schemaPolicy`     | veritable-ui issueance schema policy                | `EXISTING_OR_NEW` |
+| `initIssuancePolicy.credentialPolicy` | veritable-ui issueance credential definition policy | `EXISTING_OR_NEW` |
+| `initIssuancePolicy.args`             | veritable-ui issueance policy arguments             | `[]`              |
 
 ### veritable-ui deployment parameters
 
