@@ -2,3 +2,4 @@ invitationPin:
   secret: blah
 cloudagent:
   enabled: true
+  logLevel: debug
