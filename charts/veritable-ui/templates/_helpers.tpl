@@ -250,7 +250,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "veritable-ui.cloudagent.fullname" -}}
-{{- include "common.names.dependency.fullname" (dict "chartName" "veritable-cloudagent" "chartValues" .Values.cloudagent "context" $) -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "cloudagent" "chartValues" .Values.cloudagent "context" $) -}}
 {{- end -}}
 
 {{/*
