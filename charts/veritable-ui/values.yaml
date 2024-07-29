@@ -667,7 +667,7 @@ serviceAccount:
 ##
 postgresql:
   enabled: true
-  nameOverride: veritable-ui-postgresql
+  nameOverride: vui-postgresql
   auth:
     username: veritable-ui
     password: ""
@@ -709,7 +709,7 @@ externalDatabase:
 cloudagent:
   enabled: false
   postgresql:
-    nameOverride: veritable-cloudagent-postgresql
+    nameOverride: vca-postgresql
 
 
 ## @section External vertiable-cloudagent section
