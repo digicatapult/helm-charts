@@ -66,7 +66,7 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
-      {{- if or .Values.initContainers .Values.initDbMigrate.enable (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
+      {{- if or .Values.initContainers .Values.initDbMigrate.enabled .Values.initIssueancePolicy.enabled (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
         - name: database-create 
@@ -134,7 +134,7 @@ spec:
                   name: {{ include "veritable-ui.databaseSecretName" . }}
                   key: {{ include "veritable-ui.databaseSecretPasswordKey" . }}
         {{- end }}
-        {{- if .Values.initIssueancePolicies.enabled }}
+        {{- if .Values.initIssueancePolicy.enabled }}
         - name: issueance-policies
           image: {{ template "veritable-ui.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
