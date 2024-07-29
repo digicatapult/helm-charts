@@ -147,7 +147,7 @@ spec:
               value: {{ include "veritable-ui.cloudagentAdminHttpUri" . | quote }}
             - name: LOG_LEVEL
               value: {{ .Values.initIssuancePolicy.logLevel | quote }}
-            - name: ISSUANCE_DID_OLICY
+            - name: ISSUANCE_DID_POLICY
               value: {{ .Values.initIssuancePolicy.didPolicy | quote }}
             - name: ISSUANCE_SCHEMA_POLICY
               value: {{ .Values.initIssuancePolicy.schemaPolicy | quote }}
