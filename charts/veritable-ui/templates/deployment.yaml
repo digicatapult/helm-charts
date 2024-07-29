@@ -144,7 +144,7 @@ spec:
           {{- end }}
           env:
             - name: CLOUDAGENT_ADMIN_ORIGIN
-              value: {{ template "veritable-ui.cloudagentHost" . |quote }}
+              value: {{ include "veritable-ui.cloudagentAdminHttpUri" . | quote }}
             - name: LOG_LEVEL
               value: {{ .Values.initIssueancePolicy.logLevel | quote }}
             - name: ISSUEANCE_DID_OLICY
