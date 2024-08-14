@@ -105,6 +105,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `invitationPin.existingSecret`          | If there is an existing secret for the invitationPin           | `""`                                                             |
 | `invitationPin.existingSecretKey`       | the key to use within the existing secret                      | `""`                                                             |
 | `invitationPin.attemptLimit`            | the number of attempts to enter the pin                        | `3`                                                              |
+| `demoMode`                              | that controls access to the /reset endpoint. [true = allowed]  | `false`                                                          |
 
 ### veritable-ui Issuance Policy Parameters
 
@@ -123,7 +124,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
 | `image.registry`                                  | veritable-ui image registry                                                                                                                             | `docker.io`                 |
 | `image.repository`                                | veritable-ui image repository                                                                                                                           | `digicatapult/veritable-ui` |
-| `image.tag`                                       | veritable-ui image tag (immutable tags are recommended)                                                                                                 | `v0.8.13`                   |
+| `image.tag`                                       | veritable-ui image tag (immutable tags are recommended)                                                                                                 | `v0.8.29`                   |
 | `image.digest`                                    | veritable-ui image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                        |
 | `image.pullPolicy`                                | veritable-ui image pull policy                                                                                                                          | `IfNotPresent`              |
 | `image.pullSecrets`                               | veritable-ui image pull secrets                                                                                                                         | `[]`                        |
