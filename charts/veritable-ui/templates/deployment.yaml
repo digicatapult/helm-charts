@@ -238,7 +238,7 @@ spec:
             - name: CLOUDAGENT_ADMIN_ORIGIN
               value: {{ include "veritable-ui.cloudagentAdminHttpUri" . | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
-              value: {{ .Values.invitationFromCompanyNumber | quote }}
+              value: {{ printf "\"%s\"" .Values.invitationFromCompanyNumber }}
             - name: INVITATION_PIN_SECRET
               valueFrom:
                 secretKeyRef:

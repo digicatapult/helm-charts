@@ -202,7 +202,7 @@ containerPorts:
 ##
 livenessProbe:
   enabled: true
-  path: /connection
+  path: /health
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 5
@@ -218,7 +218,7 @@ livenessProbe:
 ##
 readinessProbe:
   enabled: true
-  path: /connection
+  path: /health
   initialDelaySeconds: 5
   periodSeconds: 10
   timeoutSeconds: 5
@@ -234,7 +234,7 @@ readinessProbe:
 ##
 startupProbe:
   enabled: true
-  path: /connection
+  path: /health
   initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
@@ -709,7 +709,7 @@ externalDatabase:
 ## @param cloudagent.postgresql.nameOverride Name for the veritable-cloudagent PostgreSQL dependency
 ##
 cloudagent:
-  enabled: false
+  enabled: true
   postgresql:
     nameOverride: vca-postgresql
 
