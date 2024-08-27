@@ -709,7 +709,7 @@ externalDatabase:
 ## @param cloudagent.postgresql.nameOverride Name for the veritable-cloudagent PostgreSQL dependency
 ##
 cloudagent:
-  enabled: true
+  enabled: false
   postgresql:
     nameOverride: vca-postgresql
 
