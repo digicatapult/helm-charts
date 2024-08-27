@@ -238,7 +238,7 @@ spec:
             - name: CLOUDAGENT_ADMIN_ORIGIN
               value: {{ include "veritable-ui.cloudagentAdminHttpUri" . | quote }}
             - name: INVITATION_FROM_COMPANY_NUMBER  
-              value: {{ .Values.invitationFromCompanyNumber | quote }}
+              value: {{ printf "\"%s\"" .Values.invitationFromCompanyNumber }}
             - name: INVITATION_PIN_SECRET
               valueFrom:
                 secretKeyRef:
@@ -252,6 +252,8 @@ spec:
               value: {{ .Values.schemaPolicy | quote }}
             - name: ISSUANCE_CRED_DEF_POLICY
               value: {{ .Values.credentialPolicy | quote }}
+            - name: DEMO_MODE 
+              value:  {{ .Values.demoMode | quote }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
