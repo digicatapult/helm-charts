@@ -117,8 +117,6 @@ verifiedDrpcOptionsProofTimeoutMs: 5000
 verifiedDrpcOptionsRequestTimeoutMs: 5000
 ## @param verifiedDrpcOptionsProofRequestOptions veritable-cloudagent Must be a JSON Stringified object with the options for the proof request
 verifiedDrpcOptionsProofRequestOptions: ""
-## @param verifiedDrpcOptionsCredDefId veritable-cloudagent default credential identifier
-verifiedDrpcOptionsCredDefId: "some-cred-def-id"
 
 ## @section IPFS Container Parameters
 ## @param ipfs.enabled Enable IPFS container within pod
@@ -139,18 +137,18 @@ ipfs:
     digest: ""
     pullPolicy: IfNotPresent
 
-## @param ipfs.containerPorts.api IPFS container API port
-##
+  ## @param ipfs.containerPorts.api IPFS container API port
+  ##
   containerPorts:
     api: 5001
 
-## IPFS container resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-## @param ipfs.resources.limits.cpu The resources limits for the IPFS container for CPU
-## @param ipfs.resources.limits.memory The resources limits for the IPFS container for memory
-## @param ipfs.resources.requests.cpu The requested resources for the IPFS container for CPU
-## @param ipfs.resources.requests.memory The requested resources for the IPFS container for memory
-##
+  ## IPFS container resource requests and limits
+  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ## @param ipfs.resources.limits.cpu The resources limits for the IPFS container for CPU
+  ## @param ipfs.resources.limits.memory The resources limits for the IPFS container for memory
+  ## @param ipfs.resources.requests.cpu The requested resources for the IPFS container for CPU
+  ## @param ipfs.resources.requests.memory The requested resources for the IPFS container for memory
+  ##
   resources:
     limits:
       cpu: "500m"
@@ -159,15 +157,15 @@ ipfs:
       cpu: "250m"
       memory: "256Mi"
 
-## IPFS container liveness probe parameters
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param ipfs.livenessProbe.enabled Enable livenessProbe on IPFS container
-## @param ipfs.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param ipfs.livenessProbe.periodSeconds Period seconds for livenessProbe
-## @param ipfs.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param ipfs.livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param ipfs.livenessProbe.successThreshold Success threshold for livenessProbe
-##
+  ## IPFS container liveness probe parameters
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  ## @param ipfs.livenessProbe.enabled Enable livenessProbe on IPFS container
+  ## @param ipfs.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+  ## @param ipfs.livenessProbe.periodSeconds Period seconds for livenessProbe
+  ## @param ipfs.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+  ## @param ipfs.livenessProbe.failureThreshold Failure threshold for livenessProbe
+  ## @param ipfs.livenessProbe.successThreshold Success threshold for livenessProbe
+  ##
   livenessProbe:
     enabled: true
     initialDelaySeconds: 30
@@ -176,15 +174,15 @@ ipfs:
     failureThreshold: 3
     successThreshold: 1
 
-## IPFS container readiness probe parameters
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param ipfs.readinessProbe.enabled Enable readinessProbe on IPFS container
-## @param ipfs.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param ipfs.readinessProbe.periodSeconds Period seconds for readinessProbe
-## @param ipfs.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param ipfs.readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param ipfs.readinessProbe.successThreshold Success threshold for readinessProbe
-##
+  ## IPFS container readiness probe parameters
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  ## @param ipfs.readinessProbe.enabled Enable readinessProbe on IPFS container
+  ## @param ipfs.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+  ## @param ipfs.readinessProbe.periodSeconds Period seconds for readinessProbe
+  ## @param ipfs.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+  ## @param ipfs.readinessProbe.failureThreshold Failure threshold for readinessProbe
+  ## @param ipfs.readinessProbe.successThreshold Success threshold for readinessProbe
+  ##
   readinessProbe:
     enabled: true
     initialDelaySeconds: 30
@@ -193,20 +191,20 @@ ipfs:
     failureThreshold: 5
     successThreshold: 1
 
-## @param ipfs.extraEnvVars Extra environment variables for the IPFS container
-## e.g:
-## extraEnvVars:
-##   - name: FOO
-##     value: "bar"
-##
+  ## @param ipfs.extraEnvVars Extra environment variables for the IPFS container
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
   extraEnvVars: []
 
-## @param ipfs.volumeMounts Optionally specify extra list of additional volumeMounts for the IPFS container
-##
+  ## @param ipfs.volumeMounts Optionally specify extra list of additional volumeMounts for the IPFS container
+  ##
   volumeMounts: []
 
-## @param ipfs.volumes Optionally specify extra list of additional volumes for the IPFS pod(s)
-##
+  ## @param ipfs.volumes Optionally specify extra list of additional volumes for the IPFS pod(s)
+  ##
   volumes: []
 
 ## @section veritable-cloudagent deployment parameters
@@ -223,7 +221,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.9.35
+  tag: v0.10.8
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -603,7 +601,6 @@ adminService:
   ##
   sessionAffinityConfig: {}
 
-
 ## veritable-cloudagent ingress parameters
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
@@ -752,7 +749,7 @@ initDbCreate:
   image:
     registry: docker.io
     repository: postgres
-    tag: '16-alpine'
+    tag: "16-alpine"
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
