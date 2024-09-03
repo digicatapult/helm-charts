@@ -195,7 +195,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "veritable-cloudagent.databaseSecretName" . }}
                   key: {{ include "veritable-cloudagent.databaseSecretPasswordKey" . }}
-
+            {{- end }}
             - name: PERSONA_TITLE
               value: {{ .Values.personaTitle | quote }}
             - name: PERONA_COLOR
@@ -209,9 +209,6 @@ spec:
             {{- if .Values.verifiedDrpcOptionsProofRequestOptions }}
             - name: VERIFIED_DRPC_OPTIONS_PROOF_REQUEST_OPTIONS
               value: {{ .Values.verifiedDrpcOptionsProofRequestOptions | quote }}
-            {{- end }}
-            - name: VERIFIED_DRPC_OPTIONS_CRED_DEF_ID
-              value: {{ .Values.verifiedDrpcOptionsCredDefId | quote }}
             {{- end }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
