@@ -70,42 +70,42 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### veritable UI config parameters
 
-| Name                                    | Description                                                    | Value                                                            |
-| --------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `label`                                 | veritable-ui label                                             | `veritable ui`                                                   |
-| `companysHouseApiKey.enabled`           | Enable companys house secret                                   | `true`                                                           |
-| `companysHouseApiKey.secret`            | veritable-ui secret value                                      | `companysHouseApiKey`                                            |
-| `companysHouseApiKey.existingSecret`    | veritable-ui existing secret                                   | `""`                                                             |
-| `companysHouseApiKey.existingSecretKey` | veritable-ui existing secret key                               | `""`                                                             |
-| `companysHouseApiUrl`                   | companys house api URL for retrieving company's details        | `https://api.company-information.service.gov.uk`                 |
-| `logLevel`                              | veritable-ui logging level                                     | `debug`                                                          |
-| `cookieSessionKeys.enabled`             | Enable cookies session keys secret                             | `true`                                                           |
-| `cookieSessionKeys.secret`              | veritable-ui secret vaapiSwaggerBgColorlue                     | `["secret"]`                                                     |
-| `cookieSessionKeys.existingSecret`      | veritable-ui existing secret                                   | `""`                                                             |
-| `cookieSessionKeys.existingSecretKey`   | veritable-ui existing secret key                               | `""`                                                             |
-| `publicUrl`                             | veritable-ui external URL                                      | `http://localhost:3080`                                          |
-| `apiSwaggerBgColor`                     | veritable-ui swagger ackground color                           | `#fafafa`                                                        |
-| `apiSwaggerTitle`                       | veritable-ui swagger title                                     | `Veritable`                                                      |
-| `apiSwaggerHeading`                     | veritable-ui swagger heading                                   | `Veritable`                                                      |
-| `idpClientId`                           | veritable-ui                                                   | `veritable-ui`                                                   |
-| `idpPublicURLPrefix`                    | veritable-ui public realm                                      | `http://localhost:3080/realms/veritable/protocol/openid-connect` |
-| `idpInternalURLPrefix`                  | veritable-ui private/internal realm                            | `http://localhost:3080/realms/veritable/protocol/openid-connect` |
-| `idpAuthPath`                           | veritable-ui IDP authentication path                           | `/auth`                                                          |
-| `idpTokenPath`                          | veritable-ui IDP token path                                    | `/token`                                                         |
-| `idpJWKSPath`                           | veritable-ui IDP certs path                                    | `/certs`                                                         |
-| `emailTransport`                        | The email transport method to use, current options only STREAM | `STREAM`                                                         |
-| `emailFromAddress`                      | veritable-ui email from address                                | `hello@veritable.com`                                            |
-| `emailAdminAddress`                     | veritable-ui email admin address                               | `admin@veritable.com`                                            |
-| `invitationFromCompanyNumber`           | Companies House number to claim created invitations are from   | `00000000`                                                       |
-| `didPolicy`                             | veritable-ui DID policy                                        | `FIND_EXISTING`                                                  |
-| `schemaPolicy`                          | veritable-ui schema policy                                     | `FIND_EXISTING`                                                  |
-| `credentialPolicy`                      | veritable-ui credential policy                                 | `FIND_EXISTING`                                                  |
-| `invitationPin.enabled`                 | Enable Invitation pin secret                                   | `true`                                                           |
-| `invitationPin.secret`                  | the secret value                                               | `""`                                                             |
-| `invitationPin.existingSecret`          | If there is an existing secret for the invitationPin           | `""`                                                             |
-| `invitationPin.existingSecretKey`       | the key to use within the existing secret                      | `""`                                                             |
-| `invitationPin.attemptLimit`            | the number of attempts to enter the pin                        | `3`                                                              |
-| `demoMode`                              | that controls access to the /reset endpoint. [true = allowed]  | `false`                                                          |
+| Name                                    | Description                                                                                                      | Value                                                            |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `label`                                 | veritable-ui label                                                                                               | `veritable ui`                                                   |
+| `companysHouseApiKey.enabled`           | Enable companys house secret                                                                                     | `true`                                                           |
+| `companysHouseApiKey.secret`            | veritable-ui secret value                                                                                        | `companysHouseApiKey`                                            |
+| `companysHouseApiKey.existingSecret`    | veritable-ui existing secret                                                                                     | `""`                                                             |
+| `companysHouseApiKey.existingSecretKey` | veritable-ui existing secret key                                                                                 | `""`                                                             |
+| `companysHouseApiUrl`                   | companys house api URL for retrieving company's details                                                          | `https://api.company-information.service.gov.uk`                 |
+| `logLevel`                              | veritable-ui logging level                                                                                       | `debug`                                                          |
+| `cookieSessionKeys.enabled`             | Enable cookies session keys secret                                                                               | `true`                                                           |
+| `cookieSessionKeys.secret`              | veritable-ui Cookie session secret value, should be comma separated list of values e.g. "secret,secret2,secret3" | `secret`                                                         |
+| `cookieSessionKeys.existingSecret`      | veritable-ui existing secret for the Cookie Session Key                                                          | `""`                                                             |
+| `cookieSessionKeys.existingSecretKey`   | veritable-ui existing secret key for the Cookie Session Key                                                      | `""`                                                             |
+| `publicUrl`                             | veritable-ui external URL                                                                                        | `http://localhost:3080`                                          |
+| `apiSwaggerBgColor`                     | veritable-ui swagger ackground color                                                                             | `#fafafa`                                                        |
+| `apiSwaggerTitle`                       | veritable-ui swagger title                                                                                       | `Veritable`                                                      |
+| `apiSwaggerHeading`                     | veritable-ui swagger heading                                                                                     | `Veritable`                                                      |
+| `idpClientId`                           | veritable-ui                                                                                                     | `veritable-ui`                                                   |
+| `idpPublicURLPrefix`                    | veritable-ui public realm                                                                                        | `http://localhost:3080/realms/veritable/protocol/openid-connect` |
+| `idpInternalURLPrefix`                  | veritable-ui private/internal realm                                                                              | `http://localhost:3080/realms/veritable/protocol/openid-connect` |
+| `idpAuthPath`                           | veritable-ui IDP authentication path                                                                             | `/auth`                                                          |
+| `idpTokenPath`                          | veritable-ui IDP token path                                                                                      | `/token`                                                         |
+| `idpJWKSPath`                           | veritable-ui IDP certs path                                                                                      | `/certs`                                                         |
+| `emailTransport`                        | The email transport method to use, current options only STREAM                                                   | `STREAM`                                                         |
+| `emailFromAddress`                      | veritable-ui email from address                                                                                  | `hello@veritable.com`                                            |
+| `emailAdminAddress`                     | veritable-ui email admin address                                                                                 | `admin@veritable.com`                                            |
+| `invitationFromCompanyNumber`           | Companies House number to claim created invitations are from                                                     | `00000000`                                                       |
+| `didPolicy`                             | veritable-ui DID policy                                                                                          | `FIND_EXISTING`                                                  |
+| `schemaPolicy`                          | veritable-ui schema policy                                                                                       | `FIND_EXISTING`                                                  |
+| `credentialPolicy`                      | veritable-ui credential policy                                                                                   | `FIND_EXISTING`                                                  |
+| `invitationPin.enabled`                 | Enable Invitation pin secret                                                                                     | `true`                                                           |
+| `invitationPin.secret`                  | the secret value                                                                                                 | `""`                                                             |
+| `invitationPin.existingSecret`          | If there is an existing secret for the invitationPin                                                             | `""`                                                             |
+| `invitationPin.existingSecretKey`       | the key to use within the existing secret                                                                        | `""`                                                             |
+| `invitationPin.attemptLimit`            | the number of attempts to enter the pin                                                                          | `3`                                                              |
+| `demoMode`                              | that controls access to the /reset endpoint. [true = allowed]                                                    | `false`                                                          |
 
 ### veritable-ui Issuance Policy Parameters
 
@@ -124,7 +124,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
 | `image.registry`                                  | veritable-ui image registry                                                                                                                             | `docker.io`                 |
 | `image.repository`                                | veritable-ui image repository                                                                                                                           | `digicatapult/veritable-ui` |
-| `image.tag`                                       | veritable-ui image tag (immutable tags are recommended)                                                                                                 | `v0.8.44`                   |
+| `image.tag`                                       | veritable-ui image tag (immutable tags are recommended)                                                                                                 | `v0.8.45`                   |
 | `image.digest`                                    | veritable-ui image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                        |
 | `image.pullPolicy`                                | veritable-ui image pull policy                                                                                                                          | `IfNotPresent`              |
 | `image.pullSecrets`                               | veritable-ui image pull secrets                                                                                                                         | `[]`                        |
