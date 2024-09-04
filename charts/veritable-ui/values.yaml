@@ -78,13 +78,12 @@ companysHouseApiUrl: "https://api.company-information.service.gov.uk"
 ## @param logLevel veritable-ui logging level
 logLevel: "debug"
 ## @param cookieSessionKeys.enabled Enable cookies session keys secret
-## @param cookieSessionKeys.secret veritable-ui secret vaapiSwaggerBgColorlue
-## @param cookieSessionKeys.existingSecret veritable-ui existing secret
-## @param cookieSessionKeys.existingSecretKey veritable-ui existing secret key
+## @param cookieSessionKeys.secret veritable-ui Cookie session secret value, should be comma separated list of values e.g. "secret,secret2,secret3"
+## @param cookieSessionKeys.existingSecret veritable-ui existing secret for the Cookie Session Key
+## @param cookieSessionKeys.existingSecretKey veritable-ui existing secret key for the Cookie Session Key
 cookieSessionKeys:
   enabled: true
-  secret:
-    - "secret"
+  secret: "secret"
   existingSecret: ""
   existingSecretKey: ""
 ## @param publicUrl veritable-ui external URL
@@ -165,7 +164,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.8.44
+  tag: v0.8.45
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
