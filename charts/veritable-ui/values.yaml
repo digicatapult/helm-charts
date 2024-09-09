@@ -164,7 +164,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.8.45
+  tag: 0.8.56
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -201,7 +201,7 @@ containerPorts:
 ##
 livenessProbe:
   enabled: true
-  path: /connection
+  path: /health
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 5
@@ -217,7 +217,7 @@ livenessProbe:
 ##
 readinessProbe:
   enabled: true
-  path: /connection
+  path: /health
   initialDelaySeconds: 5
   periodSeconds: 10
   timeoutSeconds: 5
@@ -233,7 +233,7 @@ readinessProbe:
 ##
 startupProbe:
   enabled: true
-  path: /connection
+  path: /health
   initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
