@@ -2,7 +2,7 @@ annotations:
   category: veritable
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v0.8.45
+appVersion: v0.8.57
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -29,4 +29,4 @@ maintainers:
 name: veritable-ui
 sources:
   - https://github.com/digicatapult/veritable-ui
-version: 1.0.7
+version: 1.0.8
