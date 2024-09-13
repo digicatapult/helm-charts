@@ -29,6 +29,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Set Self-hosted Environment Variable
+        run: echo "RENOVATE_SELF_HOSTED=true" >> $GITHUB_ENV
+
       - name: Run Self-hosted Renovate
         uses: renovatebot/github-action@v40.2.4
         with:
