@@ -133,7 +133,7 @@ ipfs:
   image:
     registry: docker.io
     repository: ipfs/kubo
-    tag: v0.28.0
+    tag: v0.30.0
     digest: ""
     pullPolicy: IfNotPresent
 
@@ -221,7 +221,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.10.8
+  tag: v0.10.15
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
