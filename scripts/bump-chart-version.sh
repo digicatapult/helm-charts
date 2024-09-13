@@ -3,7 +3,8 @@ set -euo pipefail
 
 parent_dir="$1"
 
-chart_file="charts/${parent_dir}/Chart.yaml"
+chart_dir="charts/${parent_dir}"
+chart_file="${chart_dir}/Chart.yaml"
 
 if [[ ! -f "$chart_file" ]]; then
   echo "Chart file not found: $chart_file"
@@ -25,3 +26,9 @@ new_version="${major}.${minor}.${patch}"
 echo -e "\nBumping version for $parent_dir from $version to $new_version"
 
 sed -i "s/^version:.*/version: ${new_version}/g" "$chart_file"
+
+# Run bitnami-readme-generator-for-helm using npx to update README.md with new image tags in values.yaml
+echo "Generating README.md for $parent_dir using bitnami-readme-generator-for-helm"
+npx -y @bitnami/readme-generator-for-helm \
+  --values "${chart_dir}/values.yaml" \
+  --readme "${chart_dir}/README.md"
