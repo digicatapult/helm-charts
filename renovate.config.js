@@ -16,6 +16,8 @@ module.exports = (config = {}) => {
     onboarding: false,
     requireConfig: false,
     allowedPostUpgradeCommands: ['scripts/bump-chart-version.sh'],
+    prHourlyLimit: 20,
+    prConcurrentLimit: 20,
     customManagers: [
       {
         customType: 'regex',
