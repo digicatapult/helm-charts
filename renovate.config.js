@@ -1,5 +1,7 @@
-module.exports = (config) => {
-	if (!config.isSelfHosted) {
+module.exports = (config = {}) => {
+	const isSelfHosted = process.env.RENOVATE_SELF_HOSTED === 'true';
+  
+	if (!isSelfHosted) {
 	  console.log('Renovate is disabled when running via GitHub App.');
 	  return {
 		enabled: false,
@@ -24,8 +26,7 @@ module.exports = (config) => {
 	  ],
 	  packageRules: [
 		{
-		  description:
-			'Always bump chart version by a patch when updating values files.',
+		  description: 'Always bump chart version by a patch when updating values files.',
 		  matchManagers: ['helm-values', 'regex'],
 		  postUpgradeTasks: {
 			commands: ["scripts/bump-chart-version.sh '{{{parentDir}}}'"],

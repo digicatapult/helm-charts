@@ -36,3 +36,4 @@ jobs:
           configurationFile: renovate.config.js
         env:
           LOG_LEVEL: debug
+          RENOVATE_SELF_HOSTED: true
