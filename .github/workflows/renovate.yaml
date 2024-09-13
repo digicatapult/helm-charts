@@ -34,6 +34,7 @@ jobs:
         with:
           token: ${{ steps.get_token.outputs.token }}
           configurationFile: renovate.config.js
+          repository: digicatapult/helm-charts
         env:
           LOG_LEVEL: debug
           RENOVATE_SELF_HOSTED: true
