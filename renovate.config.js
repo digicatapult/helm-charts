@@ -43,7 +43,7 @@ module.exports = (config = {}) => {
         matchManagers: ["helm-values", "regex"],
         postUpgradeTasks: {
           commands: ["scripts/bump-chart-version.sh '{{{parentDir}}}'"],
-          fileFilters: ["**/Chart.yaml"],
+          fileFilters: ["**/Chart.yaml", "**/README.md"],
           executionMode: "branch",
         },
       },
