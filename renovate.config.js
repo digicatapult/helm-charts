@@ -26,9 +26,7 @@ module.exports = (config = {}) => {
 		  ],
 		},
 	  ],
-	  helmValues: {
-		  enabled: true,
-	  },
+	  enabledManagers: ['helmv3', 'helm-values', 'regex', 'github-actions'],
 	  packageRules: [
 		{
 		  description: 'Always bump chart version by a patch when updating values files.',
