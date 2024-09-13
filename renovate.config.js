@@ -24,7 +24,7 @@ module.exports = (config = {}) => {
         datasourceTemplate: "docker",
         fileMatch: ["(^|/)Chart\\.yaml$"],
         matchStrings: [
-          "#\\s*renovate: image=(?<imageName>.*?)\\s+appVersion:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)",
+          '#\\s*renovate: image=(?<imageName>.*?)\\s+appVersion:\\s*[\"]?(?<currentValue>[\\w+\\.\\-]*)',
         ],
         depNameTemplate: "docker.io/{{{imageName}}}",
       },
