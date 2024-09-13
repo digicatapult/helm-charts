@@ -26,8 +26,12 @@ module.exports = (config = {}) => {
 		  ],
 		},
 	  ],
-	  enabledManagers: ['helmv3', 'helm-values', 'regex', 'github-actions'],
 	  packageRules: [
+		{
+		  description: 'Group updates per dependency across Chart.yaml and values.yaml',
+		  matchManagers: ['helm-values', 'regex'],
+		  groupName: '{{{depName}}}',
+		},
 		{
 		  description: 'Always bump chart version by a patch when updating values files.',
 		  matchManagers: ['helm-values', 'regex'],
