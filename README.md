@@ -4,6 +4,7 @@ A collection of [helm](https://helm.sh) charts created by [Digital Catapult](htt
 
 ## Active Chart List
 
+* [bridgeai-prediction-service](charts/bridgeai-prediction-service/README.md) - Deploy the bridgeai-prediction-service
 * [openapi-merger](charts/openapi-merger/README.md) - Deploy the openapi-merger
 * [sqnc-identity-service](charts/sqnc-identity-service/README.md) - Deploy sqnc-identity-service
 * [sqnc-ipfs](charts/sqnc-ipfs/README.md) - Deploy sqnc-ipfs
