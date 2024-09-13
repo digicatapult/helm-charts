@@ -37,4 +37,4 @@ jobs:
         env:
           LOG_LEVEL: debug
           RENOVATE_SELF_HOSTED: true
-          RENOVATE_REPOSITORIES: ["digicatapult/helm-charts"]
+          RENOVATE_REPOSITORIES: "[\"digicatapult/helm-charts\"]"
