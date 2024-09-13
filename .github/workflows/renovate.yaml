@@ -1,9 +1,6 @@
 name: Renovate
 
 on:
-  schedule:
-    # Runs every hour
-    - cron: '0 * * * *'
   repository_dispatch:
     types:
       - renovate
