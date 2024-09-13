@@ -15,6 +15,7 @@ module.exports = (config = {}) => {
 	  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
 	  onboarding: false,
 	  requireConfig: false,
+	  allowedPostUpgradeCommands: ['scripts/bump-chart-version.sh'],
 	  customManagers: [
 		{
 		  customType: 'regex',
