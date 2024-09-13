@@ -14,6 +14,7 @@ module.exports = (config = {}) => {
 	return {
 	  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
 	  onboarding: false,
+	  requireConfig: false,
 	  customManagers: [
 		{
 		  customType: 'regex',
