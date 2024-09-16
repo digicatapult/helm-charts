@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "prediction-server-chart.name" -}}
+{{- define "bridgeai-prediction-service.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "prediction-server-chart.fullname" -}}
+{{- define "bridgeai-prediction-service.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "prediction-server-chart.chart" -}}
+{{- define "bridgeai-prediction-service.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "prediction-server-chart.labels" -}}
-helm.sh/chart: {{ include "prediction-server-chart.chart" . }}
-{{ include "prediction-server-chart.selectorLabels" . }}
+{{- define "bridgeai-prediction-service.labels" -}}
+helm.sh/chart: {{ include "bridgeai-prediction-service.chart" . }}
+{{ include "bridgeai-prediction-service.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "prediction-server-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "prediction-server-chart.name" . }}
+{{- define "bridgeai-prediction-service.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "bridgeai-prediction-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "prediction-server-chart.serviceAccountName" -}}
+{{- define "bridgeai-prediction-service.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "prediction-server-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "bridgeai-prediction-service.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
