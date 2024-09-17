@@ -10,9 +10,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.1.0"
 
-# imagePullSecrets: []
+imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+modelPredictionEndpoint: "http://model/prediction/endpoint"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -81,14 +83,10 @@ command:
 args:
   - "--host"
   - "0.0.0.0"
-  - "--port"
-  - "8000"
   - "--reload"
 
 ## @param envVars Array with extra environment variables to add to the prediction service container
-envVars:
-  - name: MODEL_PREDICTION_ENDPOINT
-    value: "http://model/prediction/endpoint"
+envVars: []
 
 livenessProbe:
   httpGet:
@@ -102,7 +100,7 @@ readinessProbe:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 10
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 

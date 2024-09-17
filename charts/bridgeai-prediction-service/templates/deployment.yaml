@@ -37,13 +37,20 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: {{ toYaml .Values.command | nindent 12 }}
-          args: {{ toYaml .Values.args | nindent 12 }}
+          args: 
+            - --port
+            - {{ .Values.service.port }}
+            {{- toYaml .Values.args | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            {{ toYaml .Values.envVars | nindent 12 }}
+            - name: MODEL_PREDICTION_ENDPOINT
+              value: {{ .Values.modelPredictionEndpoint }}
+          {{- if .Values.envVars }}
+          {{- toYaml .Values.envVars | nindent 12 }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /health
