@@ -39,8 +39,8 @@ spec:
           command: {{ toYaml .Values.command | nindent 12 }}
           args: 
             - --port
-            - {{ .Values.service.port }}
-            {{- toYaml .Values.args | nindent 12 }}
+            - {{ .Values.service.port | quote }}
+            {{- toYaml .Values.args | nindent 12}}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

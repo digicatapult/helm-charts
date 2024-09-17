@@ -55,7 +55,7 @@ ingress:
     - host: model-prediction.local
       paths:
         - path: /predict
-          pathType: prefix
+          pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
