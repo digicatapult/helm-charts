@@ -1,3 +1,4 @@
-imagePullSecrets: [bridgeai]
+imagePullSecrets:
+  - name: "bridgeai"
 ingress:
   enabled: true
