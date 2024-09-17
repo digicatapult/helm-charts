@@ -49,6 +49,8 @@ jobs:
           echo "changed=true" >> $GITHUB_OUTPUT
           if [[ "$(echo $changed | grep -Ei 'charts/bridgeai-prediction-service')" ]]; then
             echo "changed_bridgeai=true" >> $GITHUB_OUTPUT
+          else 
+            echo "changed_bridgeai=false" >> $GITHUB_OUTPUT
           fi
         fi
 
@@ -76,9 +78,13 @@ jobs:
       run: |
         ct install \
         --target-branch ${{ github.event.repository.default_branch }} --namespace default
-      if: steps.list-changed.outputs.changed_bridgeai == 'true'
+      if: |
+        steps.list-changed.outputs.changed_bridgeai == 'true' ||
+        steps.list-changed.outputs.changed == 'true'
 
     - name: Run chart-testing (install)
       run: |
         ct install
-      if: steps.list-changed.outputs.changed == 'true'
+      if: |
+        steps.list-changed.outputs.changed_bridgeai == 'false' ||
+        steps.list-changed.outputs.changed == 'true'
