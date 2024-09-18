@@ -41,3 +41,5 @@ helm delete my-release
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
+
+The application only accepts a single ENVAR, so you should always update `modelPredictionEndpoint` to the URL that contains the model.
