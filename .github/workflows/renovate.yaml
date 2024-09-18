@@ -1,0 +1,37 @@
+name: Renovate
+
+on:
+  repository_dispatch:
+    types:
+      - renovate
+  push:
+    branches:
+      - main
+    paths:
+      - 'renovate.config.js'
+      - '.github/workflows/renovate.yml'
+      - 'scripts/**'
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get GitHub App Token
+        id: get_token
+        uses: tibdex/github-app-token@v2.1.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Self-hosted Renovate
+        uses: renovatebot/github-action@v40.2.8
+        with:
+          token: ${{ steps.get_token.outputs.token }}
+          configurationFile: renovate.config.js
+        env:
+          LOG_LEVEL: debug
+          RENOVATE_SELF_HOSTED: true
+          RENOVATE_REPOSITORIES: "[\"digicatapult/helm-charts\"]"
