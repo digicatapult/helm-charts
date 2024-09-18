@@ -1,5 +1,20 @@
 apiVersion: v1
 entries:
+  bridgeai-prediction-service:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-09-18T09:04:11.172802416Z"
+    description: A Helm chart for Kubernetes
+    digest: 20f8a5cb09ad818e86118f827c5a0875cc10615ed20afd5d95b53390232dc113
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: bridgeai-prediction-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/bridgeai-prediction-service-0.1.0/bridgeai-prediction-service-0.1.0.tgz
+    version: 0.1.0
   dscp-api:
   - apiVersion: v2
     appVersion: 5.0.3
@@ -4388,4 +4403,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2024-09-10T08:04:34.742160995Z"
+generated: "2024-09-18T09:04:11.31614104Z"
