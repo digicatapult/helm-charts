@@ -27,6 +27,82 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+## Bitnami PostgreSQL subcharts
+
+## @section Init Container Parameters
+##
+initDbCreate:
+  ## PostreSQL image
+  ## ref: https://hub.docker.com/_/postgres/tags/
+  ## @param initDbCreate.image.registry sqnc-routing-service image registry
+  ## @param initDbCreate.image.repository sqnc-routing-service image repository
+  ## @param initDbCreate.image.tag sqnc-routing-service image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.digest sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.pullPolicy sqnc-routing-service image pull policy
+  ## @param initDbCreate.image.pullSecrets sqnc-routing-service image pull secrets
+  ##
+  image:
+    registry: docker.io
+    repository: postgres
+    tag: '16-alpine'
+    digest: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+
+## @param initDbMigrate.enable Run database migration in an init container
+## @param initDbMigrate.environment Database configuration environment to run database into
+## @param initDbMigrate.args Argument to pass to knex to migrate the database
+initDbMigrate:
+  enable: true
+  environment: production
+  args:
+    - "migrate:latest"
+
+## PostgreSQL chart configuration
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
+## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart
+## @param postgresql.auth.username Name for a custom user to create
+## @param postgresql.auth.password Password for the custom user to create
+## @param postgresql.auth.database Name for a custom database to create
+## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
+## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
+##
+postgresql:
+  enabled: true
+  auth:
+    username: prediction_service
+    password: ""
+    database: user
+    existingSecret: ""
+  architecture: standalone
+
+## External PostgreSQL configuration
+## All of these values are only used when postgresql.enabled is set to false
+## @param externalDatabase.host Database host
+## @param externalDatabase.port Database port number
+## @param externalDatabase.user Non-root username for bridgeai-prediction-service
+## @param externalDatabase.password Password for the non-root username for bridgeai-prediction-service
+## @param externalDatabase.database bridgeai-prediction-service database name
+## @param externalDatabase.create Enable PostgreSQL user and database creation (when using an external db)
+## @param externalDatabase.postgresqlPostgresUser External Database admin username
+## @param externalDatabase.postgresqlPostgresPassword External Database admin password
+## @param externalDatabase.existingSecret Name of an existing secret resource containing the database credentials
+## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the non-root credentials
+## @param externalDatabase.existingSecretPostgresPasswordKey Name of an existing secret key containing the admin credentials
+##
+externalDatabase:
+  host: ""
+  port: 5432
+  user: prediction_service
+  password: ""
+  database: user
+  create: true
+  postgresqlPostgresUser: "postgres"
+  postgresqlPostgresPassword: ""
+  existingSecret: ""
+  existingSecretPasswordKey: ""
+  existingSecretPostgresPasswordKey: ""
+
 podAnnotations: {}
 podLabels: {}
 

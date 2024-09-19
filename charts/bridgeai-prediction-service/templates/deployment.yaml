@@ -30,6 +30,77 @@ spec:
       serviceAccountName: {{ include "bridgeai-prediction-service.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if or .Values.initContainers .Values.initDbMigrate.enable (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
+      initContainers:
+        {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
+        - name: database-create
+          image: {{ template "bridgeai-prediction-service.initDbCreate.image" . }}
+          imagePullPolicy: {{ .Values.initDbCreate.image.pullPolicy }}
+          env:
+            - name: DB_HOST
+              value: {{ template "bridgeai-prediction-service.databaseHost" . }}
+            - name: DB_PORT
+              value: {{ template "bridgeai-prediction-service.databasePort" . }}
+            - name: DB_NAME
+              value: {{ template "bridgeai-prediction-service.databaseName" . }}
+            - name: DB_USERNAME
+              value: {{ template "bridgeai-prediction-service.databaseUser" . }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPasswordKey" . }}
+            - name: DB_POSTGRES_USERNAME
+              value: {{ .Values.externalDatabase.postgresqlPostgresUser }}
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPostgresPasswordKey" . }}
+          command:
+            - '/bin/sh'
+            - '-c'
+            - |
+              CONN_FLAGS="-h $DB_HOST -p $DB_PORT -U $DB_POSTGRES_USERNAME";
+              if [ "$( psql $CONN_FLAGS -tAc "SELECT 1 FROM pg_database WHERE datname=\$\$$DB_NAME\$\$" )" = '1' ]
+              then
+                echo "Database already exists doing nothing";
+                exit 0;
+              fi;
+              createuser $CONN_FLAGS $DB_USERNAME;
+              PSQL_ESC=$(echo $DB_PASSWORD | sed 's/./_/g');
+              psql $CONN_FLAGS -c "ALTER ROLE $DB_USERNAME WITH PASSWORD \$$$PSQL_ESC\$$$DB_PASSWORD\$$$PSQL_ESC\$";
+              createdb $CONN_FLAGS -O $DB_USERNAME $DB_NAME;
+        {{- end }}
+        {{- if .Values.initDbMigrate.enable }}
+        - name: database-migrate
+          image: {{ template "bridgeai-prediction-service.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['npx', 'knex']
+          {{- if .Values.initDbMigrate.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.initDbMigrate.args "context" $) | nindent 12 }}
+          {{- end }}
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.initDbMigrate.environment }}
+            - name: DB_HOST
+              value: {{ template "bridgeai-prediction-service.databaseHost" . }}
+            - name: DB_PORT
+              value: {{ template "bridgeai-prediction-service.databasePort" . }}
+            - name: DB_NAME
+              value: {{ template "bridgeai-prediction-service.databaseName" . }}
+            - name: DB_USERNAME
+              value: {{ template "bridgeai-prediction-service.databaseUser" . }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPasswordKey" . }}
+        {{- end }}
+        {{- if .Values.initContainers }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
+        {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
