@@ -78,9 +78,9 @@ Return the Postgresql database name
 */}}
 {{- define "bridgeai-prediction-service.databaseName" -}}
 {{- if .Values.postgresql.enabled -}}
-    {{- if .Values.global.postgresql -}}
-        {{- if .Values.global.postgresql.auth -}}
-            {{- coalesce .Values.global.postgresql.auth.database .Values.postgresql.auth.database -}}
+    {{- if .Values.postgresql -}}
+        {{- if .Values.postgresql.auth -}}
+            {{- coalesce .Values.postgresql.auth.database .Values.postgresql.auth.database -}}
         {{- else -}}
             {{- .Values.postgresql.auth.database -}}
         {{- end -}}
@@ -97,9 +97,9 @@ Return the Postgresql user
 */}}
 {{- define "bridgeai-prediction-service.databaseUser" -}}
 {{- if .Values.postgresql.enabled -}}
-    {{- if .Values.global.postgresql -}}
-        {{- if .Values.global.postgresql.auth -}}
-            {{- coalesce .Values.global.postgresql.auth.username .Values.postgresql.auth.username -}}
+    {{- if .Values.postgresql -}}
+        {{- if .Values.postgresql.auth -}}
+            {{- coalesce .Values.postgresql.auth.username .Values.postgresql.auth.username -}}
         {{- else -}}
             {{- .Values.postgresql.auth.username -}}
         {{- end -}}
@@ -116,10 +116,10 @@ Return the PostgreSQL Secret Name
 */}}
 {{- define "bridgeai-prediction-service.databaseSecretName" -}}
 {{- if .Values.postgresql.enabled -}}
-    {{- if .Values.global.postgresql -}}
-        {{- if .Values.global.postgresql.auth -}}
-            {{- if .Values.global.postgresql.auth.existingSecret -}}
-                {{- tpl .Values.global.postgresql.auth.existingSecret $ -}}
+    {{- if .Values.postgresql -}}
+        {{- if .Values.postgresql.auth -}}
+            {{- if .Values.postgresql.auth.existingSecret -}}
+                {{- tpl .Values.postgresql.auth.existingSecret $ -}}
             {{- else -}}
                 {{- default (include "bridgeai-prediction-service.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
             {{- end -}}
