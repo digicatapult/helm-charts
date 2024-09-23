@@ -30,6 +30,75 @@ spec:
       serviceAccountName: {{ include "bridgeai-prediction-service.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if or .Values.initContainers .Values.initDbMigrate.enable (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
+      initContainers:
+        {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
+        - name: database-create
+          image: {{ template "bridgeai-prediction-service.initDbCreate.image" . }}
+          imagePullPolicy: {{ .Values.initDbCreate.image.pullPolicy }}
+          env:
+            - name: POSTGRES_HOST
+              value: {{ template "bridgeai-prediction-service.databaseHost" . }}
+            - name: POSTGRES_PORT
+              value: {{ template "bridgeai-prediction-service.databasePort" . }}
+            - name: POSTGRES_DB
+              value: {{ template "bridgeai-prediction-service.databaseName" . }}
+            - name: POSTGRES_USER
+              value: {{ template "bridgeai-prediction-service.databaseUser" . }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPasswordKey" . }}
+            - name: DB_POSTGRES_USERNAME
+              value: {{ .Values.externalDatabase.postgresqlPostgresUser }}
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPostgresPasswordKey" . }}
+          command:
+            - '/bin/sh'
+            - '-c'
+            - |
+              CONN_FLAGS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $DB_POSTGRES_USERNAME";
+              if [ "$( psql $CONN_FLAGS -tAc "SELECT 1 FROM pg_database WHERE datname=\$\$$POSTGRES_DB\$\$" )" = '1' ]
+              then
+                echo "Database already exists doing nothing";
+                exit 0;
+              fi;
+              createuser $CONN_FLAGS $POSTGRES_USER;
+              PSQL_ESC=$(echo $POSTGRES_PASSWORD | sed 's/./_/g');
+              psql $CONN_FLAGS -c "ALTER ROLE $POSTGRES_USER WITH PASSWORD \$$$PSQL_ESC\$$$POSTGRES_PASSWORD\$$$PSQL_ESC\$";
+              createdb $CONN_FLAGS -O $POSTGRES_USER $POSTGRES_DB;
+        {{- end }}
+        {{- if .Values.initDbMigrate.enable }}
+        - name: database-migrate
+          image: {{ template "bridgeai-prediction-service.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['alembic']
+          {{- if .Values.initDbMigrate.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.initDbMigrate.args "context" $) | nindent 12 }}
+          {{- end }}
+          env:
+            - name: POSTGRES_HOST
+              value: {{ template "bridgeai-prediction-service.databaseHost" . }}
+            - name: POSTGRES_PORT
+              value: {{ template "bridgeai-prediction-service.databasePort" . }}
+            - name: POSTGRES_DB
+              value: {{ template "bridgeai-prediction-service.databaseName" . }}
+            - name: POSTGRES_USER
+              value: {{ template "bridgeai-prediction-service.databaseUser" . }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPasswordKey" . }}
+        {{- end }}
+        {{- if .Values.initContainers }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
+        {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -37,7 +106,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: {{ toYaml .Values.command | nindent 12 }}
-          args: 
+          args:
             - --port
             - {{ .Values.service.port | quote }}
             {{- toYaml .Values.args | nindent 12}}
