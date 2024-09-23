@@ -51,12 +51,11 @@ initDbCreate:
 
 ## @param initDbMigrate.enable Run database migration in an init container
 ## @param initDbMigrate.environment Database configuration environment to run database into
-## @param initDbMigrate.args Argument to pass to knex to migrate the database
+## @param initDbMigrate.args Argument to pass to alembic to migrate the database
 initDbMigrate:
   enable: true
   environment: production
-  args:
-    - "migrate:latest"
+  args: ["upgrade", "head"]
 
 ## PostgreSQL chart configuration
 ## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml

@@ -76,7 +76,7 @@ spec:
         - name: database-migrate
           image: {{ template "bridgeai-prediction-service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ['alembic', 'upgrade', 'head']
+          command: ['alembic']
           {{- if .Values.initDbMigrate.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.initDbMigrate.args "context" $) | nindent 12 }}
           {{- end }}
