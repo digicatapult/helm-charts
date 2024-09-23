@@ -37,15 +37,15 @@ spec:
           image: {{ template "bridgeai-prediction-service.initDbCreate.image" . }}
           imagePullPolicy: {{ .Values.initDbCreate.image.pullPolicy }}
           env:
-            - name: DB_HOST
+            - name: POSTGRES_HOST
               value: {{ template "bridgeai-prediction-service.databaseHost" . }}
-            - name: DB_PORT
+            - name: POSTGRES_PORT
               value: {{ template "bridgeai-prediction-service.databasePort" . }}
-            - name: DB_NAME
+            - name: POSTGRES_DB
               value: {{ template "bridgeai-prediction-service.databaseName" . }}
-            - name: DB_USERNAME
+            - name: POSTGRES_USER
               value: {{ template "bridgeai-prediction-service.databaseUser" . }}
-            - name: DB_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
@@ -61,37 +61,35 @@ spec:
             - '/bin/sh'
             - '-c'
             - |
-              CONN_FLAGS="-h $DB_HOST -p $DB_PORT -U $DB_POSTGRES_USERNAME";
-              if [ "$( psql $CONN_FLAGS -tAc "SELECT 1 FROM pg_database WHERE datname=\$\$$DB_NAME\$\$" )" = '1' ]
+              CONN_FLAGS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $DB_POSTGRES_USERNAME";
+              if [ "$( psql $CONN_FLAGS -tAc "SELECT 1 FROM pg_database WHERE datname=\$\$$POSTGRES_DB\$\$" )" = '1' ]
               then
                 echo "Database already exists doing nothing";
                 exit 0;
               fi;
-              createuser $CONN_FLAGS $DB_USERNAME;
-              PSQL_ESC=$(echo $DB_PASSWORD | sed 's/./_/g');
-              psql $CONN_FLAGS -c "ALTER ROLE $DB_USERNAME WITH PASSWORD \$$$PSQL_ESC\$$$DB_PASSWORD\$$$PSQL_ESC\$";
-              createdb $CONN_FLAGS -O $DB_USERNAME $DB_NAME;
+              createuser $CONN_FLAGS $POSTGRES_USER;
+              PSQL_ESC=$(echo $POSTGRES_PASSWORD | sed 's/./_/g');
+              psql $CONN_FLAGS -c "ALTER ROLE $POSTGRES_USER WITH PASSWORD \$$$PSQL_ESC\$$$POSTGRES_PASSWORD\$$$PSQL_ESC\$";
+              createdb $CONN_FLAGS -O $POSTGRES_USER $POSTGRES_DB;
         {{- end }}
         {{- if .Values.initDbMigrate.enable }}
         - name: database-migrate
           image: {{ template "bridgeai-prediction-service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ['npx', 'knex']
+          command: ['alembic', 'upgrade', 'head']
           {{- if .Values.initDbMigrate.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.initDbMigrate.args "context" $) | nindent 12 }}
           {{- end }}
           env:
-            - name: NODE_ENV
-              value: {{ .Values.initDbMigrate.environment }}
-            - name: DB_HOST
+            - name: POSTGRES_HOST
               value: {{ template "bridgeai-prediction-service.databaseHost" . }}
-            - name: DB_PORT
+            - name: POSTGRES_PORT
               value: {{ template "bridgeai-prediction-service.databasePort" . }}
-            - name: DB_NAME
+            - name: POSTGRES_DB
               value: {{ template "bridgeai-prediction-service.databaseName" . }}
-            - name: DB_USERNAME
+            - name: POSTGRES_USER
               value: {{ template "bridgeai-prediction-service.databaseUser" . }}
-            - name: DB_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
@@ -108,7 +106,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: {{ toYaml .Values.command | nindent 12 }}
-          args: 
+          args:
             - --port
             - {{ .Values.service.port | quote }}
             {{- toYaml .Values.args | nindent 12}}
