@@ -9,8 +9,11 @@ on:
       - main
     paths:
       - 'renovate.config.js'
-      - '.github/workflows/renovate.yml'
+      - '.github/workflows/renovate.yaml'
       - 'scripts/**'
+  # Run every hour between midnight and 6am, and 6pm and midnight
+  schedule:
+    - cron: "0 0-5,18-23 * * *"
 
 jobs:
   renovate:
