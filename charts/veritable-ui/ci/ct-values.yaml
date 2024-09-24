@@ -4,6 +4,6 @@ cloudagent:
   enabled: true
   logLevel: debug
 emailTransport: SMTP_EMAIL
-stmpCredentials:
+smtpCredentials:
   userSecret: smtp-user
   passwordSecret: smtp-password
