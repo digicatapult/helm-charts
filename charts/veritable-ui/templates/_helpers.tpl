@@ -246,6 +246,63 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
+Create a default fully qualified app name for the company house.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "veritable-ui.smtpCredentials.fullname" -}}
+{{- printf "%s-smtp-credentials" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-"  -}}
+{{- end -}}
+
+{{/*
+Return the smtpCredentials Secret Name
+*/}}
+{{- define "veritable-ui.smtpCredentialsSecretName" -}}
+{{- if .Values.smtpCredentials.existingSecret -}}
+    {{- tpl .Values.smtpCredentials.existingSecret $ -}}
+{{- else -}}
+    {{- include "veritable-ui.smtpCredentials.fullname" . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Add environment variables to configure smtp credentials password values
+*/}}
+{{- define "veritable-ui.smtpCredentialsPasswordKey" -}}
+{{- if .Values.smtpCredentials.enabled -}}
+    {{- print "password" -}}
+{{- else -}}
+    {{- if .Values.smtpCredentials.existingSecret -}}
+        {{- if .Values.smtpCredentials.existingSecretPasswordKey -}}
+            {{- printf "%s" .Values.smtpCredentials.existingSecretPasswordKey -}}
+        {{- else -}}
+            {{- print "password" -}}
+        {{- end -}}
+    {{- else -}}
+        {{- print "password" -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Add environment variables to configure smtp credentials password values
+*/}}
+{{- define "veritable-ui.smtpCredentialsUserKey" -}}
+{{- if .Values.smtpCredentials.enabled -}}
+    {{- print "username" -}}
+{{- else -}}
+    {{- if .Values.smtpCredentials.existingSecret -}}
+        {{- if .Values.smtpCredentials.existingSecretUserKey -}}
+            {{- printf "%s" .Values.smtpCredentials.existingSecretUserKey -}}
+        {{- else -}}
+            {{- print "username" -}}
+        {{- end -}}
+    {{- else -}}
+        {{- print "username" -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
@@ -372,6 +429,16 @@ veritable-ui:
 veritable-ui:
     If a secret is not being used for the company house api key, a value must be provided
 {{- end -}}
+{{- end -}}
+{{- if not .Values.smtpCredentials.existingSecret -}}
+{{- if not .Values.smtpCredentials.password -}}
+veritable-ui:
+    If a secret is not being used for the smtp credentials, a password must be provided
+{{- end -}}
+{{- end -}}
+{{- if not .Values.smtpCredentials.username -}}
+veritable-ui:
+    If a secret is not being used for the smtp credentials, a username must be provided
 {{- end -}}
 {{- end -}}
 
