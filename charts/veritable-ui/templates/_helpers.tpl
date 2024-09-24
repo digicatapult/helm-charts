@@ -431,14 +431,16 @@ veritable-ui:
 {{- end -}}
 {{- end -}}
 {{- if not .Values.smtpCredentials.existingSecret -}}
-{{- if not .Values.smtpCredentials.password -}}
+{{- if not .Values.smtpCredentials.passwordSecret -}}
 veritable-ui:
     If a secret is not being used for the smtp credentials, a password must be provided
 {{- end -}}
 {{- end -}}
-{{- if not .Values.smtpCredentials.username -}}
+{{- if not .Values.smtpCredentials.existingSecret -}}
+{{- if not .Values.smtpCredentials.userSecret -}}
 veritable-ui:
     If a secret is not being used for the smtp credentials, a username must be provided
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
