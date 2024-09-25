@@ -3,3 +3,8 @@ invitationPin:
 cloudagent:
   enabled: true
   logLevel: debug
+emailTransport: SMTP_EMAIL
+smtpCredentials:
+  enabled: true
+  userSecret: smtp-user
+  passwordSecret: smtp-password

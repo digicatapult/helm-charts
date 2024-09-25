@@ -106,7 +106,7 @@ idpAuthPath: "/auth"
 idpTokenPath: "/token"
 ## @param idpJWKSPath veritable-ui IDP certs path
 idpJWKSPath: "/certs"
-## @param emailTransport The email transport method to use, current options only STREAM
+## @param emailTransport The email transport method to use, current options only STREAM or SMTP_EMAIL
 emailTransport: "STREAM"
 ## @param emailFromAddress veritable-ui email from address
 emailFromAddress: "hello@veritable.com"
@@ -133,6 +133,26 @@ invitationPin:
   attemptLimit: 3
 ## @param demoMode that controls access to the /reset endpoint. [true = allowed]
 demoMode: "false"
+## @param smtpHost SMTP host
+smtpHost: ""
+## @param smtpPort SMTP port
+smtpPort: ""
+## @param smtpSecure Use TLS to connect to SMTP
+smtpSecure: true
+## @param smtpCredentials.enabled Enable SMTP credentials secret
+## @param smtpCredentials.userSecret SMTP user secret
+## @param smtpCredentials.passwordSecret SMTP password secret
+## @param smtpCredentials.existingSecret SMTP existing secret name
+## @param smtpCredentials.existingSecretUserKey SMTP existing secret user key
+## @param smtpCredentials.existingSecretPasswordKey SMTP existing secret password key
+
+smtpCredentials:
+  enabled: false
+  userSecret: ""
+  passwordSecret: ""
+  existingSecret: ""
+  existingSecretUserKey: ""
+  existingSecretPasswordKey: ""
 
 ## @section veritable-ui Issuance Policy Parameters
 ##
@@ -164,7 +184,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.8.57
+  tag: v0.9.2
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
