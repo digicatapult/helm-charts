@@ -1,5 +1,5 @@
-apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
-kind: Deployment
+apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
+kind: StatefulSet
 metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ include "common.names.namespace" . | quote }}
@@ -12,11 +12,12 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
+  serviceName: {{ template "common.names.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   {{- if .Values.updateStrategy }}
-  strategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
+  updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
   {{- end }}
   selector:
     matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
@@ -272,6 +273,8 @@ spec:
           ports:
             - name: api
               containerPort: {{ .Values.ipfs.containerPorts.api }}
+            - name: swarm
+              containerPort: {{ .Values.ipfs.containerPorts.swarm }}
           volumeMounts:
             - name: ipfs-data
               mountPath: /data/ipfs
@@ -315,9 +318,28 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
         {{- if eq .Values.ipfs.enabled true }}
+        {{- if and .Values.ipfs.enabled (not .Values.ipfs.persistence.enabled) }}
         - name: ipfs-data
           emptyDir: {}
+        {{- end }}
         {{- if .Values.ipfs.volumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.volumes "context" $) | nindent 4 }}
         {{- end }}
         {{- end }}
+  volumeClaimTemplates:
+    {{- if and .Values.ipfs.enabled .Values.ipfs.persistence.enabled }}
+    - metadata:
+        name: ipfs-data
+        annotations:
+          {{- if .Values.ipfs.persistence.annotations }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.persistence.annotations "context" $) | nindent 10 }}
+          {{- end }}
+      spec:
+        accessModes: {{- toYaml .Values.ipfs.persistence.accessModes | nindent 8 }}
+        resources:
+          requests:
+            storage: {{ .Values.ipfs.persistence.size }}
+        {{- if .Values.ipfs.persistence.storageClass }}
+        storageClassName: {{ .Values.ipfs.persistence.storageClass | quote }}
+        {{- end }}
+    {{- end }}

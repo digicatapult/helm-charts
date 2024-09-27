@@ -138,9 +138,11 @@ ipfs:
     pullPolicy: IfNotPresent
 
   ## @param ipfs.containerPorts.api IPFS container API port
+  ## @param ipfs.containerPorts.swarm IPFS container Swarm port
   ##
   containerPorts:
     api: 5001
+    swarm: 4001
 
   ## IPFS container resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -206,6 +208,21 @@ ipfs:
   ## @param ipfs.volumes Optionally specify extra list of additional volumes for the IPFS pod(s)
   ##
   volumes: []
+  ## IPFS container Persistence parameters
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ## @param ipfs.persistence.enabled Enable IPFS persistence using PVC
+  ## @param ipfs.persistence.size IPFS PVC storage request
+  ## @param ipfs.persistence.storageClass IPFS PVC Storage Class
+  ## @param ipfs.persistence.accessModes IPFS PVC Access Mode
+  ## @param ipfs.persistence.annotations IPFS PVC annotations
+  ##
+
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClass: ""  # Set to your desired StorageClass
+    accessModes: ["ReadWriteOnce"]
+    annotations: {}
 
 ## @section veritable-cloudagent deployment parameters
 ## Digital Catapult veritable-cloudagent image
@@ -221,7 +238,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.10.25
+  tag: v0.10.27
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
