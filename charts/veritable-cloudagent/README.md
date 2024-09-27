@@ -104,34 +104,40 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### IPFS Container Parameters
 
-| Name                                      | Description                                                                                                                                     | Value          |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `ipfs.enabled`                            | Enable IPFS container within pod                                                                                                                | `true`         |
-| `ipfs.image.registry`                     | IPFS image registry                                                                                                                             | `docker.io`    |
-| `ipfs.image.repository`                   | IPFS image repository                                                                                                                           | `ipfs/kubo`    |
-| `ipfs.image.tag`                          | IPFS image tag (immutable tags are recommended)                                                                                                 | `v0.28.0`      |
-| `ipfs.image.digest`                       | IPFS image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`           |
-| `ipfs.image.pullPolicy`                   | IPFS image pull policy                                                                                                                          | `IfNotPresent` |
-| `ipfs.containerPorts.api`                 | IPFS container API port                                                                                                                         | `5001`         |
-| `ipfs.resources.limits.cpu`               | The resources limits for the IPFS container for CPU                                                                                             | `500m`         |
-| `ipfs.resources.limits.memory`            | The resources limits for the IPFS container for memory                                                                                          | `512Mi`        |
-| `ipfs.resources.requests.cpu`             | The requested resources for the IPFS container for CPU                                                                                          | `250m`         |
-| `ipfs.resources.requests.memory`          | The requested resources for the IPFS container for memory                                                                                       | `256Mi`        |
-| `ipfs.livenessProbe.enabled`              | Enable livenessProbe on IPFS container                                                                                                          | `true`         |
-| `ipfs.livenessProbe.initialDelaySeconds`  | Initial delay seconds for livenessProbe                                                                                                         | `30`           |
-| `ipfs.livenessProbe.periodSeconds`        | Period seconds for livenessProbe                                                                                                                | `10`           |
-| `ipfs.livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe                                                                                                               | `5`            |
-| `ipfs.livenessProbe.failureThreshold`     | Failure threshold for livenessProbe                                                                                                             | `3`            |
-| `ipfs.livenessProbe.successThreshold`     | Success threshold for livenessProbe                                                                                                             | `1`            |
-| `ipfs.readinessProbe.enabled`             | Enable readinessProbe on IPFS container                                                                                                         | `true`         |
-| `ipfs.readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                                                                                                        | `30`           |
-| `ipfs.readinessProbe.periodSeconds`       | Period seconds for readinessProbe                                                                                                               | `10`           |
-| `ipfs.readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                                                                                                              | `5`            |
-| `ipfs.readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                                                                                                            | `5`            |
-| `ipfs.readinessProbe.successThreshold`    | Success threshold for readinessProbe                                                                                                            | `1`            |
-| `ipfs.extraEnvVars`                       | Extra environment variables for the IPFS container                                                                                              | `[]`           |
-| `ipfs.volumeMounts`                       | Optionally specify extra list of additional volumeMounts for the IPFS container                                                                 | `[]`           |
-| `ipfs.volumes`                            | Optionally specify extra list of additional volumes for the IPFS pod(s)                                                                         | `[]`           |
+| Name                                      | Description                                                                                                                                     | Value               |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `ipfs.enabled`                            | Enable IPFS container within pod                                                                                                                | `true`              |
+| `ipfs.image.registry`                     | IPFS image registry                                                                                                                             | `docker.io`         |
+| `ipfs.image.repository`                   | IPFS image repository                                                                                                                           | `ipfs/kubo`         |
+| `ipfs.image.tag`                          | IPFS image tag (immutable tags are recommended)                                                                                                 | `v0.28.0`           |
+| `ipfs.image.digest`                       | IPFS image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                |
+| `ipfs.image.pullPolicy`                   | IPFS image pull policy                                                                                                                          | `IfNotPresent`      |
+| `ipfs.containerPorts.api`                 | IPFS container API port                                                                                                                         | `5001`              |
+| `ipfs.containerPorts.swarm`               | IPFS container Swarm port                                                                                                                       | `4001`              |
+| `ipfs.resources.limits.cpu`               | The resources limits for the IPFS container for CPU                                                                                             | `500m`              |
+| `ipfs.resources.limits.memory`            | The resources limits for the IPFS container for memory                                                                                          | `512Mi`             |
+| `ipfs.resources.requests.cpu`             | The requested resources for the IPFS container for CPU                                                                                          | `250m`              |
+| `ipfs.resources.requests.memory`          | The requested resources for the IPFS container for memory                                                                                       | `256Mi`             |
+| `ipfs.livenessProbe.enabled`              | Enable livenessProbe on IPFS container                                                                                                          | `true`              |
+| `ipfs.livenessProbe.initialDelaySeconds`  | Initial delay seconds for livenessProbe                                                                                                         | `30`                |
+| `ipfs.livenessProbe.periodSeconds`        | Period seconds for livenessProbe                                                                                                                | `10`                |
+| `ipfs.livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe                                                                                                               | `5`                 |
+| `ipfs.livenessProbe.failureThreshold`     | Failure threshold for livenessProbe                                                                                                             | `3`                 |
+| `ipfs.livenessProbe.successThreshold`     | Success threshold for livenessProbe                                                                                                             | `1`                 |
+| `ipfs.readinessProbe.enabled`             | Enable readinessProbe on IPFS container                                                                                                         | `true`              |
+| `ipfs.readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                                                                                                        | `30`                |
+| `ipfs.readinessProbe.periodSeconds`       | Period seconds for readinessProbe                                                                                                               | `10`                |
+| `ipfs.readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                                                                                                              | `5`                 |
+| `ipfs.readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                                                                                                            | `5`                 |
+| `ipfs.readinessProbe.successThreshold`    | Success threshold for readinessProbe                                                                                                            | `1`                 |
+| `ipfs.extraEnvVars`                       | Extra environment variables for the IPFS container                                                                                              | `[]`                |
+| `ipfs.volumeMounts`                       | Optionally specify extra list of additional volumeMounts for the IPFS container                                                                 | `[]`                |
+| `ipfs.volumes`                            | Optionally specify extra list of additional volumes for the IPFS pod(s)                                                                         | `[]`                |
+| `ipfs.persistence.enabled`                | Enable IPFS persistence using PVC                                                                                                               | `true`              |
+| `ipfs.persistence.size`                   | IPFS PVC storage request                                                                                                                        | `1Gi`               |
+| `ipfs.persistence.storageClass`           | IPFS PVC Storage Class                                                                                                                          | `""`                |
+| `ipfs.persistence.accessModes`            | IPFS PVC Access Mode                                                                                                                            | `["ReadWriteOnce"]` |
+| `ipfs.persistence.annotations`            | IPFS PVC annotations                                                                                                                            | `{}`                |
 
 ### veritable-cloudagent deployment parameters
 
@@ -139,7 +145,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | `image.registry`                                  | veritable-cloudagent image registry                                                                                                                             | `docker.io`                         |
 | `image.repository`                                | veritable-cloudagent image repository                                                                                                                           | `digicatapult/veritable-cloudagent` |
-| `image.tag`                                       | veritable-cloudagent image tag (immutable tags are recommended)                                                                                                 | `v0.10.25`                          |
+| `image.tag`                                       | veritable-cloudagent image tag (immutable tags are recommended)                                                                                                 | `v0.10.27`                          |
 | `image.digest`                                    | veritable-cloudagent image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                |
 | `image.pullPolicy`                                | veritable-cloudagent image pull policy                                                                                                                          | `IfNotPresent`                      |
 | `image.pullSecrets`                               | veritable-cloudagent image pull secrets                                                                                                                         | `[]`                                |
