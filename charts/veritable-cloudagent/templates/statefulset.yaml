@@ -326,20 +326,20 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.volumes "context" $) | nindent 4 }}
         {{- end }}
         {{- end }}
-      volumeClaimTemplates:
-        {{- if and .Values.ipfs.enabled .Values.ipfs.persistence.enabled }}
-        - metadata:
-            name: ipfs-data
-            annotations:
-              {{- if .Values.ipfs.persistence.annotations }}
-              {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.persistence.annotations "context" $) | nindent 10 }}
-              {{- end }}
-          spec:
-            accessModes: {{- toYaml .Values.ipfs.persistence.accessModes | nindent 12 }}
-            resources:
-              requests:
-                storage: {{ .Values.ipfs.persistence.size }}
-            {{- if .Values.ipfs.persistence.storageClass }}
-            storageClassName: {{ .Values.ipfs.persistence.storageClass | quote }}
-            {{- end }}
+  volumeClaimTemplates:
+    {{- if and .Values.ipfs.enabled .Values.ipfs.persistence.enabled }}
+    - metadata:
+        name: ipfs-data
+        annotations:
+          {{- if .Values.ipfs.persistence.annotations }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.persistence.annotations "context" $) | nindent 10 }}
+          {{- end }}
+      spec:
+        accessModes: {{- toYaml .Values.ipfs.persistence.accessModes | nindent 8 }}
+        resources:
+          requests:
+            storage: {{ .Values.ipfs.persistence.size }}
+        {{- if .Values.ipfs.persistence.storageClass }}
+        storageClassName: {{ .Values.ipfs.persistence.storageClass | quote }}
         {{- end }}
+    {{- end }}
