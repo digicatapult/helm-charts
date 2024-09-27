@@ -221,8 +221,7 @@ ipfs:
     enabled: true
     size: 1Gi
     storageClass: ""  # Set to your desired StorageClass
-    accessModes:
-      - ReadWriteOnce
+    accessModes: ["ReadWriteOnce"]
     annotations: {}
 
 ## @section veritable-cloudagent deployment parameters

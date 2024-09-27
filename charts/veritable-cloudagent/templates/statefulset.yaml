@@ -335,7 +335,7 @@ spec:
               {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.persistence.annotations "context" $) | nindent 10 }}
               {{- end }}
           spec:
-            accessModes: {{- toYaml .Values.ipfs.persistence.accessModes | nindent 8 }}
+            accessModes: {{- toYaml .Values.ipfs.persistence.accessModes | nindent 12 }}
             resources:
               requests:
                 storage: {{ .Values.ipfs.persistence.size }}
