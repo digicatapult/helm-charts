@@ -136,6 +136,33 @@ ipfs:
     tag: v0.28.0
     digest: ""
     pullPolicy: IfNotPresent
+  
+  ## @param ipfs.initConfig.enabled Enable IPFS initconfig
+  ## @param ipfs.initConfig.binary IPFS binary path
+  ## @param ipfs.initConfig.routingType IPFS routing type
+  ## @param ipfs.initConfig.swarmAddrFilters IPFS swarm address filters
+  ## @param ipfs.initConfig.bootNodeAddress IPFS boot node address in the multiaddr format e.g. "dns4/test-veritable-cloudagent-0-swarm.default.svc.cluster.local/tcp/4001/p2p/12D3KooWNjsBTHegwpcJttSjPsCQLoSrmJiBWKcy76cifV1y9qSY"
+  initConfig:
+    enabled: true
+    binary: /usr/local/bin/ipfs
+    routingType: dht
+    swarmAddrFilters:
+      - /ip4/100.64.0.0/ipcidr/10
+      - /ip4/169.254.0.0/ipcidr/16
+      - /ip4/172.16.0.0/ipcidr/12
+      - /ip4/192.0.0.0/ipcidr/24
+      - /ip4/192.0.2.0/ipcidr/24
+      - /ip4/192.168.0.0/ipcidr/16
+      - /ip4/198.18.0.0/ipcidr/15
+      - /ip4/198.51.100.0/ipcidr/24
+      - /ip4/203.0.113.0/ipcidr/24
+      - /ip4/240.0.0.0/ipcidr/4
+      - /ip6/100::/ipcidr/64
+      - /ip6/2001:2::/ipcidr/48
+      - /ip6/2001:db8::/ipcidr/32
+      - /ip6/fc00::/ipcidr/7
+      - /ip6/fe80::/ipcidr/10
+    bootNodeAddress: ""
 
   ## @param ipfs.containerPorts.api IPFS container API port
   ## @param ipfs.containerPorts.swarm IPFS container Swarm port
@@ -211,6 +238,8 @@ ipfs:
   ## IPFS container Persistence parameters
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   ## @param ipfs.persistence.enabled Enable IPFS persistence using PVC
+  ## @param ipfs.persistence.mountPath IPFS PVC storage mount path
+  ## @param ipfs.persistence.subPath IPFS PVC sub path
   ## @param ipfs.persistence.size IPFS PVC storage request
   ## @param ipfs.persistence.storageClass IPFS PVC Storage Class
   ## @param ipfs.persistence.accessModes IPFS PVC Access Mode
@@ -219,6 +248,8 @@ ipfs:
 
   persistence:
     enabled: true
+    mountPath: /ipfs
+    subPath: ""
     size: 1Gi
     storageClass: ""  # Set to your desired StorageClass
     accessModes: ["ReadWriteOnce"]
@@ -612,6 +643,56 @@ adminService:
   ##
   sessionAffinity: None
   ## @param adminService.sessionAffinityConfig Additional settings for the sessionAffinity
+  ## sessionAffinityConfig:
+  ##   clientIP:
+  ##     timeoutSeconds: 300
+  ##
+  sessionAffinityConfig: {}
+
+## veritable-cloudagent ipfs swarm service parameters
+##
+ipfsService:
+  ## @param ipfsService.type veritable-cloudagent ipfs swarm service type
+  ##
+  type: ClusterIP
+  ## Node ports to expose
+  ## @param ipfsService.nodePorts.swarm Node port for admin HTTP
+  ## NOTE: choose port between <30000-32767>
+  ##
+  nodePorts:
+    swarm: ""
+  ## @param ipfsService.clusterIP veritable-cloudagent ipfs swarm service Cluster IP
+  ## e.g.:
+  ## clusterIP: None
+  ##
+  clusterIP: ""
+  ## @param ipfsService.loadBalancerIP veritable-cloudagent ipfs swarm service Load Balancer IP
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
+  ##
+  loadBalancerIP: ""
+  ## @param ipfsService.loadBalancerSourceRanges veritable-cloudagent ipfs swarm service Load Balancer sources
+  ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## e.g:
+  ## loadBalancerSourceRanges:
+  ##   - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+  ## @param ipfsService.externalTrafficPolicy veritable-cloudagent ipfs swarm service external traffic policy
+  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+  ## @param ipfsService.annotations Additional custom annotations for veritable-cloudagent ipfs swarm service
+  ##
+  annotations: {}
+  ## @param ipfsService.extraPorts Extra ports to expose in veritable-cloudagent ipfs swarm service (normally used with the `sidecars` value)
+  ##
+  extraPorts: []
+  ## @param ipfsService.sessionAffinity Control where client requests go, to the same pod or round-robin
+  ## Values: ClientIP or None
+  ## ref: https://kubernetes.io/docs/user-guide/services/
+  ##
+  sessionAffinity: None
+  ## @param ipfsService.sessionAffinityConfig Additional settings for the sessionAffinity
   ## sessionAffinityConfig:
   ##   clientIP:
   ##     timeoutSeconds: 300
