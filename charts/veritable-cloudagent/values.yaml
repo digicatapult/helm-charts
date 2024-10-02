@@ -136,7 +136,7 @@ ipfs:
     tag: v0.28.0
     digest: ""
     pullPolicy: IfNotPresent
-  
+
   ## @param ipfs.initConfig.enabled Enable IPFS initconfig
   ## @param ipfs.initConfig.binary IPFS binary path
   ## @param ipfs.initConfig.routingType IPFS routing type
