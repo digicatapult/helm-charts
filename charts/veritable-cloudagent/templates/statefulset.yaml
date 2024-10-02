@@ -67,7 +67,7 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
-      {{- if or .Values.initContainers (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
+      {{- if or .Values.initContainers .Values.ipfs.initConfig (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
         - name: database-create
@@ -108,6 +108,50 @@ spec:
               PSQL_ESC=$(echo $DB_PASSWORD | sed 's/./_/g');
               psql $CONN_FLAGS -c "ALTER ROLE $DB_USERNAME WITH PASSWORD \$$$PSQL_ESC\$$$DB_PASSWORD\$$$PSQL_ESC\$";
               createdb $CONN_FLAGS -O $DB_USERNAME $DB_NAME;
+        {{- end }}
+        {{- if .Values.ipfs.initConfig.enabled }}
+        - name: init-ipfs-config
+          image: {{ .Values.ipfs.image.registry }}/{{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
+          imagePullPolicy: {{ .Values.ipfs.image.pullPolicy }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.diagnosticMode.enabled }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 12 }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
+          {{- else }}
+          command:
+            - /bin/sh
+            - -c
+            - -e
+          {{- end }}
+          args:
+            - |
+              [ ! -f "{{ .Values.ipfs.persistence.mountPath }}/config" ] && {{ .Values.ipfs.initConfig.binary }} init --profile server;
+              export POD_INDEX="${HOSTNAME##*-}";
+              {{ .Values.ipfs.initConfig.binary }} config Addresses.API /ip4/0.0.0.0/tcp/{{ .Values.ipfs.containerPorts.api | default 5001 }};
+              {{ .Values.ipfs.initConfig.binary }} config --json Addresses.Swarm "[\"/ip4/0.0.0.0/tcp/{{ .Values.ipfs.containerPorts.swarm }}\"]";
+              {{ .Values.ipfs.initConfig.binary }} config --json Addresses.Announce "[\"/dns4/{{ include "common.names.fullname" . }}-$(echo "$POD_INDEX")-swarm.{{ .Release.Namespace }}.svc.cluster.local/tcp/{{ .Values.ipfs.containerPorts.swarm }}/\"]";
+              {{ .Values.ipfs.initConfig.binary }} config Datastore.StorageMax {{ .Values.ipfs.persistence.size | replace "Gi" "Gb" }};
+              {{ .Values.ipfs.initConfig.binary }} config Routing.Type --json {{ .Values.ipfs.initConfig.routingType | toJson | quote }};
+              {{ .Values.ipfs.initConfig.binary }} config --json Discovery.MDNS.Enabled {{ true | toJson | quote }};
+              {{ .Values.ipfs.initConfig.binary }} config --json Swarm.AddrFilters {{ .Values.ipfs.initConfig.swarmAddrFilters | toJson | quote }};
+              {{ .Values.ipfs.initConfig.binary }} config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"http://0.0.0.0:{{ .Values.ipfs.containerPorts.api }}\", \"http://127.0.0.1:{{ .Values.ipfs.containerPorts.api }}\"]";
+              {{ .Values.ipfs.initConfig.binary }} bootstrap rm --all{{ if .Values.ipfs.initConfig.bootNodeAddress }};
+              if [ ! -z "$BOOT_NODE_ADDRESS" ]; then {{ .Values.ipfs.initConfig.binary }} bootstrap add {{ .Values.ipfs.initConfig.bootNodeAddress }}; fi;{{ end }}
+          volumeMounts:
+            - name: ipfs-data
+              mountPath: {{ .Values.ipfs.persistence.mountPath }}
+              {{- if .Values.ipfs.persistence.subPath }}
+              subPath: {{ .Values.ipfs.persistence.subPath }}
+              {{- end }}
+          env:
+            - name: IPFS_PATH
+              value: {{ .Values.ipfs.persistence.mountPath }}
+            {{- if .Values.ipfs.initConfig.bootNodeAddress }}
+            - name: BOOT_NODE_ADDRESS
+              value: {{ .Values.ipfs.initConfig.bootNodeAddress }}
+            {{- end}}
         {{- end }}
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
@@ -270,6 +314,9 @@ spec:
         - name: ipfs
           image: {{ .Values.ipfs.image.registry }}/{{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
           imagePullPolicy: {{ .Values.ipfs.image.pullPolicy }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
           ports:
             - name: api
               containerPort: {{ .Values.ipfs.containerPorts.api }}
@@ -277,7 +324,7 @@ spec:
               containerPort: {{ .Values.ipfs.containerPorts.swarm }}
           volumeMounts:
             - name: ipfs-data
-              mountPath: /data/ipfs
+              mountPath: {{ .Values.ipfs.persistence.mountPath }}
             {{- if .Values.ipfs.volumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.volumeMounts "context" $) | nindent 6 }}
             {{- end }}
@@ -304,6 +351,8 @@ spec:
             successThreshold: {{ .Values.ipfs.readinessProbe.successThreshold }}
           {{- end }}
           env:
+            - name: IPFS_PATH
+              value: {{ .Values.ipfs.persistence.mountPath }}
             {{- if .Values.ipfs.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.ipfs.extraEnvVars "context" $) | nindent 6 }}
             {{- end }}

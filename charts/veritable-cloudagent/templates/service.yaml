@@ -113,3 +113,61 @@ spec:
     {{- end }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: veritable-cloudagent
+{{range $i := until (max ( .Values.replicaCount ) ( .Values.autoscaling.maxReplicas ) | int ) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "common.names.fullname" $ }}-{{ $i }}-swarm
+  namespace: {{ include "common.names.namespace" $ | quote }}
+  labels: {{- include "common.labels.standard" $ | nindent 4 }}
+    app.kubernetes.io/component: veritable-cloudagent
+    instance: {{ template "common.names.fullname" $ }}-{{ $i }}
+    {{- if $.Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if or $.Values.ipfsService.annotations $.Values.commonAnnotations }}
+  annotations:
+    {{- if $.Values.ipfsService.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.ipfsService.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if $.Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  type: {{ $.Values.ipfsService.type }}
+  {{- if and $.Values.ipfsService.clusterIP (eq $.Values.ipfsService.type "ClusterIP") }}
+  clusterIP: {{ $.Values.ipfsService.clusterIP }}
+  {{- end }}
+  {{- if $.Values.ipfsService.sessionAffinity }}
+  sessionAffinity: {{ $.Values.ipfsService.sessionAffinity }}
+  {{- end }}
+  {{- if $.Values.ipfsService.sessionAffinityConfig }}
+  sessionAffinityConfig: {{- include "common.tplvalues.render" (dict "value" $.Values.ipfsService.sessionAffinityConfig "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if or (eq $.Values.ipfsService.type "LoadBalancer") (eq $.Values.ipfsService.type "NodePort") }}
+  externalTrafficPolicy: {{ $.Values.ipfsService.externalTrafficPolicy | quote }}
+  {{- end }}
+  {{- if and (eq $.Values.ipfsService.type "LoadBalancer") (not (empty $.Values.ipfsService.loadBalancerSourceRanges)) }}
+  loadBalancerSourceRanges: {{ $.Values.ipfsService.loadBalancerSourceRanges }}
+  {{- end }}
+  {{- if and (eq $.Values.ipfsService.type "LoadBalancer") (not (empty $.Values.ipfsService.loadBalancerIP)) }}
+  loadBalancerIP: {{ $.Values.ipfsService.loadBalancerIP }}
+  {{- end }}
+  ports:
+    - name: swarm
+      port: {{ $.Values.ipfs.containerPorts.swarm }}
+      protocol: TCP
+      {{- if and (or (eq $.Values.ipfsService.type "NodePort") (eq $.Values.ipfsService.type "LoadBalancer")) (not (empty $.Values.ipfsService.nodePorts.swarm)) }}
+      nodePort: {{ $.Values.ipfsService.nodePorts.swarm }}
+      {{- else if eq $.Values.ipfsService.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+    {{- if $.Values.ipfsService.extraPorts }}
+    {{- include "common.tplvalues.render" (dict "value" $.Values.ipfsService.extraPorts "context" $) | nindent 4 }}
+    {{- end }}
+  selector: {{- include "common.labels.matchLabels" $ | nindent 4 }}
+    app.kubernetes.io/component: veritable-cloudagent
+    statefulset.kubernetes.io/pod-name: {{ template "common.names.fullname" $ }}-{{ $i }}
+{{- end }}
