@@ -4,6 +4,7 @@ on:
   repository_dispatch:
     types:
       - renovate
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,6 +12,7 @@ on:
       - 'renovate.config.js'
       - '.github/workflows/renovate.yaml'
       - 'scripts/**'
+      - 'charts/**'
   # Run every hour between midnight and 6am, and 6pm and midnight
   schedule:
     - cron: "0 0-5,18-23 * * *"
