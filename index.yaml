@@ -3,6 +3,31 @@ entries:
   bridgeai-prediction-service:
   - apiVersion: v2
     appVersion: 0.2.1
+    created: "2024-10-03T10:38:44.0225034Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.0.0
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.24.0
+    description: A Helm chart for Kubernetes
+    digest: 81f06d521228d67c4d2695b8165395bb2e2956f95d7204f444b8df24f219c5dd
+    icon: https://avatars.githubusercontent.com/u/12200704?s=200&v=4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: bridgeai-prediction-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/bridgeai-prediction-service-0.2.2/bridgeai-prediction-service-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 0.2.1
     created: "2024-10-03T07:33:19.759658896Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1824,6 +1849,46 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v2.0.108
+    created: "2024-10-03T10:38:44.190419269Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: The sqnc-identity-service is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: c1d1e2b81cc811f27cc63367eae31b66f9b5926b2641ef22cd0f33ee0c5c7149
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-identity-service
+    sources:
+    - https://github.com/digicatapult/sqnc-identity-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-identity-service-4.0.5/sqnc-identity-service-4.0.5.tgz
+    version: 4.0.5
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v2.0.108
     created: "2024-10-02T21:07:38.316341443Z"
     dependencies:
     - condition: postgresql.enabled
@@ -2374,6 +2439,46 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v3.0.97
+    created: "2024-10-03T10:38:44.505774917Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: b2670d682e544be353a8273b427cd52c33f43df2ef932d1ddcdb482ca2db77f0
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/sqnc-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-2.0.4/sqnc-matchmaker-api-2.0.4.tgz
+    version: 2.0.4
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v3.0.97
     created: "2024-10-02T22:06:39.138028021Z"
     dependencies:
     - condition: postgresql.enabled
@@ -2679,6 +2784,39 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-node-7.0.0/sqnc-node-7.0.0.tgz
     version: 7.0.0
   veritable-cloudagent:
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.11.1
+    created: "2024-10-03T10:38:44.723546857Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The veritable-cloudagent is a component of the veritable distributed
+      identity system.
+    digest: 334b408bfa83e66669d3ecb9a0f14adf13187182cac2b504080576700d268bb8
+    home: https://github.com/digicatapult/veritable-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/main/assets/icon.png
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-cloudagent
+    sources:
+    - https://github.com/digicatapult/veritable-cloudagent
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-2.1.2/veritable-cloudagent-2.1.2.tgz
+    version: 2.1.2
   - annotations:
       category: veritable
       licenses: Apache-2.0
@@ -3109,6 +3247,42 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-1.0.0/veritable-cloudagent-1.0.0.tgz
     version: 1.0.0
   veritable-ui:
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.9.6
+    created: "2024-10-03T10:38:44.915748128Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: cloudagent
+      condition: cloudagent.enabled
+      name: veritable-cloudagent
+      repository: https://digicatapult.github.io/helm-charts
+      version: 1.0.8
+    description: The veritable user interface for managing connections
+    digest: 34e95ee60db926a48b36dc2239353ebf28e0fec3f66c3db7e55848f1de18865d
+    home: https://github.com/digicatapult/veritable-ui
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-ui
+    sources:
+    - https://github.com/digicatapult/veritable-ui
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-ui-1.0.15/veritable-ui-1.0.15.tgz
+    version: 1.0.15
   - annotations:
       category: veritable
       licenses: Apache-2.0
@@ -5178,4 +5352,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2024-10-03T10:15:55.451547128Z"
+generated: "2024-10-03T10:38:44.916090657Z"
