@@ -32,6 +32,14 @@ module.exports = (config = {}) => {
     ],
     packageRules: [
       {
+        description: "Do not automerge minor updates for kubo in helm-values",
+        matchManagers: ["helm-values"],
+        matchDepNames: ["docker.io/ipfs/kubo"],
+        matchUpdateTypes: ["minor"],
+        automerge: false,
+        labels: ["dependencies", "helm"],
+      },
+      {
         description:
           "Group updates per dependency across Chart.yaml and values.yaml",
         matchManagers: ["helm-values", "regex"],
