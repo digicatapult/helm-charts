@@ -41,13 +41,6 @@ module.exports = (config = {}) => {
       },
       {
         description:
-          "Group updates per dependency across Chart.yaml and values.yaml",
-        matchManagers: ["helm-values", "regex"],
-        groupName: "{{{depName}}}",
-        labels: ["dependencies", "helm"],
-      },
-      {
-        description:
           "Always bump chart version by a patch when updating values files.",
         matchManagers: ["helm-values", "regex"],
         postUpgradeTasks: {
