@@ -32,14 +32,6 @@ module.exports = (config = {}) => {
     ],
     packageRules: [
       {
-        description: "Do not automerge updates for kubo in helm-values",
-        matchManagers: ["helm-values"],
-        matchDepNames: ["docker.io/ipfs/kubo"],
-        matchUpdateTypes: ["minor", "patch"],
-        automerge: false,
-        labels: ["dependencies", "helm"],
-      },
-      {
         description:
           "Always bump chart version by a patch when updating values files.",
         matchManagers: ["helm-values", "regex"],
@@ -66,6 +58,14 @@ module.exports = (config = {}) => {
       {
         matchManagers: ["helm-values", "regex"],
         matchUpdateTypes: ["major"],
+        automerge: false,
+        labels: ["dependencies", "helm"],
+      },
+      {
+        description: "Do not automerge updates for kubo in helm-values",
+        matchManagers: ["helm-values"],
+        matchDepNames: ["docker.io/ipfs/kubo"],
+        matchUpdateTypes: ["minor", "patch"],
         automerge: false,
         labels: ["dependencies", "helm"],
       },
