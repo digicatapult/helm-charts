@@ -17,7 +17,7 @@ dependencies:
   - name: veritable-cloudagent
     condition: cloudagent.enabled
     repository: https://digicatapult.github.io/helm-charts
-    version: 1.0.8
+    version: 2.1.2
     alias: cloudagent
 description: The veritable user interface for managing connections
 home: https://github.com/digicatapult/veritable-ui
@@ -30,4 +30,4 @@ maintainers:
 name: veritable-ui
 sources:
   - https://github.com/digicatapult/veritable-ui
-version: 1.0.15
+version: 1.0.16
