@@ -899,7 +899,7 @@ postgresql:
   auth:
     username: veritable-cloudgent
     password: ""
-    database: wallet-id
+    database: walletId
     existingSecret: ""
   architecture: standalone
 ## External PostgreSQL configuration
@@ -921,7 +921,7 @@ externalDatabase:
   port: 5432
   user: veritable-cloudagent
   password: ""
-  database: wallet-id
+  database: walletId
   create: true
   postgresqlPostgresUser: "postgres"
   postgresqlPostgresPassword: ""
