@@ -8,7 +8,7 @@ dependencies:
   - condition: postgresql.enabled
     name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 15.x.x
+    version: 16.x
   - name: common
     repository: https://charts.bitnami.com/bitnami
     tags:
@@ -17,7 +17,7 @@ dependencies:
   - name: veritable-cloudagent
     condition: cloudagent.enabled
     repository: https://digicatapult.github.io/helm-charts
-    version: 1.0.7
+    version: 2.1.1
     alias: cloudagent
 description: The veritable user interface for managing connections
 home: https://github.com/digicatapult/veritable-ui
