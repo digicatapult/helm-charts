@@ -51,6 +51,13 @@ module.exports = (config = {}) => {
       },
       {
         matchManagers: ["helm-values", "regex"],
+        groupName: "{{{parentDir}}}: {{{depName}}} Updates",
+        labels: ["dependencies", "helm"],
+        separateMinorPatch: true,
+        separateMajorMinor: true,
+      },
+      {
+        matchManagers: ["helm-values", "regex"],
         matchUpdateTypes: ["patch", "minor"],
         automerge: true,
         automergeType: "pr",
