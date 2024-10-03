@@ -18,6 +18,7 @@ module.exports = (config = {}) => {
     allowedPostUpgradeCommands: ["scripts/bump-chart-version.sh"],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
+    recreateWhen: "always",
     customManagers: [
       {
         customType: "regex",
@@ -49,23 +50,33 @@ module.exports = (config = {}) => {
       },
       {
         matchManagers: ["helm-values", "regex"],
-        matchUpdateTypes: ["patch"],
+        matchUpdateTypes: ["patch", "minor"],
         automerge: true,
         automergeType: "pr",
         labels: ["dependencies", "helm"],
       },
       {
         matchManagers: ["helm-values", "regex"],
-        matchUpdateTypes: ["minor", "major"],
+        matchUpdateTypes: ["major"],
         automerge: false,
         labels: ["dependencies", "helm"],
       },
       {
         matchManagers: ["helmv3"],
-        groupName: "Chart Dependency Updates for {{parentDir}}",
-        separateMajorMinor: true,
+        bumpVersion: "patch",
+      },
+      {
+        matchManagers: ["helmv3"],
+        matchUpdateTypes: ["patch", "minor"],
+        automerge: true,
+        automergeType: "pr",
         labels: ["dependencies", "helm"],
+      },
+      {
+        matchManagers: ["helmv3"],
+        matchUpdateTypes: ["major"],
         automerge: false,
+        labels: ["dependencies", "helm"],
       },
       {
         matchManagers: ["github-actions"],
