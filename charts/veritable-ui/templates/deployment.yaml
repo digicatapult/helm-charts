@@ -233,7 +233,7 @@ spec:
               value: {{ .Values.emailFromAddress | quote }}
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
-            {{- if eq .Values.emailTransport "SMTP_EMAIL" -}}
+            {{- if eq .Values.emailTransport "SMTP_EMAIL" }}
             - name: SMTP_HOST
               value: {{ .Values.smtpHost | quote }}
             - name: SMTP_PORT
