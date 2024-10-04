@@ -136,7 +136,7 @@ demoMode: "false"
 ## @param smtpHost SMTP host
 smtpHost: ""
 ## @param smtpPort SMTP port
-smtpPort: ""
+smtpPort: 587
 ## @param smtpSecure Use TLS to connect to SMTP
 smtpSecure: true
 ## @param smtpCredentials.enabled Enable SMTP credentials secret
@@ -184,7 +184,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.9.6
+  tag: v0.9.7
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

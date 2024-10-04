@@ -233,6 +233,7 @@ spec:
               value: {{ .Values.emailFromAddress | quote }}
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
+            {{- if eq .Values.emailTransport "SMTP_EMAIL" }}
             - name: SMTP_HOST
               value: {{ .Values.smtpHost | quote }}
             - name: SMTP_PORT
@@ -249,6 +250,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "veritable-ui.smtpCredentialsSecretName" . }}
                   key: {{ include "veritable-ui.smtpCredentialsPasswordKey" . }}
+            {{- end }}
             - name: CLOUDAGENT_ADMIN_WS_ORIGIN
               value: {{ include "veritable-ui.cloudagentAdminWsUri" . | quote }}
             - name: CLOUDAGENT_ADMIN_ORIGIN
