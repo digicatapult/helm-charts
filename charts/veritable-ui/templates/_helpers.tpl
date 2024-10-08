@@ -269,8 +269,6 @@ Add environment variables to configure smtp credentials password values
 */}}
 {{- define "veritable-ui.smtpCredentialsPasswordKey" -}}
 {{- if .Values.smtpCredentials.enabled -}}
-    {{- print "password" -}}
-{{- else -}}
     {{- if .Values.smtpCredentials.existingSecret -}}
         {{- if .Values.smtpCredentials.existingSecretPasswordKey -}}
             {{- printf "%s" .Values.smtpCredentials.existingSecretPasswordKey -}}
@@ -288,8 +286,6 @@ Add environment variables to configure smtp credentials password values
 */}}
 {{- define "veritable-ui.smtpCredentialsUserKey" -}}
 {{- if .Values.smtpCredentials.enabled -}}
-    {{- print "username" -}}
-{{- else -}}
     {{- if .Values.smtpCredentials.existingSecret -}}
         {{- if .Values.smtpCredentials.existingSecretUserKey -}}
             {{- printf "%s" .Values.smtpCredentials.existingSecretUserKey -}}
