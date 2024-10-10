@@ -854,12 +854,12 @@ ingressHttpWs:
   paths:
     - path: /
       pathType: Prefix
-      backendService: http-service
-      backendPort: 5002 #?? is this even needed
+      backendService: http-service # name??
+      backendPort: 80 # is this somehow dynamically set?? looking at service.yaml
     - path: /
       pathType: Prefix
-      backendService: websocket-service
-      backendPort: 5003 #??
+      backendService: websocket-service # name??
+      backendPort: 8080
   ## @param ingressHttpWs.tls Enable TLS configuration for the host defined at `ingressHttpWs.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingressHttpWs.hostname }}`
   ## You can:
