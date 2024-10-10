@@ -109,8 +109,6 @@ ipfsExternalOrigin: ""
 personaTitle: "Veritable Cloudagent"
 ## @param personaColor veritable-cloudagent represents current persona
 personaColor: "white"
-## @param opaOrigin veritable-cloudagent OPA service's URL
-opaOrigin: "http://localhost:8181"
 ## @param verifiedDrpcOptionsProofTimeoutMs veritable-cloudagent timeout ins miliseconds for DRPC credentials proof
 verifiedDrpcOptionsProofTimeoutMs: 5000
 ## @param verifiedDrpcOptionsRequestTimeoutMs veritable-cloudagent timeout ins miliseconds for DRPC requests
@@ -269,7 +267,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.11.4
+  tag: v0.12.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
