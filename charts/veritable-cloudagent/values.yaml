@@ -251,7 +251,7 @@ ipfs:
     mountPath: /ipfs
     subPath: ""
     size: 1Gi
-    storageClass: ""  # Set to your desired StorageClass
+    storageClass: "" # Set to your desired StorageClass
     accessModes: ["ReadWriteOnce"]
     annotations: {}
 
@@ -743,6 +743,7 @@ ingress:
       pathType: Prefix
     - path: /v1/basic-messages
       pathType: Prefix
+
   ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -831,6 +832,35 @@ ingress:
   ##             name: http
   ##
   extraRules: []
+
+## veritable-cloudagent ingress parameters for http and ws transport
+## ref: http://kubernetes.io/docs/user-guide/ingress/
+##
+ingressHttpWs:
+  ## @param ingress.enabled Enable ingress record generation for veritable-cloudagent
+  ##
+  enabled: true
+  ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
+  ##
+  apiVersion: ""
+  ## @param ingress.hostname Default host for the ingress record
+  ##
+  hostname: "???" # New hostname for this Ingress
+  ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+  ##
+  ingressClassName: "nginx" # does thi mean I have more than one default?
+  paths:
+    - path: /
+      pathType: Prefix
+      backendService: http-service
+      backendPort: 5002 #?? is this even needed
+    - path: /
+      pathType: Prefix
+      backendService: websocket-service
+      backendPort: 5003 #??
+  tls: true
 
 ## @section Init Container Parameters
 ##

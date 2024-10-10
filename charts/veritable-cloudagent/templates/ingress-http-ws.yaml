@@ -1,0 +1,34 @@
+{{- if .Values.ingressHttpWs.enabled }} 
+---
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ template "common.names.fullname" . }}-http-ws 
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: http-ws-endpoints 
+  {{- if .Values.ingressHttpWs.annotations }}
+  annotations:
+    {{- include "common.tplvalues.render" ( dict "value" .Values.ingressHttpWs.annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+    - host: {{ .Values.ingressHttpWs.hostname }}  # New hostname for this Ingress ??
+      http:
+        paths:
+          {{- range .Values.ingressHttpWs.paths }}
+          - path: {{ .path }} 
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ .backendService }}
+                port:
+                  number: {{ .backendPort }}
+          {{- end }}
+  {{- if .Values.ingressHttpWs.tls }}
+  tls:
+    - hosts:
+        - {{ .Values.ingressHttpWs.hostname }}
+      secretName: {{ printf "%s-tls" .Values.ingressHttpWs.hostname }}
+  {{- end }}
+{{- end }}
