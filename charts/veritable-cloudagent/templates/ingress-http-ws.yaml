@@ -1,6 +1,6 @@
 {{- if .Values.ingressHttpWs.enabled }} 
 ---
-apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+apiVersion: {{ include "common.capabilities.ingressHttpWs.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ template "common.names.fullname" . }}-http-ws 
