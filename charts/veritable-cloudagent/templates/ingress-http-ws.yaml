@@ -7,28 +7,65 @@ metadata:
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: http-ws-endpoints 
-  {{- if .Values.ingressHttpWs.annotations }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.ingressHttpWs.annotations .Values.commonAnnotations }}
   annotations:
+    {{- if .Values.ingressHttpWs.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.ingressHttpWs.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
   {{- end }}
 spec:
+  {{- if and .Values.ingressHttpWs.ingressClassName (eq "true" (include "common.ingressHttpWs.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.ingressHttpWs.ingressClassName | quote }}
+  {{- end }}
   rules:
+    {{- if .Values.ingressHttpWs.hostname }}
     - host: {{ .Values.ingressHttpWs.hostname }}  # New hostname for this Ingress ??
       http:
         paths:
+          {{- if .Values.ingressHttpWs.extraPaths }}
+          {{- toYaml .Values.ingressHttpWs.extraPaths | nindent 10 }}
+          {{- end }}
           {{- range .Values.ingressHttpWs.paths }}
           - path: {{ .path }} 
+            {{- if eq "true" (include "common.ingressHttpWs.supportsPathType" $) }}
             pathType: {{ .pathType }}
-            backend:
-              service:
-                name: {{ .backendService }}
-                port:
-                  number: {{ .backendPort }}
+            {{- end }}
+            backend: {{- include "common.ingressHttpWs.backend" (dict "serviceName" (printf "%s-http-ws" (include "common.names.fullname" $)) "servicePort" "http-ws" "context" $) | nindent 14 }}
           {{- end }}
-  {{- if .Values.ingressHttpWs.tls }}
+    {{- end }}
+    {{- range .Values.ingressHttpWs.extraHosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+          {{- if .Values.ingressHttpWs.extraPaths }}
+          {{- toYaml .Values.ingressHttpWs.extraPaths | nindent 10 }}
+          {{- end }}
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if eq "true" (include "common.ingressHttpWs.supportsPathType" $) }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            {{- end }}
+            backend: {{- include "common.ingressHttpWs.backend" (dict "serviceName" (printf "%s-http-ws" (include "common.names.fullname" $)) "servicePort" "http-ws" "context" $) | nindent 14 }}
+          {{- end }}
+    {{- end }}
+    {{- if .Values.ingressHttpWs.extraRules }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.ingressHttpWs.extraRules "context" $) | nindent 4 }}
+    {{- end }}
+  {{- if or (and .Values.ingressHttpWs.tls (or (include "common.ingressHttpWs.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned)) .Values.ingressHttpWs.extraTls }}
   tls:
+    {{- if and .Values.ingressHttpWs.tls (or (include "common.ingressHttpWs.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned) }}
     - hosts:
-        - {{ .Values.ingressHttpWs.hostname }}
+        - {{ .Values.ingressHttpWs.hostname | quote }}
       secretName: {{ printf "%s-tls" .Values.ingressHttpWs.hostname }}
+    {{- end }}
+    {{- if .Values.ingressHttpWs.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.ingressHttpWs.extraTls "context" $) | nindent 4 }}
+    {{- end }}
   {{- end }}
 {{- end }}
