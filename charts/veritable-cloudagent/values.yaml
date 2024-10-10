@@ -249,7 +249,7 @@ ipfs:
     mountPath: /ipfs
     subPath: ""
     size: 1Gi
-    storageClass: "" # Set to your desired StorageClass
+    storageClass: ""  # Set to your desired StorageClass
     accessModes: ["ReadWriteOnce"]
     annotations: {}
 
