@@ -1,6 +1,6 @@
 {{- if .Values.ingressHttpWs.enabled }} 
 ---
-apiVersion: {{ include "common.capabilities.ingressHttpWs.apiVersion" . }}
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ template "common.names.fullname" . }}-http-ws 
@@ -10,7 +10,7 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
-  {{- if .Values.ingressHttpWs.annotations .Values.commonAnnotations }}
+  {{- if or .Values.ingressHttpWs.annotations .Values.commonAnnotations }}
   annotations:
     {{- if .Values.ingressHttpWs.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.ingressHttpWs.annotations "context" $) | nindent 4 }}
@@ -20,12 +20,12 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
-  {{- if and .Values.ingressHttpWs.ingressClassName (eq "true" (include "common.ingressHttpWs.supportsIngressClassname" .)) }}
+  {{- if and .Values.ingressHttpWs.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
   ingressClassName: {{ .Values.ingressHttpWs.ingressClassName | quote }}
   {{- end }}
   rules:
     {{- if .Values.ingressHttpWs.hostname }}
-    - host: {{ .Values.ingressHttpWs.hostname }}  # New hostname for this Ingress ??
+    - host: {{ .Values.ingressHttpWs.hostname }} 
       http:
         paths:
           {{- if .Values.ingressHttpWs.extraPaths }}
@@ -33,10 +33,10 @@ spec:
           {{- end }}
           {{- range .Values.ingressHttpWs.paths }}
           - path: {{ .path }} 
-            {{- if eq "true" (include "common.ingressHttpWs.supportsPathType" $) }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
             pathType: {{ .pathType }}
             {{- end }}
-            backend: {{- include "common.ingressHttpWs.backend" (dict "serviceName" (printf "%s-http-ws" (include "common.names.fullname" $)) "servicePort" "http-ws" "context" $) | nindent 14 }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" $) "servicePort" "http" "context" $) | nindent 14 }}
           {{- end }}
     {{- end }}
     {{- range .Values.ingressHttpWs.extraHosts }}
@@ -48,18 +48,18 @@ spec:
           {{- end }}
           {{- range .paths }}
           - path: {{ .path }}
-            {{- if eq "true" (include "common.ingressHttpWs.supportsPathType" $) }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
             pathType: {{ default "ImplementationSpecific" .pathType }}
             {{- end }}
-            backend: {{- include "common.ingressHttpWs.backend" (dict "serviceName" (printf "%s-http-ws" (include "common.names.fullname" $)) "servicePort" "http-ws" "context" $) | nindent 14 }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" $) "servicePort" "http" "context" $) | nindent 14 }}
           {{- end }}
     {{- end }}
     {{- if .Values.ingressHttpWs.extraRules }}
     {{- include "common.tplvalues.render" (dict "value" .Values.ingressHttpWs.extraRules "context" $) | nindent 4 }}
     {{- end }}
-  {{- if or (and .Values.ingressHttpWs.tls (or (include "common.ingressHttpWs.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned)) .Values.ingressHttpWs.extraTls }}
+  {{- if or (and .Values.ingressHttpWs.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned)) .Values.ingressHttpWs.extraTls }}
   tls:
-    {{- if and .Values.ingressHttpWs.tls (or (include "common.ingressHttpWs.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned) }}
+    {{- if and .Values.ingressHttpWs.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned) }}
     - hosts:
         - {{ .Values.ingressHttpWs.hostname | quote }}
       secretName: {{ printf "%s-tls" .Values.ingressHttpWs.hostname }}

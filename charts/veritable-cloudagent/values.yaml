@@ -845,21 +845,24 @@ ingressHttpWs:
   apiVersion: ""
   ## @param ingressHttpWs.hostname Default host for the ingress record
   ##
-  hostname: "???" # New hostname for this Ingress
+  hostname: veritable-cloudagent.local
   ## @param ingressHttpWs.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
-  ingressClassName: "nginx" # does thi mean I have more than one default?
+  ingressClassName: ""
   paths:
     - path: /
       pathType: Prefix
-      backendService: http-service # name??
-      backendPort: 80 # is this somehow dynamically set?? looking at service.yaml
-    - path: /
-      pathType: Prefix
-      backendService: websocket-service # name??
-      backendPort: 8080
+  ## @param ingressHttpWs.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+  ## Use this parameter to set the required annotations for cert-manager, see
+  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+  ## e.g:
+  ## annotations:
+  ##   kubernetes.io/ingress.class: nginx
+  ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+  ##
+  annotations: {}
   ## @param ingressHttpWs.tls Enable TLS configuration for the host defined at `ingressHttpWs.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingressHttpWs.hostname }}`
   ## You can:
