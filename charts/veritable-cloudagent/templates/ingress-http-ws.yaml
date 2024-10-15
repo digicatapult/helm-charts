@@ -10,8 +10,20 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
-  {{- if or .Values.ingressHttpWs.annotations .Values.commonAnnotations }}
+  {{- if or .Values.ingressHttpWs.annotations .Values.commonAnnotations .Values.isNginxIngressController  }}
   annotations:
+    {{- if .Values.isNginxIngressController }}
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location / {
+        set $upstream_service_port "{{ .Values.service.ports.http }}";
+        if ($http_upgrade = "websocket") {
+          set $upstream_service_port "{{ .Values.service.ports.ws }}";
+        }
+        proxy_pass http://{{ include "common.names.fullname" $ }}:$upstream_service_port;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+      }
+    {{- end }}
     {{- if .Values.ingressHttpWs.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.ingressHttpWs.annotations "context" $) | nindent 4 }}
     {{- end }}

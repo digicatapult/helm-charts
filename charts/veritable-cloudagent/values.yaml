@@ -118,6 +118,8 @@ verifiedDrpcOptionsRequestTimeoutMs: 5000
 ## @param verifiedDrpcOptionsProofRequestOptions veritable-cloudagent Must be a JSON Stringified object with the options for the proof request
 verifiedDrpcOptionsProofRequestOptions: ""
 
+isNginxIngressController: true
+
 ## @section IPFS Container Parameters
 ## @param ipfs.enabled Enable IPFS container within pod
 ## IPFS container image parameters
@@ -854,6 +856,7 @@ ingressHttpWs:
   paths:
     - path: /
       pathType: Prefix
+  httpOrWsTransportDefault: "http"
   ## @param ingressHttpWs.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
