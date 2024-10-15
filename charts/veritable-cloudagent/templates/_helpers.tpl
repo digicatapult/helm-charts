@@ -198,6 +198,8 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
+Check if we have an ednpoint defined. 
+Then check if we 
 see if values.endpoint exists -> print that 
 else if values.ingresshttpws.hostname exists -> see the path for that -> use for endpoint 
 we need to know if we want to use http or ws -> new value with a default 
@@ -205,31 +207,19 @@ print http or ws :// ingresshttpws.hostname path
 if sth is missing throw error 
 */}}
 
-
-
 {{- define "veritable-cloudagent.defineEndpoint" -}}
 {{- if .Values.endpoint -}}
     {{- print "%s" .Values.endpoint -}}
-{{- else -}}
-    {{- if .Values.ingressHttpWs.hostname -}} 
-        {{- if .Values.ingressHttpWs.path -}}
-             {{- if .Values.ingressHttpWs.httpOrWsTransportDefault -}}  
-                {{- $transport := .Values.ingressHttpWs.httpOrWsTransportDefault -}}
-                {{- if or (eq $transport "http") (eq $transport "ws") -}} 
-                    {{- print (printf "%s://%s%s" $transport .Values.ingressHttpWs.hostname .Values.ingressHttpWs.path) -}} 
-                {{- else -}}
-                    {{- fail "Invalid transport: must be 'http' or 'ws'" -}} 
-                {{- end -}}
-            {{- else -}}
-                {{- fail "Missing required 'httpOrWsTransportDefault' for transport protocol" -}} 
-            {{- end -}}
-        {{- else -}}
-            {{- fail "Missing required 'path' for ingressHttpWs" -}} 
-        {{- end -}}
-    {{- else -}}
-        {{- fail "Missing 'hostname', cannot define endpoint" -}} 
-    {{- end -}}
 {{- end -}}
+{{- if .Values.ingressHttpWs.hostname -}} 
+    {{- include "veritable-cloudagent.validateValues.ingressHttpWs" . -}}
+    {{- $transport := .Values.ingressHttpWs.httpOrWsTransportDefault -}}
+    {{- if or (eq $transport "http") (eq $transport "ws") -}} 
+        {{- print (printf "%s://%s%s" $transport .Values.ingressHttpWs.hostname .Values.ingressHttpWs.path) -}} 
+    {{- else -}}
+        {{- fail "Invalid transport: must be 'http' or 'ws'" -}} 
+    {{- end -}} 
+{{- end -}} 
 {{- end -}}
 
 
@@ -240,6 +230,7 @@ Compile all warnings into a single message, and call fail.
 {{- $messages := list -}}
 {{- $messages := append $messages (include "veritable-cloudagent.validateValues.databaseName" .) -}}
 {{- $messages := append $messages (include "veritable-cloudagent.validateValues.databaseUser" .) -}}
+
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
@@ -267,5 +258,23 @@ veritable-cloudagent:
 veritable-cloudagent:
     When creating a database the username must consist of the characters a-z, A-Z and _ only
 {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate ingressHttpWs hostname, path, and transport default */}}
+{{- define "veritable-cloudagent.validateValues.ingressHttpWs" -}}
+{{- $errors := list -}}
+{{- if not .Values.ingressHttpWs.hostname -}}
+  {{- $errors = append $errors "Missing 'ingressHttpWs.hostname'" -}}
+{{- end -}}
+{{- if not .Values.ingressHttpWs.path -}}
+  {{- $errors = append $errors "Missing 'ingressHttpWs.path'" -}}
+{{- end -}}
+{{- if not .Values.ingressHttpWs.httpOrWsTransportDefault -}}
+  {{- $errors = append $errors "Missing 'ingressHttpWs.httpOrWsTransportDefault'" -}}
+{{- end -}}
+{{- $errors = without $errors "" -}}
+{{- if len $errors -}}
+  {{- printf "Validation errors:\n%s" (join "\n" $errors) | fail -}} 
 {{- end -}}
 {{- end -}}
