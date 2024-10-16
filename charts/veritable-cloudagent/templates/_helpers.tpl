@@ -209,7 +209,7 @@ fail on missing values.
     {{- print "%s" .Values.endpoint -}}
 {{- end -}}
 {{- if .Values.ingressHttpWs.hostname -}} 
-    {{- print (printf "%s://%s%s" .Values.ingressHttpWs.httpOrWsTransportDefault .Values.ingressHttpWs.hostname .Values.ingressHttpWs.path) -}} 
+    {{- print  "%s://%s%s" .Values.ingressHttpWs.httpOrWsTransportDefault .Values.ingressHttpWs.hostname .Values.ingressHttpWs.path -}} 
 {{- end -}} 
 {{- end -}}
 
