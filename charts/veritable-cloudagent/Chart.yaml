@@ -20,10 +20,10 @@ icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/mai
 keywords:
   - veritable
 maintainers:
-  - name: digicatapult  # Digital Catapult
+  - name: digicatapult # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
     email: opensource@digicatapult.org.uk
 name: veritable-cloudagent
 sources:
   - https://github.com/digicatapult/veritable-cloudagent
-version: 2.1.5
+version: 2.1.6

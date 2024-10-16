@@ -117,7 +117,8 @@ verifiedDrpcOptionsProofTimeoutMs: 5000
 verifiedDrpcOptionsRequestTimeoutMs: 5000
 ## @param verifiedDrpcOptionsProofRequestOptions veritable-cloudagent Must be a JSON Stringified object with the options for the proof request
 verifiedDrpcOptionsProofRequestOptions: ""
-
+## @param isNginxIngressController Indicates if the NGINX Ingress Controller is enabled.
+## Used to conditionally apply specific NGINX annotations for WebSocket support.
 isNginxIngressController: true
 
 ## @section IPFS Container Parameters
@@ -853,9 +854,20 @@ ingressHttpWs:
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
   ingressClassName: ""
+  ## @param ingressHttpWs.paths [array] Default paths for the ingress record
+  ## e.g:
+  ## paths:
+  ##   - path: /
+  ##     pathType: Prefix
+  ##
   paths:
     - path: /
       pathType: Prefix
+  ## @param ingressHttpWs.httpOrWsTransportDefault [string] Default transport protocol for the endpoint.
+  ## Can be set to "http" or "ws".
+  ## e.g:
+  ## httpOrWsTransportDefault: "http"
+  ##
   httpOrWsTransportDefault: "http"
   ## @param ingressHttpWs.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see

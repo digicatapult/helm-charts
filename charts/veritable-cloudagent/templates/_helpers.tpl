@@ -198,13 +198,10 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
-Check if we have an ednpoint defined. 
-Then check if we 
-see if values.endpoint exists -> print that 
-else if values.ingresshttpws.hostname exists -> see the path for that -> use for endpoint 
-we need to know if we want to use http or ws -> new value with a default 
-print http or ws :// ingresshttpws.hostname path
-if sth is missing throw error 
+Generate the endpoint URL. If `.Values.endpoint` is defined, print it. 
+If `.Values.ingressHttpWs.hostname` is present, validate required fields 
+and construct the URL like so: `<transport>://<hostname><path>`, 
+fail on missing values. 
 */}}
 
 {{- define "veritable-cloudagent.defineEndpoint" -}}
@@ -267,8 +264,8 @@ veritable-cloudagent:
 {{- if not .Values.ingressHttpWs.hostname -}}
   {{- $errors = append $errors "Missing 'ingressHttpWs.hostname'" -}}
 {{- end -}}
-{{- if not .Values.ingressHttpWs.path -}}
-  {{- $errors = append $errors "Missing 'ingressHttpWs.path'" -}}
+{{- if not .Values.ingressHttpWs.paths -}}
+  {{- $errors = append $errors "Missing 'ingressHttpWs.paths'" -}}
 {{- end -}}
 {{- if not .Values.ingressHttpWs.httpOrWsTransportDefault -}}
   {{- $errors = append $errors "Missing 'ingressHttpWs.httpOrWsTransportDefault'" -}}

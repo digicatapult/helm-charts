@@ -101,6 +101,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `verifiedDrpcOptionsProofTimeoutMs`      | veritable-cloudagent timeout ins miliseconds for DRPC credentials proof                                                                                                                                                          | `5000`                          |
 | `verifiedDrpcOptionsRequestTimeoutMs`    | veritable-cloudagent timeout ins miliseconds for DRPC requests                                                                                                                                                                   | `5000`                          |
 | `verifiedDrpcOptionsProofRequestOptions` | veritable-cloudagent Must be a JSON Stringified object with the options for the proof request                                                                                                                                    | `""`                            |
+| `isNginxIngressController`               | Indicates if the NGINX Ingress Controller is enabled.                                                                                                                                                                            | `true`                          |
 
 ### IPFS Container Parameters
 
@@ -230,56 +231,71 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Traffic Exposure Parameters
 
-| Name                                    | Description                                                                                                                      | Value                        |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| `service.type`                          | veritable-cloudagent service type                                                                                                | `ClusterIP`                  |
-| `service.ports.http`                    | veritable-cloudagent service HTTP port                                                                                           | `5002`                       |
-| `service.ports.ws`                      | veritable-cloudagent service WS port                                                                                             | `5003`                       |
-| `service.nodePorts.http`                | Node port for HTTP                                                                                                               | `""`                         |
-| `service.nodePorts.ws`                  | Node port for WS                                                                                                                 | `""`                         |
-| `service.clusterIP`                     | veritable-cloudagent service Cluster IP                                                                                          | `""`                         |
-| `service.loadBalancerIP`                | veritable-cloudagent service Load Balancer IP                                                                                    | `""`                         |
-| `service.loadBalancerSourceRanges`      | veritable-cloudagent service Load Balancer sources                                                                               | `[]`                         |
-| `service.externalTrafficPolicy`         | veritable-cloudagent service external traffic policy                                                                             | `Cluster`                    |
-| `service.annotations`                   | Additional custom annotations for veritable-cloudagent service                                                                   | `{}`                         |
-| `service.extraPorts`                    | Extra ports to expose in veritable-cloudagent service (normally used with the `sidecars` value)                                  | `[]`                         |
-| `service.sessionAffinity`               | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
-| `service.sessionAffinityConfig`         | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
-| `adminService.type`                     | veritable-cloudagent admin service type                                                                                          | `ClusterIP`                  |
-| `adminService.ports.admin`              | veritable-cloudagent admin service HTTP port                                                                                     | `3000`                       |
-| `adminService.nodePorts.admin`          | Node port for admin HTTP                                                                                                         | `""`                         |
-| `adminService.clusterIP`                | veritable-cloudagent admin service Cluster IP                                                                                    | `""`                         |
-| `adminService.loadBalancerIP`           | veritable-cloudagent admin service Load Balancer IP                                                                              | `""`                         |
-| `adminService.loadBalancerSourceRanges` | veritable-cloudagent admin service Load Balancer sources                                                                         | `[]`                         |
-| `adminService.externalTrafficPolicy`    | veritable-cloudagent admin service external traffic policy                                                                       | `Cluster`                    |
-| `adminService.annotations`              | Additional custom annotations for veritable-cloudagent admin service                                                             | `{}`                         |
-| `adminService.extraPorts`               | Extra ports to expose in veritable-cloudagent admin service (normally used with the `sidecars` value)                            | `[]`                         |
-| `adminService.sessionAffinity`          | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
-| `adminService.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
-| `ipfsService.type`                      | veritable-cloudagent ipfs swarm service type                                                                                     | `ClusterIP`                  |
-| `ipfsService.nodePorts.swarm`           | Node port for admin HTTP                                                                                                         | `""`                         |
-| `ipfsService.clusterIP`                 | veritable-cloudagent ipfs swarm service Cluster IP                                                                               | `""`                         |
-| `ipfsService.loadBalancerIP`            | veritable-cloudagent ipfs swarm service Load Balancer IP                                                                         | `""`                         |
-| `ipfsService.loadBalancerSourceRanges`  | veritable-cloudagent ipfs swarm service Load Balancer sources                                                                    | `[]`                         |
-| `ipfsService.externalTrafficPolicy`     | veritable-cloudagent ipfs swarm service external traffic policy                                                                  | `Cluster`                    |
-| `ipfsService.annotations`               | Additional custom annotations for veritable-cloudagent ipfs swarm service                                                        | `{}`                         |
-| `ipfsService.extraPorts`                | Extra ports to expose in veritable-cloudagent ipfs swarm service (normally used with the `sidecars` value)                       | `[]`                         |
-| `ipfsService.sessionAffinity`           | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
-| `ipfsService.sessionAffinityConfig`     | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
-| `ingress.enabled`                       | Enable ingress record generation for veritable-cloudagent                                                                        | `true`                       |
-| `ingress.apiVersion`                    | Force Ingress API version (automatically detected if not set)                                                                    | `""`                         |
-| `ingress.hostname`                      | Default host for the ingress record                                                                                              | `veritable-cloudagent.local` |
-| `ingress.ingressClassName`              | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                         |
-| `ingress.paths`                         | Default paths for the ingress record                                                                                             | `[]`                         |
-| `ingress.annotations`                   | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                         |
-| `ingress.tls`                           | Enable TLS configuration for the host defined at `ingress.hostname` parameter                                                    | `false`                      |
-| `ingress.selfSigned`                    | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`                      |
-| `ingress.extraHosts`                    | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`                         |
-| `ingress.extraPaths`                    | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
-| `ingress.extraAuthenticatedPaths`       | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
-| `ingress.extraTls`                      | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`                         |
-| `ingress.secrets`                       | Custom TLS certificates as secrets                                                                                               | `[]`                         |
-| `ingress.extraRules`                    | Additional rules to be covered with this ingress record                                                                          | `[]`                         |
+| Name                                     | Description                                                                                                                      | Value                        |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `service.type`                           | veritable-cloudagent service type                                                                                                | `ClusterIP`                  |
+| `service.ports.http`                     | veritable-cloudagent service HTTP port                                                                                           | `5002`                       |
+| `service.ports.ws`                       | veritable-cloudagent service WS port                                                                                             | `5003`                       |
+| `service.nodePorts.http`                 | Node port for HTTP                                                                                                               | `""`                         |
+| `service.nodePorts.ws`                   | Node port for WS                                                                                                                 | `""`                         |
+| `service.clusterIP`                      | veritable-cloudagent service Cluster IP                                                                                          | `""`                         |
+| `service.loadBalancerIP`                 | veritable-cloudagent service Load Balancer IP                                                                                    | `""`                         |
+| `service.loadBalancerSourceRanges`       | veritable-cloudagent service Load Balancer sources                                                                               | `[]`                         |
+| `service.externalTrafficPolicy`          | veritable-cloudagent service external traffic policy                                                                             | `Cluster`                    |
+| `service.annotations`                    | Additional custom annotations for veritable-cloudagent service                                                                   | `{}`                         |
+| `service.extraPorts`                     | Extra ports to expose in veritable-cloudagent service (normally used with the `sidecars` value)                                  | `[]`                         |
+| `service.sessionAffinity`                | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
+| `service.sessionAffinityConfig`          | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
+| `adminService.type`                      | veritable-cloudagent admin service type                                                                                          | `ClusterIP`                  |
+| `adminService.ports.admin`               | veritable-cloudagent admin service HTTP port                                                                                     | `3000`                       |
+| `adminService.nodePorts.admin`           | Node port for admin HTTP                                                                                                         | `""`                         |
+| `adminService.clusterIP`                 | veritable-cloudagent admin service Cluster IP                                                                                    | `""`                         |
+| `adminService.loadBalancerIP`            | veritable-cloudagent admin service Load Balancer IP                                                                              | `""`                         |
+| `adminService.loadBalancerSourceRanges`  | veritable-cloudagent admin service Load Balancer sources                                                                         | `[]`                         |
+| `adminService.externalTrafficPolicy`     | veritable-cloudagent admin service external traffic policy                                                                       | `Cluster`                    |
+| `adminService.annotations`               | Additional custom annotations for veritable-cloudagent admin service                                                             | `{}`                         |
+| `adminService.extraPorts`                | Extra ports to expose in veritable-cloudagent admin service (normally used with the `sidecars` value)                            | `[]`                         |
+| `adminService.sessionAffinity`           | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
+| `adminService.sessionAffinityConfig`     | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
+| `ipfsService.type`                       | veritable-cloudagent ipfs swarm service type                                                                                     | `ClusterIP`                  |
+| `ipfsService.nodePorts.swarm`            | Node port for admin HTTP                                                                                                         | `""`                         |
+| `ipfsService.clusterIP`                  | veritable-cloudagent ipfs swarm service Cluster IP                                                                               | `""`                         |
+| `ipfsService.loadBalancerIP`             | veritable-cloudagent ipfs swarm service Load Balancer IP                                                                         | `""`                         |
+| `ipfsService.loadBalancerSourceRanges`   | veritable-cloudagent ipfs swarm service Load Balancer sources                                                                    | `[]`                         |
+| `ipfsService.externalTrafficPolicy`      | veritable-cloudagent ipfs swarm service external traffic policy                                                                  | `Cluster`                    |
+| `ipfsService.annotations`                | Additional custom annotations for veritable-cloudagent ipfs swarm service                                                        | `{}`                         |
+| `ipfsService.extraPorts`                 | Extra ports to expose in veritable-cloudagent ipfs swarm service (normally used with the `sidecars` value)                       | `[]`                         |
+| `ipfsService.sessionAffinity`            | Control where client requests go, to the same pod or round-robin                                                                 | `None`                       |
+| `ipfsService.sessionAffinityConfig`      | Additional settings for the sessionAffinity                                                                                      | `{}`                         |
+| `ingress.enabled`                        | Enable ingress record generation for veritable-cloudagent                                                                        | `true`                       |
+| `ingress.apiVersion`                     | Force Ingress API version (automatically detected if not set)                                                                    | `""`                         |
+| `ingress.hostname`                       | Default host for the ingress record                                                                                              | `veritable-cloudagent.local` |
+| `ingress.ingressClassName`               | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                         |
+| `ingress.paths`                          | Default paths for the ingress record                                                                                             | `[]`                         |
+| `ingress.annotations`                    | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                         |
+| `ingress.tls`                            | Enable TLS configuration for the host defined at `ingress.hostname` parameter                                                    | `false`                      |
+| `ingress.selfSigned`                     | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`                      |
+| `ingress.extraHosts`                     | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`                         |
+| `ingress.extraPaths`                     | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
+| `ingress.extraAuthenticatedPaths`        | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
+| `ingress.extraTls`                       | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`                         |
+| `ingress.secrets`                        | Custom TLS certificates as secrets                                                                                               | `[]`                         |
+| `ingress.extraRules`                     | Additional rules to be covered with this ingress record                                                                          | `[]`                         |
+| `ingressHttpWs.enabled`                  | Enable ingress record generation for veritable-cloudagent                                                                        | `true`                       |
+| `ingressHttpWs.apiVersion`               | Force Ingress API version (automatically detected if not set)                                                                    | `""`                         |
+| `ingressHttpWs.hostname`                 | Default host for the ingress record                                                                                              | `veritable-cloudagent.local` |
+| `ingressHttpWs.ingressClassName`         | IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)                                                    | `""`                         |
+| `ingressHttpWs.paths`                    | Default paths for the ingress record                                                                                             | `[]`                         |
+| `ingressHttpWs.httpOrWsTransportDefault` | Default transport protocol for the endpoint.                                                                                     | `""`                         |
+| `ingressHttpWs.annotations`              | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                         |
+| `ingressHttpWs.tls`                      | Enable TLS configuration for the host defined at `ingressHttpWs.hostname` parameter                                              | `false`                      |
+| `ingressHttpWs.selfSigned`               | Create a TLS secret for this ingress record using self-signed certificates generated by Helm                                     | `false`                      |
+| `ingressHttpWs.extraHosts`               | An array with additional hostname(s) to be covered with the ingress record                                                       | `[]`                         |
+| `ingressHttpWs.extraPaths`               | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
+| `ingressHttpWs.extraAuthenticatedPaths`  | An array with additional arbitrary paths that may need to be added to the ingress under the main host                            | `[]`                         |
+| `ingressHttpWs.extraTls`                 | TLS configuration for additional hostname(s) to be covered with this ingress record                                              | `[]`                         |
+| `ingressHttpWs.secrets`                  | Custom TLS certificates as secrets                                                                                               | `[]`                         |
+| `ingressHttpWs.extraRules`               | Additional rules to be covered with this ingress record                                                                          | `[]`                         |
 
 ### Init Container Parameters
 
