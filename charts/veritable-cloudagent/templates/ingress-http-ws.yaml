@@ -13,6 +13,8 @@ metadata:
   {{- if or .Values.ingressHttpWs.annotations .Values.commonAnnotations .Values.isNginxIngressController  }}
   annotations:
     {{- if .Values.isNginxIngressController }}
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 3600
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 3600
     nginx.ingress.kubernetes.io/server-snippet: |
       location / {
         set $upstream_service_port "{{ .Values.service.ports.http }}";
