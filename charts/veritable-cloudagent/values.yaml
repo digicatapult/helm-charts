@@ -76,7 +76,7 @@ walletKey:
 ## @param storageType veritable-cloudagent storage type (can be either postgres sqlite)
 storageType: "postgres"
 ## @param endpoint an array of veritable-cloudagent endpoints to be used in creating invitations in the format http(s)://FQDN:PORT or ws(s)://FQDN:PORT - only the first option in the array is actually used, provide in a string, comma delimited
-endpoint: "http://localhost:5002"
+endpoint: ""
 ## @param logLevel veritable-cloudagent log level, choices are 'trace', 'debug', 'info', 'warn', 'error', 'silent'
 logLevel: info
 ## @param useDidSovPrefixWhereAllowed veritable-cloudagent use did sov prefix where allowed
@@ -251,7 +251,7 @@ ipfs:
     mountPath: /ipfs
     subPath: ""
     size: 1Gi
-    storageClass: ""  # Set to your desired StorageClass
+    storageClass: "" # Set to your desired StorageClass
     accessModes: ["ReadWriteOnce"]
     annotations: {}
 

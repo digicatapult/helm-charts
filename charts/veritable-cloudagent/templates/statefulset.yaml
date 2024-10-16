@@ -191,7 +191,7 @@ spec:
             - name: STORAGE_TYPE
               value: {{ .Values.storageType | quote }}
             - name: ENDPOINT
-              value: {{ include "veritable-cloudagent.defineEndpoint" . | quote }}
+              value: {{ include "veritable-cloudagent.defineEndpoint" . }}
             - name: LOG_LEVEL
               value: {{ .Values.logLevel | quote }}
             - name: USE_DID_SOV_PREFIX_WHERE_ALLOWED
