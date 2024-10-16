@@ -1,0 +1,85 @@
+{{- if .Values.ingressHttpWs.enabled }} 
+---
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ template "common.names.fullname" . }}-http-ws 
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: http-ws-endpoints 
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.ingressHttpWs.annotations .Values.commonAnnotations .Values.isNginxIngressController  }}
+  annotations:
+    {{- if .Values.isNginxIngressController }}
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location / {
+        set $upstream_service_port "{{ .Values.service.ports.http }}";
+        if ($http_upgrade = "websocket") {
+          set $upstream_service_port "{{ .Values.service.ports.ws }}";
+        }
+        proxy_pass http://{{ include "common.names.fullname" $ }}:$upstream_service_port;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+      }
+    {{- end }}
+    {{- if .Values.ingressHttpWs.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.ingressHttpWs.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  {{- if and .Values.ingressHttpWs.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.ingressHttpWs.ingressClassName | quote }}
+  {{- end }}
+  rules:
+    {{- if .Values.ingressHttpWs.hostname }}
+    - host: {{ .Values.ingressHttpWs.hostname }} 
+      http:
+        paths:
+          {{- if .Values.ingressHttpWs.extraPaths }}
+          {{- toYaml .Values.ingressHttpWs.extraPaths | nindent 10 }}
+          {{- end }}
+          {{- range .Values.ingressHttpWs.paths }}
+          - path: {{ .path }} 
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" $) "servicePort" "http" "context" $) | nindent 14 }}
+          {{- end }}
+    {{- end }}
+    {{- range .Values.ingressHttpWs.extraHosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+          {{- if .Values.ingressHttpWs.extraPaths }}
+          {{- toYaml .Values.ingressHttpWs.extraPaths | nindent 10 }}
+          {{- end }}
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" $) "servicePort" "http" "context" $) | nindent 14 }}
+          {{- end }}
+    {{- end }}
+    {{- if .Values.ingressHttpWs.extraRules }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.ingressHttpWs.extraRules "context" $) | nindent 4 }}
+    {{- end }}
+  {{- if or (and .Values.ingressHttpWs.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned)) .Values.ingressHttpWs.extraTls }}
+  tls:
+    {{- if and .Values.ingressHttpWs.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingressHttpWs.annotations )) .Values.ingressHttpWs.selfSigned) }}
+    - hosts:
+        - {{ .Values.ingressHttpWs.hostname | quote }}
+      secretName: {{ printf "%s-tls" .Values.ingressHttpWs.hostname }}
+    {{- end }}
+    {{- if .Values.ingressHttpWs.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.ingressHttpWs.extraTls "context" $) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}

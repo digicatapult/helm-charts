@@ -198,12 +198,33 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
+Generate the endpoint URL. If `.Values.endpoint` is defined, print it. 
+If `.Values.ingressHttpWs.hostname` is present, validate required fields 
+and construct the URL like so: `<transport>://<hostname><path>`, 
+fail on missing values. 
+*/}}
+
+{{- define "veritable-cloudagent.defineEndpoint" -}}
+{{- if .Values.endpoint -}}
+    {{- print "%s" .Values.endpoint -}}
+{{- else -}}
+    {{- if .Values.ingressHttpWs.hostname -}} 
+        {{ printf "%s://%s%s" .Values.ingressHttpWs.httpOrWsTransportDefault .Values.ingressHttpWs.hostname (index .Values.ingressHttpWs.paths 0).path }}
+    {{- end -}} 
+{{- end -}} 
+{{- end -}}
+
+
+{{/*
 Compile all warnings into a single message, and call fail.
 */}}
 {{- define "veritable-cloudagent.validateValues" -}}
 {{- $messages := list -}}
 {{- $messages := append $messages (include "veritable-cloudagent.validateValues.databaseName" .) -}}
 {{- $messages := append $messages (include "veritable-cloudagent.validateValues.databaseUser" .) -}}
+{{- $messages := append $messages (include "veritable-cloudagent.validateValues.ingressHttpWs" .) -}}
+
+
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
@@ -231,5 +252,26 @@ veritable-cloudagent:
 veritable-cloudagent:
     When creating a database the username must consist of the characters a-z, A-Z and _ only
 {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate ingressHttpWs hostname, path, and transport default */}}
+{{- define "veritable-cloudagent.validateValues.ingressHttpWs" -}}
+{{- if not .Values.ingressHttpWs.hostname -}}
+veritable-cloudagent:
+    Missing value for ingressHttpWs.hostname
+{{- end -}}
+{{- if not .Values.ingressHttpWs.paths -}}
+veritable-cloudagent:
+    Missing value for ingressHttpWs.paths
+{{- end -}}
+{{- if not .Values.ingressHttpWs.httpOrWsTransportDefault -}}
+veritable-cloudagent:
+    Missing value for ingressHttpWs.httpOrWsTransportDefault
+{{- end -}}
+{{- $transport := .Values.ingressHttpWs.httpOrWsTransportDefault -}}
+{{- if not (or (eq $transport "http") (eq $transport "ws")) -}}
+veritable-cloudagent:
+    Invalid transport, must be http or ws
 {{- end -}}
 {{- end -}}
