@@ -209,13 +209,7 @@ fail on missing values.
     {{- print "%s" .Values.endpoint -}}
 {{- end -}}
 {{- if .Values.ingressHttpWs.hostname -}} 
-    {{- include "veritable-cloudagent.validateValues.ingressHttpWs" . -}}
-    {{- $transport := .Values.ingressHttpWs.httpOrWsTransportDefault -}}
-    {{- if or (eq $transport "http") (eq $transport "ws") -}} 
-        {{- print (printf "%s://%s%s" $transport .Values.ingressHttpWs.hostname .Values.ingressHttpWs.path) -}} 
-    {{- else -}}
-        {{- fail "Invalid transport: must be 'http' or 'ws'" -}} 
-    {{- end -}} 
+    {{- print (printf "%s://%s%s" .Values.ingressHttpWs.httpOrWsTransportDefault .Values.ingressHttpWs.hostname .Values.ingressHttpWs.path) -}} 
 {{- end -}} 
 {{- end -}}
 
@@ -227,6 +221,8 @@ Compile all warnings into a single message, and call fail.
 {{- $messages := list -}}
 {{- $messages := append $messages (include "veritable-cloudagent.validateValues.databaseName" .) -}}
 {{- $messages := append $messages (include "veritable-cloudagent.validateValues.databaseUser" .) -}}
+{{- $messages := append $messages (include "veritable-cloudagent.validateValues.ingressHttpWs" .) -}}
+
 
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -260,18 +256,21 @@ veritable-cloudagent:
 
 {{/* Validate ingressHttpWs hostname, path, and transport default */}}
 {{- define "veritable-cloudagent.validateValues.ingressHttpWs" -}}
-{{- $errors := list -}}
 {{- if not .Values.ingressHttpWs.hostname -}}
-  {{- $errors = append $errors "Missing 'ingressHttpWs.hostname'" -}}
+veritable-cloudagent:
+    Missing value for ingressHttpWs.hostname
 {{- end -}}
 {{- if not .Values.ingressHttpWs.paths -}}
-  {{- $errors = append $errors "Missing 'ingressHttpWs.paths'" -}}
+veritable-cloudagent:
+    Missing value for ingressHttpWs.paths
 {{- end -}}
 {{- if not .Values.ingressHttpWs.httpOrWsTransportDefault -}}
-  {{- $errors = append $errors "Missing 'ingressHttpWs.httpOrWsTransportDefault'" -}}
+veritable-cloudagent:
+    Missing value for ingressHttpWs.httpOrWsTransportDefault
 {{- end -}}
-{{- $errors = without $errors "" -}}
-{{- if len $errors -}}
-  {{- printf "Validation errors:\n%s" (join "\n" $errors) | fail -}} 
+{{- $transport := .Values.ingressHttpWs.httpOrWsTransportDefault -}}
+{{- if not (or (eq $transport "http") (eq $transport "ws")) -}}
+veritable-cloudagent:
+    Invalid transport, must be http or ws
 {{- end -}}
 {{- end -}}

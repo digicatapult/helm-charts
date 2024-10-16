@@ -117,9 +117,8 @@ verifiedDrpcOptionsProofTimeoutMs: 5000
 verifiedDrpcOptionsRequestTimeoutMs: 5000
 ## @param verifiedDrpcOptionsProofRequestOptions veritable-cloudagent Must be a JSON Stringified object with the options for the proof request
 verifiedDrpcOptionsProofRequestOptions: ""
-## @param isNginxIngressController Indicates if the NGINX Ingress Controller is enabled.
-## Used to conditionally apply specific NGINX annotations for WebSocket support.
-isNginxIngressController: true
+## @param isNginxIngressController Set as true if the ingress controller for this statefulSet is `NGINX-ingress-controller` so we can apply serverSnippet for websocket upgrade.
+isNginxIngressController: false
 
 ## @section IPFS Container Parameters
 ## @param ipfs.enabled Enable IPFS container within pod
@@ -863,8 +862,7 @@ ingressHttpWs:
   paths:
     - path: /
       pathType: Prefix
-  ## @param ingressHttpWs.httpOrWsTransportDefault [string] Default transport protocol for the endpoint.
-  ## Can be set to "http" or "ws".
+  ## @param ingressHttpWs.httpOrWsTransportDefault [string] Default transport protocol for the endpoint. Can be set to "http" or "ws".
   ## e.g:
   ## httpOrWsTransportDefault: "http"
   ##
