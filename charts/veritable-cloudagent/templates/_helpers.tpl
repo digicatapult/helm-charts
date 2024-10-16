@@ -207,9 +207,9 @@ fail on missing values.
 {{- define "veritable-cloudagent.defineEndpoint" -}}
 {{- if .Values.endpoint -}}
     {{- print "%s" .Values.endpoint -}}
-{{- end -}}
-{{- else if .Values.ingressHttpWs.hostname -}} 
-    {{ printf "%s://%s%s" .Values.ingressHttpWs.httpOrWsTransportDefault .Values.ingressHttpWs.hostname (index .Values.ingressHttpWs.paths 0).path }}
+{{- else -}}
+    {{- if .Values.ingressHttpWs.hostname -}} 
+        {{ printf "%s://%s%s" .Values.ingressHttpWs.httpOrWsTransportDefault .Values.ingressHttpWs.hostname (index .Values.ingressHttpWs.paths 0).path }}
 {{- end -}} 
 {{- end -}}
 
