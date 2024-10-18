@@ -133,6 +133,10 @@ ingress:
           pathType: Prefix
         - path: /data
           pathType: Prefix
+        - path: /swagger
+          pathType: Prefix
+        - path: /api-docs
+          pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
