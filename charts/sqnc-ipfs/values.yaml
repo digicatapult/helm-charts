@@ -157,7 +157,7 @@ healthCheckTimeout: 2000
 image:
   registry: docker.io
   repository: digicatapult/sqnc-ipfs
-  tag: v2.10.86
+  tag: v2.10.87
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
