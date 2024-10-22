@@ -145,7 +145,7 @@ The application only accepts a single ENVAR, so you should always update `modelP
 | `ingress.hosts[0].paths[1].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /data         | `Prefix`                 |
 | `ingress.hosts[0].paths[2].path`     | Path to match against requests for /swagger                        | `/swagger`               |
 | `ingress.hosts[0].paths[2].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /swagger      | `Prefix`                 |
-| `ingress.hosts[0].paths[3].path`     | Path to match against requests for /openapi-.json                  | `/openapi.json`          |
+| `ingress.hosts[0].paths[3].path`     | Path to match against requests for /openapi.json                   | `/openapi.json`          |
 | `ingress.hosts[0].paths[3].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /openapi.json | `Prefix`                 |
 | `ingress.tls`                        | TLS configuration for ingress                                      | `[]`                     |
 
