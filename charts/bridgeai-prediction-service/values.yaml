@@ -2,45 +2,70 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+## @param replicaCount Number of replicas to deploy
 replicaCount: 1
 
+## @section Container Image Parameters
+##
+## @param image.repository Prediction service image repository
+## @param image.pullPolicy Prediction service image pull policy
+## @param image.tag Prediction service image tag
 image:
-  repository: ghcr.io/digicatapult/bridgeai-prediction-service
+  repository: digicatapult/bridgeai-prediction-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.2.1"
+  tag: "v0.3.0"
 
+## @param imagePullSecrets Specify image pull secrets
 imagePullSecrets: []
+
+## @section Chart Parameters
+
+## @param nameOverride Override name for the chart
 nameOverride: ""
+
+## @param fullnameOverride Override full name for the chart
 fullnameOverride: ""
 
+## @section Config Parameters
+
+## @param modelPredictionEndpoint Endpoint for the prediction model
 modelPredictionEndpoint: "http://model/prediction/endpoint"
+## @param command Command to override default container entrypoint
+command:
+  - "uvicorn"
+  - "src.main:app"
 
+## @param args Args to override default container arguments
+args:
+  - "--host"
+  - "0.0.0.0"
+  - "--reload"
+
+
+## @section Service Account Parameters
+##
+## @param serviceAccount.create Specifies whether a service account should be created
+## @param serviceAccount.automount Automatically mount a ServiceAccount's API credentials
+## @param serviceAccount.annotations Annotations to add to the service account
+## @param serviceAccount.name The name of the service account to use
 serviceAccount:
-  # Specifies whether a service account should be created
   create: true
-  # Automatically mount a ServiceAccount's API credentials?
   automount: true
-  # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
   name: ""
-
-## Bitnami PostgreSQL subcharts
 
 ## @section Init Container Parameters
 ##
 initDbCreate:
   ## PostreSQL image
   ## ref: https://hub.docker.com/_/postgres/tags/
-  ## @param initDbCreate.image.registry sqnc-routing-service image registry
-  ## @param initDbCreate.image.repository sqnc-routing-service image repository
-  ## @param initDbCreate.image.tag sqnc-routing-service image tag (immutable tags are recommended)
-  ## @param initDbCreate.image.digest sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
-  ## @param initDbCreate.image.pullPolicy sqnc-routing-service image pull policy
-  ## @param initDbCreate.image.pullSecrets sqnc-routing-service image pull secrets
-  ##
+  ## @param initDbCreate.image.registry PostgreSQL image registry
+  ## @param initDbCreate.image.repository PostgreSQL image repository
+  ## @param initDbCreate.image.tag PostgreSQL image tag (immutable tags are recommended)
+  ## @param initDbCreate.image.digest PostgreSQL image digest (sha256)
+  ## @param initDbCreate.image.pullPolicy PostgreSQL image pull policy
+  ## @param initDbCreate.image.pullSecrets PostgreSQL image pull secrets
   image:
     registry: docker.io
     repository: postgres
@@ -50,22 +75,23 @@ initDbCreate:
     pullSecrets: []
 
 ## @param initDbMigrate.enable Run database migration in an init container
-## @param initDbMigrate.environment Database configuration environment to run database into
-## @param initDbMigrate.args Argument to pass to alembic to migrate the database
+## @param initDbMigrate.environment Database configuration environment to run migration
+## @param initDbMigrate.args Arguments to pass to alembic to migrate the database
 initDbMigrate:
   enable: true
   environment: production
   args: ["upgrade", "head"]
 
+
+## @section Database Parameters
 ## PostgreSQL chart configuration
 ## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
-## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart
-## @param postgresql.auth.username Name for a custom user to create
-## @param postgresql.auth.password Password for the custom user to create
-## @param postgresql.auth.database Name for a custom database to create
-## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
+## @param postgresql.enabled Enable or disable PostgreSQL helm chart
+## @param postgresql.auth.username Custom PostgreSQL user
+## @param postgresql.auth.password Custom PostgreSQL user password
+## @param postgresql.auth.database Custom PostgreSQL database
+## @param postgresql.auth.existingSecret Existing secret for PostgreSQL credentials
 ## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
-##
 postgresql:
   enabled: true
   auth:
@@ -76,19 +102,18 @@ postgresql:
   architecture: standalone
 
 ## External PostgreSQL configuration
-## All of these values are only used when postgresql.enabled is set to false
-## @param externalDatabase.host Database host
-## @param externalDatabase.port Database port number
-## @param externalDatabase.user Non-root username for bridgeai-prediction-service
-## @param externalDatabase.password Password for the non-root username for bridgeai-prediction-service
-## @param externalDatabase.database bridgeai-prediction-service database name
-## @param externalDatabase.create Enable PostgreSQL user and database creation (when using an external db)
-## @param externalDatabase.postgresqlPostgresUser External Database admin username
+## All values used only when postgresql.enabled is false
+## @param externalDatabase.host External database host
+## @param externalDatabase.port External database port number
+## @param externalDatabase.user Username for external database
+## @param externalDatabase.password Password for external database
+## @param externalDatabase.database External database name
+## @param externalDatabase.create Enable PostgreSQL user and database creation (external DB)
+## @param externalDatabase.postgresqlPostgresUser External Database admin user
 ## @param externalDatabase.postgresqlPostgresPassword External Database admin password
-## @param externalDatabase.existingSecret Name of an existing secret resource containing the database credentials
-## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the non-root credentials
-## @param externalDatabase.existingSecretPostgresPasswordKey Name of an existing secret key containing the admin credentials
-##
+## @param externalDatabase.existingSecret Existing secret containing database credentials
+## @param externalDatabase.existingSecretPasswordKey Secret key for user credentials
+## @param externalDatabase.existingSecretPostgresPasswordKey Secret key for admin credentials
 externalDatabase:
   host: ""
   port: 5432
@@ -102,12 +127,19 @@ externalDatabase:
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
 
+## @section Pod Configuration Parameters
+##
+## @param podAnnotations Extra annotations for the pod
 podAnnotations: {}
+
+## @param podLabels Extra labels for the pod
 podLabels: {}
 
+## @param podSecurityContext Pod security context settings
 podSecurityContext: {}
   # fsGroup: 2000
 
+## @param securityContext Container security context settings
 securityContext: {}
   # capabilities:
   #   drop:
@@ -116,10 +148,29 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+## @section Service Parameters
+##
+## @param service.type Kubernetes service type (ClusterIP, NodePort, LoadBalancer)
+## @param service.port Service port to expose
 service:
   type: ClusterIP
   port: 8000
 
+## @section Ingress Parameters
+##
+## @param ingress.enabled Enable or disable ingress controller
+## @param ingress.className IngressClass to use for resource implementation
+## @param ingress.annotations Annotations to add to the Ingress resource
+## @param ingress.hosts[0].host Hostname to route requests
+## @param ingress.hosts[0].paths[0].path Path to match against requests
+## @param ingress.hosts[0].paths[0].pathType Type of path matching rule (`Prefix` or `Exact`)
+## @param ingress.hosts[0].paths[1].path Path to match against requests for /data
+## @param ingress.hosts[0].paths[1].pathType Type of path matching rule (`Prefix` or `Exact`) for /data
+## @param ingress.hosts[0].paths[2].path Path to match against requests for /swagger
+## @param ingress.hosts[0].paths[2].pathType Type of path matching rule (`Prefix` or `Exact`) for /swagger
+## @param ingress.hosts[0].paths[3].path Path to match against requests for /api-docs
+## @param ingress.hosts[0].paths[3].pathType Type of path matching rule (`Prefix` or `Exact`) for /api-docs
+## @param ingress.tls TLS configuration for ingress
 ingress:
   enabled: false
   className: ""
@@ -142,11 +193,11 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+## @section Resources Parameters
+##
+## @param resources Resource requests and limits
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # Uncomment below lines to set specific resources.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -154,30 +205,29 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-## @param command Override default container command (useful when using custom images)
-##
-command:
-  - "uvicorn"
-  - "src.main:app"
-## @param args Override default container args (useful when using custom images)
-##
-args:
-  - "--host"
-  - "0.0.0.0"
-  - "--reload"
-
-## @param envVars Array with extra environment variables to add to the prediction service container
+## @param envVars Additional environment variables for prediction service container
 envVars: []
 
+## @param livenessProbe.httpGet.path Path to perform liveness probe on container
+## @param livenessProbe.httpGet.port Port to perform liveness probe on container
 livenessProbe:
   httpGet:
     path: /
     port: http
+
+## @param readinessProbe.httpGet.path Path to perform readiness probe on container
+## @param readinessProbe.httpGet.port Port to perform readiness probe on container
 readinessProbe:
   httpGet:
     path: /
     port: http
 
+## @section Autoscaling Parameters
+##
+## @param autoscaling.enabled Enable or disable autoscaling for the prediction service
+## @param autoscaling.minReplicas Minimum number of replicas
+## @param autoscaling.maxReplicas Maximum number of replicas
+## @param autoscaling.targetCPUUtilizationPercentage Target CPU utilization for autoscaling
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -185,21 +235,26 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# Additional volumes on the output Deployment definition.
+## @section Volume Parameters
+##
+## @param volumes Additional volumes for the prediction service
 volumes: []
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
-# Additional volumeMounts on the output Deployment definition.
+## @param volumeMounts Additional volume mounts for the prediction service
 volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
+## @param nodeSelector Node labels for pod assignment
 nodeSelector: {}
 
+## @param tolerations Tolerations for pod assignment
 tolerations: []
 
+## @param affinity Affinity rules for pod assignment
 affinity: {}
