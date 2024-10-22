@@ -43,3 +43,138 @@ helm delete my-release
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 The application only accepts a single ENVAR, so you should always update `modelPredictionEndpoint` to the URL that contains the model.
+
+## Parameters
+
+### Container Image Parameters
+
+| Name               | Description                          | Value                                      |
+| ------------------ | ------------------------------------ | ------------------------------------------ |
+| `image.repository` | Prediction service image repository  | `digicatapult/bridgeai-prediction-service` |
+| `image.pullPolicy` | Prediction service image pull policy | `IfNotPresent`                             |
+| `image.tag`        | Prediction service image tag         | `v0.3.0`                                   |
+| `imagePullSecrets` | Specify image pull secrets           | `[]`                                       |
+
+### Chart Parameters
+
+| Name               | Description                      | Value |
+| ------------------ | -------------------------------- | ----- |
+| `nameOverride`     | Override name for the chart      | `""`  |
+| `fullnameOverride` | Override full name for the chart | `""`  |
+
+### Config Parameters
+
+| Name                      | Description                                      | Value                              |
+| ------------------------- | ------------------------------------------------ | ---------------------------------- |
+| `modelPredictionEndpoint` | Endpoint for the prediction model                | `http://model/prediction/endpoint` |
+| `command`                 | Command to override default container entrypoint | `["uvicorn","src.main:app"]`       |
+| `args`                    | Args to override default container arguments     | `["--host","0.0.0.0","--reload"]`  |
+
+### Service Account Parameters
+
+| Name                         | Description                                            | Value  |
+| ---------------------------- | ------------------------------------------------------ | ------ |
+| `serviceAccount.create`      | Specifies whether a service account should be created  | `true` |
+| `serviceAccount.automount`   | Automatically mount a ServiceAccount's API credentials | `true` |
+| `serviceAccount.annotations` | Annotations to add to the service account              | `{}`   |
+| `serviceAccount.name`        | The name of the service account to use                 | `""`   |
+
+### Init Container Parameters
+
+| Name                             | Description                                           | Value                |
+| -------------------------------- | ----------------------------------------------------- | -------------------- |
+| `initDbCreate.image.registry`    | PostgreSQL image registry                             | `docker.io`          |
+| `initDbCreate.image.repository`  | PostgreSQL image repository                           | `postgres`           |
+| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `16-alpine`          |
+| `initDbCreate.image.digest`      | PostgreSQL image digest (sha256)                      | `""`                 |
+| `initDbCreate.image.pullPolicy`  | PostgreSQL image pull policy                          | `IfNotPresent`       |
+| `initDbCreate.image.pullSecrets` | PostgreSQL image pull secrets                         | `[]`                 |
+| `initDbMigrate.enable`           | Run database migration in an init container           | `true`               |
+| `initDbMigrate.environment`      | Database configuration environment to run migration   | `production`         |
+| `initDbMigrate.args`             | Arguments to pass to alembic to migrate the database  | `["upgrade","head"]` |
+
+### Database Parameters
+
+| Name                                                 | Description                                                | Value        |
+| ---------------------------------------------------- | ---------------------------------------------------------- | ------------ |
+| `postgresql.enabled`                                 | Enable or disable PostgreSQL helm chart                    | `true`       |
+| `postgresql.auth.username`                           | Custom PostgreSQL user                                     | `admin`      |
+| `postgresql.auth.password`                           | Custom PostgreSQL user password                            | `""`         |
+| `postgresql.auth.database`                           | Custom PostgreSQL database                                 | `prediction` |
+| `postgresql.auth.existingSecret`                     | Existing secret for PostgreSQL credentials                 | `""`         |
+| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)    | `standalone` |
+| `externalDatabase.host`                              | External database host                                     | `""`         |
+| `externalDatabase.port`                              | External database port number                              | `5432`       |
+| `externalDatabase.user`                              | Username for external database                             | `admin`      |
+| `externalDatabase.password`                          | Password for external database                             | `""`         |
+| `externalDatabase.database`                          | External database name                                     | `prediction` |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (external DB) | `true`       |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin user                               | `postgres`   |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                           | `""`         |
+| `externalDatabase.existingSecret`                    | Existing secret containing database credentials            | `""`         |
+| `externalDatabase.existingSecretPasswordKey`         | Secret key for user credentials                            | `""`         |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Secret key for admin credentials                           | `""`         |
+
+### Pod Configuration Parameters
+
+| Name                 | Description                         | Value |
+| -------------------- | ----------------------------------- | ----- |
+| `podAnnotations`     | Extra annotations for the pod       | `{}`  |
+| `podLabels`          | Extra labels for the pod            | `{}`  |
+| `podSecurityContext` | Pod security context settings       | `{}`  |
+| `securityContext`    | Container security context settings | `{}`  |
+
+### Service Parameters
+
+| Name           | Description                                                 | Value       |
+| -------------- | ----------------------------------------------------------- | ----------- |
+| `service.type` | Kubernetes service type (ClusterIP, NodePort, LoadBalancer) | `ClusterIP` |
+| `service.port` | Service port to expose                                      | `8000`      |
+
+### Ingress Parameters
+
+| Name                                 | Description                                                    | Value                    |
+| ------------------------------------ | -------------------------------------------------------------- | ------------------------ |
+| `ingress.enabled`                    | Enable or disable ingress controller                           | `false`                  |
+| `ingress.className`                  | IngressClass to use for resource implementation                | `""`                     |
+| `ingress.annotations`                | Annotations to add to the Ingress resource                     | `{}`                     |
+| `ingress.hosts[0].host`              | Hostname to route requests                                     | `model-prediction.local` |
+| `ingress.hosts[0].paths[0].path`     | Path to match against requests                                 | `/predict`               |
+| `ingress.hosts[0].paths[0].pathType` | Type of path matching rule (`Prefix` or `Exact`)               | `Prefix`                 |
+| `ingress.hosts[0].paths[1].path`     | Path to match against requests for /data                       | `/data`                  |
+| `ingress.hosts[0].paths[1].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /data     | `Prefix`                 |
+| `ingress.hosts[0].paths[2].path`     | Path to match against requests for /swagger                    | `/swagger`               |
+| `ingress.hosts[0].paths[2].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /swagger  | `Prefix`                 |
+| `ingress.hosts[0].paths[3].path`     | Path to match against requests for /api-docs                   | `/api-docs`              |
+| `ingress.hosts[0].paths[3].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /api-docs | `Prefix`                 |
+| `ingress.tls`                        | TLS configuration for ingress                                  | `[]`                     |
+
+### Resources Parameters
+
+| Name                          | Description                                                       | Value  |
+| ----------------------------- | ----------------------------------------------------------------- | ------ |
+| `resources`                   | Resource requests and limits                                      | `{}`   |
+| `envVars`                     | Additional environment variables for prediction service container | `[]`   |
+| `livenessProbe.httpGet.path`  | Path to perform liveness probe on container                       | `/`    |
+| `livenessProbe.httpGet.port`  | Port to perform liveness probe on container                       | `http` |
+| `readinessProbe.httpGet.path` | Path to perform readiness probe on container                      | `/`    |
+| `readinessProbe.httpGet.port` | Port to perform readiness probe on container                      | `http` |
+
+### Autoscaling Parameters
+
+| Name                                         | Description                                              | Value   |
+| -------------------------------------------- | -------------------------------------------------------- | ------- |
+| `autoscaling.enabled`                        | Enable or disable autoscaling for the prediction service | `false` |
+| `autoscaling.minReplicas`                    | Minimum number of replicas                               | `1`     |
+| `autoscaling.maxReplicas`                    | Maximum number of replicas                               | `10`    |
+| `autoscaling.targetCPUUtilizationPercentage` | Target CPU utilization for autoscaling                   | `80`    |
+
+### Volume Parameters
+
+| Name           | Description                                         | Value |
+| -------------- | --------------------------------------------------- | ----- |
+| `volumes`      | Additional volumes for the prediction service       | `[]`  |
+| `volumeMounts` | Additional volume mounts for the prediction service | `[]`  |
+| `nodeSelector` | Node labels for pod assignment                      | `{}`  |
+| `tolerations`  | Tolerations for pod assignment                      | `[]`  |
+| `affinity`     | Affinity rules for pod assignment                   | `{}`  |
