@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CHART_LIST: "charts/bridgeai-prediction-service"
+  CHART_LIST: ""
   # space separated list of charts that we want to use a pullSecret for
 
 jobs:
