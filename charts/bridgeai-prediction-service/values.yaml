@@ -186,7 +186,7 @@ ingress:
           pathType: Prefix
         - path: /swagger
           pathType: Prefix
-        - path: /api-docs
+        - path: /openapi.json
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
