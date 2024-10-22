@@ -133,21 +133,21 @@ The application only accepts a single ENVAR, so you should always update `modelP
 
 ### Ingress Parameters
 
-| Name                                 | Description                                                    | Value                    |
-| ------------------------------------ | -------------------------------------------------------------- | ------------------------ |
-| `ingress.enabled`                    | Enable or disable ingress controller                           | `false`                  |
-| `ingress.className`                  | IngressClass to use for resource implementation                | `""`                     |
-| `ingress.annotations`                | Annotations to add to the Ingress resource                     | `{}`                     |
-| `ingress.hosts[0].host`              | Hostname to route requests                                     | `model-prediction.local` |
-| `ingress.hosts[0].paths[0].path`     | Path to match against requests                                 | `/predict`               |
-| `ingress.hosts[0].paths[0].pathType` | Type of path matching rule (`Prefix` or `Exact`)               | `Prefix`                 |
-| `ingress.hosts[0].paths[1].path`     | Path to match against requests for /data                       | `/data`                  |
-| `ingress.hosts[0].paths[1].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /data     | `Prefix`                 |
-| `ingress.hosts[0].paths[2].path`     | Path to match against requests for /swagger                    | `/swagger`               |
-| `ingress.hosts[0].paths[2].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /swagger  | `Prefix`                 |
-| `ingress.hosts[0].paths[3].path`     | Path to match against requests for /api-docs                   | `/api-docs`              |
-| `ingress.hosts[0].paths[3].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /api-docs | `Prefix`                 |
-| `ingress.tls`                        | TLS configuration for ingress                                  | `[]`                     |
+| Name                                 | Description                                                        | Value                    |
+| ------------------------------------ | ------------------------------------------------------------------ | ------------------------ |
+| `ingress.enabled`                    | Enable or disable ingress controller                               | `false`                  |
+| `ingress.className`                  | IngressClass to use for resource implementation                    | `""`                     |
+| `ingress.annotations`                | Annotations to add to the Ingress resource                         | `{}`                     |
+| `ingress.hosts[0].host`              | Hostname to route requests                                         | `model-prediction.local` |
+| `ingress.hosts[0].paths[0].path`     | Path to match against requests                                     | `/predict`               |
+| `ingress.hosts[0].paths[0].pathType` | Type of path matching rule (`Prefix` or `Exact`)                   | `Prefix`                 |
+| `ingress.hosts[0].paths[1].path`     | Path to match against requests for /data                           | `/data`                  |
+| `ingress.hosts[0].paths[1].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /data         | `Prefix`                 |
+| `ingress.hosts[0].paths[2].path`     | Path to match against requests for /swagger                        | `/swagger`               |
+| `ingress.hosts[0].paths[2].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /swagger      | `Prefix`                 |
+| `ingress.hosts[0].paths[3].path`     | Path to match against requests for /openapi.json                   | `/openapi.json`          |
+| `ingress.hosts[0].paths[3].pathType` | Type of path matching rule (`Prefix` or `Exact`) for /openapi.json | `Prefix`                 |
+| `ingress.tls`                        | TLS configuration for ingress                                      | `[]`                     |
 
 ### Resources Parameters
 

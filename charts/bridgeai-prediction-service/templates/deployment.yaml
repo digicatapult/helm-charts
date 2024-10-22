@@ -117,6 +117,19 @@ spec:
           env:
             - name: MODEL_PREDICTION_ENDPOINT
               value: {{ .Values.modelPredictionEndpoint }}
+            - name: POSTGRES_HOST
+              value: {{ template "bridgeai-prediction-service.databaseHost" . }}
+            - name: POSTGRES_PORT
+              value: {{ template "bridgeai-prediction-service.databasePort" . }}
+            - name: POSTGRES_DB
+              value: {{ template "bridgeai-prediction-service.databaseName" . }}
+            - name: POSTGRES_USER
+              value: {{ template "bridgeai-prediction-service.databaseUser" . }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bridgeai-prediction-service.databaseSecretName" . }}
+                  key: {{ include "bridgeai-prediction-service.databaseSecretPasswordKey" . }}
           {{- if .Values.envVars }}
           {{- toYaml .Values.envVars | nindent 12 }}
           {{- end }}
