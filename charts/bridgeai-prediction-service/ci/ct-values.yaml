@@ -1,4 +1,2 @@
-imagePullSecrets:
-  - name: "ci"
 ingress:
   enabled: true
