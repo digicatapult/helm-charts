@@ -85,7 +85,7 @@ The application only accepts a single ENVAR, so you should always update `modelP
 | -------------------------------- | ----------------------------------------------------- | -------------------- |
 | `initDbCreate.image.registry`    | PostgreSQL image registry                             | `docker.io`          |
 | `initDbCreate.image.repository`  | PostgreSQL image repository                           | `postgres`           |
-| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `16-alpine`          |
+| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `17-alpine`          |
 | `initDbCreate.image.digest`      | PostgreSQL image digest (sha256)                      | `""`                 |
 | `initDbCreate.image.pullPolicy`  | PostgreSQL image pull policy                          | `IfNotPresent`       |
 | `initDbCreate.image.pullSecrets` | PostgreSQL image pull secrets                         | `[]`                 |
