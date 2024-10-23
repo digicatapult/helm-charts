@@ -96,7 +96,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-identity-service
-  tag: v2.0.121
+  tag: v2.0.122
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
