@@ -1706,6 +1706,42 @@ entries:
   - annotations:
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: 1.1.52
+    created: "2024-10-26T19:06:53.067097547Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The openapi-merger is designed to merge several openapi files into
+      one and present a unified swagger interface
+    digest: 3a7ea1be77bfaf86e7bed5a5b89c29bb092a1d776842ace639c79423ee270255
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: openapi-merger
+    sources:
+    - https://github.com/digicatapult/openapi-merger
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/openapi-merger-2.1.16/openapi-merger-2.1.16.tgz
+    version: 2.1.16
+  - annotations:
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: 1.1.51
     created: "2024-10-26T00:26:17.482901052Z"
     dependencies:
@@ -9529,4 +9565,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2024-10-26T03:09:55.907162646Z"
+generated: "2024-10-26T19:06:53.067634899Z"
