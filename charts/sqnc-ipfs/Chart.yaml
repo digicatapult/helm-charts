@@ -5,8 +5,8 @@ apiVersion: v2
 name: sqnc-ipfs
 description: sqnc-ipfs is a component of the SQNC project that provides a distributed IPFS based storage solution for the SQNC platform.
 # renovate: image=digicatapult/sqnc-ipfs
-appVersion: v2.10.93
-version: 4.0.15
+appVersion: v2.10.94
+version: 4.0.16
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
