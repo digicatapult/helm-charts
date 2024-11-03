@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/veritable-ui
-appVersion: v0.14.4
+appVersion: v0.14.5
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -30,4 +30,4 @@ maintainers:
 name: veritable-ui
 sources:
   - https://github.com/digicatapult/veritable-ui
-version: 1.0.61
+version: 1.0.62
