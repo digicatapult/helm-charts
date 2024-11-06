@@ -36,6 +36,7 @@ jobs:
         with:
           token: ${{ steps.get_token.outputs.token }}
           configurationFile: renovate.config.js
+          renovate-version: full
         env:
           LOG_LEVEL: debug
           RENOVATE_SELF_HOSTED: true
