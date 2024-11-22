@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 16.2.1
+  version: 16.2.2
 - name: common
   repository: https://charts.bitnami.com/bitnami
   version: 2.27.0
 - name: veritable-cloudagent
   repository: https://digicatapult.github.io/helm-charts
-  version: 2.3.15
-digest: sha256:6a71293b0533a06315e0b18092cdd3bb871a92fdc5d2718b76f85945c897ed4c
-generated: "2024-11-15T01:37:35.029633502Z"
+  version: 2.3.16
+digest: sha256:33a3ef4aef00c19277d0a5a29450e7cf667deb050fa16cb7247ded2e211a45cd
+generated: "2024-11-22T09:12:09.910177022Z"
