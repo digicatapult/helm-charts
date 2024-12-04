@@ -5622,6 +5622,46 @@ entries:
       category: sqnc
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v3.1.6
+    created: "2024-12-04T03:22:13.711819773Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 7643f4cde55610edc233445ae337cf02b96c3048037a5ba9935868cb695ca81e
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/sqnc-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-2.0.47/sqnc-matchmaker-api-2.0.47.tgz
+    version: 2.0.47
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v3.1.5
     created: "2024-11-30T01:35:48.35678186Z"
     dependencies:
@@ -14122,4 +14162,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2024-12-04T02:35:08.270382081Z"
+generated: "2024-12-04T03:22:13.712443654Z"
