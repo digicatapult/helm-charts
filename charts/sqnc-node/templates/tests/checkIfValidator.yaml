@@ -9,11 +9,12 @@ metadata:
 spec:
   containers:
     - name: validator-check
-      image: curlimages/curl
+      image: ubuntu
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
+          app-get install jq
           {{- if .Values.node.role }}
           if [ "$ROLE" = "validator" ]; then
             # checks if finalizing blocks
@@ -33,11 +34,12 @@ spec:
         - name: ROLE
           value: {{ default "unknown" .Values.node.role }}
     - name: block-processing
-      image: curlimages/curl
+      image: ubuntu
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
+          app-get install jq
           # {"jsonrpc":"2.0","id":1,"result":"0x51072f5e26d687bb70acba95bd788bf3864b56723181ce7da94c06cc89a41df8"}
           LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://localhost:9944`
           sleep 60
@@ -49,12 +51,12 @@ spec:
             exit 0
           fi
     - name: connected-nodes
-      image: curlimages/curl
+      image: ubuntu
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
-          # TODO install jq
+          app-get install jq
           # {"jsonrpc":"2.0","id":1,"result":{"peers":0,"isSyncing":false,"shouldHavePeers":false}}
           PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sync_state_genSyncSpec", "params": []}' http://localhost:9944 | jq '.result.peers'`
           IS_SYNCING=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' http://localhost:9944 | jq '.result.isSyncing'`
