@@ -46,9 +46,9 @@ spec:
         - |
           apk add jq curl
           # {"jsonrpc":"2.0","id":1,"result":"0x51072f5e26d687bb70acba95bd788bf3864b56723181ce7da94c06cc89a41df8"}
-          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://"$RPC":9944`
+          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://$RPC:9944"`
           sleep 120
-          NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://$RPC:9944`
+          NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://$RPC:9944"`
           if [ "$LASTBLOCK" = "$NEWBLOCK" ]; then
             echo "after 120s last finalized block has not changed"
             exit 0 # change to 1
