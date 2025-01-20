@@ -46,7 +46,7 @@ spec:
         - |
           apk add jq curl
           # {"jsonrpc":"2.0","id":1,"result":"0x51072f5e26d687bb70acba95bd788bf3864b56723181ce7da94c06cc89a41df8"}
-          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://$RPC:9944" | jq '.result'`
+          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
           sleep 20
           NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://$RPC:9944" | jq '.result'`
           echo $LASTBLOCK $NEWBLOCK
