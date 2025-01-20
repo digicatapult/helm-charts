@@ -35,7 +35,7 @@ spec:
           {{- end }}
       env:
         - name: RPC
-          value: "{{ include "sqnc-node.fullname" . }}-{{ $i }}"
+          value: "{{ $fullname }}-{{ $i }}"
         - name: ROLE
           value: {{ default "unknown" $.Values.node.role }}
     - name: block-processing
