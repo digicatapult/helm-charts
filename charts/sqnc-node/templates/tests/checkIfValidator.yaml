@@ -1,11 +1,12 @@
 {{ $fullname :=  include "sqnc-node.fullname" . }}
+{{ $serviceLabels :=  include "sqnc-node.serviceLabels" .  }}
 {{range $i := until ($.Values.node.replicas | int) }}
 apiVersion: v1
 kind: Pod
 metadata:
   name: "{{ $fullname }}-post-install-test-suite"
   labels:
-    {{- include "sqnc-node.labels" . | nindent 4 }}
+      {{- $selectorLabels | nindent 4 }}
   annotations:
     "helm.sh/hook": post-install
 spec:
