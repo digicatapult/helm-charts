@@ -6,7 +6,7 @@ kind: Pod
 metadata:
   name: "{{ $fullname }}-post-install-test-suite"
   labels:
-      {{- $selectorLabels | nindent 4 }}
+      {{- $serviceLabels | nindent 4 }}
   annotations:
     "helm.sh/hook": post-install
 spec:
