@@ -1,5 +1,4 @@
-{{ $fullname :=  include "sqnc-node.fullname" . }}
-{{range $i := until (.Values.node.replicas | int) }}
+{{range $i := until ($.Values.node.replicas | int) }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -34,7 +33,7 @@ spec:
           {{- end }}
       env:
         - name: RPC
-          value: {{ $fullname}}-{{ $i }}
+          value: "{{ include "sqnc-node.fullname" . }}-{{ $i }}"
         - name: ROLE
           value: {{ default "unknown" $.Values.node.role }}
     - name: block-processing
@@ -76,7 +75,7 @@ spec:
           fi
       env:
         - name: RPC
-          value: {{ $fullname}}-{{ $i }}
+          value: "{{ include "sqnc-node.fullname" . }}-{{ $i }}"
 
   restartPolicy: Never
 {{ end }}
