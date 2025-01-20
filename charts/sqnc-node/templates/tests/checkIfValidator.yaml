@@ -9,7 +9,8 @@ metadata:
 spec:
   containers:
     - name: validator-check
-      image: ubuntu
+      image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
+      # TODO - would need to pick up RPC endpoint from services.yaml (stateful set) - not sure how tho
       command: [ "/bin/sh" ]
       args:
         - -c
@@ -34,7 +35,7 @@ spec:
         - name: ROLE
           value: {{ default "unknown" .Values.node.role }}
     - name: block-processing
-      image: ubuntu
+      image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
@@ -51,7 +52,7 @@ spec:
             exit 0
           fi
     - name: connected-nodes
-      image: ubuntu
+      image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
