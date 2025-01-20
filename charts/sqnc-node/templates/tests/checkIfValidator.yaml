@@ -1,9 +1,9 @@
-{{ $fullname :=  . }}
+{{ $fullname :=  include "sqnc-node.fullname" . }}
 {{range $i := until ($.Values.node.replicas | int) }}
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{- include "sqnc-node.fullname" . }}-post-install-test-suite"
+  name: "{{ $fullname }}-post-install-test-suite"
   labels:
     {{- include "sqnc-node.labels" . | nindent 4 }}
   annotations:
