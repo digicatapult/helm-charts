@@ -33,7 +33,7 @@ spec:
           {{- end }}
       env:
         - name: RPC
-          value: {{ default "localhost" $fullname-$i }}
+          value: {{ default "localhost" $fullname"-"$i }}
         - name: ROLE
           value: {{ default "unknown" $.Values.node.role }}
     - name: block-processing
@@ -75,7 +75,7 @@ spec:
           fi
       env:
         - name: RPC
-          value: {{ default "localhost" $fullname-$i }}
+          value: {{ default "localhost" $fullname"-"$i  }}
 
   restartPolicy: Never
 {{ end }}
