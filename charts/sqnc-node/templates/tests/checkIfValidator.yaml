@@ -1,3 +1,4 @@
+{{ $fullname :=  include "sqnc-node.fullname" . }}
 {{range $i := until (.Values.node.replicas | int) }}
 apiVersion: v1
 kind: Pod
