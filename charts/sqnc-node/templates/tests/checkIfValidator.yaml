@@ -1,3 +1,4 @@
+{{range $i := until (.Values.node.replicas | int) }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -9,18 +10,17 @@ metadata:
 spec:
   containers:
     - name: validator-check
-      image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
-      # TODO - would need to pick up RPC endpoint from services.yaml (stateful set) - not sure how tho
+      image: {{ $.Values.initContainer.image.repository }}:{{ $.Values.initContainer.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
           apk add jq curl
-          {{- if .Values.node.role }}
+          {{- if $.Values.node.role }}
           if [ "$ROLE" = "validator" ]; then
             # checks if finalizing blocks
             # {"jsonrpc":"2.0","id":1,"result":"0x51072f5e26d687bb70acba95bd788bf3864b56723181ce7da94c06cc89a41df8"}
-            LASTBLOCKHASH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://localhost:9944 | js '.result'`
+            LASTBLOCKHASH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://{{ $fullname }}-{{ $i }}:9944 | js '.result'`
 
             # {"jsonrpc":"2.0","id":1,"result":{"block":{"header":{"parentHash":"0x3667463a8809d2f80271fda7be0d6b1346270db28dff7c43fb10af4d942e20f1","number":"0x1b","stateRoot":"0x8877e87f9325bba34e633cae8e2b0ca45d7cfb8e7aae9113b1878af1575ea2fc","extrinsicsRoot":"0xbf1739055f0ad8397998396a6e583b231f106c402a46ef552777c405e9987c9b","digest":{"logs":["0x0642414245340200000000c7ad411100000000","0x0542414245010138e8cf3775bed32ed4801408964ebad44e23c78374925d87c4c720f441035a46408f1a2c3b48ce81e08e4b39540347a410713d72a9131b8500e57fd4fbd8c98d"]}},"extrinsics":["0x280401000b11e858739401"]},"justifications":null}}
             BLOCK=curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getBlock", "params": ["$LATESTBLOCKHASH"]}' http://localhost:9944 | jq '.result.block'
@@ -33,18 +33,18 @@ spec:
           {{- end }}
       env:
         - name: ROLE
-          value: {{ default "unknown" .Values.node.role }}
+          value: {{ default "unknown" 4.Values.node.role }}
     - name: block-processing
-      image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
+      image: {{ $.Values.initContainer.image.repository }}:{{ $.Values.initContainer.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
           apk add jq curl
           # {"jsonrpc":"2.0","id":1,"result":"0x51072f5e26d687bb70acba95bd788bf3864b56723181ce7da94c06cc89a41df8"}
-          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://localhost:9944`
+          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://{{ $fullname }}-{{ $i }}:9944`
           sleep 120
-          NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://localhost:9944`
+          NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' http://{{ $fullname }}-{{ $i }}:9944`
           if [ "$LASTBLOCK" = "$NEWBLOCK" ]; then
             echo "after 120s last finalized block has not changed"
             exit 0 # change to 1
@@ -52,15 +52,15 @@ spec:
             exit 0
           fi
     - name: connected-nodes
-      image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
+      image: {{ $.Values.initContainer.image.repository }}:{{ $.Values.initContainer.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
           apk add jq curl
           # {"jsonrpc":"2.0","id":1,"result":{"peers":0,"isSyncing":false,"shouldHavePeers":false}}
-          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sync_state_genSyncSpec", "params": []}' http://localhost:9944 | jq '.result.peers'`
-          IS_SYNCING=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' http://localhost:9944 | jq '.result.isSyncing'`
+          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sync_state_genSyncSpec", "params": []}' http://{{ $fullname }}-{{ $i }}:9944 | jq '.result.peers'`
+          IS_SYNCING=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' http://{{ $fullname }}-{{ $i }}:9944 | jq '.result.isSyncing'`
 
           if [ "$PEERS" = 0 ]; then
             echo "no peers connected to this node"
@@ -73,3 +73,4 @@ spec:
           fi
 
   restartPolicy: Never
+{{ end }}
