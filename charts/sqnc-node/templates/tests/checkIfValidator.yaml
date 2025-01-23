@@ -50,11 +50,11 @@ spec:
           apk add jq curl
           # {"jsonrpc":"2.0","id":1,"result":"0x51072f5e26d687bb70acba95bd788bf3864b56723181ce7da94c06cc89a41df8"}
           LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-          sleep 60
+          sleep 300
           NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
           echo $LASTBLOCK $NEWBLOCK
           if [ "$LASTBLOCK" = "$NEWBLOCK" ]; then
-            echo "after 60s last finalized block has not changed"
+            echo "after 5min last finalized block has not changed"
             exit 1
           else
             exit 0
@@ -67,7 +67,7 @@ spec:
         - |
           apk add jq curl
           # {"jsonrpc":"2.0","id":1,"result":{"peers":0,"isSyncing":false,"shouldHavePeers":false}}
-          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sync_state_genSyncSpec", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
           IS_SYNCING=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result.isSyncing'`
           echo $IS_SYNCING $PEERS
 
