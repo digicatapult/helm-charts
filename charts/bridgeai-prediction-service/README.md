@@ -52,7 +52,7 @@ The application only accepts a single ENVAR, so you should always update `modelP
 | ------------------ | ------------------------------------ | ------------------------------------------ |
 | `image.repository` | Prediction service image repository  | `digicatapult/bridgeai-prediction-service` |
 | `image.pullPolicy` | Prediction service image pull policy | `IfNotPresent`                             |
-| `image.tag`        | Prediction service image tag         | `v0.3.4`                                   |
+| `image.tag`        | Prediction service image tag         | `v0.3.5`                                   |
 | `imagePullSecrets` | Specify image pull secrets           | `[]`                                       |
 
 ### Chart Parameters
