@@ -1,2 +1,3 @@
 node:
   dataVolumeSize: 1Gi
+  replicas: 3
