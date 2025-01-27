@@ -1,12 +1,10 @@
 node:
   dataVolumeSize: 1Gi
-  replicas: 3
   role: validator
-  chain: local
-  customNodeKey: "0000000000000000000000000000000000000000000000000000000000000001"
+  chain: dev
   flags:
     - "--rpc-external"
-    - "--alice"
     - "--rpc-methods=Unsafe"
+    - "--alice"
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
