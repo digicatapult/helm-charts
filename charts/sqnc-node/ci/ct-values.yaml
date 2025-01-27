@@ -1,18 +1,12 @@
 node:
   dataVolumeSize: 1Gi
   replicas: 3
-  enabled: true
-  node:
-    chain: local
-    flags:
+  role: validator
+  chain: local
+  customNodeKey: "0000000000000000000000000000000000000000000000000000000000000001"
+  flags:
     - "--rpc-external"
     - "--alice"
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
-livenessProbe:
-  enabled: false
-readinessProbe:
-  enabled: false
-startupProbe:
-  enabled: false
