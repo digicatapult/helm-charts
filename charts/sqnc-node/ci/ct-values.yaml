@@ -3,14 +3,13 @@ node:
   replicas: 3
   enabled: true
   node:
-    chain: dev
+    chain: local
     flags:
     - "--rpc-external"
     - "--alice"
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
-userUri: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
 livenessProbe:
   enabled: false
 readinessProbe:
