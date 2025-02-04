@@ -1,10 +1,9 @@
 node:
   dataVolumeSize: 1Gi
   role: validator
-  chain: dev
   flags:
+    - "--dev"
     - "--rpc-external"
     - "--rpc-methods=Unsafe"
-    - "--alice"
-    - "--rpc-cors=all"
     - "--unsafe-rpc-external"
+    - "--detailed-log-output"
