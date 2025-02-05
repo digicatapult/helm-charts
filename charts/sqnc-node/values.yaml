@@ -8,6 +8,11 @@ initContainer:
     repository: crazymax/7zip
     tag: latest
 
+osShell:
+  image:
+    repository: bitnami/os-shell
+    tag: latest
+
 kubectl:
   image:
     repository: bitnami/kubectl
