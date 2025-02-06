@@ -204,6 +204,11 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: chain-data
+          {{- if .Values.node.chainSpecConfigMap }}
+            - mountPath: /data/chainspec.json
+              subPath: chainspec.json
+              name: chainspec
+          {{- end }}
         {{- end }}
         {{- if .Values.node.perNodeServices.createP2pService }}
         - name: query-services
