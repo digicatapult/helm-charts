@@ -57,6 +57,7 @@ ingress:
 
 node:
   chain: "local"
+  chainSpecConfigMap: "" # Name of the ConfigMap containing the chain spec
   command: "./sqnc-node"
   dataVolumeSize: 10Gi
   replicas: 1
