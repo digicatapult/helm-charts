@@ -269,7 +269,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.12.58
+  tag: v0.12.60
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
