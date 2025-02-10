@@ -13,73 +13,106 @@ metadata:
     "helm.sh/hook": post-install
 spec:
   containers:
-    - name: validator-check
+    - name: block-authoring-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
           {{- if eq $.Values.node.role "validator" }}
-          if [ "$ROLE" = "validator" ]; then
-            # checks if finalizing blocks
-            LASTBLOCKHASH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
-            BLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getBlock", "params": ["$LATESTBLOCKHASH"]}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+          START_HEAD=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
-            AUTHOR=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "eth_coinbase", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-
-            echo $LASTBLOCKHASH $BLOCK $AUTHOR
-
-            exit 0
+          # Authoring check
+          START_BLOCK_LOGS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getHeader", "params": ['$START_HEAD']}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result.digest.logs'`
+          START_BLOCK_AUTHOR=$(echo "$START_BLOCK_LOGS" | cut -d 'x' -f 2 | sed -r 's/(.{2})/\\x&/g')
+          if [ "${START_BLOCK_AUTHOR##*"BABE"*}" ]; then
+            echo "caught BABE as author for block $START_HEAD"
           else
-            exit 1
+            echo "failed to match expected block author"
+            exit
           fi
+
+          # Finalisation check
+          CURRENT_HEAD=$START_HEAD
+
+          echo "block head at start: $START_HEAD"
+
+          count=$((0)); interval=5; timeout=120
+          while [ $CURRENT_HEAD = $START_HEAD ]; do
+            sleep "$interval"s
+
+            CURRENT_HEAD=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+
+            echo "block head after ${interval}s: $CURRENT_HEAD"
+
+            count=$((count+interval))
+
+            if [ $count -ge $timeout ]; then
+              echo "block finalisation timeout after $count seconds; no change detected"
+              break
+            else
+              echo "block finalisation witnessed after $count seconds"
+            fi
+          done
+          {{- else }}
+          echo "found the role name $ROLE, but was expecting 'validator'"
+          exit
           {{- end }}
       env:
         - name: RPC
           value: "{{ $fullname }}-{{ $i }}"
         - name: ROLE
           value: {{ default "unknown" $.Values.node.role }}
-    - name: block-processing
+    - name: block-height-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
-          LASTBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-          sleep 20
-          NEWBLOCK=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-          echo $LASTBLOCK $NEWBLOCK
-          if [ "$LASTBLOCK" = "$NEWBLOCK" ]; then
-            echo "after 20s last finalized block has not changed"
-            exit 1
+          SYNC_STATE=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+
+          eval "$(echo $SYNC_STATE | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+
+          BLOCK_DIFF=$(($HIGHESTBLOCK - $STARTINGBLOCK))
+
+          if [ "$STARTINGBLOCK" = "$HIGHESTBLOCK" ]; then
+            echo "block height failed to increase; started at $STARTINGBLOCK and still at $HIGHESTBLOCK"
+            exit
           else
-            exit 0
+            echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
           fi
-    - name: connected-nodes
-      image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
-      command: [ "/bin/sh" ]
-      args:
-        - -c
-        - |
-          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-          IS_SYNCING=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-          echo $IS_SYNCING $PEERS
-
-          if [ "$PEERS" = 0 ]; then
-            echo "no peers connected to this node"
-            exit 1
-          fi
-
-          if [ "$IS_SYNCING" == "false" ]; then
-            echo "node is currently not synchronizing"
-            exit 2
-          fi
-
-          exit 0
       env:
         - name: RPC
           value: "{{ $fullname }}-{{ $i }}"
+    - name: node-connection-check
+      image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
+      command: [ "/bin/sh" ]
+      args:
+        - -c
+        - |
+          SYSTEM_HEALTH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
+          eval "$(echo $SYSTEM_HEALTH | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+
+          if [ "$SHOULDHAVEPEERS" = "true" ]; then
+            echo "expecting that peers connect to the node"
+            if [ "$PEERS" = 0 ]; then
+              echo "no peers connected"
+              exit
+            else
+              echo "found peers: $PEERS connected"
+            fi
+          else
+            echo "no peers were expected; $PEERS connected"
+          fi
+
+          if [ "$ISSYNCING" = "false" ]; then
+            echo "node is not synchronising"
+            exit
+          fi
+      env:
+        - name: RPC
+          value: "{{ $fullname }}-{{ $i }}"
   restartPolicy: Never
 {{ end }}
