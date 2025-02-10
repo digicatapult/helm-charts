@@ -91,3 +91,14 @@ type: ClusterIP
 {{- fail "node.perNodeServices.p2pServiceType must one of type ClusterIP, LoadBalancer or NodePort" }}
 {{- end }}
 {{- end }}
+
+{{/* Template logic for chainSpec */}}
+{{- define "sqnc-node.chainSpec" -}}
+{{- if .Values.node.chain }}
+{{- .Values.node.chain }}
+{{- else if .Values.node.chainSpecConfigMap -}}
+/data/chainspec.json
+{{- else }}
+{{- fail "chain or chainSpecConfigMap must be set" }}
+{{- end }}
+{{- end }}

@@ -200,10 +200,15 @@ spec:
               {{- end }}
           env:
             - name: CHAIN
-              value: {{ .Values.node.chain }}
+              value: {{ template "sqnc-node.chainSpec" . }}
           volumeMounts:
             - mountPath: /data
               name: chain-data
+          {{- if .Values.node.chainSpecConfigMap }}
+            - mountPath: /data/chainspec.json
+              subPath: chainspec.json
+              name: chainspec
+          {{- end }}
         {{- end }}
         {{- if .Values.node.perNodeServices.createP2pService }}
         - name: query-services
@@ -249,7 +254,7 @@ spec:
               name: chain-data
         {{- end }}
       containers:
-        - name: {{ .Values.node.chain }}
+        - name: node
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: [ "/bin/sh" ]
@@ -327,7 +332,7 @@ spec:
                 {{- join " " .Values.node.collator.relayChainFlags | nindent 16 }}
           env:
             - name: CHAIN
-              value: {{ .Values.node.chain }}
+              value: {{ template "sqnc-node.chainSpec" . }}
             - name: NODE_NAME
               value: "$(POD_NAME)"
             - name: POD_NAME
@@ -382,6 +387,11 @@ spec:
             - mountPath: /tmp/
               name: custom-node-key
               readOnly: true
+          {{- end }}
+          {{- if .Values.node.chainSpecConfigMap }}
+            - mountPath: /data/chainspec.json
+              subPath: chainspec.json
+              name: chainspec
           {{- end }}
         {{- if .Values.node.substrateApiSidecar.enabled }}
         - name: substrate-api-sidecar
@@ -459,6 +469,11 @@ spec:
         - name: custom-node-key
           secret:
             secretName: {{ $fullname }}-custom-node-key
+      {{- end }}
+      {{- if .Values.node.chainSpecConfigMap }}
+        - name: chainspec
+          configMap:
+            name: {{ .Values.node.chainSpecConfigMap }}
       {{- end }}
   volumeClaimTemplates:
     - apiVersion: v1
