@@ -13,14 +13,13 @@ metadata:
     "helm.sh/hook": post-install
 spec:
   containers:
+    {{- if eq $.Values.node.role "validator" }}
     - name: block-authoring-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
-          {{- if eq $.Values.node.role "validator" }}
-
           START_HEAD=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
           # Authoring check
@@ -55,15 +54,7 @@ spec:
               echo "block finalisation witnessed after $count seconds"
             fi
           done
-          {{- else }}
-          echo "found the role name $ROLE, but was expecting 'validator'"
-          exit
-          {{- end }}
-      env:
-        - name: RPC
-          value: "{{ $fullname }}-{{ $i }}"
-        - name: ROLE
-          value: {{ default "unknown" $.Values.node.role }}
+    {{- end }}
     - name: block-height-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
@@ -82,9 +73,6 @@ spec:
           else
             echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
           fi
-      env:
-        - name: RPC
-          value: "{{ $fullname }}-{{ $i }}"
     - name: node-connection-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
@@ -111,8 +99,5 @@ spec:
             echo "node is not synchronising"
             exit
           fi
-      env:
-        - name: RPC
-          value: "{{ $fullname }}-{{ $i }}"
   restartPolicy: Never
 {{ end }}

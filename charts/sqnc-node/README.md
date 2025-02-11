@@ -87,8 +87,8 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `image.pullPolicy`                 | Node image pull policy                                                                                 | `Always`            |
 | `initContainer.image.repository`   | Download-chain-snapshot init container image name                                                      | `crazymax/7zip`     |
 | `initContainer.image.tag`          | Download-chain-snapshot init container image tag                                                       | `latest`            |
-| `osShell.image.repository`   | Utility init container image name                                                      | `bitnami/os-shell`     |
-| `osShell.image.tag`          | Utility init container image tag                                                       | `latest`            |
+| `osShell.image.repository`         | Utility init container image name                                                                      | `bitnami/os-shell`  |
+| `osShell.image.tag`                | Utility init container image tag                                                                       | `latest`            |
 | `googleCloudSdk.image.repository`  | Sync-chain-gcs init container image name                                                               | `google/cloud-sdk`  |
 | `googleCloudSdk.image.tag`         | Sync-chain-gcs init container image tag                                                                | `slim`              |
 | `googleCloudSdk.serviceAccountKey` | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret  | `nil`               |
