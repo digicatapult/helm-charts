@@ -61,6 +61,7 @@ spec:
       args:
         - -c
         - |
+          sleep 30
           SYNC_STATE=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
           eval "$(echo $SYNC_STATE | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
