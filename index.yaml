@@ -14877,6 +14877,42 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v0.15.53
+    created: "2025-02-15T03:10:18.275396144Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: cloudagent
+      condition: cloudagent.enabled
+      name: veritable-cloudagent
+      repository: https://digicatapult.github.io/helm-charts
+      version: 2.3.57
+    description: The veritable user interface for managing connections
+    digest: a8251d267f10b851a16a1082d3c0e37001f959f180e089b1652a2b5688fd244e
+    home: https://github.com/digicatapult/veritable-ui
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-ui
+    sources:
+    - https://github.com/digicatapult/veritable-ui
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-ui-1.0.161/veritable-ui-1.0.161.tgz
+    version: 1.0.161
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.15.53
     created: "2025-02-14T10:22:19.750326231Z"
     dependencies:
     - condition: postgresql.enabled
@@ -22197,4 +22233,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-02-15T02:28:35.256764097Z"
+generated: "2025-02-15T03:10:18.277417507Z"
