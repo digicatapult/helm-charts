@@ -30,7 +30,7 @@ data:
       ],
       "users": [
         {
-          "username": "sequence-minimal-user",
+          "username": "service-account-sequence",
           "enabled": true,
           "credentials": [
             {
