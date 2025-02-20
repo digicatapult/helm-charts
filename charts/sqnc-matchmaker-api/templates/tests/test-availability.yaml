@@ -1,16 +1,17 @@
+{{ if hasKey .Values.keycloak "auth" }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: keycloak-realms
   namespace: default
 data:
-  ct-minimal.json: |
+  sequence-minimal-realm.json: |
     {
-      "realm": "ct-minimal",
+      "realm": "sequence-minimal-realm",
       "enabled": true,
       "clients": [
         {
-          "name": "Sequence",
+          "name": "sequence-minimal-client",
           "clientId": "sequence",
           "publicClient": true,
           "clientAuthenticatorType": "client-secret",
@@ -23,18 +24,18 @@ data:
             "+"
           ],
           "attributes": {
-            "post.logout.redirect.uris": "/*",
+            "post.logout.redirect.uris": "/*"
           }
         }
       ],
       "users": [
         {
-          "username": "service-account-sequence",
+          "username": "sequence-minimal-user",
           "enabled": true,
           "credentials": [
             {
               "type": "password",
-              "value": "this"
+              "value": "secret"
             }
           ],
           "realmRoles": [
@@ -52,3 +53,4 @@ data:
         }
       ]
     }
+{{ end }}
