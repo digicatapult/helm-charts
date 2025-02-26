@@ -8,7 +8,8 @@ node:
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
-userUri: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+userUri: //Alice
+logLevel: debug
 livenessProbe:
   enabled: false
 readinessProbe:
@@ -22,6 +23,7 @@ externalSqncIdentity:
   host: localhost
   port: 3000
 auth:
+  clientId: sequence
   publicUrlPrefix: "http://keycloak.exmaple.com"
   internalUrlPrefix: "http://keycloak.exmaple.com"
 keycloak:
