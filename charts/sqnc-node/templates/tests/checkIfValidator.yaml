@@ -38,25 +38,39 @@ spec:
       args:
         - -c
         - |
+          sleep 30
           SYSTEM_HEALTH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
           eval "$(echo $SYSTEM_HEALTH | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
 
-          if [ "$SHOULDHAVEPEERS" = "true" ]; then
-            echo "expecting that peers connect to the node"
-            if [ "$PEERS" = 0 ]; then
-              echo "no peers connected"
-              exit
+          if [ "$PEER_COUNT_REQ" != 0 ]; then
+            if [ "$SHOULDHAVEPEERS" = "true" ]; then
+              echo "expecting that peers connect to the node"
+              if [ "$PEERS" -lt "$PEER_COUNT_REQ" ]; then
+                echo "insufficient peers connected"
+                exit
+              else
+                echo "found peers: $PEERS connected"
+              fi
             else
-              echo "found peers: $PEERS connected"
+              echo "no peers were expected; $PEERS connected"
             fi
           else
-            echo "no peers were expected; $PEERS connected"
+            echo "$CHAIN_TYPE chain detected; no peers were required"
           fi
 
           if [ "$ISSYNCING" = "false" ]; then
             echo "node is not synchronising"
             exit
           fi
+      env:
+        - name: CHAIN_TYPE
+          value: {{ $.Values.node.chain }}
+        - name: PEER_COUNT_REQ
+        {{- if or (eq $.Values.node.chain "dev") (eq $.Values.node.chain "local") }}
+          value: {{ 0 | quote }}
+        {{- else }}
+          value: {{ 2 | quote }}
+        {{- end }}
   restartPolicy: Never
 {{ end }}
