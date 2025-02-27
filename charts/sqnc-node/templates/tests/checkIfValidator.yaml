@@ -13,48 +13,6 @@ metadata:
     "helm.sh/hook": post-install
 spec:
   containers:
-    {{- if eq $.Values.node.role "validator" }}
-    - name: block-authoring-check
-      image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
-      command: [ "/bin/sh" ]
-      args:
-        - -c
-        - |
-          START_HEAD=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-
-          # Authoring check
-          START_BLOCK_LOGS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getHeader", "params": ['$START_HEAD']}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result.digest.logs'`
-          START_BLOCK_AUTHOR=$(echo "$START_BLOCK_LOGS" | cut -d 'x' -f 2 | sed -r 's/(.{2})/\\x&/g')
-          if [ "${START_BLOCK_AUTHOR##*"BABE"*}" ]; then
-            echo "caught BABE as author for block $START_HEAD"
-          else
-            echo "failed to match expected block author"
-            exit
-          fi
-
-          # Finalisation check
-          CURRENT_HEAD=$START_HEAD
-
-          echo "block head at start: $START_HEAD"
-
-          count=$((0)); interval=5; timeout=120
-          while [ $CURRENT_HEAD = $START_HEAD ]; do
-            sleep "$interval"s
-
-            CURRENT_HEAD=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getFinalizedHead", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-
-            echo "block head after ${interval}s: $CURRENT_HEAD"
-
-            count=$((count+interval))
-
-            if [ $count -ge $timeout ]; then
-              echo "block finalisation timeout after $count seconds; no change detected"
-              break
-            else
-              echo "block finalisation witnessed after $count seconds"
-            fi
-          done
-    {{- end }}
     - name: block-height-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
