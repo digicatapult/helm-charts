@@ -9,3 +9,9 @@ node:
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
     - "--detailed-log-output"
+ct:
+  blockHeight:
+    waitSeconds: 30
+  nodeConnection:
+    waitSeconds: 30
+    minPeerCount: 0

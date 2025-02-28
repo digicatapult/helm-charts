@@ -19,7 +19,7 @@ spec:
       args:
         - -c
         - |
-          sleep 30
+          sleep $BLOCK_HEIGHT_WAIT
           SYNC_STATE=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
           eval "$(echo $SYNC_STATE | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
@@ -32,21 +32,24 @@ spec:
           else
             echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
           fi
+      env:
+        - name: BLOCK_HEIGHT_WAIT
+          value: {{ default 30 $.Values.ct.blockHeight.waitSeconds | quote }}
     - name: node-connection-check
       image: {{ $.Values.osShell.image.repository }}:{{ $.Values.osShell.image.tag }}
       command: [ "/bin/sh" ]
       args:
         - -c
         - |
-          sleep 30
+          sleep $NODE_CONNECTION_WAIT
           SYSTEM_HEALTH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
           eval "$(echo $SYSTEM_HEALTH | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
 
-          if [ "$PEER_COUNT_REQ" != 0 ]; then
+          if [ "$MIN_PEER_COUNT" != 0 ]; then
             if [ "$SHOULDHAVEPEERS" = "true" ]; then
               echo "expecting that peers connect to the node"
-              if [ "$PEERS" -lt "$PEER_COUNT_REQ" ]; then
+              if [ "$PEERS" -lt "$MIN_PEER_COUNT" ]; then
                 echo "insufficient peers connected"
                 exit
               else
@@ -64,13 +67,15 @@ spec:
             exit
           fi
       env:
+        - name: NODE_CONNECTION_WAIT
+          value: {{ default 30 $.Values.ct.nodeConnection.waitSeconds | quote }}
         - name: CHAIN_TYPE
           value: {{ $.Values.node.chain }}
-        - name: PEER_COUNT_REQ
+        - name: MIN_PEER_COUNT
         {{- if or (eq $.Values.node.chain "dev") (eq $.Values.node.chain "local") }}
           value: {{ 0 | quote }}
         {{- else }}
-          value: {{ 2 | quote }}
+          value: {{ default 2 $.Values.ct.minPeerCount | quote }}
         {{- end }}
   restartPolicy: Never
 {{ end }}

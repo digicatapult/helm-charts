@@ -78,7 +78,7 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `node.tracing.enabled`                                 | If true, creates a jaeger agent sidecar                                                                                                                                                                                                             | `false`                        |
 | `node.subtrateApiSiecar.enabled`                       | If true, creates a substrate api sidecar                                                                                                                                                                                                            | `false`                        |
 
-### Other parameters 
+### Other parameters
 
 | Parameter                          | Description                                                                                            | Default             |
 |------------------------------------|--------------------------------------------------------------------------------------------------------|---------------------|
@@ -103,4 +103,7 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `jaegerAgent.ports.binaryPort`     | Port to use for jaeger.thrift over binary thrift protocol                                              | `6832`              |
 | `jaegerAgent.ports.samplingPort`   | Port for HTTP sampling strategies                                                                      | `5778`              |
 | `jaegerAgent.collector.url`        | The URL which jaeger agent sends data                                                                  | `nil`               |
-| `jaegerAgent.collector.port   `    | The port which jaeger agent sends data                                                                 | `14250`             |    
+| `jaegerAgent.collector.port   `    | The port which jaeger agent sends data                                                                 | `14250`             |
+| `ct.blockHeight.waitSeconds`       | The delay in seconds before testing the block height                                                   | `30`                |
+| `ct.nodeConnection.waitSeconds`    | The delay in seconds before testing peer connections against the node                                  | `30`                |
+| `ct.nodeConnection.minPeerCount`   | The minimum number of peers needed for production chains; dev and local chains require none            | `2`                 |
