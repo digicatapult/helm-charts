@@ -2,18 +2,18 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/openapi-merger
-appVersion: 1.1.82
+appVersion: 1.1.92
 dependencies:
   - condition: apiDocsMock.enabled
     name: nginx
     alias: apiDocsMockOne
     repository: https://charts.bitnami.com/bitnami
-    version: 18.x
+    version: 19.x
   - condition: apiDocsMock.enabled
     name: nginx
     alias: apiDocsMockTwo
     repository: https://charts.bitnami.com/bitnami
-    version: 18.x
+    version: 19.x
   - name: common
     repository: https://charts.bitnami.com/bitnami
     tags:
@@ -29,4 +29,4 @@ maintainers:
 name: openapi-merger
 sources:
   - https://github.com/digicatapult/openapi-merger
-version: 2.1.46
+version: 2.1.57

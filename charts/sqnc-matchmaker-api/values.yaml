@@ -69,6 +69,9 @@ logLevel: "info"
 ## @param userUri The SS58 address for this services owner
 ##
 userUri: "//Alice"
+## @param proxyFor specifies which persona we are a proxy for e.g. if I am Alice I will include Bob's address here to become his proxy; if left empty, proxy is not being used and transactions are performed as e.g. Alice
+##
+proxyFor: ""
 ## @param enableIndexer Enable the indexer
 ##
 enableIndexer: true
@@ -99,7 +102,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-matchmaker-api
-  tag: v4.0.20
+  tag: v4.0.38
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

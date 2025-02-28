@@ -163,6 +163,8 @@ spec:
               value: {{ .Values.logLevel }}
             - name: USER_URI
               value: {{ .Values.userUri }}
+            - name: PROXY_FOR
+              value: {{ .Values.proxyFor }}
             - name: DB_HOST
               value: {{ template "sqnc-matchmaker-api.databaseHost" . }}
             - name: DB_PORT
