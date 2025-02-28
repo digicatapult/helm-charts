@@ -8,11 +8,6 @@ initContainer:
     repository: crazymax/7zip
     tag: latest
 
-osShell:
-  image:
-    repository: bitnami/os-shell
-    tag: latest
-
 kubectl:
   image:
     repository: bitnami/kubectl
@@ -161,3 +156,16 @@ tolerations: []
 affinity: {}
 
 storageClass: ""
+
+# Continuous integration tests
+tests:
+  # The default image for the testing container
+  osShell:
+    image:
+      repository: bitnami/os-shell
+      tag: latest
+  # blockHeight:
+  #   waitSeconds: 30
+  # nodeConnection:
+  #   waitSeconds: 30
+  #   minPeerCount: 2

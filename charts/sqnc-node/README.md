@@ -80,30 +80,30 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 
 ### Other parameters
 
-| Parameter                          | Description                                                                                            | Default             |
-|------------------------------------|--------------------------------------------------------------------------------------------------------|---------------------|
-| `image.repository`                 | Node image name                                                                                        | `parity/polkadot`   |
-| `image.tag`                        | Node image tag                                                                                         | `v11.3.0`           |
-| `image.pullPolicy`                 | Node image pull policy                                                                                 | `Always`            |
-| `initContainer.image.repository`   | Download-chain-snapshot init container image name                                                      | `crazymax/7zip`     |
-| `initContainer.image.tag`          | Download-chain-snapshot init container image tag                                                       | `latest`            |
-| `osShell.image.repository`         | Utility init container image name                                                                      | `bitnami/os-shell`  |
-| `osShell.image.tag`                | Utility init container image tag                                                                       | `latest`            |
-| `googleCloudSdk.image.repository`  | Sync-chain-gcs init container image name                                                               | `google/cloud-sdk`  |
-| `googleCloudSdk.image.tag`         | Sync-chain-gcs init container image tag                                                                | `slim`              |
-| `googleCloudSdk.serviceAccountKey` | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret  | `nil`               |
-| `ingress.enabled`                  | If true, creates an ingress                                                                            | `false`             |
-| `ingress.annotations`              | Annotations to add to the ingress (key/value pairs)                                                    | `{}`                |
-| `ingress.rules`                    | Set rules on the ingress                                                                               | `[]`                |
-| `ingress.tls`                      | Set TLS configuration on the ingress                                                                   | `[]`                |
-| `podSecurityContext`               | Set the pod security context for the substrate node container                                          | `{ runAsUser: 1000, runAsGroup: 1000, fsGroup: 1000 }`|
-| `jaegerAgent.image.repository`     | Jaeger agent image repository                                                                          | `jaegertracing/jaeger-agent` |
-| `jaegerAgent.image.tag`            | Jaeger agent image tag                                                                                 | `1.28.0`            |
-| `jaegerAgent.ports.compactPort`    | Port to use for jaeger.thrift over compact thrift protocol                                             | `6831`              |
-| `jaegerAgent.ports.binaryPort`     | Port to use for jaeger.thrift over binary thrift protocol                                              | `6832`              |
-| `jaegerAgent.ports.samplingPort`   | Port for HTTP sampling strategies                                                                      | `5778`              |
-| `jaegerAgent.collector.url`        | The URL which jaeger agent sends data                                                                  | `nil`               |
-| `jaegerAgent.collector.port   `    | The port which jaeger agent sends data                                                                 | `14250`             |
-| `ct.blockHeight.waitSeconds`       | The delay in seconds before testing the block height                                                   | `30`                |
-| `ct.nodeConnection.waitSeconds`    | The delay in seconds before testing peer connections against the node                                  | `30`                |
-| `ct.nodeConnection.minPeerCount`   | The minimum number of peers needed for production chains; dev and local chains require none            | `2`                 |
+| Parameter                           | Description                                                                                           | Default             |
+|-------------------------------------|-------------------------------------------------------------------------------------------------------|---------------------|
+| `image.repository`                  | Node image name                                                                                       | `parity/polkadot`   |
+| `image.tag`                         | Node image tag                                                                                        | `v11.3.0`           |
+| `image.pullPolicy`                  | Node image pull policy                                                                                | `Always`            |
+| `initContainer.image.repository`    | Download-chain-snapshot init container image name                                                     | `crazymax/7zip`     |
+| `initContainer.image.tag`           | Download-chain-snapshot init container image tag                                                      | `latest`            |
+| `googleCloudSdk.image.repository`   | Sync-chain-gcs init container image name                                                              | `google/cloud-sdk`  |
+| `googleCloudSdk.image.tag`          | Sync-chain-gcs init container image tag                                                               | `slim`              |
+| `googleCloudSdk.serviceAccountKey`  | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret | `nil`               |
+| `ingress.enabled`                   | If true, creates an ingress                                                                           | `false`             |
+| `ingress.annotations`               | Annotations to add to the ingress (key/value pairs)                                                   | `{}`                |
+| `ingress.rules`                     | Set rules on the ingress                                                                              | `[]`                |
+| `ingress.tls`                       | Set TLS configuration on the ingress                                                                  | `[]`                |
+| `podSecurityContext`                | Set the pod security context for the substrate node container                                         | `{ runAsUser: 1000, runAsGroup: 1000, fsGroup: 1000 }`|
+| `jaegerAgent.image.repository`      | Jaeger agent image repository                                                                         | `jaegertracing/jaeger-agent` |
+| `jaegerAgent.image.tag`             | Jaeger agent image tag                                                                                | `1.28.0`            |
+| `jaegerAgent.ports.compactPort`     | Port to use for jaeger.thrift over compact thrift protocol                                            | `6831`              |
+| `jaegerAgent.ports.binaryPort`      | Port to use for jaeger.thrift over binary thrift protocol                                             | `6832`              |
+| `jaegerAgent.ports.samplingPort`    | Port for HTTP sampling strategies                                                                     | `5778`              |
+| `jaegerAgent.collector.url`         | The URL which jaeger agent sends data                                                                 | `nil`               |
+| `jaegerAgent.collector.port`        | The port which jaeger agent sends data                                                                | `14250`             |
+| `tests.osShell.image.repository`    | Utility init container image name                                                                     | `bitnami/os-shell`  |
+| `tests.osShell.image.tag`           | Utility init container image tag                                                                      | `latest`            |
+| `tests.blockHeight.waitSeconds`     | The delay in seconds before testing the block height                                                  | `30`                |
+| `tests.nodeConnection.waitSeconds`  | The delay in seconds before testing peer connections against the node                                 | `30`                |
+| `tests.nodeConnection.minPeerCount` | The minimum number of peers needed for production chains; dev and local chains require none           | `2`                 |
