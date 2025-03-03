@@ -1,0 +1,81 @@
+{{ $fullname :=  include "sqnc-node.fullname" . }}
+{{ $serviceLabels :=  include "sqnc-node.serviceLabels" .  }}
+{{ $selectorLabels :=  include "sqnc-node.selectorLabels" .  }}
+
+{{range $i := until ($.Values.node.replicas | int) }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ $fullname }}-{{ $i }}-post-install-test-suite"
+  labels:
+      {{- $serviceLabels | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  containers:
+    - name: block-height-check
+      image: {{ $.Values.tests.osShell.image.repository }}:{{ $.Values.tests.osShell.image.tag }}
+      command: [ "/bin/sh" ]
+      args:
+        - -c
+        - |
+          sleep $BLOCK_HEIGHT_WAIT
+          SYNC_STATE=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+
+          eval "$(echo $SYNC_STATE | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+
+          BLOCK_DIFF=$(($HIGHESTBLOCK - $STARTINGBLOCK))
+
+          if [ "$STARTINGBLOCK" = "$HIGHESTBLOCK" ]; then
+            echo "block height failed to increase; started at $STARTINGBLOCK and still at $HIGHESTBLOCK"
+            exit
+          else
+            echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
+          fi
+      env:
+        - name: BLOCK_HEIGHT_WAIT
+          value: {{ default 30 $.Values.tests.blockHeight.waitSeconds | quote }}
+    - name: node-connection-check
+      image: {{ $.Values.tests.osShell.image.repository }}:{{ $.Values.tests.osShell.image.tag }}
+      command: [ "/bin/sh" ]
+      args:
+        - -c
+        - |
+          sleep $NODE_CONNECTION_WAIT
+          SYSTEM_HEALTH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+
+          eval "$(echo $SYSTEM_HEALTH | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+
+          if [ "$MIN_PEER_COUNT" != 0 ]; then
+            if [ "$SHOULDHAVEPEERS" = "true" ]; then
+              echo "expecting that peers connect to the node"
+              if [ "$PEERS" -lt "$MIN_PEER_COUNT" ]; then
+                echo "insufficient peers connected"
+                exit
+              else
+                echo "found peers: $PEERS connected"
+              fi
+            else
+              echo "no peers were expected; $PEERS connected"
+            fi
+          else
+            echo "$CHAIN_TYPE chain detected; no peers were required"
+          fi
+
+          if [ "$ISSYNCING" = "false" ]; then
+            echo "node is not synchronising"
+            exit
+          fi
+      env:
+        - name: NODE_CONNECTION_WAIT
+          value: {{ default 30 $.Values.tests.nodeConnection.waitSeconds | quote }}
+        - name: CHAIN_TYPE
+          value: {{ $.Values.node.chain }}
+        - name: MIN_PEER_COUNT
+        {{- if eq $.Values.node.chain "dev" }}
+          value: {{ 0 | quote }}
+        {{- else }}
+          value: {{ default 2 $.Values.tests.minPeerCount | quote }}
+        {{- end }}
+  restartPolicy: Never
+{{ end }}
