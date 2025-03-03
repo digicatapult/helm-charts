@@ -72,7 +72,7 @@ spec:
         - name: CHAIN_TYPE
           value: {{ $.Values.node.chain }}
         - name: MIN_PEER_COUNT
-        {{- if or (eq $.Values.node.chain "dev") (eq $.Values.node.chain "local") }}
+        {{- if eq $.Values.node.chain "dev" }}
           value: {{ 0 | quote }}
         {{- else }}
           value: {{ default 2 $.Values.tests.minPeerCount | quote }}
