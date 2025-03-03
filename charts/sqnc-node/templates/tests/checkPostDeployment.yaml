@@ -34,7 +34,7 @@ spec:
           fi
       env:
         - name: BLOCK_HEIGHT_WAIT
-          value: {{ default 30 $.Values.tests.blockHeight.waitSeconds | quote }}
+          value: {{ $.Values.tests.blockHeight.waitSeconds | quote }}
     - name: node-connection-check
       image: {{ $.Values.tests.osShell.image.repository }}:{{ $.Values.tests.osShell.image.tag }}
       command: [ "/bin/sh" ]
@@ -68,14 +68,14 @@ spec:
           fi
       env:
         - name: NODE_CONNECTION_WAIT
-          value: {{ default 30 $.Values.tests.nodeConnection.waitSeconds | quote }}
+          value: {{ $.Values.tests.nodeConnection.waitSeconds | quote }}
         - name: CHAIN_TYPE
           value: {{ $.Values.node.chain }}
         - name: MIN_PEER_COUNT
         {{- if eq $.Values.node.chain "dev" }}
           value: {{ 0 | quote }}
         {{- else }}
-          value: {{ default 2 $.Values.tests.minPeerCount | quote }}
+          value: {{ $.Values.tests.nodeConnection.minPeerCount | quote }}
         {{- end }}
   restartPolicy: Never
 {{ end }}
