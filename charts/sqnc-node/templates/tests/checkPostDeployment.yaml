@@ -2,9 +2,8 @@
 {{ $serviceLabels :=  include "sqnc-node.serviceLabels" .  }}
 {{ $selectorLabels :=  include "sqnc-node.selectorLabels" .  }}
 
-{{- $tests := $.Values.tests | default dict }}
-{{- $blockHeight := $tests.blockHeight | default dict }}
-{{- $nodeConnection := $tests.nodeConnection | default dict }}
+{{- $blockHeight := $.Values.tests.blockHeight | default dict }}
+{{- $nodeConnection := $.Values.tests.nodeConnection | default dict }}
 
 {{- $osShell := $.Values.tests.osShell.image }}
 
@@ -40,7 +39,7 @@ spec:
           fi
       env:
         - name: BLOCK_HEIGHT_WAIT
-          value: {{ hasKey $blockHeight "waitSeconds" | ternary $blockHeight.waitSeconds 30 | quote }}
+          value: {{ default 30 $blockHeight.waitSeconds | quote }}
     - name: node-connection-check
       image: {{ $osShell.repository }}:{{ $osShell.tag }}
       command: [ "/bin/sh" ]
@@ -74,14 +73,14 @@ spec:
           fi
       env:
         - name: NODE_CONNECTION_WAIT
-          value: {{ hasKey $nodeConnection "waitSeconds" | ternary $nodeConnection.waitSeconds 30 | quote }}
+          value: {{ default 30 $nodeConnection.waitSeconds | quote }}
         - name: CHAIN_TYPE
           value: {{ $.Values.node.chain }}
         - name: MIN_PEER_COUNT
         {{- if eq $.Values.node.chain "dev" }}
           value: {{ 0 | quote }}
         {{- else }}
-          value: {{ hasKey $nodeConnection "minPeerCount" | ternary $nodeConnection.minPeerCount 2 | quote }}
+          value: {{ default 2 $nodeConnection.minPeerCount | quote }}
         {{- end }}
   restartPolicy: Never
 {{ end }}
