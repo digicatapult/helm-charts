@@ -3,6 +3,31 @@ entries:
   bridgeai-prediction-service:
   - apiVersion: v2
     appVersion: 0.3.5
+    created: "2025-03-04T02:34:59.323069051Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.4.16
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 28a27a20d6d617738bad65d5c68d90d4e899d19756e37d9a215a67888cbe6269
+    icon: https://avatars.githubusercontent.com/u/12200704?s=200&v=4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: bridgeai-prediction-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/bridgeai-prediction-service-0.2.49/bridgeai-prediction-service-0.2.49.tgz
+    version: 0.2.49
+  - apiVersion: v2
+    appVersion: 0.3.5
     created: "2025-03-03T19:10:13.473825349Z"
     dependencies:
     - condition: postgresql.enabled
@@ -24424,4 +24449,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-03-03T19:10:13.475289193Z"
+generated: "2025-03-04T02:34:59.324015533Z"
