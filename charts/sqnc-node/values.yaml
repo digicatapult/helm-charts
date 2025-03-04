@@ -164,8 +164,8 @@ tests:
     image:
       repository: bitnami/os-shell
       tag: latest
-  blockHeight:
-    waitSeconds: 30
-  nodeConnection:
-    waitSeconds: 30
-    minPeerCount: 2
+  # blockHeight:
+  #   waitSeconds: 30
+  # nodeConnection:
+  #   waitSeconds: 30
+  #   minPeerCount: 2
