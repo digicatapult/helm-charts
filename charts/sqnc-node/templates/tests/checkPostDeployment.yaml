@@ -2,6 +2,7 @@
 {{ $serviceLabels :=  include "sqnc-node.serviceLabels" .  }}
 {{ $selectorLabels :=  include "sqnc-node.selectorLabels" .  }}
 
+{{- $blockAuthor := $.Values.tests.blockAuthor | default dict }}
 {{- $blockHeight := $.Values.tests.blockHeight | default dict }}
 {{- $nodeConnection := $.Values.tests.nodeConnection | default dict }}
 
@@ -18,6 +19,47 @@ metadata:
     "helm.sh/hook": post-install
 spec:
   containers:
+    {{- if eq $.Values.node.role "validator" }}
+    - name: block-author-check
+      image: {{ $osShell.repository }}:{{ $osShell.tag }}
+      command: [ "/bin/sh" ]
+      args:
+        - -c
+        - |
+          count=$((0))
+          LASTAUTHOREDFINALISEDBLOCK=0
+          while [ $LASTAUTHOREDFINALISEDBLOCK = 0 ]; do
+            sleep "$BLOCK_AUTHOR_POLL"s
+            SYNC_STATE_EXTENDED=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sqnc_syncStateExtended"}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+
+            eval "$(echo $SYNC_STATE_EXTENDED | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+
+            echo "waiting for a finalised block to have been authored by the node"
+
+            echo "block height after ${BLOCK_AUTHOR_POLL}s: $CURRENTBLOCK"
+
+            count=$((count+BLOCK_AUTHOR_POLL))
+            if [ $count -ge $BLOCK_AUTHOR_TIMEOUT ]; then
+              echo "block finalisation timed out after $count seconds; no change in author detected"
+              break
+            fi
+          done
+
+          echo "last finalised block authored by the node was (block ID) $LASTAUTHOREDFINALISEDBLOCK"
+
+          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health"}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result.peers'`
+          if [ $PEERS = 0 ]; then
+            echo "no peers found for the validator"
+            exit
+          else
+            echo "validator has $PEERS peers connected"
+          fi
+      env:
+        - name: BLOCK_AUTHOR_POLL
+          value: {{ default 5 $blockAuthor.pollSeconds | quote }}
+        - name: BLOCK_AUTHOR_TIMEOUT
+          value: {{ default 120 $blockAuthor.timeoutSeconds | quote }}
+    {{- end }}
     - name: block-height-check
       image: {{ $osShell.repository }}:{{ $osShell.tag }}
       command: [ "/bin/sh" ]

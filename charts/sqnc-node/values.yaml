@@ -1,6 +1,6 @@
 image:
   repository: digicatapult/sqnc-node
-  tag: v11.3.0
+  tag: v12.2.0
   pullPolicy: Always
 
 initContainer:
@@ -164,6 +164,9 @@ tests:
     image:
       repository: bitnami/os-shell
       tag: latest
+  # blockAuthor:
+  #   pollSeconds: 5
+  #   timeoutSeconds: 120
   # blockHeight:
   #   waitSeconds: 30
   # nodeConnection:
