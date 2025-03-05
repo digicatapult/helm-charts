@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/sqnc-matchmaker-api
-appVersion: v4.0.22
+appVersion: v4.0.42
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -14,7 +14,7 @@ dependencies:
     tags:
       - bitnami-common
     version: 2.x.x
-  - condition: keycloak.disabled
+  - condition: keycloak.enabled
     name: keycloak
     repository: https://charts.bitnami.com/bitnami
     version: 21.x.x
@@ -37,4 +37,4 @@ maintainers:
 name: sqnc-matchmaker-api
 sources:
   - https://github.com/digicatapult/sqnc-matchmaker-api
-version: 2.0.86
+version: 2.0.102

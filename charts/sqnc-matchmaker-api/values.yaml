@@ -69,6 +69,9 @@ logLevel: "info"
 ## @param userUri The SS58 address for this services owner
 ##
 userUri: "//Alice"
+## @param proxyFor specifies which persona we are a proxy for e.g. if I am Alice I will include Bob's address here to become his proxy; if left empty, proxy is not being used and transactions are performed as e.g. Alice
+##
+proxyFor: ""
 ## @param enableIndexer Enable the indexer
 ##
 enableIndexer: true
@@ -85,7 +88,6 @@ auth:
   tokenPath: "/token"
   jwksPath: "/certs"
 
-
 ## Digital Catapult sqnc-matchmaker-api image
 ## ref: https://hub.docker.com/r/digicatapult/sqnc-matchmaker-api/tags/
 ## @param image.registry sqnc-matchmaker-api image registry
@@ -99,7 +101,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-matchmaker-api
-  tag: v4.0.22
+  tag: v4.0.41
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -555,7 +557,7 @@ initDbCreate:
   image:
     registry: docker.io
     repository: postgres
-    tag: '17-alpine'
+    tag: "17-alpine"
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -683,3 +685,22 @@ externalSqncIdentity:
   ## @param externalSqncIdentity.port External SQNC-Identity-Service port
   ##
   port: ""
+
+## @section Keycloak Parameters
+keycloak:
+  ## @param keycloak.enabled Enable Keycloak subchart
+  enabled: false
+
+## @section Helm test parameters
+tests:
+  ## @param tests.backoffLimit retry backoff limit for the test suite
+  backoffLimit: 4
+  ## @param tests.osShell.image.repository shell script image repository
+  ## @param tests.osShell.image.tag shell script image tag (immutable tags are recommended)
+  osShell:
+    image:
+      repository: bitnami/os-shell
+      tag: latest
+  ## @param tests.auth.clientSecret OAuth2 client secret to use when requesting tokens
+  auth:
+    clientSecret: ""
