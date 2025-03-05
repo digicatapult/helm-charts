@@ -165,6 +165,7 @@ tests:
       repository: bitnami/os-shell
       tag: latest
   # blockAuthor:
+  #   enabled: true
   #   pollSeconds: 5
   #   timeoutSeconds: 120
   # blockHeight:

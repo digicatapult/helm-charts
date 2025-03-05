@@ -19,6 +19,7 @@ metadata:
     "helm.sh/hook": post-install
 spec:
   containers:
+    {{- if ne $blockAuthor.enabled false }}
     {{- if eq $.Values.node.role "validator" }}
     - name: block-author-check
       image: {{ $osShell.repository }}:{{ $osShell.tag }}
@@ -59,6 +60,7 @@ spec:
           value: {{ default 5 $blockAuthor.pollSeconds | quote }}
         - name: BLOCK_AUTHOR_TIMEOUT
           value: {{ default 300 $blockAuthor.timeoutSeconds | quote }}
+    {{- end }}
     {{- end }}
     - name: block-height-check
       image: {{ $osShell.repository }}:{{ $osShell.tag }}
