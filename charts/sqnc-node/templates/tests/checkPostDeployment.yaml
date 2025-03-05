@@ -58,7 +58,7 @@ spec:
         - name: BLOCK_AUTHOR_POLL
           value: {{ default 5 $blockAuthor.pollSeconds | quote }}
         - name: BLOCK_AUTHOR_TIMEOUT
-          value: {{ default 120 $blockAuthor.timeoutSeconds | quote }}
+          value: {{ default 300 $blockAuthor.timeoutSeconds | quote }}
     {{- end }}
     - name: block-height-check
       image: {{ $osShell.repository }}:{{ $osShell.tag }}

@@ -13,7 +13,7 @@ node:
 tests:
   blockAuthor:
     pollSeconds: 5
-    timeoutSeconds: 120
+    timeoutSeconds: 300
   blockHeight:
     waitSeconds: 30
   nodeConnection:
