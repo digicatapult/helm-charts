@@ -40,10 +40,6 @@ keycloak:
   enabled: true
   auth:
     clientId: sequence
-  readinessProbe:
-    enabled: false
-  startupProbe:
-    enabled: false
   httpRelativePath: /auth/
   extraEnvVars:
     - name: KC_HOSTNAME_PATH
