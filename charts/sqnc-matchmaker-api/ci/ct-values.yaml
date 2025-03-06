@@ -34,6 +34,7 @@ auth:
   publicUrlPrefix: "http://localhost:8080/auth/realms/alice/protocol/openid-connect"
   internalUrlPrefix: "http://matchmaker-keycloak:80/auth/realms/alice/protocol/openid-connect"
 tests:
+  backoffLimit: 10
   auth:
     clientSecret: secret
 keycloak:
