@@ -9,7 +9,12 @@ node:
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
     - "--detailed-log-output"
+    - "--unsafe-force-node-key-generation"
 tests:
+  blockAuthor:
+    enabled: true
+    pollSeconds: 5
+    timeoutSeconds: 300
   blockHeight:
     waitSeconds: 30
   nodeConnection:

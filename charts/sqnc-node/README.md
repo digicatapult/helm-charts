@@ -104,6 +104,9 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `jaegerAgent.collector.port`        | The port which jaeger agent sends data                                                                | `14250`             |
 | `tests.osShell.image.repository`    | Utility init container image name                                                                     | `bitnami/os-shell`  |
 | `tests.osShell.image.tag`           | Utility init container image tag                                                                      | `latest`            |
+| `tests.blockAuthor.enabled`         | A toggle to enable or disable the container that checks the validator is authoring blocks             | `true`              |
+| `tests.blockAuthor.pollSeconds`     | The delay in seconds between polls of the current block synchronisation state                         | `5`                 |
+| `tests.blockAuthor.timeoutSeconds`  | The timeout in seconds to allow the validator to author a finalised block                             | `300`               |
 | `tests.blockHeight.waitSeconds`     | The delay in seconds before testing the block height                                                  | `30`                |
 | `tests.nodeConnection.waitSeconds`  | The delay in seconds before testing peer connections against the node                                 | `30`                |
 | `tests.nodeConnection.minPeerCount` | The minimum number of peers needed for production chains; dev and local chains require none           | `2`                 |
