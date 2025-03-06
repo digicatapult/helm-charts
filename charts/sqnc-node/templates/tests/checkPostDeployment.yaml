@@ -3,120 +3,115 @@
 {{ $selectorLabels :=  include "sqnc-node.selectorLabels" .  }}
 
 {{- $blockAuthor := $.Values.tests.blockAuthor | default dict }}
-{{- $blockHeight := $.Values.tests.blockHeight | default dict }}
 {{- $nodeConnection := $.Values.tests.nodeConnection | default dict }}
 
 {{- $osShell := $.Values.tests.osShell.image }}
 
 {{range $i := until ($.Values.node.replicas | int) }}
-apiVersion: v1
-kind: Pod
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: "{{ $fullname }}-{{ $i }}-post-install-test-suite"
   labels:
       {{- $serviceLabels | nindent 4 }}
   annotations:
-    "helm.sh/hook": post-install
+    "helm.sh/hook": test
 spec:
-  containers:
-    {{- if ne $blockAuthor.enabled false }}
-    {{- if eq $.Values.node.role "validator" }}
-    - name: block-author-check
-      image: {{ $osShell.repository }}:{{ $osShell.tag }}
-      command: [ "/bin/sh" ]
-      args:
-        - -c
-        - |
-          count=$((0))
-          LASTAUTHOREDFINALISEDBLOCK=0
-          while [ $LASTAUTHOREDFINALISEDBLOCK = 0 ]; do
-            sleep "$BLOCK_AUTHOR_POLL"s
-            SYNC_STATE_EXTENDED=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sqnc_syncStateExtended"}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+  template:
+    spec:
+      containers:
+        {{- if ne $blockAuthor.enabled false }}
+        {{- if eq $.Values.node.role "validator" }}
+        - name: block-author-check
+          image: {{ $osShell.repository }}:{{ $osShell.tag }}
+          command: [ "/bin/sh" ]
+          args:
+            - -c
+            - |
+              count=$((0))
+              LASTAUTHOREDFINALISEDBLOCK=0
+              while [ $LASTAUTHOREDFINALISEDBLOCK = 0 ]; do
+                sleep "$BLOCK_AUTHOR_POLL"s
+                SYNC_STATE_EXTENDED=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "sqnc_syncStateExtended"}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
-            eval "$(echo $SYNC_STATE_EXTENDED | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+                eval "$(echo $SYNC_STATE_EXTENDED | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
 
-            echo "waiting for a finalised block to have been authored by the node"
+                echo "waiting for a finalised block to have been authored by the node"
 
-            echo "block height after ${BLOCK_AUTHOR_POLL}s: $CURRENTBLOCK"
+                echo "block height after ${BLOCK_AUTHOR_POLL}s: $CURRENTBLOCK"
 
-            count=$((count+BLOCK_AUTHOR_POLL))
-            if [ $count -ge $BLOCK_AUTHOR_TIMEOUT ]; then
-              echo "block finalisation timed out after $count seconds; no change in author detected"
-              break
-            fi
-          done
+                count=$((count+BLOCK_AUTHOR_POLL))
+                if [ $count -ge $BLOCK_AUTHOR_TIMEOUT ]; then
+                  echo "block finalisation timed out after $count seconds; no change in author detected"
+                  break
+                fi
+              done
 
-          echo "last finalised block authored by the node was (block ID) $LASTAUTHOREDFINALISEDBLOCK"
-      env:
-        - name: BLOCK_AUTHOR_POLL
-          value: {{ default 5 $blockAuthor.pollSeconds | quote }}
-        - name: BLOCK_AUTHOR_TIMEOUT
-          value: {{ default 300 $blockAuthor.timeoutSeconds | quote }}
-    {{- end }}
-    {{- end }}
-    - name: block-height-check
-      image: {{ $osShell.repository }}:{{ $osShell.tag }}
-      command: [ "/bin/sh" ]
-      args:
-        - -c
-        - |
-          sleep $BLOCK_HEIGHT_WAIT
-          SYNC_STATE=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
+              echo "last finalised block authored by the node was (block ID) $LASTAUTHOREDFINALISEDBLOCK"
+          env:
+            - name: BLOCK_AUTHOR_POLL
+              value: {{ default 5 $blockAuthor.pollSeconds | quote }}
+            - name: BLOCK_AUTHOR_TIMEOUT
+              value: {{ default 300 $blockAuthor.timeoutSeconds | quote }}
+        {{- end }}
+        {{- end }}
+        - name: block-height-check
+          image: {{ $osShell.repository }}:{{ $osShell.tag }}
+          command: [ "/bin/sh" ]
+          args:
+            - -c
+            - |
+              SYNC_STATE=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
-          eval "$(echo $SYNC_STATE | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+              eval "$(echo $SYNC_STATE | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
 
-          BLOCK_DIFF=$(($HIGHESTBLOCK - $STARTINGBLOCK))
+              BLOCK_DIFF=$(($HIGHESTBLOCK - $STARTINGBLOCK))
 
-          if [ "$STARTINGBLOCK" = "$HIGHESTBLOCK" ]; then
-            echo "block height failed to increase; started at $STARTINGBLOCK and still at $HIGHESTBLOCK"
-            exit
-          else
-            echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
-          fi
-      env:
-        - name: BLOCK_HEIGHT_WAIT
-          value: {{ default 30 $blockHeight.waitSeconds | quote }}
-    - name: node-connection-check
-      image: {{ $osShell.repository }}:{{ $osShell.tag }}
-      command: [ "/bin/sh" ]
-      args:
-        - -c
-        - |
-          sleep $NODE_CONNECTION_WAIT
-          SYSTEM_HEALTH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
-
-          eval "$(echo $SYSTEM_HEALTH | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
-
-          if [ "$MIN_PEER_COUNT" != 0 ]; then
-            if [ "$SHOULDHAVEPEERS" = "true" ]; then
-              echo "expecting that peers connect to the node"
-              if [ "$PEERS" -lt "$MIN_PEER_COUNT" ]; then
-                echo "insufficient peers connected"
+              if [ "$STARTINGBLOCK" = "$HIGHESTBLOCK" ]; then
+                echo "block height failed to increase; started at $STARTINGBLOCK and still at $HIGHESTBLOCK"
                 exit
               else
-                echo "found peers: $PEERS connected"
+                echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
               fi
-            else
-              echo "no peers were expected; $PEERS connected"
-            fi
-          else
-            echo "$CHAIN_TYPE chain detected; no peers were required"
-          fi
+        - name: node-connection-check
+          image: {{ $osShell.repository }}:{{ $osShell.tag }}
+          command: [ "/bin/sh" ]
+          args:
+            - -c
+            - |
+              SYSTEM_HEALTH=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params": []}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result'`
 
-          if [ "$ISSYNCING" = "false" ]; then
-            echo "node is not synchronising"
-            exit
-          fi
-      env:
-        - name: NODE_CONNECTION_WAIT
-          value: {{ default 30 $nodeConnection.waitSeconds | quote }}
-        - name: CHAIN_TYPE
-          value: {{ $.Values.node.chain }}
-        - name: MIN_PEER_COUNT
-        {{- if eq $.Values.node.chain "dev" }}
-          value: {{ 0 | quote }}
-        {{- else }}
-          value: {{ default 2 $nodeConnection.minPeerCount | quote }}
-        {{- end }}
-  restartPolicy: Never
+              eval "$(echo $SYSTEM_HEALTH | jq -r 'to_entries | map("\(.key | ascii_upcase)=\(.value | @sh)") | .[]')"
+
+              if [ "$MIN_PEER_COUNT" != 0 ]; then
+                if [ "$SHOULDHAVEPEERS" = "true" ]; then
+                  echo "expecting that peers connect to the node"
+                  if [ "$PEERS" -lt "$MIN_PEER_COUNT" ]; then
+                    echo "insufficient peers connected"
+                    exit
+                  else
+                    echo "found peers: $PEERS connected"
+                  fi
+                else
+                  echo "no peers were expected; $PEERS connected"
+                fi
+              else
+                echo "$CHAIN_TYPE chain detected; no peers were required"
+              fi
+
+              if [ "$ISSYNCING" = "false" ]; then
+                echo "node is not synchronising"
+                exit
+              fi
+          env:
+            - name: CHAIN_TYPE
+              value: {{ $.Values.node.chain }}
+            - name: MIN_PEER_COUNT
+            {{- if eq $.Values.node.chain "dev" }}
+              value: {{ 0 | quote }}
+            {{- else }}
+              value: {{ default 2 $nodeConnection.minPeerCount | quote }}
+            {{- end }}
+      restartPolicy: OnFailure
+  backoffLimit: {{ .Values.tests.backoffLimit }}
 {{ end }}
