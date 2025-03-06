@@ -36,7 +36,7 @@ spec:
               # list transactions
               TX_LIST_LENGTH=$(curl \
                 --header "accept: application/json" \
-                --header "Authorizationz: Bearer $TOKEN" \
+                --header "Authorization: Bearer $TOKEN" \
                 --fail \
                 --url http://$SERVICE_HOST:$SERVICE_PORT/v1/transaction | jq 'length')
 

@@ -691,6 +691,16 @@ keycloak:
   ## @param keycloak.enabled Enable Keycloak subchart
   enabled: false
 
+## @section SQNC Identity Service Parameters
+identity:
+  ## @param identity.enabled Enable sqnc-identity-service subchart
+  enabled: false
+
+## @section SQNC Ipfs Parameters
+ipfs:
+  ## @param ipfs.enabled Enable sqnc-ipfs subchart
+  enabled: false
+
 ## @section Helm test parameters
 tests:
   ## @param tests.backoffLimit retry backoff limit for the test suite

@@ -1,5 +1,6 @@
 node:
   enabled: true
+  fullnameOverride: matchmaker-node
   node:
     chain: dev
     flags:
@@ -10,25 +11,13 @@ node:
       - "--unsafe-rpc-external"
   tests:
     blockHeight:
-      waitSeconds: 120
+      waitSeconds: 30
     nodeConnection:
-      waitSeconds: 120
+      waitSeconds: 30
       minPeerCount: 0
 
 userUri: //Alice
 logLevel: debug
-livenessProbe:
-  enabled: false
-readinessProbe:
-  enabled: false
-startupProbe:
-  enabled: false
-externalSqncIpfs:
-  host: localhost
-  port: 3000
-externalSqncIdentity:
-  host: localhost
-  port: 3000
 auth:
   clientId: sequence
   publicUrlPrefix: "http://localhost:8080/auth/realms/alice/protocol/openid-connect"
@@ -37,8 +26,30 @@ tests:
   backoffLimit: 10
   auth:
     clientSecret: secret
+identity:
+  enabled: true
+  node:
+    enabled: false
+  externalSqncNode:
+    host: matchmaker-node
+    port: 9944
+  auth:
+    publicUrlPrefix: http://matchmaker-keycloak:80/auth/realms/alice/protocol/openid-connect"
+  postgresql:
+    nameOverride: postgresql-identity
+ipfs:
+  enabled: true
+  sqncNode:
+    enabled: false
+  externalSqncNode:
+    host: matchmaker-node
+    port: 9944
+  service:
+    ports:
+      http: 5001
 keycloak:
   enabled: true
+  fullnameOverride: matchmaker-keycloak
   auth:
     clientId: sequence
   httpRelativePath: /auth/

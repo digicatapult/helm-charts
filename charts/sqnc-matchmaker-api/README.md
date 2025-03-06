@@ -264,6 +264,18 @@ The command removes all the Kubernetes components associated with the chart and 
 | ------------------ | ------------------------ | ------- |
 | `keycloak.enabled` | Enable Keycloak subchart | `false` |
 
+### SQNC Identity Service Parameters
+
+| Name               | Description                           | Value   |
+| ------------------ | ------------------------------------- | ------- |
+| `identity.enabled` | Enable sqnc-identity-service subchart | `false` |
+
+### SQNC Ipfs Parameters
+
+| Name           | Description               | Value   |
+| -------------- | ------------------------- | ------- |
+| `ipfs.enabled` | Enable sqnc-ipfs subchart | `false` |
+
 ### Helm test parameters
 
 | Name                             | Description                                             | Value              |
