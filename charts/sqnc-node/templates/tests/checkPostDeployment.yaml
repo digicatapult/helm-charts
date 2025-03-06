@@ -47,14 +47,6 @@ spec:
           done
 
           echo "last finalised block authored by the node was (block ID) $LASTAUTHOREDFINALISEDBLOCK"
-
-          PEERS=`curl -sS -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health"}' "http://{{ $fullname }}-{{ $i }}:9944" | jq '.result.peers'`
-          if [ $PEERS = 0 ]; then
-            echo "no peers found for the validator"
-            exit
-          else
-            echo "validator has $PEERS peers connected"
-          fi
       env:
         - name: BLOCK_AUTHOR_POLL
           value: {{ default 5 $blockAuthor.pollSeconds | quote }}
