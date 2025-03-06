@@ -88,7 +88,6 @@ auth:
   tokenPath: "/token"
   jwksPath: "/certs"
 
-
 ## Digital Catapult sqnc-matchmaker-api image
 ## ref: https://hub.docker.com/r/digicatapult/sqnc-matchmaker-api/tags/
 ## @param image.registry sqnc-matchmaker-api image registry
@@ -558,7 +557,7 @@ initDbCreate:
   image:
     registry: docker.io
     repository: postgres
-    tag: '17-alpine'
+    tag: "17-alpine"
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -686,3 +685,32 @@ externalSqncIdentity:
   ## @param externalSqncIdentity.port External SQNC-Identity-Service port
   ##
   port: ""
+
+## @section Keycloak Parameters
+keycloak:
+  ## @param keycloak.enabled Enable Keycloak subchart
+  enabled: false
+
+## @section SQNC Identity Service Parameters
+identity:
+  ## @param identity.enabled Enable sqnc-identity-service subchart
+  enabled: false
+
+## @section SQNC Ipfs Parameters
+ipfs:
+  ## @param ipfs.enabled Enable sqnc-ipfs subchart
+  enabled: false
+
+## @section Helm test parameters
+tests:
+  ## @param tests.backoffLimit retry backoff limit for the test suite
+  backoffLimit: 4
+  ## @param tests.osShell.image.repository shell script image repository
+  ## @param tests.osShell.image.tag shell script image tag (immutable tags are recommended)
+  osShell:
+    image:
+      repository: bitnami/os-shell
+      tag: latest
+  ## @param tests.auth.clientSecret OAuth2 client secret to use when requesting tokens
+  auth:
+    clientSecret: ""

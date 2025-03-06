@@ -183,13 +183,13 @@ spec:
             - name: NODE_PORT
               value: {{ include "sqnc-matchmaker-api.sqncNodePort" . }}
             - name: IPFS_HOST
-              value: {{ .Values.externalSqncIpfs.host | quote}}
+              value: {{ template "sqnc-matchmaker-api.sqncIpfsHost" . }}
             - name: IPFS_PORT
-              value: {{ .Values.externalSqncIpfs.port | quote }}
+              value: {{ template "sqnc-matchmaker-api.sqncIpfsPort" . }}
             - name: IDENTITY_SERVICE_HOST
-              value: {{ .Values.externalSqncIdentity.host | quote}}
+              value: {{ template "sqnc-matchmaker-api.sqncIdentityHost" . }}
             - name: IDENTITY_SERVICE_PORT
-              value: {{ .Values.externalSqncIdentity.port | quote }}
+              value: {{ template "sqnc-matchmaker-api.sqncIdentityPort" . }}
             - name: ENABLE_INDEXER
               value: {{ .Values.enableIndexer | quote }}
             - name: IDP_CLIENT_ID

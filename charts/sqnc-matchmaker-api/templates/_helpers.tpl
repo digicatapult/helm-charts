@@ -59,6 +59,34 @@ Return the sqnc-node API port
 {{- end -}}
 
 {{/*
+Return the identity service hostname
+*/}}
+{{- define "sqnc-matchmaker-api.sqncIdentityHost" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "identity" "chartValues" .Values.identity "context" $) -}}
+{{- end -}}
+
+{{/*
+Return the identity service port
+*/}}
+{{- define "sqnc-matchmaker-api.sqncIdentityPort" -}}
+{{- ternary "3000" .Values.externalSqncIdentity.port .Values.identity.enabled | quote -}}
+{{- end -}}
+
+{{/*
+Return the ipfs hostname
+*/}}
+{{- define "sqnc-matchmaker-api.sqncIpfsHost" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "ipfs" "chartValues" .Values.ipfs "context" $) -}}
+{{- end -}}
+
+{{/*
+Return the ipfs port
+*/}}
+{{- define "sqnc-matchmaker-api.sqncIpfsPort" -}}
+{{- ternary "5001" .Values.externalSqncIpfs.port .Values.ipfs.enabled | quote -}}
+{{- end -}}
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
