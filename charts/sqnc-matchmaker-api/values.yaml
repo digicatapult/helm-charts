@@ -672,19 +672,19 @@ externalSqncNode:
 ## @param externalSqncIpfs.host External SQNC-Ipfs hostname
 ##
 externalSqncIpfs:
-  host: ""
+  host: alice-ipfs-sqnc-ipfs-api
   ## @param externalSqncIpfs.port External SQNC-Ipfs port
   ##
-  port: ""
+  port: 5001
 
 ## @section SQNC-Identity-Service parameters
 ## @param externalSqncIdentity.host External SQNC-Identity-Service hostname
 ##
 externalSqncIdentity:
-  host: ""
+  host: alice-identity-service-sqnc-identity-service
   ## @param externalSqncIdentity.port External SQNC-Identity-Service port
   ##
-  port: ""
+  port: 3000
 
 ## @section Keycloak Parameters
 keycloak:
