@@ -16,7 +16,7 @@ kubectl:
 googleCloudSdk:
   image:
     repository: google/cloud-sdk
-    tag: slim # more lightweight than the full image and still contains gsutil
+    tag: slim  # more lightweight than the full image and still contains gsutil
   # serviceAccountKey: ""
 
 imagePullSecrets: []
@@ -57,7 +57,7 @@ ingress:
 
 node:
   chain: "local"
-  chainSpecConfigMap: "" # Name of the ConfigMap containing the chain spec
+  chainSpecConfigMap: ""  # Name of the ConfigMap containing the chain spec
   command: "./sqnc-node"
   dataVolumeSize: 10Gi
   replicas: 1
@@ -104,7 +104,7 @@ node:
   perNodeServices:
     createApiService: true
     createP2pService: true
-    p2pServiceType: ClusterIP # Must be type ClusterIP, NodePort or LoadBalancer, If using type NodePort or LoadBalancer then you must set NodeSelecter accordingly.
+    p2pServiceType: ClusterIP  # Must be type ClusterIP, NodePort or LoadBalancer, If using type NodePort or LoadBalancer then you must set NodeSelecter accordingly.
     setPublicAddressToExternal:
       enabled: true
       ipRetrievalServiceUrl: https://ifconfig.io/ip
