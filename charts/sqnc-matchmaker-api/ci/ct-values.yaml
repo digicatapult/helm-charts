@@ -9,12 +9,6 @@ node:
       - "--rpc-methods=Unsafe"
       - "--rpc-cors=all"
       - "--unsafe-rpc-external"
-  tests:
-    blockHeight:
-      waitSeconds: 30
-    nodeConnection:
-      waitSeconds: 30
-      minPeerCount: 0
 
 userUri: //Alice
 logLevel: debug
@@ -23,7 +17,6 @@ auth:
   publicUrlPrefix: "http://localhost:8080/auth/realms/alice/protocol/openid-connect"
   internalUrlPrefix: "http://matchmaker-keycloak:80/auth/realms/alice/protocol/openid-connect"
 tests:
-  backoffLimit: 10
   auth:
     clientSecret: secret
 identity:
