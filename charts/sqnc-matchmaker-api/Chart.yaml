@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/sqnc-matchmaker-api
-appVersion: v4.0.41
+appVersion: v4.0.42
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -14,6 +14,10 @@ dependencies:
     tags:
       - bitnami-common
     version: 2.x.x
+  - condition: keycloak.enabled
+    name: keycloak
+    repository: https://charts.bitnami.com/bitnami
+    version: 21.x.x
   - name: sqnc-node
     alias: node
     repository: https://digicatapult.github.io/helm-charts/
@@ -21,6 +25,20 @@ dependencies:
       - sqnc-node
     version: 7.x.x
     condition: node.enabled
+  - name: sqnc-identity-service
+    alias: identity
+    repository: https://digicatapult.github.io/helm-charts/
+    tags:
+      - sqnc-identity-service
+    version: 3.x.x
+    condition: identity.enabled
+  - name: sqnc-ipfs
+    alias: ipfs
+    repository: https://digicatapult.github.io/helm-charts/
+    tags:
+      - sqnc-ipfs
+    version: 4.x.x
+    condition: ipfs.enabled
 description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based system.
 home: https://github.com/digicatapult/sqnc-documentation
 icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
@@ -33,4 +51,4 @@ maintainers:
 name: sqnc-matchmaker-api
 sources:
   - https://github.com/digicatapult/sqnc-matchmaker-api
-version: 2.0.102
+version: 2.1.0

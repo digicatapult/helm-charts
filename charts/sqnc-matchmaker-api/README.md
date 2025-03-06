@@ -258,6 +258,33 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalSqncIdentity.host` | External SQNC-Identity-Service hostname | `""`  |
 | `externalSqncIdentity.port` | External SQNC-Identity-Service port     | `""`  |
 
+### Keycloak Parameters
+
+| Name               | Description              | Value   |
+| ------------------ | ------------------------ | ------- |
+| `keycloak.enabled` | Enable Keycloak subchart | `false` |
+
+### SQNC Identity Service Parameters
+
+| Name               | Description                           | Value   |
+| ------------------ | ------------------------------------- | ------- |
+| `identity.enabled` | Enable sqnc-identity-service subchart | `false` |
+
+### SQNC Ipfs Parameters
+
+| Name           | Description               | Value   |
+| -------------- | ------------------------- | ------- |
+| `ipfs.enabled` | Enable sqnc-ipfs subchart | `false` |
+
+### Helm test parameters
+
+| Name                             | Description                                             | Value              |
+| -------------------------------- | ------------------------------------------------------- | ------------------ |
+| `tests.backoffLimit`             | retry backoff limit for the test suite                  | `4`                |
+| `tests.osShell.image.repository` | shell script image repository                           | `bitnami/os-shell` |
+| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended) | `latest`           |
+| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens      | `""`               |
+
 ## Configuration and installation details
 
 ### [Rolling VS Immutable tags](https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/)
