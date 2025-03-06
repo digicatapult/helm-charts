@@ -9,6 +9,7 @@ node:
       - "--rpc-methods=Unsafe"
       - "--rpc-cors=all"
       - "--unsafe-rpc-external"
+      - "--unsafe-force-node-key-generation"
 
 userUri: //Alice
 logLevel: debug

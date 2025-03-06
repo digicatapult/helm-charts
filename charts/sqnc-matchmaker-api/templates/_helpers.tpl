@@ -62,7 +62,7 @@ Return the sqnc-node API port
 Return the identity service hostname
 */}}
 {{- define "sqnc-matchmaker-api.sqncIdentityHost" -}}
-{{- include "common.names.dependency.fullname" (dict "chartName" "identity" "chartValues" .Values.identity "context" $) -}}
+{{- ternary (include "common.names.dependency.fullname" (dict "chartName" "identity" "chartValues" .Values.identity "context" $)) .Values.externalSqncIdentity.host .Values.identity.enabled -}}
 {{- end -}}
 
 {{/*
@@ -76,7 +76,7 @@ Return the identity service port
 Return the ipfs hostname
 */}}
 {{- define "sqnc-matchmaker-api.sqncIpfsHost" -}}
-{{- include "common.names.dependency.fullname" (dict "chartName" "ipfs" "chartValues" .Values.ipfs "context" $) -}}
+{{- ternary (include "common.names.dependency.fullname" (dict "chartName" "ipfs" "chartValues" .Values.ipfs "context" $)) .Values.externalSqncIpfs.host .Values.ipfs.enabled -}}
 {{- end -}}
 
 {{/*
