@@ -113,5 +113,5 @@ spec:
               value: {{ default 2 $nodeConnection.minPeerCount | quote }}
             {{- end }}
       restartPolicy: OnFailure
-  backoffLimit: {{ .Values.tests.backoffLimit }}
+  backoffLimit: {{ $.Values.tests.backoffLimit }}
 {{ end }}
