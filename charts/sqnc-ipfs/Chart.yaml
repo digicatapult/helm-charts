@@ -6,7 +6,7 @@ name: sqnc-ipfs
 description: sqnc-ipfs is a component of the SQNC project that provides a distributed IPFS based storage solution for the SQNC platform.
 # renovate: image=digicatapult/sqnc-ipfs
 appVersion: v3.0.17
-version: 4.0.34
+version: 4.0.35
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
@@ -25,7 +25,7 @@ icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/ass
 keywords:
   - SQNC
 maintainers:
-  - name: digicatapult  # Digital Catapult
+  - name: digicatapult # Digital Catapult
     url: https://github.com/digicatapult/helm-charts
     email: opensource@digicatapult.org.uk
 sources:
