@@ -117,6 +117,7 @@ spec:
             - |
               [ ! -f "{{ .Values.persistence.mountPath }}/config" ] && {{ .Values.ipfs.binary }} init --profile server;
               export POD_INDEX="${HOSTNAME##*-}";
+              {{ .Values.ipfs.binary }} repo migrate;
               {{ .Values.ipfs.binary }} config Addresses.API /ip4/0.0.0.0/tcp/{{ .Values.apiService.ports.api | default 5001 }};
               {{ .Values.ipfs.binary }} config --json Addresses.Swarm "[\"/ip4/0.0.0.0/tcp/{{ .Values.swarmService.ports.swarm }}\"]";
               {{ .Values.ipfs.binary }} config --json Addresses.Announce "[\"/dns4/{{ include "common.names.fullname" . }}-$(echo "$POD_INDEX")-swarm.{{ .Release.Namespace }}.svc.cluster.local/tcp/{{ .Values.swarmService.ports.swarm }}/\"]";
