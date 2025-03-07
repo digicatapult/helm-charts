@@ -6,6 +6,6 @@ maintainers:
     url: www.digicatapult.org.uk
 description: A Helm chart to deploy SQNC nodes
 type: application
-version: 7.1.4
+version: 7.1.5
 # renovate: image=digicatapult/sqnc-node
-appVersion: '12.2.0'
+appVersion: "12.2.0"

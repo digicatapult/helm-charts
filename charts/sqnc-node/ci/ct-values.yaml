@@ -15,8 +15,5 @@ tests:
     enabled: true
     pollSeconds: 5
     timeoutSeconds: 300
-  blockHeight:
-    waitSeconds: 30
   nodeConnection:
-    waitSeconds: 30
     minPeerCount: 0

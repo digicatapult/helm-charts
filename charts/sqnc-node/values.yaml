@@ -159,6 +159,7 @@ storageClass: ""
 
 # Continuous integration tests
 tests:
+  backoffLimit: 4
   # The default image for the testing container
   osShell:
     image:
@@ -168,8 +169,5 @@ tests:
   #   enabled: true
   #   pollSeconds: 5
   #   timeoutSeconds: 120
-  # blockHeight:
-  #   waitSeconds: 30
   # nodeConnection:
-  #   waitSeconds: 30
   #   minPeerCount: 2
