@@ -29,6 +29,7 @@ identity:
     port: 9944
   auth:
     publicUrlPrefix: http://matchmaker-keycloak:80/auth/realms/alice/protocol/openid-connect"
+    internalUrlPrefix: "http://matchmaker-keycloak:80/auth/realms/alice/protocol/openid-connect"
   postgresql:
     nameOverride: postgresql-identity
 ipfs:
