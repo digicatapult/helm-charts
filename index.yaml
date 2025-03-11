@@ -8553,6 +8553,42 @@ entries:
       category: sqnc
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v3.0.20
+    created: "2025-03-11T20:09:20.352480805Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: sqncNode
+      condition: sqncNode.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: sqnc-ipfs is a component of the SQNC project that provides a distributed
+      IPFS based storage solution for the SQNC platform.
+    digest: f8ec736de0df018df92e8dfbf257f70e81079e683cd09450eb7312a7bb006c8b
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-ipfs
+    sources:
+    - https://github.com/digicatapult/sqnc-ipfs
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-ipfs-4.0.37/sqnc-ipfs-4.0.37.tgz
+    version: 4.0.37
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v3.0.18
     created: "2025-03-07T13:28:18.642210973Z"
     dependencies:
@@ -25537,4 +25573,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-03-11T19:07:53.915399285Z"
+generated: "2025-03-11T20:09:20.35376429Z"
