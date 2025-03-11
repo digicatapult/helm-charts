@@ -1,6 +1,6 @@
 image:
   repository: digicatapult/sqnc-node
-  tag: v12.2.0
+  tag: v12.2.1
   pullPolicy: Always
 
 initContainer:
