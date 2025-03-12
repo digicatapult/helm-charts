@@ -1,21 +1,21 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 16.4.16
+  version: 16.5.0
 - name: common
   repository: https://charts.bitnami.com/bitnami
   version: 2.27.0
 - name: keycloak
   repository: https://charts.bitnami.com/bitnami
-  version: 21.8.0
+  version: 24.4.12
 - name: sqnc-node
   repository: https://digicatapult.github.io/helm-charts/
-  version: 7.1.5
+  version: 7.1.7
 - name: sqnc-identity-service
   repository: https://digicatapult.github.io/helm-charts/
-  version: 4.0.81
+  version: 4.0.82
 - name: sqnc-ipfs
   repository: https://digicatapult.github.io/helm-charts/
-  version: 4.0.36
-digest: sha256:cdb8f9d8da8acda32f3f96c6227d3c4249a6db46ffd8b755512d7c7a52d6b894
-generated: "2025-03-08T19:12:08.137625743Z"
+  version: 4.0.37
+digest: sha256:e03b1fa257ba783166c870ca418de4b49c1e569ba70fdf9060af7d3334fab54b
+generated: "2025-03-12T18:11:01.554754614Z"
