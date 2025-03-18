@@ -188,17 +188,17 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Init Container Parameters
 
-| Name                             | Description                                                                                                                                                     | Value                             |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `initDbCreate.image.registry`    | sqnc-routing-service image registry                                                                                                                             | `docker.io`                       |
-| `initDbCreate.image.repository`  | sqnc-routing-service image repository                                                                                                                           | `postgres`                        |
-| `initDbCreate.image.tag`         | sqnc-routing-service image tag (immutable tags are recommended)                                                                                                 | `17-alpine`                       |
-| `initDbCreate.image.digest`      | sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                              |
-| `initDbCreate.image.pullPolicy`  | sqnc-routing-service image pull policy                                                                                                                          | `IfNotPresent`                    |
-| `initDbCreate.image.pullSecrets` | sqnc-routing-service image pull secrets                                                                                                                         | `[]`                              |
-| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`                            |
-| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`                      |
-| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest","--knexfile"]` |
+| Name                             | Description                                                                                                                                                     | Value                |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `initDbCreate.image.registry`    | sqnc-routing-service image registry                                                                                                                             | `docker.io`          |
+| `initDbCreate.image.repository`  | sqnc-routing-service image repository                                                                                                                           | `postgres`           |
+| `initDbCreate.image.tag`         | sqnc-routing-service image tag (immutable tags are recommended)                                                                                                 | `17-alpine`          |
+| `initDbCreate.image.digest`      | sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                 |
+| `initDbCreate.image.pullPolicy`  | sqnc-routing-service image pull policy                                                                                                                          | `IfNotPresent`       |
+| `initDbCreate.image.pullSecrets` | sqnc-routing-service image pull secrets                                                                                                                         | `[]`                 |
+| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`               |
+| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`         |
+| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest"]` |
 
 ### Other Parameters
 
