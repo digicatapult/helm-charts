@@ -1,0 +1,56 @@
+{{ $fullname :=  include "common.names.fullname" . }}
+{{ $osShell := $.Values.tests.osShell.image }}
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ $fullname }}-test-suite"
+  labels:
+    app.kubernetes.io/component: sqnc-attachment-api
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  template:
+    spec:
+      containers:
+        - name: tx-api-check
+          image: {{ $osShell.repository }}:{{ $osShell.tag }}
+          command: [ "/bin/bash" ]
+          args:
+            - -c
+            - |
+              set -eo pipefail
+
+              # get keycloak token
+              TOKEN=$(curl --request POST \
+                --header 'content-type: application/x-www-form-urlencoded' \
+                --data grant_type=client_credentials \
+                --data client_id=$CLIENT_ID \
+                --data client_secret=$CLIENT_SECRET \
+                --fail \
+                --url $AUTH_TOKEN_ENDPOINT | jq -r '.access_token')
+
+              # list transactions
+              ATT_LIST_LENGTH=$(curl \
+                --header "accept: application/json" \
+                --header "Authorization: Bearer $TOKEN" \
+                --fail \
+                --url http://$SERVICE_HOST:$SERVICE_PORT/v1/attachment | jq 'length')
+
+              echo "Attachment endpoint successfully returned $ATT_LIST_LENGTH transactions"
+          env:
+            - name: SERVICE_HOST
+              value: {{ $fullname | quote }}
+            - name: SERVICE_PORT
+              value: {{ .Values.containerPorts.http | quote }}
+            - name: AUTH_TOKEN_ENDPOINT
+              value: {{ printf "%s%s" .Values.auth.internalUrlPrefix .Values.auth.tokenPath | quote }}
+            - name: CLIENT_ID
+              value: {{ .Values.auth.clientId | quote }}
+            - name: CLIENT_SECRET
+              value: {{ .Values.tests.auth.clientSecret | quote }}
+      restartPolicy: OnFailure
+  backoffLimit: {{ .Values.tests.backoffLimit }}
