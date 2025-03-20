@@ -1,173 +1,388 @@
-image:
-  repository: digicatapult/sqnc-node
-  tag: v12.2.1
-  pullPolicy: Always
-
-initContainer:
-  image:
-    repository: crazymax/7zip
-    tag: latest
-
-kubectl:
-  image:
-    repository: bitnami/kubectl
-    tag: latest
-
-googleCloudSdk:
-  image:
-    repository: google/cloud-sdk
-    tag: slim  # more lightweight than the full image and still contains gsutil
-  # serviceAccountKey: ""
-
-imagePullSecrets: []
+## @section Common parameters
+##
+## @param nameOverride [default: nil] String to partially override chart.fullname
+##
 nameOverride: ""
+## @param fullnameOverride [default: nil] String to fully override chart.fullname
+##
 fullnameOverride: ""
+## @param imagePullSecrets Labels to add to all deployed objects
+##
+imagePullSecrets: []
+## @param podAnnotations Annotations to add to pods
+##
+podAnnotations: {}
+## @param nodeSelector Node labels for pod assignment
+##
+nodeSelector: {}
+## @param tolerations Tolerations for pod assignment
+##
+tolerations: []
+## @param affinity Affinity for pod assignment
+##
+affinity: {}
+## @param storageClass [default: default] The storage class to use for volumes
+##
+storageClass: ""
 
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
-
-ingress:
-  enabled: false
-  annotations: {}
-  #  kubernetes.io/ingress.class: nginx
-  #  kubernetes.io/tls-acme: "true"
-  rules: []
-  #  - host: chart-example.local
-  #    paths:
-  #      - serviceName: node
-  #        servicePort: 9944
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-# extraLabels:
-#  type: rpc
-
+## @section Node parameters
+##
 node:
+  ## @param node.chain [default: polkadot] Network to connect the node to (i.e. --chain)
+  ##
   chain: "local"
-  chainSpecConfigMap: ""  # Name of the ConfigMap containing the chain spec
+  ## @param node.chainSpecConfigMap [default: ""] Existing configmap which contains the chainspec named as chainspec.json
+  ##
+  chainSpecConfigMap: ""
+  ## @param node.command [default: polkadot] Command to be invoked to launch the node binary
+  ##
   command: "./sqnc-node"
-  dataVolumeSize: 10Gi
-  replicas: 1
-  role: full
-  # customChainspecUrl:
-  # chainDataSnapshotUrl: "https://dot-rocksdb.polkashots.io/snapshot"
-  # chainDataSnapshotFormat: 7z
-  # chainPath: ""
-  # chainDataKubernetesVolumeSnapshot: ""
-  # chainDataGcsBucketUrl: ""
-  collator:
-    isParachain: false
-    # relayChain: polkadot
-  #  relayChainCustomChainspecUrl: ""
-  #  relayChainDataSnapshotUrl: "https://dot-rocksdb.polkashots.io/snapshot"
-  #  relayChainDataSnapshotFormat: 7z
-  #  relayChainPath: ""
-  #  relayChainDataKubernetesVolumeSnapshot: ""
-  #  relayChainDataGcsBucketUrl: ""
-  #  relayChainFlags:
-  enableStartupProbe: true
-  enableReadinessProbe: true
+  ## @param node.flags [default: --prometheus-external --rpc-external --ws-external --rpc-cors all] Node flags other than --name (set from the helm release name), --base-path and --chain (both set with node.chain)
+  ##
   flags:
     - "--rpc-external"
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
-    # - "--prometheus-external"
+  ##  - "--prometheus-external"
+  perNodeServices:
+    ## @param node.perNodeServices.createApiService If enabled, create a generic service to expose common node APIs
+    ##
+    createApiService: true
+    ## @param node.perNodeServices.createP2pService If enabled, create a generic P2P network layer
+    ##
+    createP2pService: true
+    ## @param node.perNodeServices.p2pServiceType Must be type ClusterIP, NodePort or LoadBalancer. If using type NodePort or LoadBalancer, then you must set NodeSelector accordingly
+    ##
+    p2pServiceType: ClusterIP
+    setPublicAddressToExternal:
+      ## @param node.perNodeServices.setPublicAddressToExternal.enabled If true sets the `--public-addr` flag to be the NodePort P2P services external address
+      ##
+      enabled: true
+      ## @param node.perNodeServices.setPublicAddressToExternal.ipRetrievalServiceUrl The external service to return the NodePort IP
+      ##
+      ipRetrievalServiceUrl: https://ifconfig.io/ip
+  ## @param node.keys The list of keys to inject on the node before startup (object{ type, scheme, seed })
+  ##
+  ## Example
+  ## keys:
+  ##  - type: "gran"
+  ##    scheme: "ed25519"
+  ##    seed: "//Alice//gran"
+  ##  - type: "babe"
+  ##    scheme: "sr25519"
+  ##    seed: "//Alice//babe"
+  ##
   keys: {}
-  #  - type: "gran"
-  #    scheme: "ed25519"
-  #    seed: "//Alice//gran"
-  #  - type: "babe"
-  #    scheme: "sr25519"
-  #    seed: "//Alice//babe"
+  ## @param node.persistGeneratedNodeKey [default: false] Persist the auto-generated node key inside the data volume (at /data/node-key)
+  ##
   persistGeneratedNodeKey: false
-  # customNodeKey: ""
+  ## @param node.customNodeKey [default: nil] Use a custom node-key, if node.persistGeneratedNodeKey is true then this will not be used. (Must be 64 byte hex key)
+  ##
+  ## customNodeKey: ""
+  ##
+  ## @param node.enableStartupProbe [default: true] If true, enable the startup probe check
+  ##
+  enableStartupProbe: true
+  ## @param node.enableReadinessProbe [default: true] If true, enable the readiness probe check
+  ##
+  enableReadinessProbe: true
+  ## @param node.dataVolumeSize [default: 100Gi] The size of the chain data PersistentVolume
+  ##
+  dataVolumeSize: 10Gi
+  ## @param node.replicas [default: 1] Number of replicas in the node's StatefulSet
+  ##
+  replicas: 1
+  ## @param node.role [default: full] Set the role of the node: full, authority/validator, collator or light
+  ##
+  role: full
+  ##
+  ## @param node.chainDataSnapshotUrl [default: ""] Download and load chain data from a snapshot archive http URL
+  ## @param node.chainDataSnapshotFormat [default: tar] The snapshot archive format (tar or 7z)
+  ## @param node.chainPath [default: nil] Path at which the chain database files are located (/data/chains/${CHAIN_PATH})
+  ## @param node.chainDataKubernetesVolumeSnapshot [default: ""] Initialize the chain data volume from a Kubernetes VolumeSnapshot
+  ## @param node.chainDataGcsBucketUrl [default: ""] Sync chain data files from a GCS bucket (eg. gs://bucket-name/folder-name)
+  ##
+  ## chainDataSnapshotUrl: "https://dot-rocksdb.polkashots.io/snapshot"
+  ## chainDataSnapshotFormat: 7z
+  ## chainPath: ""
+  ## chainDataKubernetesVolumeSnapshot: ""
+  ## chainDataGcsBucketUrl: ""
+  ##
+  ## @param node.customChainspecUrl [default: nil] Download and use a custom chainspec file from a URL
+  ## customChainspecUrl:
+  ##
+  collator:
+    ## @param node.collator.isParachain If true, configure the node as a parachain (set the relay-chain flags after --)
+    ##
+    isParachain: false
+    ## @param node.collator.relayChain [default: nil] Custom relay-chain name
+    ## @param node.collator.relayChainCustomChainspecUrl [default: nil] Download and use a custom relay-chain chainspec file from a URL
+    ## @param node.collator.relayChainDataSnapshotUrl [default: nil] Download and load relay-chain data from a snapshot archive HTTP URL
+    ## @param node.collator.relayChainDataSnapshotFormat [default: nil] The relay-chain snapshot archive format (tar or 7z)
+    ## @param node.collator.relayChainPath [default: nil] Path at which the chain database files are located (/data/polkadot/chains/${RELAY_CHAIN_PATH})
+    ## @param node.collator.relayChainDataKubernetesVolumeSnapshot [default: nil] Initialize the relay-chain data volume from a Kubernetes VolumeSnapshot
+    ## @param node.collator.relayChainDataGcsBucketUrl [default: nil] Sync relay-chain data files from a GCS bucket (eg. gs://bucket-name/folder-name)
+    ## @param node.collator.relayChainFlags [default: nil] Relay-chain node flags other than --name (set from the helm release name), --base-path and --chain
+    ##
+    ## relayChain: polkadot
+    ## relayChainCustomChainspecUrl: ""
+    ## relayChainDataSnapshotUrl: "https://dot-rocksdb.polkashots.io/snapshot"
+    ## relayChainDataSnapshotFormat: 7z
+    ## relayChainPath: ""
+    ## relayChainDataKubernetesVolumeSnapshot: ""
+    ## relayChainDataGcsBucketUrl: ""
+    ## relayChainFlags:
+    ##
+  ## @param node.podManagementPolicy [default: {}] The pod management policy to apply to the StatefulSet
+  ##
+  ## Set it to Parallel to launch or terminate all Pods in parallel, and not to wait for pods to become Running and Ready or completely terminated prior to launching or terminating another pod
+  ## podManagementPolicy: Parallel
+  ##
+  ## @param node.resources Resource requirements and limits for nodes
+  ##
+  ## Example
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
   resources: {}
   serviceMonitor:
+    ## @param node.serviceMonitor.enabled [default: false] If true, creates a Prometheus Operator ServiceMonitor
+    ##
     enabled: false
-    # namespace: monitoring
-    # interval: 10s
-    # scrapeTimeout: 10s
-  perNodeServices:
-    createApiService: true
-    createP2pService: true
-    p2pServiceType: ClusterIP  # Must be type ClusterIP, NodePort or LoadBalancer, If using type NodePort or LoadBalancer then you must set NodeSelecter accordingly.
-    setPublicAddressToExternal:
-      enabled: true
-      ipRetrievalServiceUrl: https://ifconfig.io/ip
-  # podManagementPolicy: Parallel
-
-  # Enables Jaeger Agent as a sidecar
+    ## @param node.serviceMonitor.namespace [default: nil] Prometheus namespace
+    ## @param node.serviceMonitor.internal [default: nil] Prometheus scrape interval
+    ## @param node.serviceMonitor.scrapeTimeout [default: nil] Prometheus scrape timeout
+    ##
+    ## Example
+    ## namespace: monitoring
+    ## interval: 10s
+    ## scrapeTimeout: 10s
+    ##
   tracing:
+    ## @param node.tracing.enabled [default: false] If true, creates a Jaeger agent sidecar
+    ##
     enabled: false
-
-  # Enables Sustrate API as a sidecar
   substrateApiSidecar:
+    ## @param node.substrateApiSidecar.enabled [default: false] If true, creates a Substrate API sidecar
+    ##
     enabled: false
 
-# https://github.com/paritytech/substrate-api-sidecar
-substrateApiSidecar:
+## @section Other parameters
+##
+image:
+  ## @param image.repository [default: parity/polkadot] Node image name
+  ##
+  repository: digicatapult/sqnc-node
+  ## @param image.tag [default: v12.2.1] Node image tag
+  ##
+  tag: v12.2.1
+  ## @param image.pullPolicy [default: Always] Node image pull policy
+  ##
+  pullPolicy: Always
+
+initContainer:
   image:
-    repository: parity/substrate-api-sidecar
+    ## @param initContainer.image.repository [default: crazymax/7zip] The chain-snapshot init container image name
+    ##
+    repository: crazymax/7zip
+    ## @param initContainer.image.tag [default: latest] The chain-snapshot init container image tag
+    ##
     tag: latest
-  env: {}
-  resources: {}
 
-# https://github.com/jaegertracing/jaeger
-jaegerAgent:
+kubectl:
   image:
-    repository: jaegertracing/jaeger-agent
+    ## @param kubectl.image.repository [default: bitnami/kubectl] The Kubernetes CLI container image name
+    ##
+    repository: bitnami/kubectl
+    ## @param kubectl.image.tag [default: latest] The Kubernetes CLI container image tag
+    ##
     tag: latest
-  ports:
-    # accept jaeger.thrift over compact thrift protocol
-    compactPort: 6831
-    # accept jaeger.thrift over binary thrift protocol
-    binaryPort: 6832
-    # (HTTP) serve configs, sampling strategies
-    samplingPort: 5778
-  collector:
-    url: null
-    # Jaeger Default GRPC port is 14250
-    port: 14250
-  env: {}
-  resources: {}
 
-podAnnotations: {}
+googleCloudSdk:
+  image:
+    ## @param googleCloudSdk.image.repository [default: google/cloud-sdk] The sync-chain-gcs init container image name
+    ##
+    repository: google/cloud-sdk
+    ## @param googleCloudSdk.image.tag [default: slim] The sync-chain-gcs init container image tag
+    ## Slim is more lightweight than the full image and still contains gsutil
+    ##
+    tag: slim
+  ## @param googleCloudSdk.serviceAccountKey [default: nil] Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret
+  ##
+  ## serviceAccountKey: ""
 
-nodeSelector: {}
+serviceAccount:
+  ## @param serviceAccount.create [default: true] Specifies whether a service account should be created
+  ##
+  create: true
+  ## @param serviceAccount.annotations Annotations to add to the service account
+  ##
+  annotations: {}
+  ## @param serviceAccount.name The name of the service account to use.
+  ## If not set and create is true, a name is generated using the fullname template
+  ##
+  name: ""
 
+ingress:
+  ## @param ingress.enabled [default: false] If true, creates an ingress
+  enabled: false
+  ## @param ingress.annotations Annotations to add to the ingress (key/value pairs)
+  ##
+  ## Example
+  ## annotations:
+  ##   kubernetes.io/ingress.class: nginx
+  ##   kubernetes.io/tls-acme: "true"
+  ##
+  annotations: {}
+  ## @param ingress.rules Set rules on the ingress
+  ##
+  ## Example
+  ## rules:
+  ##   - host: chart-example.local
+  ##     paths:
+  ##       - serviceName: node
+  ##         servicePort: 9944
+  ##
+  rules: []
+  ## @param ingress.tls Set TLS configuration on the ingress
+  ##
+  ## Example
+  ## tls:
+  ##   - secretName: chart-example-tls
+  ##     hosts:
+  ##       - chart-example.local
+  ##
+  tls: []
+
+## @param extraLabels [default: []] Additional labels to tag resources created by the chart
+##
+## Example
+## extraLabels:
+##   type: rpc
+
+podSecurityContext:
+  ## @param podSecurityContext.runAsUser [default: 1000] Provide the user ID for executing pods
+  ##
+  runAsUser: 1000
+  ## @param podSecurityContext.runAsGroup [default: 1000] Provide the group ID for executing pods
+  ##
+  runAsGroup: 1000
+  ## @param podSecurityContext.fsGroup [default: 1000] Set the file system group for volume mounts
+  ##
+  fsGroup: 1000
+
+## @param terminationGracePeriodSeconds [default: 60] Define the duration for a pod's graceful termination
+##
 terminationGracePeriodSeconds: 60
 
-tolerations: []
+## ref: https://github.com/paritytech/substrate-api-sidecar
+##
+substrateApiSidecar:
+  image:
+    ## @param substrateApiSidecar.image.repository [default: parity/substrate-api-sidecar] The Substrate API sidecar image repository
+    ##
+    repository: parity/substrate-api-sidecar
+    ## @param substrateApiSidecar.image.tag [default: latest] The Substrate API sidecar image tag
+    ##
+    tag: latest
+  ## @param substrateApiSidecar.env Environment variables for the sidecar's container
+  ##
+  ## Example
+  ## env:
+  ##  - name: FOO
+  ##    value: BAR
+  ##
+  env: {}
+  ## @param substrateApiSidecar.resources Resource requirements and limits for the sidecar
+  ##
+  ## Example
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
+  resources: {}
 
-affinity: {}
+## ref: https://github.com/jaegertracing/jaeger
+##
+jaegerAgent:
+  image:
+    ## @param jaegerAgent.image.repository [default: jaegertracing/jaeger-agent] The Jaeger agent image repository
+    ##
+    repository: jaegertracing/jaeger-agent
+    ## @param jaegerAgent.image.tag [default: 1.28.0] The Jaeger agent image tag
+    ##
+    tag: 1.28.0
+  ports:
+    ## @param jaegerAgent.ports.compactPort [default: 6831] Port to use for jaeger.thrift over compact thrift protocol
+    ##
+    compactPort: 6831
+    ## @param jaegerAgent.ports.binaryPort [default: 6832] Port to use for jaeger.thrift over binary thrift protocol
+    ##
+    binaryPort: 6832
+    ## @param jaegerAgent.ports.samplingPort [default: 5778] Port for HTTP sampling strategies
+    ##
+    samplingPort: 5778
+  collector:
+    ## @param jaegerAgent.collector.url [default: nil] The URL to which the agent sends data
+    ##
+    url: null
+    ## @param jaegerAgent.collector.port [default: 14250] The port to which the agent sends data
+    ##
+    port: 14250
+  ## @param jaegerAgent.env Environment variables for the agent's container
+  ##
+  ## Example
+  ## env:
+  ##  - name: FOO
+  ##    value: BAR
+  ##
+  env: {}
+  ## @param jaegerAgent.resources Resource requirements and limits for the agent
+  ##
+  ## Example
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
+  resources: {}
 
-storageClass: ""
-
-# Continuous integration tests
 tests:
+  ## @param tests.backoffLimit [default: 4] A limit on retry attempts
+  ##
   backoffLimit: 4
-  # The default image for the testing container
+  ## Additional images could be used here as well as or instead of the default
+  ##
   osShell:
     image:
+      ## @param tests.osShell.image.repository [default: bitnami/os-shell] The utility init container image name
+      ##
       repository: bitnami/os-shell
+      ## @param tests.osShell.image.tag [default: latest] The utility init container image tag
+      ##
       tag: latest
-  # blockAuthor:
-  #   enabled: true
-  #   pollSeconds: 5
-  #   timeoutSeconds: 120
-  # nodeConnection:
-  #   minPeerCount: 2
+  ## @param tests.blockAuthor.enabled [default: true] A toggle to enable or disable the container that checks the validator is authoring blocks
+  ## @param tests.blockAuthor.pollSeconds [default: 5] The delay in seconds between polls of the current block synchronisation state
+  ## @param tests.blockAuthor.timeoutSeconds [default: 300] The timeout in seconds to allow the validator to author a finalised block
+  ## @param tests.nodeConnection.minPeerCounts [default: 2] The minimum number of peers needed for production chains; dev and local chains require none
+  ##
+  ## Default values are pre-configured by checkPostDeployment.yaml
+  ## blockAuthor:
+  ##   enabled: true
+  ##   pollSeconds: 5
+  ##   timeoutSeconds: 300
+  ## nodeConnection:
+  ##   minPeerCount: 2
