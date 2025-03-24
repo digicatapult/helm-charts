@@ -82,7 +82,7 @@ jobs:
 
       - name: Install dependencies postgress and sqnc-node manually
         if: |
-          matrix.test_cases.values_file==charts/sqnc-identity-service/ci/values01.yaml &&
+          matrix.test_cases.values_file=='charts/sqnc-identity-service/ci/values01.yaml' &&
           steps.list-changed.outputs.changed == 'true'
         run: |
           helm install postgres oci://registry-1.docker.io/bitnamicharts/postgresql \
