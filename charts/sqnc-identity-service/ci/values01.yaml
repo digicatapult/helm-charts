@@ -1,2 +1,6 @@
-# comment
 logLevel: trace
+postgresql:
+  enabled: false
+
+node:
+  enabled: false

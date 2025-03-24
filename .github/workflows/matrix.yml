@@ -93,8 +93,15 @@ jobs:
             --set architecture=standalone \
             --wait
 
+            kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
+
           helm install sqnc-node ./charts/sqnc-node \
+            --set fullnameOverride=sqnc-node \
+            --set service.port=9944 \
+            --set persistence.enabled=true \
             --wait
+
+            kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=sqnc-node --timeout=300s
 
       - name: Run chart-testing (install)
         run: |
