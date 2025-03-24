@@ -1,5 +1,4 @@
 logLevel: trace
-
 postgresql:
   enabled: false
 
