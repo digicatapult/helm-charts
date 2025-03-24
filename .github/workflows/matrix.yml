@@ -1,0 +1,122 @@
+name: Linting & Integration tests matrix
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CHART_LIST: ""
+  # space separated list of charts that we want to use a pullSecret for
+
+jobs:
+  # make a matrix job that passes the values and sends them as an output to the ct install below where we have this --values=values.yaml
+  # extra values files under workflows
+  helm-testing-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      # continue with all the other jobs even if one fails
+      fail-fast: false
+      matrix:
+        # each item in this list is a job with an isolated test VM
+        test_cases:
+          - name: "Default - no custom values"
+            values_file: charts/sqnc-identity-service/values.yaml
+          - name: Tests file values01.yaml
+            values_file: charts/sqnc-identity-service/ci/values01.yaml
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2
+
+      - name: Install additional Helm repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add digicatapult https://digicatapult.github.io/helm-charts
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch  || 'main'  }})
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+
+            # Initialize a flag to track if any named chart in the list has changed
+            named_charts_changed=false
+
+            # Loop through the charts in the CHART_LIST
+            for chart in $CHART_LIST; do
+              if [[ "$(echo $changed | grep -Ei "$chart")" ]]; then
+                named_charts_changed=true
+                break
+              fi
+            done
+
+            # Set the output based on whether any named chart changed
+            if [[ "$named_charts_changed" == true ]]; then
+              echo "changed_named_charts=true" >> $GITHUB_OUTPUT
+            else
+              echo "changed_named_charts=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run chart-testing (lint)
+        run: |
+          ct lint \
+            --target-branch ${{ github.event.repository.default_branch }}
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Create repository secret
+        run: |
+          kubectl create secret docker-registry ci \
+            --namespace default \
+            --docker-server=ghcr.io \
+            --docker-username=${{ github.actor }} \
+            --docker-password=${{ secrets.GITHUB_TOKEN }} \
+            --docker-email=${{ github.actor }}@users.noreply.github.com
+        if: steps.list-changed.outputs.changed_named_charts == 'true'
+
+      - name: Run chart-testing (install ${{ matrix.test_cases.name }})
+        run: |
+          ct install \
+          --target-branch ${{ github.event.repository.default_branch }} --namespace default ${{ matrix.test_cases.values_file && format('--additional-values {0}', matrix.test_cases.values_file) || '' }}
+        if: |
+          steps.list-changed.outputs.changed_named_charts == 'true' &&
+          steps.list-changed.outputs.changed == 'true'
+
+      - name: Run chart-testing (install)
+        run: |
+          ct install \
+          --target-branch ${{ github.event.repository.default_branch }}
+        if: |
+          steps.list-changed.outputs.changed_named_charts == 'false' &&
+          steps.list-changed.outputs.changed == 'true'
