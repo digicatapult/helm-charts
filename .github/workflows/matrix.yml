@@ -106,5 +106,7 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           ct install \
-          --target-branch ${{ github.event.repository.default_branch }} --values ${{ matrix.test_cases.values_file}}
+              --target-branch ${{ github.event.repository.default_branch }} \
+              --charts charts/sqnc-identity-service \
+              --helm-extra-args "--values ${{ matrix.test_cases.values_file }}"
         if: steps.list-changed.outputs.changed == 'true'
