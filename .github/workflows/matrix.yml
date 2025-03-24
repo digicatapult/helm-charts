@@ -33,9 +33,9 @@ jobs:
         # each item in this list is a job with an isolated test VM
         test_cases:
           - name: "Default - no custom values"
-            values_file: charts/sqnc-identity-service/ci/default.yaml
+            values_file: charts/sqnc-identity-service/ci/default-values.yaml
           - name: Tests file values01.yaml
-            values_file: charts/sqnc-identity-service/ci/values01.yaml
+            values_file: charts/sqnc-identity-service/ci/values01-values.yaml
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -107,5 +107,4 @@ jobs:
         run: |
           ct install \
               --target-branch ${{ github.event.repository.default_branch }} \
-              --helm-extra-args "--values ${{ matrix.test_cases.values_file }}"
         if: steps.list-changed.outputs.changed == 'true'
