@@ -22,20 +22,9 @@ env:
   # space separated list of charts that we want to use a pullSecret for
 
 jobs:
-  # make a matrix job that passes the values and sends them as an output to the ct install below where we have this --values=values.yaml
   # extra values files under workflows
   helm-testing-matrix:
     runs-on: ubuntu-latest
-    strategy:
-      # continue with all the other jobs even if one fails
-      fail-fast: false
-      matrix:
-        # each item in this list is a job with an isolated test VM
-        test_cases:
-          - name: "Default - no custom values"
-            values_file: charts/sqnc-identity-service/ci/default-values.yaml
-          - name: Tests file values01.yaml
-            values_file: charts/sqnc-identity-service/ci/values01-values.yaml
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -81,9 +70,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Install dependencies postgress and sqnc-node manually
-        if: |
-          matrix.test_cases.values_file=='charts/sqnc-identity-service/ci/values01.yaml' &&
-          steps.list-changed.outputs.changed == 'true'
+        if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm install postgres oci://registry-1.docker.io/bitnamicharts/postgresql \
             --version 12.1.9 \
