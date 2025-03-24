@@ -1,23 +1,22 @@
-logLevel: debug
+logLevel: trace
+# diagnosticMode:
+#   enabled: true
+#   command:
+#     - sleep
+#   args:
+#     - "3600"
 
-diagnosticMode:
-  enabled: true
-  command:
-    - sleep
-  args:
-    - "3600"
+# replicaCount: 2
 
-replicaCount: 2
+# auth:
+#   clientId: "sequence-dev"
+#   publicUrlPrefix: "https://dev-idp.example.com"
+#   internalUrlPrefix: "http://idp.internal"
+#   tokenPath: "/oauth/token"
+#   jwksPath: "/.well-known/jwks.json"
 
-auth:
-  clientId: "sequence-dev"
-  publicUrlPrefix: "https://dev-idp.example.com"
-  internalUrlPrefix: "http://idp.internal"
-  tokenPath: "/oauth/token"
-  jwksPath: "/.well-known/jwks.json"
-
-postgresql:
-  auth:
-    username: test_user
-    password: test_password
-    database: test_db
+# postgresql:
+#   auth:
+#     username: test_user
+#     password: test_password
+#     database: test_db
