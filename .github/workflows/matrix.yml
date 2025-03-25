@@ -69,15 +69,21 @@ jobs:
         uses: helm/kind-action@v1
         if: steps.list-changed.outputs.changed == 'true'
 
+      - name: Clean up old postgres install (if any)
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          helm uninstall postgres || true
+          kubectl delete pvc -l app.kubernetes.io/name=postgresql || true
+
       - name: Install dependencies postgress and sqnc-node manually
         if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm install postgres bitnami/postgresql \
-            --version 12.1.9 \
-            --set auth.user=identity_service \
-            --set auth.password=test-password \
-            --set auth.database=user \
-            --set architecture=standalone \
+            --version 15.1.0 \
+            --set auth.username="identity_service" \
+            --set auth.password="test-password" \
+            --set auth.database="user" \
+            --set architecture="standalone" \
             --wait
 
             kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
@@ -89,6 +95,12 @@ jobs:
             --wait
 
             kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=sqnc-node --timeout=300s
+
+          echo "Postgres pod status:"
+          kubectl get pods -l app.kubernetes.io/name=postgresql
+
+          echo "Postgres logs:"
+          kubectl logs -l app.kubernetes.io/name=postgresql || true
 
       - name: Run chart-testing (install)
         run: |
