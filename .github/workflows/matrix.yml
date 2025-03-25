@@ -69,12 +69,6 @@ jobs:
         uses: helm/kind-action@v1
         if: steps.list-changed.outputs.changed == 'true'
 
-      - name: Clean up old postgres install (if any)
-        if: steps.list-changed.outputs.changed == 'true'
-        run: |
-          helm uninstall postgres || true
-          kubectl delete pvc -l app.kubernetes.io/name=postgresql || true
-
       - name: Install dependencies postgress and sqnc-node manually
         if: steps.list-changed.outputs.changed == 'true'
         run: |
