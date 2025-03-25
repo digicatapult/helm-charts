@@ -232,7 +232,7 @@ serviceAccount:
   ##
   name: ""
 
-## @param extraLabels [default: []] Additional labels to tag resources created by the chart
+## @param extraLabels [default: {}] Additional labels to tag resources created by the chart
 ##
 ## Example
 ## extraLabels:
@@ -305,7 +305,7 @@ substrateApiSidecar:
   ##  - name: FOO
   ##    value: BAR
   ##
-  env: {}
+  env: []
   ## @param substrateApiSidecar.resources Resource requirements and limits for the sidecar
   ##
   ## Example
@@ -353,7 +353,7 @@ jaegerAgent:
   ##  - name: FOO
   ##    value: BAR
   ##
-  env: {}
+  env: []
   ## @param jaegerAgent.resources Resource requirements and limits for the agent
   ##
   ## Example

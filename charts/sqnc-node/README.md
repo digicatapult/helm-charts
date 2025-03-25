@@ -105,16 +105,16 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 
 ### Other parameters
 
-| Name                            | Description                                               | Value  |
-| ------------------------------- | --------------------------------------------------------- | ------ |
-| `serviceAccount.create`         | Specifies whether a service account should be created     | `true` |
-| `serviceAccount.annotations`    | Annotations to add to the service account                 | `{}`   |
-| `serviceAccount.name`           | The name of the service account to use.                   | `""`   |
-| `extraLabels`                   | ] Additional labels to tag resources created by the chart | `""`   |
-| `podSecurityContext.runAsUser`  | Provide the user ID for executing pods                    | `1000` |
-| `podSecurityContext.runAsGroup` | Provide the group ID for executing pods                   | `1000` |
-| `podSecurityContext.fsGroup`    | Set the file system group for volume mounts               | `1000` |
-| `terminationGracePeriodSeconds` | Define the duration for a pod's graceful termination      | `60`   |
+| Name                            | Description                                             | Value  |
+| ------------------------------- | ------------------------------------------------------- | ------ |
+| `serviceAccount.create`         | Specifies whether a service account should be created   | `true` |
+| `serviceAccount.annotations`    | Annotations to add to the service account               | `{}`   |
+| `serviceAccount.name`           | The name of the service account to use.                 | `""`   |
+| `extraLabels`                   | Additional labels to tag resources created by the chart | `{}`   |
+| `podSecurityContext.runAsUser`  | Provide the user ID for executing pods                  | `1000` |
+| `podSecurityContext.runAsGroup` | Provide the group ID for executing pods                 | `1000` |
+| `podSecurityContext.fsGroup`    | Set the file system group for volume mounts             | `1000` |
+| `terminationGracePeriodSeconds` | Define the duration for a pod's graceful termination    | `60`   |
 
 ### Traffic exposure parameters
 
@@ -131,7 +131,7 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | -------------------------------------- | ---------------------------------------------------------- | ------------------------------ |
 | `substrateApiSidecar.image.repository` | The Substrate API sidecar image repository                 | `parity/substrate-api-sidecar` |
 | `substrateApiSidecar.image.tag`        | The Substrate API sidecar image tag                        | `latest`                       |
-| `substrateApiSidecar.env`              | Environment variables for the sidecar's container          | `{}`                           |
+| `substrateApiSidecar.env`              | Environment variables for the sidecar's container          | `[]`                           |
 | `substrateApiSidecar.resources`        | Resource requirements and limits for the sidecar           | `{}`                           |
 | `jaegerAgent.image.repository`         | The Jaeger agent image repository                          | `jaegertracing/jaeger-agent`   |
 | `jaegerAgent.image.tag`                | The Jaeger agent image tag                                 | `1.28.0`                       |
@@ -140,7 +140,7 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `jaegerAgent.ports.samplingPort`       | Port for HTTP sampling strategies                          | `5778`                         |
 | `jaegerAgent.collector.url`            | The URL to which the agent sends data                      | `nil`                          |
 | `jaegerAgent.collector.port`           | The port to which the agent sends data                     | `14250`                        |
-| `jaegerAgent.env`                      | Environment variables for the agent's container            | `{}`                           |
+| `jaegerAgent.env`                      | Environment variables for the agent's container            | `[]`                           |
 | `jaegerAgent.resources`                | Resource requirements and limits for the agent             | `{}`                           |
 
 ### Test parameters
