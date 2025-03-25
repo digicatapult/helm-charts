@@ -8,8 +8,8 @@ externalDatabase:
   user: identity_service
   password: test-password
   database: user
-  postgresPassword: postgres-password
-  postgresqlPostgresPassword: postgres-password
+  postgresPassword: test-password
+  postgresqlPostgresPassword: test-password
 
 node:
   enabled: false
