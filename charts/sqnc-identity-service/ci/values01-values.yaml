@@ -2,6 +2,7 @@ logLevel: trace
 
 postgresql:
   enabled: false
+
 externalDatabase:
   host: postgres-postgresql.default.svc.cluster.local
   port: 5432
