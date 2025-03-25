@@ -72,10 +72,10 @@ jobs:
       - name: Install dependencies postgress and sqnc-node manually
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          helm install postgres bitnami/postgresql \
+          helm install postgres oci://registry-1.docker.io/bitnamicharts/postgresql \
             --version 12.1.9 \
             --set auth.username=identity_service \
-            --set auth.password= \
+            --set auth.password=test-password \
             --set auth.database=user \
             --set architecture=standalone \
             --wait
