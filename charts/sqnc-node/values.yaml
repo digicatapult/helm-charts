@@ -1,9 +1,9 @@
 ## @section Common parameters
 ##
-## @param nameOverride [default: nil] String to partially override chart.fullname
+## @param nameOverride String to partially override chart.fullname
 ##
 nameOverride: ""
-## @param fullnameOverride [default: nil] String to fully override chart.fullname
+## @param fullnameOverride String to fully override chart.fullname
 ##
 fullnameOverride: ""
 ## @param imagePullSecrets Labels to add to all deployed objects
@@ -21,30 +21,29 @@ tolerations: []
 ## @param affinity Affinity for pod assignment
 ##
 affinity: {}
-## @param storageClass [default: default] The storage class to use for volumes
+## @param storageClass The storage class to use for volumes
 ##
 storageClass: ""
 
 ## @section Node parameters
 ##
 node:
-  ## @param node.chain [default: polkadot] Network to connect the node to (i.e. --chain)
+  ## @param node.chain Network to connect the node to (i.e. --chain)
   ##
   chain: "local"
-  ## @param node.chainSpecConfigMap [default: ""] Existing configmap which contains the chainspec named as chainspec.json
+  ## @param node.chainSpecConfigMap Existing configmap which contains the chainspec named as chainspec.json
   ##
   chainSpecConfigMap: ""
-  ## @param node.command [default: polkadot] Command to be invoked to launch the node binary
+  ## @param node.command Command to be invoked to launch the node binary
   ##
   command: "./sqnc-node"
-  ## @param node.flags [default: --prometheus-external --rpc-external --ws-external --rpc-cors all] Node flags other than --name (set from the helm release name), --base-path and --chain (both set with node.chain)
+  ## @param node.flags Node flags other than --name (set from the helm release name), --base-path and --chain (both set with node.chain)
   ##
   flags:
     - "--rpc-external"
     - "--rpc-methods=Unsafe"
     - "--rpc-cors=all"
     - "--unsafe-rpc-external"
-  ##  - "--prometheus-external"
   perNodeServices:
     ## @param node.perNodeServices.createApiService If enabled, create a generic service to expose common node APIs
     ##
@@ -74,26 +73,26 @@ node:
   ##    seed: "//Alice//babe"
   ##
   keys: {}
-  ## @param node.persistGeneratedNodeKey [default: false] Persist the auto-generated node key inside the data volume (at /data/node-key)
+  ## @param node.persistGeneratedNodeKey Persist the auto-generated node key inside the data volume (at /data/node-key)
   ##
   persistGeneratedNodeKey: false
   ## @param node.customNodeKey [default: nil] Use a custom node-key, if node.persistGeneratedNodeKey is true then this will not be used. (Must be 64 byte hex key)
   ##
   ## customNodeKey: ""
   ##
-  ## @param node.enableStartupProbe [default: true] If true, enable the startup probe check
+  ## @param node.enableStartupProbe If true, enable the startup probe check
   ##
   enableStartupProbe: true
-  ## @param node.enableReadinessProbe [default: true] If true, enable the readiness probe check
+  ## @param node.enableReadinessProbe If true, enable the readiness probe check
   ##
   enableReadinessProbe: true
-  ## @param node.dataVolumeSize [default: 100Gi] The size of the chain data PersistentVolume
+  ## @param node.dataVolumeSize The size of the chain data PersistentVolume
   ##
   dataVolumeSize: 10Gi
-  ## @param node.replicas [default: 1] Number of replicas in the node's StatefulSet
+  ## @param node.replicas Number of replicas in the node's StatefulSet
   ##
   replicas: 1
-  ## @param node.role [default: full] Set the role of the node: full, authority/validator, collator or light
+  ## @param node.role Set the role of the node: full, authority/validator, collator or light
   ##
   role: full
   ##
@@ -152,7 +151,7 @@ node:
   ##
   resources: {}
   serviceMonitor:
-    ## @param node.serviceMonitor.enabled [default: false] If true, creates a Prometheus Operator ServiceMonitor
+    ## @param node.serviceMonitor.enabled If true, creates a Prometheus Operator ServiceMonitor
     ##
     enabled: false
     ## @param node.serviceMonitor.namespace [default: nil] Prometheus namespace
@@ -165,51 +164,51 @@ node:
     ## scrapeTimeout: 10s
     ##
   tracing:
-    ## @param node.tracing.enabled [default: false] If true, creates a Jaeger agent sidecar
+    ## @param node.tracing.enabled If true, creates a Jaeger agent sidecar
     ##
     enabled: false
   substrateApiSidecar:
-    ## @param node.substrateApiSidecar.enabled [default: false] If true, creates a Substrate API sidecar
+    ## @param node.substrateApiSidecar.enabled If true, creates a Substrate API sidecar
     ##
     enabled: false
 
 ## @section Other parameters
 ##
 image:
-  ## @param image.repository [default: parity/polkadot] Node image name
+  ## @param image.repository Node image name
   ##
   repository: digicatapult/sqnc-node
-  ## @param image.tag [default: v12.2.1] Node image tag
+  ## @param image.tag Node image tag
   ##
   tag: v12.2.1
-  ## @param image.pullPolicy [default: Always] Node image pull policy
+  ## @param image.pullPolicy Node image pull policy
   ##
   pullPolicy: Always
 
 initContainer:
   image:
-    ## @param initContainer.image.repository [default: crazymax/7zip] The chain-snapshot init container image name
+    ## @param initContainer.image.repository The chain-snapshot init container image name
     ##
     repository: crazymax/7zip
-    ## @param initContainer.image.tag [default: latest] The chain-snapshot init container image tag
+    ## @param initContainer.image.tag The chain-snapshot init container image tag
     ##
     tag: latest
 
 kubectl:
   image:
-    ## @param kubectl.image.repository [default: bitnami/kubectl] The Kubernetes CLI container image name
+    ## @param kubectl.image.repository The Kubernetes CLI container image name
     ##
     repository: bitnami/kubectl
-    ## @param kubectl.image.tag [default: latest] The Kubernetes CLI container image tag
+    ## @param kubectl.image.tag The Kubernetes CLI container image tag
     ##
     tag: latest
 
 googleCloudSdk:
   image:
-    ## @param googleCloudSdk.image.repository [default: google/cloud-sdk] The sync-chain-gcs init container image name
+    ## @param googleCloudSdk.image.repository The sync-chain-gcs init container image name
     ##
     repository: google/cloud-sdk
-    ## @param googleCloudSdk.image.tag [default: slim] The sync-chain-gcs init container image tag
+    ## @param googleCloudSdk.image.tag The sync-chain-gcs init container image tag
     ## Slim is more lightweight than the full image and still contains gsutil
     ##
     tag: slim
@@ -218,7 +217,7 @@ googleCloudSdk:
   ## serviceAccountKey: ""
 
 serviceAccount:
-  ## @param serviceAccount.create [default: true] Specifies whether a service account should be created
+  ## @param serviceAccount.create Specifies whether a service account should be created
   ##
   create: true
   ## @param serviceAccount.annotations Annotations to add to the service account
@@ -230,7 +229,7 @@ serviceAccount:
   name: ""
 
 ingress:
-  ## @param ingress.enabled [default: false] If true, creates an ingress
+  ## @param ingress.enabled If true, creates an ingress
   enabled: false
   ## @param ingress.annotations Annotations to add to the ingress (key/value pairs)
   ##
@@ -267,17 +266,17 @@ ingress:
 ##   type: rpc
 
 podSecurityContext:
-  ## @param podSecurityContext.runAsUser [default: 1000] Provide the user ID for executing pods
+  ## @param podSecurityContext.runAsUser Provide the user ID for executing pods
   ##
   runAsUser: 1000
-  ## @param podSecurityContext.runAsGroup [default: 1000] Provide the group ID for executing pods
+  ## @param podSecurityContext.runAsGroup Provide the group ID for executing pods
   ##
   runAsGroup: 1000
-  ## @param podSecurityContext.fsGroup [default: 1000] Set the file system group for volume mounts
+  ## @param podSecurityContext.fsGroup Set the file system group for volume mounts
   ##
   fsGroup: 1000
 
-## @param terminationGracePeriodSeconds [default: 60] Define the duration for a pod's graceful termination
+## @param terminationGracePeriodSeconds Define the duration for a pod's graceful termination
 ##
 terminationGracePeriodSeconds: 60
 
@@ -285,10 +284,10 @@ terminationGracePeriodSeconds: 60
 ##
 substrateApiSidecar:
   image:
-    ## @param substrateApiSidecar.image.repository [default: parity/substrate-api-sidecar] The Substrate API sidecar image repository
+    ## @param substrateApiSidecar.image.repository The Substrate API sidecar image repository
     ##
     repository: parity/substrate-api-sidecar
-    ## @param substrateApiSidecar.image.tag [default: latest] The Substrate API sidecar image tag
+    ## @param substrateApiSidecar.image.tag The Substrate API sidecar image tag
     ##
     tag: latest
   ## @param substrateApiSidecar.env Environment variables for the sidecar's container
@@ -316,27 +315,27 @@ substrateApiSidecar:
 ##
 jaegerAgent:
   image:
-    ## @param jaegerAgent.image.repository [default: jaegertracing/jaeger-agent] The Jaeger agent image repository
+    ## @param jaegerAgent.image.repository The Jaeger agent image repository
     ##
     repository: jaegertracing/jaeger-agent
-    ## @param jaegerAgent.image.tag [default: 1.28.0] The Jaeger agent image tag
+    ## @param jaegerAgent.image.tag The Jaeger agent image tag
     ##
     tag: 1.28.0
   ports:
-    ## @param jaegerAgent.ports.compactPort [default: 6831] Port to use for jaeger.thrift over compact thrift protocol
+    ## @param jaegerAgent.ports.compactPort Port to use for jaeger.thrift over compact thrift protocol
     ##
     compactPort: 6831
-    ## @param jaegerAgent.ports.binaryPort [default: 6832] Port to use for jaeger.thrift over binary thrift protocol
+    ## @param jaegerAgent.ports.binaryPort Port to use for jaeger.thrift over binary thrift protocol
     ##
     binaryPort: 6832
-    ## @param jaegerAgent.ports.samplingPort [default: 5778] Port for HTTP sampling strategies
+    ## @param jaegerAgent.ports.samplingPort Port for HTTP sampling strategies
     ##
     samplingPort: 5778
   collector:
-    ## @param jaegerAgent.collector.url [default: nil] The URL to which the agent sends data
+    ## @param jaegerAgent.collector.url The URL to which the agent sends data
     ##
     url: null
-    ## @param jaegerAgent.collector.port [default: 14250] The port to which the agent sends data
+    ## @param jaegerAgent.collector.port The port to which the agent sends data
     ##
     port: 14250
   ## @param jaegerAgent.env Environment variables for the agent's container
@@ -361,17 +360,17 @@ jaegerAgent:
   resources: {}
 
 tests:
-  ## @param tests.backoffLimit [default: 4] A limit on retry attempts
+  ## @param tests.backoffLimit A limit on retry attempts
   ##
   backoffLimit: 4
   ## Additional images could be used here as well as or instead of the default
   ##
   osShell:
     image:
-      ## @param tests.osShell.image.repository [default: bitnami/os-shell] The utility init container image name
+      ## @param tests.osShell.image.repository The utility init container image name
       ##
       repository: bitnami/os-shell
-      ## @param tests.osShell.image.tag [default: latest] The utility init container image tag
+      ## @param tests.osShell.image.tag The utility init container image tag
       ##
       tag: latest
   ## @param tests.blockAuthor.enabled [default: true] A toggle to enable or disable the container that checks the validator is authoring blocks
