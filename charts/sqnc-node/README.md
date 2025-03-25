@@ -83,49 +83,74 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `node.tracing.enabled`                                                  | If true, creates a Jaeger agent sidecar                                                                                              | `false`                                                                              |
 | `node.substrateApiSidecar.enabled`                                      | If true, creates a Substrate API sidecar                                                                                             | `false`                                                                              |
 
+### Image parameters
+
+| Name               | Description            | Value                    |
+| ------------------ | ---------------------- | ------------------------ |
+| `image.repository` | Node image name        | `digicatapult/sqnc-node` |
+| `image.tag`        | Node image tag         | `v12.2.1`                |
+| `image.pullPolicy` | Node image pull policy | `Always`                 |
+
+### Init container parameters
+
+| Name                               | Description                                                                                           | Value              |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------ |
+| `initContainer.image.repository`   | The chain-snapshot init container image name                                                          | `crazymax/7zip`    |
+| `initContainer.image.tag`          | The chain-snapshot init container image tag                                                           | `latest`           |
+| `kubectl.image.repository`         | The Kubernetes CLI container image name                                                               | `bitnami/kubectl`  |
+| `kubectl.image.tag`                | The Kubernetes CLI container image tag                                                                | `latest`           |
+| `googleCloudSdk.image.repository`  | The sync-chain-gcs init container image name                                                          | `google/cloud-sdk` |
+| `googleCloudSdk.image.tag`         | The sync-chain-gcs init container image tag                                                           | `slim`             |
+| `googleCloudSdk.serviceAccountKey` | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret | `nil`              |
+
 ### Other parameters
 
-| Name                                   | Description                                                                                           | Value                          |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `image.repository`                     | Node image name                                                                                       | `digicatapult/sqnc-node`       |
-| `image.tag`                            | Node image tag                                                                                        | `v12.2.1`                      |
-| `image.pullPolicy`                     | Node image pull policy                                                                                | `Always`                       |
-| `initContainer.image.repository`       | The chain-snapshot init container image name                                                          | `crazymax/7zip`                |
-| `initContainer.image.tag`              | The chain-snapshot init container image tag                                                           | `latest`                       |
-| `kubectl.image.repository`             | The Kubernetes CLI container image name                                                               | `bitnami/kubectl`              |
-| `kubectl.image.tag`                    | The Kubernetes CLI container image tag                                                                | `latest`                       |
-| `googleCloudSdk.image.repository`      | The sync-chain-gcs init container image name                                                          | `google/cloud-sdk`             |
-| `googleCloudSdk.image.tag`             | The sync-chain-gcs init container image tag                                                           | `slim`                         |
-| `googleCloudSdk.serviceAccountKey`     | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret | `nil`                          |
-| `serviceAccount.create`                | Specifies whether a service account should be created                                                 | `true`                         |
-| `serviceAccount.annotations`           | Annotations to add to the service account                                                             | `{}`                           |
-| `serviceAccount.name`                  | The name of the service account to use.                                                               | `""`                           |
-| `ingress.enabled`                      | If true, creates an ingress                                                                           | `false`                        |
-| `ingress.annotations`                  | Annotations to add to the ingress (key/value pairs)                                                   | `{}`                           |
-| `ingress.rules`                        | Set rules on the ingress                                                                              | `[]`                           |
-| `ingress.tls`                          | Set TLS configuration on the ingress                                                                  | `[]`                           |
-| `extraLabels`                          | ] Additional labels to tag resources created by the chart                                             | `""`                           |
-| `podSecurityContext.runAsUser`         | Provide the user ID for executing pods                                                                | `1000`                         |
-| `podSecurityContext.runAsGroup`        | Provide the group ID for executing pods                                                               | `1000`                         |
-| `podSecurityContext.fsGroup`           | Set the file system group for volume mounts                                                           | `1000`                         |
-| `terminationGracePeriodSeconds`        | Define the duration for a pod's graceful termination                                                  | `60`                           |
-| `substrateApiSidecar.image.repository` | The Substrate API sidecar image repository                                                            | `parity/substrate-api-sidecar` |
-| `substrateApiSidecar.image.tag`        | The Substrate API sidecar image tag                                                                   | `latest`                       |
-| `substrateApiSidecar.env`              | Environment variables for the sidecar's container                                                     | `{}`                           |
-| `substrateApiSidecar.resources`        | Resource requirements and limits for the sidecar                                                      | `{}`                           |
-| `jaegerAgent.image.repository`         | The Jaeger agent image repository                                                                     | `jaegertracing/jaeger-agent`   |
-| `jaegerAgent.image.tag`                | The Jaeger agent image tag                                                                            | `1.28.0`                       |
-| `jaegerAgent.ports.compactPort`        | Port to use for jaeger.thrift over compact thrift protocol                                            | `6831`                         |
-| `jaegerAgent.ports.binaryPort`         | Port to use for jaeger.thrift over binary thrift protocol                                             | `6832`                         |
-| `jaegerAgent.ports.samplingPort`       | Port for HTTP sampling strategies                                                                     | `5778`                         |
-| `jaegerAgent.collector.url`            | The URL to which the agent sends data                                                                 | `nil`                          |
-| `jaegerAgent.collector.port`           | The port to which the agent sends data                                                                | `14250`                        |
-| `jaegerAgent.env`                      | Environment variables for the agent's container                                                       | `{}`                           |
-| `jaegerAgent.resources`                | Resource requirements and limits for the agent                                                        | `{}`                           |
-| `tests.backoffLimit`                   | A limit on retry attempts                                                                             | `4`                            |
-| `tests.osShell.image.repository`       | The utility init container image name                                                                 | `bitnami/os-shell`             |
-| `tests.osShell.image.tag`              | The utility init container image tag                                                                  | `latest`                       |
-| `tests.blockAuthor.enabled`            | A toggle to enable or disable the container that checks the validator is authoring blocks             | `true`                         |
-| `tests.blockAuthor.pollSeconds`        | The delay in seconds between polls of the current block synchronisation state                         | `5`                            |
-| `tests.blockAuthor.timeoutSeconds`     | The timeout in seconds to allow the validator to author a finalised block                             | `300`                          |
-| `tests.nodeConnection.minPeerCounts`   | The minimum number of peers needed for production chains; dev and local chains require none           | `2`                            |
+| Name                            | Description                                               | Value  |
+| ------------------------------- | --------------------------------------------------------- | ------ |
+| `serviceAccount.create`         | Specifies whether a service account should be created     | `true` |
+| `serviceAccount.annotations`    | Annotations to add to the service account                 | `{}`   |
+| `serviceAccount.name`           | The name of the service account to use.                   | `""`   |
+| `extraLabels`                   | ] Additional labels to tag resources created by the chart | `""`   |
+| `podSecurityContext.runAsUser`  | Provide the user ID for executing pods                    | `1000` |
+| `podSecurityContext.runAsGroup` | Provide the group ID for executing pods                   | `1000` |
+| `podSecurityContext.fsGroup`    | Set the file system group for volume mounts               | `1000` |
+| `terminationGracePeriodSeconds` | Define the duration for a pod's graceful termination      | `60`   |
+
+### Traffic exposure parameters
+
+| Name                  | Description                                         | Value   |
+| --------------------- | --------------------------------------------------- | ------- |
+| `ingress.enabled`     | If true, creates an ingress                         | `false` |
+| `ingress.annotations` | Annotations to add to the ingress (key/value pairs) | `{}`    |
+| `ingress.rules`       | Set rules on the ingress                            | `[]`    |
+| `ingress.tls`         | Set TLS configuration on the ingress                | `[]`    |
+
+### Monitoring parameters
+
+| Name                                   | Description                                                | Value                          |
+| -------------------------------------- | ---------------------------------------------------------- | ------------------------------ |
+| `substrateApiSidecar.image.repository` | The Substrate API sidecar image repository                 | `parity/substrate-api-sidecar` |
+| `substrateApiSidecar.image.tag`        | The Substrate API sidecar image tag                        | `latest`                       |
+| `substrateApiSidecar.env`              | Environment variables for the sidecar's container          | `{}`                           |
+| `substrateApiSidecar.resources`        | Resource requirements and limits for the sidecar           | `{}`                           |
+| `jaegerAgent.image.repository`         | The Jaeger agent image repository                          | `jaegertracing/jaeger-agent`   |
+| `jaegerAgent.image.tag`                | The Jaeger agent image tag                                 | `1.28.0`                       |
+| `jaegerAgent.ports.compactPort`        | Port to use for jaeger.thrift over compact thrift protocol | `6831`                         |
+| `jaegerAgent.ports.binaryPort`         | Port to use for jaeger.thrift over binary thrift protocol  | `6832`                         |
+| `jaegerAgent.ports.samplingPort`       | Port for HTTP sampling strategies                          | `5778`                         |
+| `jaegerAgent.collector.url`            | The URL to which the agent sends data                      | `nil`                          |
+| `jaegerAgent.collector.port`           | The port to which the agent sends data                     | `14250`                        |
+| `jaegerAgent.env`                      | Environment variables for the agent's container            | `{}`                           |
+| `jaegerAgent.resources`                | Resource requirements and limits for the agent             | `{}`                           |
+
+### Test parameters
+
+| Name                                 | Description                                                                                 | Value              |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- | ------------------ |
+| `tests.backoffLimit`                 | A limit on retry attempts                                                                   | `4`                |
+| `tests.osShell.image.repository`     | The utility init container image name                                                       | `bitnami/os-shell` |
+| `tests.osShell.image.tag`            | The utility init container image tag                                                        | `latest`           |
+| `tests.blockAuthor.enabled`          | A toggle to enable or disable the container that checks the validator is authoring blocks   | `true`             |
+| `tests.blockAuthor.pollSeconds`      | The delay in seconds between polls of the current block synchronisation state               | `5`                |
+| `tests.blockAuthor.timeoutSeconds`   | The timeout in seconds to allow the validator to author a finalised block                   | `300`              |
+| `tests.nodeConnection.minPeerCounts` | The minimum number of peers needed for production chains; dev and local chains require none | `2`                |

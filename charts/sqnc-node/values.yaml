@@ -172,7 +172,7 @@ node:
     ##
     enabled: false
 
-## @section Other parameters
+## @section Image parameters
 ##
 image:
   ## @param image.repository Node image name
@@ -185,6 +185,8 @@ image:
   ##
   pullPolicy: Always
 
+## @section Init container parameters
+##
 initContainer:
   image:
     ## @param initContainer.image.repository The chain-snapshot init container image name
@@ -216,6 +218,8 @@ googleCloudSdk:
   ##
   ## serviceAccountKey: ""
 
+## @section Other parameters
+##
 serviceAccount:
   ## @param serviceAccount.create Specifies whether a service account should be created
   ##
@@ -228,6 +232,29 @@ serviceAccount:
   ##
   name: ""
 
+## @param extraLabels [default: []] Additional labels to tag resources created by the chart
+##
+## Example
+## extraLabels:
+##   type: rpc
+
+podSecurityContext:
+  ## @param podSecurityContext.runAsUser Provide the user ID for executing pods
+  ##
+  runAsUser: 1000
+  ## @param podSecurityContext.runAsGroup Provide the group ID for executing pods
+  ##
+  runAsGroup: 1000
+  ## @param podSecurityContext.fsGroup Set the file system group for volume mounts
+  ##
+  fsGroup: 1000
+
+## @param terminationGracePeriodSeconds Define the duration for a pod's graceful termination
+##
+terminationGracePeriodSeconds: 60
+
+## @section Traffic exposure parameters
+##
 ingress:
   ## @param ingress.enabled If true, creates an ingress
   enabled: false
@@ -259,27 +286,8 @@ ingress:
   ##
   tls: []
 
-## @param extraLabels [default: []] Additional labels to tag resources created by the chart
+## @section Monitoring parameters
 ##
-## Example
-## extraLabels:
-##   type: rpc
-
-podSecurityContext:
-  ## @param podSecurityContext.runAsUser Provide the user ID for executing pods
-  ##
-  runAsUser: 1000
-  ## @param podSecurityContext.runAsGroup Provide the group ID for executing pods
-  ##
-  runAsGroup: 1000
-  ## @param podSecurityContext.fsGroup Set the file system group for volume mounts
-  ##
-  fsGroup: 1000
-
-## @param terminationGracePeriodSeconds Define the duration for a pod's graceful termination
-##
-terminationGracePeriodSeconds: 60
-
 ## ref: https://github.com/paritytech/substrate-api-sidecar
 ##
 substrateApiSidecar:
@@ -359,6 +367,8 @@ jaegerAgent:
   ##
   resources: {}
 
+## @section Test parameters
+##
 tests:
   ## @param tests.backoffLimit A limit on retry attempts
   ##
