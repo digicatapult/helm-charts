@@ -15609,6 +15609,20 @@ entries:
   sqnc-node:
   - apiVersion: v2
     appVersion: 12.2.1
+    created: "2025-03-26T10:03:37.499905784Z"
+    description: A Helm chart to deploy SQNC nodes
+    digest: fc4291762bf5a9f4b6aa2bca27193f5db40b8d5e95d3c8d04ee8db9ad34dc682
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: sqnc-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-node-7.1.8/sqnc-node-7.1.8.tgz
+    version: 7.1.8
+  - apiVersion: v2
+    appVersion: 12.2.1
     created: "2025-03-12T08:52:24.574725157Z"
     description: A Helm chart to deploy SQNC nodes
     digest: 14afbb2b67716099e14c8362eb5c84b04687ca3e300194b5b16543f78861fb67
@@ -18917,6 +18931,42 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-1.0.0/veritable-cloudagent-1.0.0.tgz
     version: 1.0.0
   veritable-ui:
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.15.80
+    created: "2025-03-26T10:03:37.686143063Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: cloudagent
+      condition: cloudagent.enabled
+      name: veritable-cloudagent
+      repository: https://digicatapult.github.io/helm-charts
+      version: 2.3.76
+    description: The veritable user interface for managing connections
+    digest: adccf4ee9211e41e139d46e86f08c07eb691c59bfef6f3e8fe9bf35057cc4f83
+    home: https://github.com/digicatapult/veritable-ui
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-ui
+    sources:
+    - https://github.com/digicatapult/veritable-ui
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-ui-1.0.202/veritable-ui-1.0.202.tgz
+    version: 1.0.202
   - annotations:
       category: veritable
       licenses: Apache-2.0
@@ -27718,4 +27768,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-03-25T18:57:27.750406835Z"
+generated: "2025-03-26T10:03:37.688430955Z"
