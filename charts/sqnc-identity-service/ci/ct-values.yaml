@@ -3,12 +3,12 @@ node:
   node:
     chain: dev
     flags:
-    - "--rpc-external"
-    - "--alice"
-    - "--rpc-methods=Unsafe"
-    - "--rpc-cors=all"
-    - "--unsafe-rpc-external"
+      - "--rpc-external"
+      - "--alice"
+      - "--rpc-methods=Unsafe"
+      - "--rpc-cors=all"
+      - "--unsafe-rpc-external"
 selfAddress: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
 auth:
-  publicUrlPrefix: "http://keycloak.exmaple.com"
-  internalUrlPrefix: "http://keycloak.exmaple.com"
+  publicIdpOrigin: "http://keycloak.exmaple.com"
+  internalIdpOrigin: "http://keycloak.exmaple.com"
