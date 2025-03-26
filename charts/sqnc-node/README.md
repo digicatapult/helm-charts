@@ -134,7 +134,7 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | `substrateApiSidecar.env`              | Environment variables for the sidecar's container          | `[]`                           |
 | `substrateApiSidecar.resources`        | Resource requirements and limits for the sidecar           | `{}`                           |
 | `jaegerAgent.image.repository`         | The Jaeger agent image repository                          | `jaegertracing/jaeger-agent`   |
-| `jaegerAgent.image.tag`                | The Jaeger agent image tag                                 | `1.28.0`                       |
+| `jaegerAgent.image.tag`                | The Jaeger agent image tag                                 | `1.62.0`                       |
 | `jaegerAgent.ports.compactPort`        | Port to use for jaeger.thrift over compact thrift protocol | `6831`                         |
 | `jaegerAgent.ports.binaryPort`         | Port to use for jaeger.thrift over binary thrift protocol  | `6832`                         |
 | `jaegerAgent.ports.samplingPort`       | Port for HTTP sampling strategies                          | `5778`                         |
