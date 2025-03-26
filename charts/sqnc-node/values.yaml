@@ -328,7 +328,7 @@ jaegerAgent:
     repository: jaegertracing/jaeger-agent
     ## @param jaegerAgent.image.tag The Jaeger agent image tag
     ##
-    tag: 1.28.0
+    tag: 1.62.0
   ports:
     ## @param jaegerAgent.ports.compactPort Port to use for jaeger.thrift over compact thrift protocol
     ##
