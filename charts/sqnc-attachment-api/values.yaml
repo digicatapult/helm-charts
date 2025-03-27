@@ -692,6 +692,8 @@ tests:
     image:
       repository: bitnami/os-shell
       tag: latest
+  ## @param tests.auth.clientId OAuth2 client id to use when requesting tokens in the internal realm for tests
   ## @param tests.auth.clientSecret OAuth2 client secret to use when requesting tokens
   auth:
+    clientId: ""
     clientSecret: ""

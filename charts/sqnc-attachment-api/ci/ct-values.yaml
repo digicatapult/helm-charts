@@ -21,6 +21,7 @@ auth:
   internalRealm: internal
 tests:
   auth:
+    clientId: sequence
     clientSecret: secret
 identity:
   enabled: true

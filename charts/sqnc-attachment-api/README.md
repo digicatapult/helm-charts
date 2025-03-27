@@ -82,7 +82,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `auth.internalRealm`                              | Keycloak IDP realms for authenticating cluster internal clients                                                                                                | `internal`                         |
 | `image.registry`                                  | sqnc-attachment-api image registry                                                                                                                             | `docker.io`                        |
 | `image.repository`                                | sqnc-attachment-api image repository                                                                                                                           | `digicatapult/sqnc-attachment-api` |
-| `image.tag`                                       | sqnc-attachment-api image tag (immutable tags are recommended)                                                                                                 | `v1.0.5`                           |
+| `image.tag`                                       | sqnc-attachment-api image tag (immutable tags are recommended)                                                                                                 | `v2.1.1`                           |
 | `image.digest`                                    | sqnc-attachment-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                               |
 | `image.pullPolicy`                                | sqnc-attachment-api image pull policy                                                                                                                          | `IfNotPresent`                     |
 | `image.pullSecrets`                               | sqnc-attachment-api image pull secrets                                                                                                                         | `[]`                               |
@@ -275,12 +275,13 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Helm test parameters
 
-| Name                             | Description                                             | Value              |
-| -------------------------------- | ------------------------------------------------------- | ------------------ |
-| `tests.backoffLimit`             | retry backoff limit for the test suite                  | `4`                |
-| `tests.osShell.image.repository` | shell script image repository                           | `bitnami/os-shell` |
-| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended) | `latest`           |
-| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens      | `""`               |
+| Name                             | Description                                                                    | Value              |
+| -------------------------------- | ------------------------------------------------------------------------------ | ------------------ |
+| `tests.backoffLimit`             | retry backoff limit for the test suite                                         | `4`                |
+| `tests.osShell.image.repository` | shell script image repository                                                  | `bitnami/os-shell` |
+| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended)                        | `latest`           |
+| `tests.auth.clientId`            | OAuth2 client id to use when requesting tokens in the internal realm for tests | `""`               |
+| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens                             | `""`               |
 
 ## Configuration and installation details
 
