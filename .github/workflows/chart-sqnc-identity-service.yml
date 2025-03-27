@@ -83,8 +83,8 @@ jobs:
         run: |
           helm install sqnc-node ./charts/sqnc-node \
             --set fullnameOverride=sqnc-node \
-            --set service.port=9944 \
-            --set persistence.enabled=true \
+            --set node.chain=dev \
+            --set node.flags="{--rpc-external,--alice,--rpc-methods=Unsafe,--rpc-cors=all,--unsafe-rpc-external}" \
             --wait
 
           kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=sqnc-node --timeout=300s
