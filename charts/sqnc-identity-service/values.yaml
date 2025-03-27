@@ -71,17 +71,16 @@ logLevel: "info"
 selfAddress: ""
 ## Authentication IDP configuration
 ## @param auth.clientId OAuth2 client id to use when requesting tokens
-## @param auth.publicUrlPrefix Internet accessible URL prefix for IDP routes
-## @param auth.internalUrlPrefix Cluster accessible URL prefix for IDP routes
-## @param auth.tokenPath Path segment to append to the appropriate prefix to determine OAuth2 token endpoint
-## @param auth.jwksPath Path segment to append to the appropriate prefix to determine JWKS certificate endpoint
+## @param auth.publicIdpOrigin Internet accessible origin for Keycloak IDP routes
+## @param auth.internalIdpOrigin Cluster accessible origin for Keycloak IDP routes
+## @param auth.oauth2Realm Keycloak IDP realms for authenticating external clients
+## @param auth.internalRealm Keycloak IDP realms for authenticating cluster internal clients
 auth:
   clientId: "sequence"
-  publicUrlPrefix: ""
-  internalUrlPrefix: ""
-  tokenPath: "/token"
-  jwksPath: "/certs"
-
+  publicIdpOrigin: ""
+  internalIdpOrigin: ""
+  oauth2Realm: "sequence"
+  internalRealm: "internal"
 
 ## Digital Catapult sqnc-identity-service image
 ## ref: https://hub.docker.com/r/digicatapult/sqnc-identity-service/tags/
@@ -96,7 +95,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-identity-service
-  tag: v3.0.37
+  tag: v4.0.4
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -546,7 +545,7 @@ initDbCreate:
   image:
     registry: docker.io
     repository: postgres
-    tag: '17-alpine'
+    tag: "17-alpine"
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
