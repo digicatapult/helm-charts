@@ -49,7 +49,7 @@ spec:
             - name: AUTH_TOKEN_ENDPOINT
               value: {{ printf "%s/realms/%s/protocol/openid-connect/token" .Values.auth.internalIdpOrigin .Values.auth.internalRealm  | quote }}
             - name: CLIENT_ID
-              value: {{ .Values.auth.clientId | quote }}
+              value: {{ .Values.tests.auth.clientId | quote }}
             - name: CLIENT_SECRET
               value: {{ .Values.tests.auth.clientSecret | quote }}
       restartPolicy: OnFailure
