@@ -17,8 +17,7 @@ externalSqncNode:
   port: "9944"
 auth:
   clientId: "sequence"
-  # For testing, you can use a dummy URL that's valid format
-  publicUrlPrefix: "http://keycloak.default.svc.cluster.local:8080/realms/sequence/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.default.svc.cluster.local:8080/realms/sequence/protocol/openid-connect"
+  publicIdpOrigin: "http://keycloak.default.svc.cluster.local:8080/realms/sequence/protocol/openid-connect"
+  internalIdpOrigin: "http://keycloak.default.svc.cluster.local:8080/realms/sequence/protocol/openid-connect"
   tokenPath: "/token"
   jwksPath: "/certs"
