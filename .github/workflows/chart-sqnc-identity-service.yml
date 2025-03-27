@@ -83,8 +83,9 @@ jobs:
         run: |
           helm install sqnc-node digicatapult/sqnc-node \
             --set fullnameOverride=sqnc-node \
+            --set persistence.enabled=false \
             --set node.chain=dev \
-            --set node.flags="{--rpc-external,--alice,--rpc-methods=Unsafe,--rpc-cors=all,--unsafe-rpc-external}" \
+            --set node.flags="{--rpc-external,--alice,--rpc-methods=Unsafe,--rpc-cors=all,--unsafe-rpc-external,--node-key=0000000000000000000000000000000000000000000000000000000000000001 }" \
             --wait
 
           kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=sqnc-node --timeout=300s
