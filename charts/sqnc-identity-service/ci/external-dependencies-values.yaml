@@ -1,4 +1,5 @@
 logLevel: trace
+
 postgresql:
   enabled: false
 externalDatabase:
