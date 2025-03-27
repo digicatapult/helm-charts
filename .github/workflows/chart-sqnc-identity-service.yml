@@ -83,7 +83,9 @@ jobs:
         run: |
           helm install sqnc-node ./charts/sqnc-node \
             --set fullnameOverride=sqnc-node \
+            --set service.port=9944 \
             --set node.chain=dev \
+            --set persistence.enabled=true \
             --set node.flags="{--rpc-external,--alice,--rpc-methods=Unsafe,--rpc-cors=all,--unsafe-rpc-external}" \
             --wait
 
