@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/sqnc-attachment-api
-appVersion: v1.0.5
+appVersion: v2.2.0
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -30,7 +30,7 @@ dependencies:
     repository: https://digicatapult.github.io/helm-charts/
     tags:
       - sqnc-identity-service
-    version: 4.x
+    version: 5.x
     condition: identity.enabled
   - name: sqnc-ipfs
     alias: ipfs
@@ -51,4 +51,4 @@ maintainers:
 name: sqnc-attachment-api
 sources:
   - https://github.com/digicatapult/sqnc-attachment-api
-version: 1.0.3
+version: 2.0.0

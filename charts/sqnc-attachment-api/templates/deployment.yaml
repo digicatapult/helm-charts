@@ -188,14 +188,16 @@ spec:
               value: {{ template "sqnc-attachment-api.sqncIdentityPort" . }}
             - name: IDP_CLIENT_ID
               value: {{ .Values.auth.clientId }}
-            - name: IDP_PUBLIC_URL_PREFIX
-              value: {{ .Values.auth.publicUrlPrefix }}
-            - name: IDP_INTERNAL_URL_PREFIX
-              value: {{ .Values.auth.internalUrlPrefix }}
-            - name: IDP_TOKEN_PATH
-              value: {{ .Values.auth.tokenPath }}
-            - name: IDP_JWKS_PATH
-              value: {{ .Values.auth.jwksPath }}
+            - name: IDP_PUBLIC_ORIGIN
+              value: {{ .Values.auth.publicIdpOrigin }}
+            - name: IDP_INTERNAL_ORIGIN
+              value: {{ .Values.auth.internalIdpOrigin }}
+            - name: IDP_PATH_PREFIX
+              value: {{ .Values.auth.idpPathPrefix }}
+            - name: IDP_OAUTH2_REALM
+              value: {{ .Values.auth.oauth2Realm }}
+            - name: IDP_INTERNAL_REALM
+              value: {{ .Values.auth.internalRealm }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}

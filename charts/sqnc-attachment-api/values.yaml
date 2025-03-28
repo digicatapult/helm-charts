@@ -68,16 +68,18 @@ diagnosticMode:
 logLevel: "info"
 ## Authentication IDP configuration
 ## @param auth.clientId OAuth2 client id to use when requesting tokens
-## @param auth.publicUrlPrefix Internet accessible URL prefix for IDP routes
-## @param auth.internalUrlPrefix Cluster accessible URL prefix for IDP routes
-## @param auth.tokenPath Path segment to append to the appropriate prefix to determine OAuth2 token endpoint
-## @param auth.jwksPath Path segment to append to the appropriate prefix to determine JWKS certificate endpoint
+## @param auth.publicIdpOrigin Internet accessible origin for Keycloak IDP routes
+## @param auth.internalIdpOrigin Cluster accessible origin for Keycloak IDP routes
+## @param auth.idpPathPrefix Prefix to use when constructing paths to the Keycloak API
+## @param auth.oauth2Realm Keycloak IDP realms for authenticating external clients
+## @param auth.internalRealm Keycloak IDP realms for authenticating cluster internal clients
 auth:
   clientId: "sequence"
-  publicUrlPrefix: ""
-  internalUrlPrefix: ""
-  tokenPath: "/token"
-  jwksPath: "/certs"
+  publicIdpOrigin: ""
+  internalIdpOrigin: ""
+  idpPathPrefix: /auth
+  oauth2Realm: "sequence"
+  internalRealm: "internal"
 
 ## Digital Catapult sqnc-attachment-api image
 ## ref: https://hub.docker.com/r/digicatapult/sqnc-attachment-api/tags/
@@ -92,7 +94,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v1.0.5
+  tag: v2.2.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -692,6 +694,8 @@ tests:
     image:
       repository: bitnami/os-shell
       tag: latest
+  ## @param tests.auth.clientId OAuth2 client id to use when requesting tokens in the internal realm for tests
   ## @param tests.auth.clientSecret OAuth2 client secret to use when requesting tokens
   auth:
+    clientId: ""
     clientSecret: ""
