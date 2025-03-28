@@ -77,16 +77,22 @@ proxyFor: ""
 enableIndexer: true
 ## Authentication IDP configuration
 ## @param auth.clientId OAuth2 client id to use when requesting tokens
-## @param auth.publicUrlPrefix Internet accessible URL prefix for IDP routes
-## @param auth.internalUrlPrefix Cluster accessible URL prefix for IDP routes
-## @param auth.tokenPath Path segment to append to the appropriate prefix to determine OAuth2 token endpoint
-## @param auth.jwksPath Path segment to append to the appropriate prefix to determine JWKS certificate endpoint
+## @param auth.publicIdpOrigin Internet accessible origin for Keycloak IDP routes
+## @param auth.internalIdpOrigin Cluster accessible origin for Keycloak IDP routes
+## @param auth.idpPathPrefix Prefix to use when constructing paths to the Keycloak API
+## @param auth.oauth2Realm Keycloak IDP realms for authenticating external clients
+## @param auth.internalRealm Keycloak IDP realms for authenticating cluster internal clients
+## @param auth.internalClientId OIDC client id used to authenticate this service within the cluster
+## @param auth.internalClientSecret OIDC client secret used to authenticate this service within the cluster
 auth:
   clientId: "sequence"
-  publicUrlPrefix: ""
-  internalUrlPrefix: ""
-  tokenPath: "/token"
-  jwksPath: "/certs"
+  publicIdpOrigin: ""
+  internalIdpOrigin: ""
+  idpPathPrefix: /auth
+  oauth2Realm: "sequence"
+  internalRealm: "internal"
+  internalClientId: ""
+  internalClientSecret: ""
 
 ## Digital Catapult sqnc-matchmaker-api image
 ## ref: https://hub.docker.com/r/digicatapult/sqnc-matchmaker-api/tags/
@@ -101,7 +107,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-matchmaker-api
-  tag: v4.0.51
+  tag: v5.1.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -668,12 +674,12 @@ externalSqncNode:
   ##
   port: ""
 
-## @section SQNC-Ipfs parameters
-## @param externalSqncIpfs.host External SQNC-Ipfs hostname
+## @section External SQNC Attachment API parameters
+## @param externalSqncAttachment.host External sqnc-attachment-api hostname
 ##
-externalSqncIpfs:
+externalSqncAttachment:
   host: ""
-  ## @param externalSqncIpfs.port External SQNC-Ipfs port
+  ## @param externalSqncAttachment.port External sqnc-attachment-api port
   ##
   port: ""
 
@@ -696,9 +702,9 @@ identity:
   ## @param identity.enabled Enable sqnc-identity-service subchart
   enabled: false
 
-## @section SQNC Ipfs Parameters
-ipfs:
-  ## @param ipfs.enabled Enable sqnc-ipfs subchart
+## @section SQNC Attachment API Parameters
+attachment:
+  ## @param attachment.enabled Enable sqnc-attachment-api subchart
   enabled: false
 
 ## @section Helm test parameters
@@ -711,6 +717,8 @@ tests:
     image:
       repository: bitnami/os-shell
       tag: latest
+  ## @param tests.auth.clientId OAuth2 client id to use when requesting tokens in the internal realm for tests
   ## @param tests.auth.clientSecret OAuth2 client secret to use when requesting tokens
   auth:
+    clientId: ""
     clientSecret: ""

@@ -73,17 +73,17 @@ Return the identity service port
 {{- end -}}
 
 {{/*
-Return the ipfs hostname
+Return the attachment-api hostname
 */}}
-{{- define "sqnc-matchmaker-api.sqncIpfsHost" -}}
-{{- ternary (include "common.names.dependency.fullname" (dict "chartName" "ipfs" "chartValues" .Values.ipfs "context" $)) .Values.externalSqncIpfs.host .Values.ipfs.enabled -}}
+{{- define "sqnc-matchmaker-api.sqncAttachmentHost" -}}
+{{- ternary (include "common.names.dependency.fullname" (dict "chartName" "attachment" "chartValues" .Values.attachment "context" $)) .Values.externalSqncAttachment.host .Values.attachment.enabled -}}
 {{- end -}}
 
 {{/*
-Return the ipfs port
+Return the attachment-api port
 */}}
-{{- define "sqnc-matchmaker-api.sqncIpfsPort" -}}
-{{- ternary "5001" .Values.externalSqncIpfs.port .Values.ipfs.enabled | quote -}}
+{{- define "sqnc-matchmaker-api.sqncAttachmentPort" -}}
+{{- ternary "3000" .Values.externalSqncAttachment.port .Values.attachment.enabled | quote -}}
 {{- end -}}
 
 {{/*

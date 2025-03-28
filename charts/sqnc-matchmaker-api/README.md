@@ -30,7 +30,7 @@ $ helm install my-release digicatapult/sqnc-matchmaker-api
 
 The command deploys sqnc-matchmaker-api on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
-You will need to specify the `externalSqncIpfs` host and port as well as the `externalSqncIdentityService` host and port.
+You will need to specify the `externalSqncAttachment` host and port as well as the `externalSqncIdentity` host and port.
 
 > **Tip**: List all releases using `helm list`
 
@@ -79,13 +79,16 @@ The command removes all the Kubernetes components associated with the chart and 
 | `proxyFor`                                        | specifies which persona we are a proxy for e.g. if I am Alice I will include Bob's address here to become his proxy; if left empty, proxy is not being used and transactions are performed as e.g. Alice | `""`                               |
 | `enableIndexer`                                   | Enable the indexer                                                                                                                                                                                       | `true`                             |
 | `auth.clientId`                                   | OAuth2 client id to use when requesting tokens                                                                                                                                                           | `sequence`                         |
-| `auth.publicUrlPrefix`                            | Internet accessible URL prefix for IDP routes                                                                                                                                                            | `""`                               |
-| `auth.internalUrlPrefix`                          | Cluster accessible URL prefix for IDP routes                                                                                                                                                             | `""`                               |
-| `auth.tokenPath`                                  | Path segment to append to the appropriate prefix to determine OAuth2 token endpoint                                                                                                                      | `/token`                           |
-| `auth.jwksPath`                                   | Path segment to append to the appropriate prefix to determine JWKS certificate endpoint                                                                                                                  | `/certs`                           |
+| `auth.publicIdpOrigin`                            | Internet accessible origin for Keycloak IDP routes                                                                                                                                                       | `""`                               |
+| `auth.internalIdpOrigin`                          | Cluster accessible origin for Keycloak IDP routes                                                                                                                                                        | `""`                               |
+| `auth.idpPathPrefix`                              | Prefix to use when constructing paths to the Keycloak API                                                                                                                                                | `/auth`                            |
+| `auth.oauth2Realm`                                | Keycloak IDP realms for authenticating external clients                                                                                                                                                  | `sequence`                         |
+| `auth.internalRealm`                              | Keycloak IDP realms for authenticating cluster internal clients                                                                                                                                          | `internal`                         |
+| `auth.internalClientId`                           | OIDC client id used to authenticate this service within the cluster                                                                                                                                      | `""`                               |
+| `auth.internalClientSecret`                       | OIDC client secret used to authenticate this service within the cluster                                                                                                                                  | `""`                               |
 | `image.registry`                                  | sqnc-matchmaker-api image registry                                                                                                                                                                       | `docker.io`                        |
 | `image.repository`                                | sqnc-matchmaker-api image repository                                                                                                                                                                     | `digicatapult/sqnc-matchmaker-api` |
-| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                                                           | `v4.0.51`                          |
+| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                                                           | `v5.1.0`                           |
 | `image.digest`                                    | sqnc-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)                                           | `""`                               |
 | `image.pullPolicy`                                | sqnc-matchmaker-api image pull policy                                                                                                                                                                    | `IfNotPresent`                     |
 | `image.pullSecrets`                               | sqnc-matchmaker-api image pull secrets                                                                                                                                                                   | `[]`                               |
@@ -244,12 +247,12 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalSqncNode.host` | External SQNC-Node hostname to query                                                      | `""`   |
 | `externalSqncNode.port` | External SQNC-Node port to query                                                          | `""`   |
 
-### SQNC-Ipfs parameters
+### External SQNC Attachment API parameters
 
-| Name                    | Description                 | Value |
-| ----------------------- | --------------------------- | ----- |
-| `externalSqncIpfs.host` | External SQNC-Ipfs hostname | `""`  |
-| `externalSqncIpfs.port` | External SQNC-Ipfs port     | `""`  |
+| Name                          | Description                           | Value |
+| ----------------------------- | ------------------------------------- | ----- |
+| `externalSqncAttachment.host` | External sqnc-attachment-api hostname | `""`  |
+| `externalSqncAttachment.port` | External sqnc-attachment-api port     | `""`  |
 
 ### SQNC-Identity-Service parameters
 
@@ -270,20 +273,21 @@ The command removes all the Kubernetes components associated with the chart and 
 | ------------------ | ------------------------------------- | ------- |
 | `identity.enabled` | Enable sqnc-identity-service subchart | `false` |
 
-### SQNC Ipfs Parameters
+### SQNC Attachment API Parameters
 
-| Name           | Description               | Value   |
-| -------------- | ------------------------- | ------- |
-| `ipfs.enabled` | Enable sqnc-ipfs subchart | `false` |
+| Name                 | Description                         | Value   |
+| -------------------- | ----------------------------------- | ------- |
+| `attachment.enabled` | Enable sqnc-attachment-api subchart | `false` |
 
 ### Helm test parameters
 
-| Name                             | Description                                             | Value              |
-| -------------------------------- | ------------------------------------------------------- | ------------------ |
-| `tests.backoffLimit`             | retry backoff limit for the test suite                  | `4`                |
-| `tests.osShell.image.repository` | shell script image repository                           | `bitnami/os-shell` |
-| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended) | `latest`           |
-| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens      | `""`               |
+| Name                             | Description                                                                    | Value              |
+| -------------------------------- | ------------------------------------------------------------------------------ | ------------------ |
+| `tests.backoffLimit`             | retry backoff limit for the test suite                                         | `4`                |
+| `tests.osShell.image.repository` | shell script image repository                                                  | `bitnami/os-shell` |
+| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended)                        | `latest`           |
+| `tests.auth.clientId`            | OAuth2 client id to use when requesting tokens in the internal realm for tests | `""`               |
+| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens                             | `""`               |
 
 ## Configuration and installation details
 

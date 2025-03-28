@@ -182,10 +182,10 @@ spec:
               value: {{ include "sqnc-matchmaker-api.sqncNodeHost" . }}
             - name: NODE_PORT
               value: {{ include "sqnc-matchmaker-api.sqncNodePort" . }}
-            - name: IPFS_HOST
-              value: {{ template "sqnc-matchmaker-api.sqncIpfsHost" . }}
-            - name: IPFS_PORT
-              value: {{ template "sqnc-matchmaker-api.sqncIpfsPort" . }}
+            - name: ATTACHMENT_SERVICE_HOST
+              value: {{ template "sqnc-matchmaker-api.sqncAttachmentHost" . }}
+            - name: ATTACHMENT_SERVICE_PORT
+              value: {{ template "sqnc-matchmaker-api.sqncAttachmentPort" . }}
             - name: IDENTITY_SERVICE_HOST
               value: {{ template "sqnc-matchmaker-api.sqncIdentityHost" . }}
             - name: IDENTITY_SERVICE_PORT
@@ -194,14 +194,20 @@ spec:
               value: {{ .Values.enableIndexer | quote }}
             - name: IDP_CLIENT_ID
               value: {{ .Values.auth.clientId }}
-            - name: IDP_PUBLIC_URL_PREFIX
-              value: {{ .Values.auth.publicUrlPrefix }}
-            - name: IDP_INTERNAL_URL_PREFIX
-              value: {{ .Values.auth.internalUrlPrefix }}
-            - name: IDP_TOKEN_PATH
-              value: {{ .Values.auth.tokenPath }}
-            - name: IDP_JWKS_PATH
-              value: {{ .Values.auth.jwksPath }}
+            - name: IDP_PUBLIC_ORIGIN
+              value: {{ .Values.auth.publicIdpOrigin }}
+            - name: IDP_INTERNAL_ORIGIN
+              value: {{ .Values.auth.internalIdpOrigin }}
+            - name: IDP_PATH_PREFIX
+              value: {{ .Values.auth.idpPathPrefix }}
+            - name: IDP_OAUTH2_REALM
+              value: {{ .Values.auth.oauth2Realm }}
+            - name: IDP_INTERNAL_REALM
+              value: {{ .Values.auth.internalRealm }}
+            - name: IDP_INTERNAL_CLIENT_ID
+              value: {{ .Values.auth.internalClientId }}
+            - name: IDP_INTERNAL_CLIENT_SECRET
+              value: {{ .Values.auth.internalClientSecret }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
