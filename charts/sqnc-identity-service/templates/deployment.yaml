@@ -186,6 +186,8 @@ spec:
               value: {{ .Values.auth.publicIdpOrigin }}
             - name: IDP_INTERNAL_ORIGIN
               value: {{ .Values.auth.internalIdpOrigin }}
+            - name: IDP_PATH_PREFIX
+              value: {{ .Values.auth.idpPathPrefix }}
             - name: IDP_OAUTH2_REALM
               value: {{ .Values.auth.oauth2Realm }}
             - name: IDP_INTERNAL_REALM
