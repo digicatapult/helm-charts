@@ -1,0 +1,98 @@
+name: Identity-service checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "charts/sqnc-identity-service/**"
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  helm-testing-identity-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2
+
+      - name: Install additional Helm repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add digicatapult https://digicatapult.github.io/helm-charts
+
+      # only keep changed logic get rid of named_charts logic
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch || 'main' }})
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run chart-testing (lint)
+        run: |
+          ct lint \
+            --target-branch ${{ github.event.repository.default_branch }}
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Install PostgreSQL manually
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          helm install postgres bitnami/postgresql \
+            --version 15.1.0 \
+            --set auth.username="identity_service" \
+            --set auth.password="test-password" \
+            --set auth.postgresPassword=test-password \
+            --set auth.database="user" \
+            --set architecture="standalone" \
+            --wait
+
+            kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
+
+      - name: Install sqnc-node manually
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          helm install sqnc-node digicatapult/sqnc-node \
+            --set fullnameOverride=sqnc-node \
+            --set persistence.enabled=false \
+            --set node.chain=dev \
+            --set node.flags="{--rpc-external,--alice,--rpc-methods=Unsafe,--rpc-cors=all,--unsafe-rpc-external,--node-key=0000000000000000000000000000000000000000000000000000000000000001 }" \
+            --wait
+
+          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=sqnc-node --timeout=300s
+
+      - name: Run chart-testing (install)
+        run: |
+          ct install \
+              --target-branch ${{ github.event.repository.default_branch }} \
+              --upgrade
+        if: steps.list-changed.outputs.changed == 'true'
