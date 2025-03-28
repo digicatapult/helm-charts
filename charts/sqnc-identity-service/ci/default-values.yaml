@@ -10,5 +10,5 @@ node:
       - "--unsafe-rpc-external"
 selfAddress: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
 auth:
-  publicIdpOrigin: "http://keycloak.exmaple.com"
-  internalIdpOrigin: "http://keycloak.exmaple.com"
+  publicIdpOrigin: "http://keycloak.example.com"
+  internalIdpOrigin: "http://keycloak.example.com"
