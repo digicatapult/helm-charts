@@ -5,7 +5,7 @@ node:
     chain: dev
     flags:
       - "--rpc-external"
-      - "--dev"
+      - "--alice"
       - "--rpc-methods=Unsafe"
       - "--rpc-cors=all"
       - "--unsafe-rpc-external"
