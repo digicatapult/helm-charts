@@ -47,7 +47,7 @@ spec:
             - name: SERVICE_PORT
               value: {{ .Values.containerPorts.http | quote }}
             - name: AUTH_TOKEN_ENDPOINT
-              value: {{ printf "%s/realms/%s/protocol/openid-connect/token" .Values.auth.internalIdpOrigin .Values.auth.internalRealm  | quote }}
+              value: {{ printf "%s%s/realms/%s/protocol/openid-connect/token" .Values.auth.internalIdpOrigin .Values.auth.idpPathPrefix .Values.auth.internalRealm  | quote }}
             - name: CLIENT_ID
               value: {{ .Values.tests.auth.clientId | quote }}
             - name: CLIENT_SECRET
