@@ -1,0 +1,16 @@
+postgresql:
+  enabled: false
+
+externalDatabase:
+  host: "external-postgres.example.com"
+  port: 5432
+  user: "valid_user"
+  database: "valid_database"
+  create: true
+  postgresPassword: "postgres-pass"
+
+node:
+  enabled: false
+externalSqncNode:
+  host: "sqnc-node.example.com"
+  port: "9944"
