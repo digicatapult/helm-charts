@@ -78,13 +78,6 @@ jobs:
 
             kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
 
-      - name: Create external database secret
-        if: steps.list-changed.outputs.changed == 'true'
-        run: |
-          kubectl create secret generic my-external-db-secret \
-            --from-literal=password='test-password' \
-            --from-literal=postgres-password='test-password'
-
       - name: Install sqnc-node manually
         if: steps.list-changed.outputs.changed == 'true'
         run: |
