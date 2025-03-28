@@ -17,6 +17,7 @@ auth:
   clientId: sequence
   publicIdpOrigin: http://localhost:8080
   internalIdpOrigin: http://attachment-keycloak:80
+  idpPathPrefix: /auth
   oauth2Realm: sequence
   internalRealm: internal
 tests:
@@ -34,6 +35,7 @@ identity:
     clientId: sequence
     publicIdpOrigin: http://localhost:8080
     internalIdpOrigin: http://attachment-keycloak:80
+    idpPathPrefix: /auth
     oauth2Realm: sequence
     internalRealm: internal
   postgresql:

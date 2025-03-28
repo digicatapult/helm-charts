@@ -70,12 +70,14 @@ logLevel: "info"
 ## @param auth.clientId OAuth2 client id to use when requesting tokens
 ## @param auth.publicIdpOrigin Internet accessible origin for Keycloak IDP routes
 ## @param auth.internalIdpOrigin Cluster accessible origin for Keycloak IDP routes
+## @param auth.idpPathPrefix Prefix to use when constructing paths to the Keycloak API
 ## @param auth.oauth2Realm Keycloak IDP realms for authenticating external clients
 ## @param auth.internalRealm Keycloak IDP realms for authenticating cluster internal clients
 auth:
   clientId: "sequence"
   publicIdpOrigin: ""
   internalIdpOrigin: ""
+  idpPathPrefix: /auth
   oauth2Realm: "sequence"
   internalRealm: "internal"
 
@@ -92,7 +94,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v2.1.1
+  tag: v2.2.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
