@@ -2,10 +2,12 @@ name: Linting & Integration tests
 
 on:
   pull_request:
-   types:
-    - opened
-    - synchronize
-    - reopened
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths-ignore:
+      - "charts/sqnc-identity-service/**"
 
 defaults:
   run:
@@ -48,7 +50,7 @@ jobs:
     - name: Run chart-testing (list-changed)
       id: list-changed
       run: |
-        changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+        changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }} --excluded-charts sqnc-identity-service)
         if [[ -n "$changed" ]]; then
           echo "changed=true" >> $GITHUB_OUTPUT
 
