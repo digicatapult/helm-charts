@@ -43,7 +43,7 @@ spec:
                 count=$((count+BLOCK_AUTHOR_POLL))
                 if [ $count -ge $BLOCK_AUTHOR_TIMEOUT ]; then
                   echo "block finalisation timed out after $count seconds; no change in author detected"
-                  break
+                  exit 1
                 fi
               done
 
@@ -69,7 +69,7 @@ spec:
 
               if [ "$STARTINGBLOCK" = "$HIGHESTBLOCK" ]; then
                 echo "block height failed to increase; started at $STARTINGBLOCK and still at $HIGHESTBLOCK"
-                exit
+                exit 1
               else
                 echo "block height is now $HIGHESTBLOCK, having grown by $BLOCK_DIFF"
               fi
@@ -88,7 +88,7 @@ spec:
                   echo "expecting that peers connect to the node"
                   if [ "$PEERS" -lt "$MIN_PEER_COUNT" ]; then
                     echo "insufficient peers connected"
-                    exit
+                    exit 1
                   else
                     echo "found peers: $PEERS connected"
                   fi
@@ -101,7 +101,7 @@ spec:
 
               if [ "$ISSYNCING" = "false" ]; then
                 echo "node is not synchronising"
-                exit
+                exit 0
               fi
           env:
             - name: CHAIN_TYPE
