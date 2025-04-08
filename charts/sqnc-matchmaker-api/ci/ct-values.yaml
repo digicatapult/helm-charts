@@ -597,7 +597,8 @@ keycloak:
                   "acr",
                   "roles",
                   "profile",
-                  "email"
+                  "email",
+                  "demandA:read"
                 ],
                 "optionalClientScopes": [
                   "address",
@@ -608,6 +609,15 @@ keycloak:
               }
             ],
             "clientScopes": [
+              {
+                "name": "demandA:read",
+                "protocol": "openid-connect",
+                "description": "Read demandA",
+                "attributes": {
+                  "include.in.token.scope": "true",
+                  "display.on.consent.screen": "true"
+                }
+              },
               {
                 "name": "roles",
                 "description": "OpenID Connect scope for add user roles to the access token",
