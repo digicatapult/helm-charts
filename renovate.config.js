@@ -16,6 +16,7 @@ module.exports = (config = {}) => {
     onboarding: false,
     requireConfig: false,
     allowedPostUpgradeCommands: ["scripts/bump-chart-version.sh"],
+    ignoreDeps: ["docker.io/bitnami/postgresql"],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
     recreateWhen: "always",
