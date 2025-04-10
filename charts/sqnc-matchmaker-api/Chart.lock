@@ -10,12 +10,12 @@ dependencies:
   version: 24.5.1
 - name: sqnc-node
   repository: https://digicatapult.github.io/helm-charts/
-  version: 7.1.11
+  version: 7.1.16
 - name: sqnc-identity-service
   repository: https://digicatapult.github.io/helm-charts/
   version: 5.1.2
 - name: sqnc-attachment-api
   repository: https://digicatapult.github.io/helm-charts/
   version: 2.0.8
-digest: sha256:6b2f01c3de107ab2853983e849c73d4fae3b9012f75fb4e92de5ce5fe7fd04b7
-generated: "2025-04-10T19:12:47.814099985Z"
+digest: sha256:b9b414292d2a8e099373ea72335a86c8883206a33e8e5dfb7f33c95e438ea5a5
+generated: "2025-04-10T20:12:37.956836715Z"
