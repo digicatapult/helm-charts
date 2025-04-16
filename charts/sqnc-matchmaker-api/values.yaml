@@ -449,8 +449,6 @@ ingress:
   ##   - path: /
   ##     pathType: Prefix
   paths:
-    - path: /v1/attachment
-      pathType: Prefix
     - path: /v1/demandA
       pathType: Prefix
     - path: /v1/demandB
