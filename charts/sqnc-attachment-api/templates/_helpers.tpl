@@ -31,34 +31,6 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Create a default fully qualified app name for sqnc-node subchart
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "sqnc-attachment-api.sqncNode.fullname" -}}
-{{- if .Values.node.fullnameOverride -}}
-{{- .Values.node.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default "node-0" .Values.node.nameOverride -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-
-
-{{/*
-Return the sqnc-node api hostname
-*/}}
-{{- define "sqnc-attachment-api.sqncNodeHost" -}}
-{{- ternary (include "sqnc-attachment-api.sqncNode.fullname" .) .Values.externalSqncNode.host .Values.node.enabled | quote -}}
-{{- end -}}
-
-{{/*
-Return the sqnc-node API port
-*/}}
-{{- define "sqnc-attachment-api.sqncNodePort" -}}
-{{- ternary "9944" .Values.externalSqncNode.port .Values.node.enabled | quote -}}
-{{- end -}}
-
-{{/*
 Return the identity service hostname
 */}}
 {{- define "sqnc-attachment-api.sqncIdentityHost" -}}

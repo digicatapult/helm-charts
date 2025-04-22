@@ -174,10 +174,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "sqnc-attachment-api.databaseSecretName" . }}
                   key: {{ include "sqnc-attachment-api.databaseSecretPasswordKey" . }}
-            - name: NODE_HOST
-              value: {{ include "sqnc-attachment-api.sqncNodeHost" . }}
-            - name: NODE_PORT
-              value: {{ include "sqnc-attachment-api.sqncNodePort" . }}
             - name: IPFS_HOST
               value: {{ template "sqnc-attachment-api.sqncIpfsHost" . }}
             - name: IPFS_PORT
@@ -198,6 +194,14 @@ spec:
               value: {{ .Values.auth.oauth2Realm }}
             - name: IDP_INTERNAL_REALM
               value: {{ .Values.auth.internalRealm }}
+            - name: IDP_INTERNAL_CLIENT_ID
+              value: {{ .Values.auth.internalClientId }}
+            - name: IDP_INTERNAL_CLIENT_SECRET
+              value: {{ .Values.auth.internalClientSecret }}
+            - name: IDP_EXTERNAL_REALM
+              value: {{ .Values.auth.externalRealm }}
+            - name: AUTHZ_WEBHOOK
+              value: {{ .Values.authzWebhook }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
