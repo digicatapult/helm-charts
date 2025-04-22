@@ -200,8 +200,10 @@ spec:
               value: {{ .Values.auth.internalClientSecret }}
             - name: IDP_EXTERNAL_REALM
               value: {{ .Values.auth.externalRealm }}
+            {{- if .Values.authzWebhook }}
             - name: AUTHZ_WEBHOOK
               value: {{ .Values.authzWebhook }}
+            {{- end }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
