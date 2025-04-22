@@ -66,6 +66,11 @@ diagnosticMode:
 ## @param logLevel Allowed values: error, warn, info, debug
 ##
 logLevel: "info"
+
+## @param authzWebhook Cluster internal webhook to call when authorizing external organisation access to attachments. See https://github.com/digicatapult/sqnc-attachment-api#attachment-authorization-webhook for details
+##
+authzWebhook: ""
+
 ## Authentication IDP configuration
 ## @param auth.clientId OAuth2 client id to use when requesting tokens
 ## @param auth.publicIdpOrigin Internet accessible origin for Keycloak IDP routes
@@ -73,6 +78,9 @@ logLevel: "info"
 ## @param auth.idpPathPrefix Prefix to use when constructing paths to the Keycloak API
 ## @param auth.oauth2Realm Keycloak IDP realms for authenticating external clients
 ## @param auth.internalRealm Keycloak IDP realms for authenticating cluster internal clients
+## @param auth.internalClientId OIDC client id used to authenticate this service within the cluster
+## @param auth.internalClientSecret OIDC client secret used to authenticate this service within the cluster
+## @param auth.externalRealm Keycloak IDP realms for authenticating external organisation clients
 auth:
   clientId: "sequence"
   publicIdpOrigin: ""
@@ -80,6 +88,9 @@ auth:
   idpPathPrefix: /auth
   oauth2Realm: "sequence"
   internalRealm: "internal"
+  internalClientId: ""
+  internalClientSecret: ""
+  externalRealm: "external"
 
 ## Digital Catapult sqnc-attachment-api image
 ## ref: https://hub.docker.com/r/digicatapult/sqnc-attachment-api/tags/
@@ -94,7 +105,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v2.2.9
+  tag: v3.0.13
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -633,23 +644,16 @@ externalDatabase:
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
 
-## @section SQNC-Node Parameters
+## @section SQNC-Node Parameters.
 node:
   ## @param node.enabled Enable SQNC-Node subchart
-  enabled: true
+  enabled: false
   ## @param node.nameOverride String to partially override sqnc-node.fullname template (will maintain the release name)
   ##
   nameOverride: ""
   ## @param node.fullnameOverride String to fully override sqnc-node.fullname template
   ##
   fullnameOverride: ""
-## @param externalSqncNode.host External SQNC-Node hostname to query
-##
-externalSqncNode:
-  host: ""
-  ## @param externalSqncNode.port External SQNC-Node port to query
-  ##
-  port: ""
 
 ## @section SQNC-Ipfs parameters
 ## @param externalSqncIpfs.host External SQNC-Ipfs hostname
