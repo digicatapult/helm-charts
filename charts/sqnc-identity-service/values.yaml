@@ -443,6 +443,8 @@ ingress:
       pathType: Prefix
     - path: /v1/self
       pathType: Prefix
+    - path: /v1/roles
+      pathType: Prefix
   ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
