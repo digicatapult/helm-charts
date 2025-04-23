@@ -30,7 +30,7 @@ dependencies:
     repository: https://digicatapult.github.io/helm-charts/
     tags:
       - sqnc-identity-service
-    version: 5.1.11
+    version: 5.1.13
     condition: identity.enabled
   - name: sqnc-attachment-api
     alias: attachment
@@ -51,4 +51,4 @@ maintainers:
 name: sqnc-matchmaker-api
 sources:
   - https://github.com/digicatapult/sqnc-matchmaker-api
-version: 4.0.26
+version: 4.0.27
