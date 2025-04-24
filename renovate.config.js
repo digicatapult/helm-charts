@@ -16,10 +16,7 @@ module.exports = (config = {}) => {
     onboarding: false,
     requireConfig: false,
     allowedPostUpgradeCommands: ["scripts/bump-chart-version.sh"],
-    ignoreDeps: [
-      "postgresql",
-      "docker.io/bitnami/postgresql"
-    ],
+    ignoreDeps: ["postgresql", "docker.io/bitnami/postgresql"],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
     recreateWhen: "always",
@@ -29,7 +26,7 @@ module.exports = (config = {}) => {
         datasourceTemplate: "docker",
         fileMatch: ["(^|/)Chart\\.yaml$"],
         matchStrings: [
-          '#\\s*renovate: image=(?<imageName>.*?)\\s+appVersion:\\s*[\"]?(?<currentValue>[\\w+\\.\\-]*)',
+          '#\\s*renovate: image=(?<imageName>.*?)\\s+appVersion:\\s*["]?(?<currentValue>[\\w+\\.\\-]*)',
         ],
         depNameTemplate: "docker.io/{{{imageName}}}",
       },
@@ -47,7 +44,7 @@ module.exports = (config = {}) => {
       },
       {
         matchManagers: ["helm-values", "regex"],
-        groupName: "{{{parentDir}}}: {{{depName}}} Updates",
+        groupName: null,
         labels: ["dependencies", "helm"],
         separateMinorPatch: true,
         separateMajorMinor: true,
