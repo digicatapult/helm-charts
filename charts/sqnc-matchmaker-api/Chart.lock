@@ -16,6 +16,6 @@ dependencies:
   version: 5.1.13
 - name: sqnc-attachment-api
   repository: https://digicatapult.github.io/helm-charts/
-  version: 3.0.1
-digest: sha256:c08891e88bd706210df72351d057265aa3cfb50a52c2a30a6fca38016f8b1f3e
-generated: "2025-04-25T09:14:30.021107163Z"
+  version: 3.0.2
+digest: sha256:978e06666612b3a01b825bf2ec7736d5d32bfa9866c5924f323238ffff314eff
+generated: "2025-04-25T19:09:32.925253685Z"
