@@ -36,6 +36,13 @@ module.exports = (config = {}) => {
     ],
     packageRules: [
       {
+        matchManagers: ["helm-values", "regex", "helmv3"],
+        groupName: null,
+        labels: ["dependencies", "helm"],
+        separateMinorPatch: true,
+        separateMajorMinor: true,
+      },
+      {
         description:
           "Always bump chart version by a patch when updating values files.",
         matchManagers: ["helm-values", "regex"],
@@ -44,13 +51,6 @@ module.exports = (config = {}) => {
           fileFilters: ["**/Chart.yaml", "**/README.md"],
           executionMode: "branch",
         },
-      },
-      {
-        matchManagers: ["helm-values", "regex"],
-        groupName: "{{{parentDir}}}: {{{depName}}} Updates",
-        labels: ["dependencies", "helm"],
-        separateMinorPatch: true,
-        separateMajorMinor: true,
       },
       {
         matchManagers: ["helm-values", "regex"],
