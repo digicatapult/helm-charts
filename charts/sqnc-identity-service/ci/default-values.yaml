@@ -8,6 +8,7 @@ node:
       - "--rpc-methods=Unsafe"
       - "--rpc-cors=all"
       - "--unsafe-rpc-external"
+      - "--unsafe-force-node-key-generation"
 selfAddress: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
 auth:
   publicIdpOrigin: "http://keycloak.example.com"
