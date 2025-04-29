@@ -79,6 +79,7 @@ module.exports = (config = {}) => {
       },
       {
         matchManagers: ["helmv3"],
+        groupName: null,
         matchUpdateTypes: ["patch", "minor"],
         automerge: true,
         automergeType: "pr",
