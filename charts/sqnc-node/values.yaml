@@ -180,7 +180,7 @@ image:
   repository: digicatapult/sqnc-node
   ## @param image.tag Node image tag
   ##
-  tag: v12.5.0
+  tag: v12.5.1
   ## @param image.pullPolicy Node image pull policy
   ##
   pullPolicy: Always
