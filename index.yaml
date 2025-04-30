@@ -21580,6 +21580,20 @@ entries:
   sqnc-node:
   - apiVersion: v2
     appVersion: 12.5.0
+    created: "2025-04-30T19:07:52.541417631Z"
+    description: A Helm chart to deploy SQNC nodes
+    digest: 8b62f072c38abd8f79a62b6358d4f257585287bc2d03dc3f7670febd7f02a8c2
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: sqnc-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-node-7.1.17/sqnc-node-7.1.17.tgz
+    version: 7.1.17
+  - apiVersion: v2
+    appVersion: 12.5.0
     created: "2025-04-07T22:08:44.642714827Z"
     description: A Helm chart to deploy SQNC nodes
     digest: 77f0079ff3c91e99565e40c907f7e7e786ce2370e757f09388fdd30b31e324c5
@@ -34910,4 +34924,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-04-30T02:37:00.218114366Z"
+generated: "2025-04-30T19:07:52.542452469Z"
