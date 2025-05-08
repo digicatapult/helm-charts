@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/sqnc-matchmaker-api
-appVersion: v6.2.9
+appVersion: v6.2.17
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
