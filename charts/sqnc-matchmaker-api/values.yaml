@@ -720,5 +720,11 @@ tests:
   auth:
     clientId: ""
     clientSecret: ""
-## @param roles List of roles to be assumed by the sqnc-matchmaker-api service account, e.g. ["optimiser", "member-a"]
+## @param roles an Array of roles to be assumed by the sqnc-matchmaker-api service account
+## e.g:
+## roles:
+##  - optimiser 
+##  - member-a
+## or:
+## roles: ["optimiser", "member-a"]
 roles: []
