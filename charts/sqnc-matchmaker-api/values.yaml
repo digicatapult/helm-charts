@@ -723,7 +723,7 @@ tests:
 ## @param roles an Array of roles to be assumed by the sqnc-matchmaker-api service account
 ## e.g:
 ## roles:
-##  - optimiser 
+##  - optimiser
 ##  - member-a
 ## or:
 ## roles: ["optimiser", "member-a"]
