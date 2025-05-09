@@ -12,6 +12,7 @@ node:
       - "--unsafe-force-node-key-generation"
 
 userUri: //Alice
+roles: ["member-a"]
 logLevel: debug
 auth:
   clientId: sequence

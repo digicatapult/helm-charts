@@ -88,7 +88,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `auth.internalClientSecret`                       | OIDC client secret used to authenticate this service within the cluster                                                                                                                                  | `""`                               |
 | `image.registry`                                  | sqnc-matchmaker-api image registry                                                                                                                                                                       | `docker.io`                        |
 | `image.repository`                                | sqnc-matchmaker-api image repository                                                                                                                                                                     | `digicatapult/sqnc-matchmaker-api` |
-| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                                                           | `v6.2.15`                          |
+| `image.tag`                                       | sqnc-matchmaker-api image tag (immutable tags are recommended)                                                                                                                                           | `v6.2.17`                          |
 | `image.digest`                                    | sqnc-matchmaker-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)                                           | `""`                               |
 | `image.pullPolicy`                                | sqnc-matchmaker-api image pull policy                                                                                                                                                                    | `IfNotPresent`                     |
 | `image.pullSecrets`                               | sqnc-matchmaker-api image pull secrets                                                                                                                                                                   | `[]`                               |
@@ -288,6 +288,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended)                        | `latest`           |
 | `tests.auth.clientId`            | OAuth2 client id to use when requesting tokens in the internal realm for tests | `""`               |
 | `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens                             | `""`               |
+| `roles`                          | an Array of roles to be assumed by the sqnc-matchmaker-api service account     | `[]`               |
 
 ## Configuration and installation details
 

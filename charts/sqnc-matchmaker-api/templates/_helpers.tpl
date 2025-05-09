@@ -243,3 +243,11 @@ sqnc-matchmaker-api:
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/* Define Roles assumed by instance */}}
+{{- define "sqnc-matchmaker-api.roles" -}}
+{{- if or (not .Values.roles) (eq (len .Values.roles) 0) }}
+{{- fail "You must set .Values.roles as a non-empty array" }}
+{{- end }}
+{{- join "," .Values.roles }}
+{{- end }}
