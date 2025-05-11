@@ -5876,6 +5876,64 @@ entries:
       category: sqnc
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v3.0.27
+    created: "2025-05-11T19:07:44.840100521Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - condition: keycloak.enabled
+      name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 24.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    - alias: identity
+      condition: identity.enabled
+      name: sqnc-identity-service
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-identity-service
+      version: 5.x
+    - alias: ipfs
+      condition: ipfs.enabled
+      name: sqnc-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-ipfs
+      version: 4.x.x
+    description: The sqnc-attachment-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 4d915fe6b49d5b2374e47c277f2dbc9f0d8c4a52bedf8c7f909c34cedf6aae43
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-attachment-api
+    sources:
+    - https://github.com/digicatapult/sqnc-attachment-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-attachment-api-3.0.14/sqnc-attachment-api-3.0.14.tgz
+    version: 3.0.14
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v3.0.26
     created: "2025-05-11T00:34:44.526161634Z"
     dependencies:
@@ -37264,4 +37322,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-05-11T02:38:50.57438247Z"
+generated: "2025-05-11T19:07:44.841287231Z"
