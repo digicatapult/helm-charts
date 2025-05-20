@@ -31,7 +31,6 @@ idpCredentials:
     secret: secret789
     owner: 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 
-## @section IDP Credentials Secret Configuration
 ## @param idpCredentialsSecret.enabled Enable creation of IDP credentials secret
 ## @param idpCredentialsSecret.name Name of the secret to create
 ## @param idpCredentialsSecret.mountPath Path where the credentials file will be mounted
