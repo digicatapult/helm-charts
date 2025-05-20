@@ -66,6 +66,12 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
+      {{- if .Values.idpCredentialsSecret.enabled }}
+      volumes:
+        - name: idp-credentials
+          secret:
+            secretName: {{ .Values.idpCredentialsSecret.name }}
+      {{- end }}
       {{- if or .Values.initContainers .Values.initDbMigrate.enable (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
@@ -154,6 +160,12 @@ spec:
           {{- else if .Values.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
           {{- end }}
+          {{- if .Values.idpCredentialsSecret.enabled }}
+          volumeMounts:
+            - name: idp-credentials
+              mountPath: {{ .Values.idpCredentialsSecret.mountPath }}
+              readOnly: true
+          {{- end }}
           env:
             - name: SQNC_DEBUG
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
@@ -200,6 +212,10 @@ spec:
               value: {{ .Values.auth.internalClientSecret }}
             - name: IDP_EXTERNAL_REALM
               value: {{ .Values.auth.externalRealm }}
+            {{- if .Values.idpCredentialsSecret.enabled }}
+            - name: CREDENTIALS_FILE_PATH
+              value: {{ printf "%s/%s" .Values.idpCredentialsSecret.mountPath .Values.idpCredentialsSecret.fileName | quote }}
+            {{- end }}
             {{- if .Values.authzWebhook }}
             - name: AUTHZ_WEBHOOK
               value: {{ .Values.authzWebhook }}

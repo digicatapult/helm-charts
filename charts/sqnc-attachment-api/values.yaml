@@ -17,6 +17,32 @@ global:
   imagePullSecrets: []
   storageClass: ""
 
+## @section IDP Credentials Parameters
+## @param idpCredentials List of credentials with username, secret and owner information
+##
+idpCredentials:
+  - username: alice
+    secret: secret123
+    owner: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+  - username: bob
+    secret: secret456
+    owner: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+  - username: charlie
+    secret: secret789
+    owner: 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
+
+## @section IDP Credentials Secret Configuration
+## @param idpCredentialsSecret.enabled Enable creation of IDP credentials secret
+## @param idpCredentialsSecret.name Name of the secret to create
+## @param idpCredentialsSecret.mountPath Path where the credentials file will be mounted
+## @param idpCredentialsSecret.fileName Name of the credentials file
+##
+idpCredentialsSecret:
+  enabled: true
+  name: idp-credentials
+  mountPath: /etc/idp
+  fileName: credentials.json
+
 ## @section Common parameters
 ##
 
