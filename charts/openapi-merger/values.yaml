@@ -441,7 +441,7 @@ initContainers: []
 persistence:
   ## @param persistence.enabled Enable persistence using Persistent Volume Claims
   ##
-  enabled: true
+  enabled: false
   ## @param persistence.mountPath Path to mount the volume at.
   ##
   mountPath: /data
