@@ -215,3 +215,13 @@ sqnc-attachment-api:
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/* Validate idpCredentials */}}
+{{- define "sqnc-attachment-api.validateValues.idpCredentials" -}}
+{{- if .Values.idpCredentialsSecret.enabled -}}
+{{- if or (not .Values.idpCredentials) (eq (len .Values.idpCredentials) 0) -}}
+sqnc-attachment-api:
+    When idpCredentialsSecret.enabled is true, idpCredentials must be a non-empty array
+{{- end -}}
+{{- end -}}
+{{- end -}}

@@ -66,12 +66,6 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
-      {{- if .Values.idpCredentialsSecret.enabled }}
-      volumes:
-        - name: idp-credentials
-          secret:
-            secretName: {{ .Values.idpCredentialsSecret.name }}
-      {{- end }}
       {{- if or .Values.initContainers .Values.initDbMigrate.enable (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
@@ -159,12 +153,6 @@ spec:
           args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
           {{- else if .Values.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
-          {{- end }}
-          {{- if .Values.idpCredentialsSecret.enabled }}
-          volumeMounts:
-            - name: idp-credentials
-              mountPath: {{ .Values.idpCredentialsSecret.mountPath }}
-              readOnly: true
           {{- end }}
           env:
             - name: SQNC_DEBUG
@@ -271,10 +259,20 @@ spec:
           {{- if .Values.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
+          {{- if .Values.idpCredentialsSecret.enabled }}
+            - name: idp-credentials
+              mountPath: {{ .Values.idpCredentialsSecret.mountPath }}
+              readOnly: true
+          {{- end }}
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- end }}
+        - name: idp-credentials
+        {{- if .Values.idpCredentialsSecret.enabled }}
+          secret:
+            secretName: {{ .Values.idpCredentialsSecret.name }}
         {{- end }}
