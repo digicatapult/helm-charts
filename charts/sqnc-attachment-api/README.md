@@ -54,6 +54,29 @@ The command removes all the Kubernetes components associated with the chart and 
 | `global.imagePullSecrets` | Global Docker registry secret names as an array | `[]`  |
 | `global.storageClass`     | Global StorageClass for Persistent Volume(s)    | `""`  |
 
+### IDP Credentials Parameters
+
+| Name                         | Description                                  | Value                                              |
+| ---------------------------- | -------------------------------------------- | -------------------------------------------------- |
+| `idpCredentials[0].username` | Username for the first credential            | `alice`                                            |
+| `idpCredentials[0].secret`   | Secret/password for the first credential     | `secret`                                           |
+| `idpCredentials[0].owner`    | Owner's public key for the first credential  | `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY` |
+| `idpCredentials[1].username` | Username for the second credential           | `bob`                                              |
+| `idpCredentials[1].secret`   | Secret/password for the second credential    | `secret`                                           |
+| `idpCredentials[1].owner`    | Owner's public key for the second credential | `5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty` |
+| `idpCredentials[2].username` | Username for the third credential            | `charlie`                                          |
+| `idpCredentials[2].secret`   | Secret/password for the third credential     | `secret`                                           |
+| `idpCredentials[2].owner`    | Owner's public key for the third credential  | `5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y` |
+
+### IDP Credentials Secret Configuration
+
+| Name                             | Description                                     | Value              |
+| -------------------------------- | ----------------------------------------------- | ------------------ |
+| `idpCredentialsSecret.enabled`   | Enable creation of IDP credentials secret       | `true`             |
+| `idpCredentialsSecret.name`      | Name of the secret to create                    | `idp-credentials`  |
+| `idpCredentialsSecret.mountPath` | Path where the credentials file will be mounted | `/etc/idp`         |
+| `idpCredentialsSecret.fileName`  | Name of the credentials file                    | `credentials.json` |
+
 ### Common parameters
 
 | Name                     | Description                                                                             | Value           |
@@ -87,7 +110,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `auth.externalRealm`                              | Keycloak IDP realms for authenticating external organisation clients                                                                                                                                | `external`                         |
 | `image.registry`                                  | sqnc-attachment-api image registry                                                                                                                                                                  | `docker.io`                        |
 | `image.repository`                                | sqnc-attachment-api image repository                                                                                                                                                                | `digicatapult/sqnc-attachment-api` |
-| `image.tag`                                       | sqnc-attachment-api image tag (immutable tags are recommended)                                                                                                                                      | `v3.0.35`                          |
+| `image.tag`                                       | sqnc-attachment-api image tag (immutable tags are recommended)                                                                                                                                      | `v3.1.0`                           |
 | `image.digest`                                    | sqnc-attachment-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)                                      | `""`                               |
 | `image.pullPolicy`                                | sqnc-attachment-api image pull policy                                                                                                                                                               | `IfNotPresent`                     |
 | `image.pullSecrets`                               | sqnc-attachment-api image pull secrets                                                                                                                                                              | `[]`                               |

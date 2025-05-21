@@ -18,19 +18,28 @@ global:
   storageClass: ""
 
 ## @section IDP Credentials Parameters
-## @param idpCredentials List of credentials with username, secret and owner information
+## @param idpCredentials[0].username Username for the first credential
+## @param idpCredentials[0].secret Secret/password for the first credential
+## @param idpCredentials[0].owner Owner's public key for the first credential
+## @param idpCredentials[1].username Username for the second credential
+## @param idpCredentials[1].secret Secret/password for the second credential
+## @param idpCredentials[1].owner Owner's public key for the second credential
+## @param idpCredentials[2].username Username for the third credential
+## @param idpCredentials[2].secret Secret/password for the third credential
+## @param idpCredentials[2].owner Owner's public key for the third credential
 ##
 idpCredentials:
   - username: alice
-    secret: secret123
+    secret: secret
     owner: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
   - username: bob
-    secret: secret456
+    secret: secret
     owner: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
   - username: charlie
-    secret: secret789
+    secret: secret
     owner: 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 
+## @section IDP Credentials Secret Configuration
 ## @param idpCredentialsSecret.enabled Enable creation of IDP credentials secret
 ## @param idpCredentialsSecret.name Name of the secret to create
 ## @param idpCredentialsSecret.mountPath Path where the credentials file will be mounted
@@ -130,7 +139,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v3.0.35
+  tag: v3.1.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
