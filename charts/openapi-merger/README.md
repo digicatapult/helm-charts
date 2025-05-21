@@ -175,7 +175,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 | Name                        | Description                                                                                             | Value               |
 | --------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------- |
-| `persistence.enabled`       | Enable persistence using Persistent Volume Claims                                                       | `true`              |
+| `persistence.enabled`       | Enable persistence using Persistent Volume Claims                                                       | `false`             |
 | `persistence.mountPath`     | Path to mount the volume at.                                                                            | `/data`             |
 | `persistence.subPath`       | The subdirectory of the volume to mount to, useful in dev environments and one PV for multiple services | `""`                |
 | `persistence.storageClass`  | Storage class of backing PVC                                                                            | `""`                |
