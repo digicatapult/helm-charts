@@ -273,6 +273,7 @@ spec:
         {{- end }}
         - name: idp-credentials
         {{- if .Values.idpCredentialsSecret.enabled }}
+        {{- include "sqnc-attachment-api.validateValues.idpCredentials" . | nindent 8 }}
           secret:
             secretName: {{ .Values.idpCredentialsSecret.name }}
         {{- end }}

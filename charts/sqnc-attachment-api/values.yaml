@@ -29,15 +29,15 @@ global:
 ## @param idpCredentials[2].owner Owner's public key for the third credential
 ##
 idpCredentials:
-  # - username: alice
-  #   secret: secret
-  #   owner: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-  # - username: bob
-  #   secret: secret
-  #   owner: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
-  # - username: charlie
-  #   secret: secret
-  #   owner: 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
+  - username: alice
+    secret: secret
+    owner: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+  - username: bob
+    secret: secret
+    owner: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+  - username: charlie
+    secret: secret
+    owner: 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 
 ## @section IDP Credentials Secret Configuration
 ## @param idpCredentialsSecret.enabled Enable creation of IDP credentials secret
