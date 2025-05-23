@@ -17,6 +17,40 @@ global:
   imagePullSecrets: []
   storageClass: ""
 
+## @section IDP Credentials Parameters
+## @param idpCredentials[0].username Username for the first credential
+## @param idpCredentials[0].secret Secret/password for the first credential
+## @param idpCredentials[0].owner Owner's public key for the first credential
+## @param idpCredentials[1].username Username for the second credential
+## @param idpCredentials[1].secret Secret/password for the second credential
+## @param idpCredentials[1].owner Owner's public key for the second credential
+## @param idpCredentials[2].username Username for the third credential
+## @param idpCredentials[2].secret Secret/password for the third credential
+## @param idpCredentials[2].owner Owner's public key for the third credential
+##
+idpCredentials:
+  - username: alice
+    secret: secret
+    owner: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+  - username: bob
+    secret: secret
+    owner: 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+  - username: charlie
+    secret: secret
+    owner: 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
+
+## @section IDP Credentials Secret Configuration
+## @param idpCredentialsSecret.enabled Enable creation of IDP credentials secret
+## @param idpCredentialsSecret.name Name of the secret to create
+## @param idpCredentialsSecret.mountPath Path where the credentials file will be mounted
+## @param idpCredentialsSecret.fileName Name of the credentials file
+##
+idpCredentialsSecret:
+  enabled: true
+  name: idp-credentials
+  mountPath: /etc/idp
+  fileName: credentials.json
+
 ## @section Common parameters
 ##
 
@@ -105,7 +139,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v3.0.35
+  tag: v3.1.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -340,10 +374,13 @@ extraEnvVarsCM: ""
 extraEnvVarsSecret: ""
 ## @param extraVolumes Optionally specify extra list of additional volumes for the sqnc-attachment-api pod(s)
 ##
-extraVolumes: []
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the sqnc-attachment-api container(s)
-##
-extraVolumeMounts: []
+extraVolumes:
+  - name: realm-volume
+    configMap:
+      name: keycloak-realms
+extraVolumeMounts:
+  - mountPath: /opt/bitnami/keycloak/data/import
+    name: realm-volume
 ## @param sidecars Add additional sidecar containers to the sqnc-attachment-api pod(s)
 ## e.g:
 ## sidecars:

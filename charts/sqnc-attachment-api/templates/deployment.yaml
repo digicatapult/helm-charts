@@ -200,6 +200,10 @@ spec:
               value: {{ .Values.auth.internalClientSecret }}
             - name: IDP_EXTERNAL_REALM
               value: {{ .Values.auth.externalRealm }}
+            {{- if .Values.idpCredentialsSecret.enabled }}
+            - name: CREDENTIALS_FILE_PATH
+              value: {{ printf "%s/%s" .Values.idpCredentialsSecret.mountPath .Values.idpCredentialsSecret.fileName | quote }}
+            {{- end }}
             {{- if .Values.authzWebhook }}
             - name: AUTHZ_WEBHOOK
               value: {{ .Values.authzWebhook }}
@@ -255,10 +259,21 @@ spec:
           {{- if .Values.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
+          {{- if .Values.idpCredentialsSecret.enabled }}
+            - name: idp-credentials
+              mountPath: {{ .Values.idpCredentialsSecret.mountPath }}
+              readOnly: true
+          {{- end }}
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- end }}
+        - name: idp-credentials
+        {{- if .Values.idpCredentialsSecret.enabled }}
+        {{- include "sqnc-attachment-api.validateValues.idpCredentials" . | nindent 8 }}
+          secret:
+            secretName: {{ .Values.idpCredentialsSecret.name }}
         {{- end }}
