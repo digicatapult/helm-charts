@@ -7,6 +7,6 @@ dependencies:
   version: 2.27.0
 - name: sqnc-node
   repository: https://digicatapult.github.io/helm-charts/
-  version: 7.1.16
-digest: sha256:5d9965df1b8752c054794dcef32d85171327edb4b98c2469e94e9f9579ee73bd
-generated: "2025-04-28T07:33:11.919159237Z"
+  version: 7.1.18
+digest: sha256:2d72ef693117aff7be036e9362543026b5af7ba56235f08abee0df73bdaab781
+generated: "2025-05-31T01:55:31.807461485Z"
