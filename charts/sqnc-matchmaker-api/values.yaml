@@ -107,7 +107,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-matchmaker-api
-  tag: v6.2.40
+  tag: v6.2.42
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
