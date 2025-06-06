@@ -371,9 +371,9 @@ sqnc-attachment-api:
 
 {{- define "sqnc-attachment-api.validateValues.storageBackend" -}}
 {{- $mode := .Values.storageBackend.mode | default "" -}}
-{{- if not (or (eq $mode "S3") (eq $mode "AZURE")) -}}
+{{- if not (or (eq $mode "S3") (eq $mode "AZURE") (eq $mode "IPFS")) -}}
 sqnc-attachment-api:
-	storageBackend.mode must be one of: S3, AZURE
+	storageBackend.mode must be one of: S3, AZURE, or IPFS
 {{- end }}
 {{- if eq $mode "S3" -}}
 	{{- if and (not .Values.minio.enabled) (not .Values.externalStorageBackendHost) -}}
@@ -393,6 +393,16 @@ sqnc-attachment-api:
 	{{- if and (not .Values.azurite.enabled) (not .Values.externalStorageBackendPort) -}}
 sqnc-attachment-api:
 	storageBackend.externalStorageBackendPort is required when mode=AZURE and Azurite is disabled.
+	{{- end }}
+{{- end }}
+{{- if eq $mode "IPFS" -}}
+	{{- if and (not .Values.ipfs.enabled) (not .Values.externalSqncIpfs.host) -}}
+sqnc-attachment-api:
+	externalSqncIpfs.host is required when mode=IPFS and ipfs is disabled.
+	{{- end }}
+	{{- if and (not .Values.ipfs.enabled) (not .Values.externalSqncIpfs.port) -}}
+sqnc-attachment-api:
+	externalSqncIpfs.port is required when mode=IPFS and ipfs is disabled.
 	{{- end }}
 {{- end }}
 {{- end }}
