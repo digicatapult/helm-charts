@@ -174,10 +174,63 @@ spec:
                 secretKeyRef:
                   name: {{ include "sqnc-attachment-api.databaseSecretName" . }}
                   key: {{ include "sqnc-attachment-api.databaseSecretPasswordKey" . }}
+            - name: STORAGE_BACKEND_MODE
+              value: {{ .Values.storageBackend.mode }}
+            {{- if eq .Values.storageBackend.mode "IPFS" }}
             - name: IPFS_HOST
               value: {{ template "sqnc-attachment-api.sqncIpfsHost" . }}
             - name: IPFS_PORT
               value: {{ template "sqnc-attachment-api.sqncIpfsPort" . }}
+            {{- end }}
+            {{- if  or (eq .Values.storageBackend.mode "AZURE") (eq .Values.storageBackend.mode "S3") }}
+            - name: STORAGE_BACKEND_HOST
+              value: {{ template "sqnc-attachment-api.storageBackendHost" . }}
+            - name: STORAGE_BACKEND_PORT
+              value: {{ template "sqnc-attachment-api.storageBackendPort" . }}
+            - name: STORAGE_BACKEND_BUCKET_NAME
+              value: {{ .Values.storageBackend.bucketName }}
+            - name: STORAGE_BACKEND_PROTOCOL
+              value: {{ .Values.storageBackend.protocol }}
+            {{- if eq .Values.storageBackend.mode "S3" }}
+            {{- if .Values.storageBackend.s3Region }}
+            - name: STORAGE_BACKEND_S3_REGION
+              value: {{ .Values.storageBackend.s3Region }}
+            {{- end }}
+            - name: STORAGE_BACKEND_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "sqnc-attachment-api.s3SecretName" . }}
+                  key: {{ include "sqnc-attachment-api.s3AccessKeyIdKey" . }}
+            - name: STORAGE_BACKEND_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "sqnc-attachment-api.s3SecretName" . }}
+                  key: {{ include "sqnc-attachment-api.s3SecretAccessKeyKey" . }}
+            {{- end }}
+            {{- if eq .Values.storageBackend.mode "AZURE" }}
+            {{- if .Values.storageBackend.blobDomain }}
+            - name: STORAGE_BACKEND_BLOB_DOMAIN
+              value: {{ .Values.storageBackend.blobDomain }}
+            {{- end}}
+            {{- if .Values.azurite.enabled }}
+            - name: STORAGE_BACKEND_ACCOUNT_NAME
+              value: "devstoreaccount1"
+            - name: STORAGE_BACKEND_ACCOUNT_SECRET
+              value: "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=="
+            {{- else }}
+            - name: STORAGE_BACKEND_ACCOUNT_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "sqnc-attachment-api.azureSecretName" . }}
+                  key: {{ include "sqnc-attachment-api.azureAccountNameKey" . }}
+            - name: STORAGE_BACKEND_ACCOUNT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "sqnc-attachment-api.azureSecretName" . }}
+                  key: {{ include "sqnc-attachment-api.azureAccountKeyKey" . }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
             - name: IDENTITY_SERVICE_HOST
               value: {{ template "sqnc-attachment-api.sqncIdentityHost" . }}
             - name: IDENTITY_SERVICE_PORT
@@ -271,9 +324,8 @@ spec:
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
-        - name: idp-credentials
         {{- if .Values.idpCredentialsSecret.enabled }}
-        {{- include "sqnc-attachment-api.validateValues.idpCredentials" . | nindent 8 }}
+        - name: idp-credentials
           secret:
             secretName: {{ .Values.idpCredentialsSecret.name }}
         {{- end }}

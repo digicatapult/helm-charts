@@ -267,12 +267,11 @@ The command removes all the Kubernetes components associated with the chart and 
 | `node.nameOverride`     | String to partially override sqnc-node.fullname template (will maintain the release name) | `""`    |
 | `node.fullnameOverride` | String to fully override sqnc-node.fullname template                                      | `""`    |
 
-### SQNC-Ipfs parameters
+### Keycloak Parameters
 
-| Name                    | Description                 | Value |
-| ----------------------- | --------------------------- | ----- |
-| `externalSqncIpfs.host` | External SQNC-Ipfs hostname | `""`  |
-| `externalSqncIpfs.port` | External SQNC-Ipfs port     | `""`  |
+| Name               | Description              | Value   |
+| ------------------ | ------------------------ | ------- |
+| `keycloak.enabled` | Enable Keycloak subchart | `false` |
 
 ### SQNC-Identity-Service parameters
 
@@ -281,23 +280,38 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalSqncIdentity.host` | External SQNC-Identity-Service hostname | `""`  |
 | `externalSqncIdentity.port` | External SQNC-Identity-Service port     | `""`  |
 
-### Keycloak Parameters
-
-| Name               | Description              | Value   |
-| ------------------ | ------------------------ | ------- |
-| `keycloak.enabled` | Enable Keycloak subchart | `false` |
-
 ### SQNC Identity Service Parameters
 
 | Name               | Description                           | Value   |
 | ------------------ | ------------------------------------- | ------- |
 | `identity.enabled` | Enable sqnc-identity-service subchart | `false` |
 
-### SQNC Ipfs Parameters
+### Backend Storage Parameters
 
-| Name           | Description               | Value   |
-| -------------- | ------------------------- | ------- |
-| `ipfs.enabled` | Enable sqnc-ipfs subchart | `false` |
+| Name                                          | Description                                                                      | Value             |
+| --------------------------------------------- | -------------------------------------------------------------------------------- | ----------------- |
+| `storageBackend.mode`                         | Storage mode to use, choice of IPFS, AZURE or S3                                 | `IPFS`            |
+| `storageBackend.accessKeyId`                  | The access key ID to use for the s3 storageBackend                               | `""`              |
+| `storageBackend.secretAccessKey`              | The secret access key to use for the s3 storageBackend                           | `""`              |
+| `storageBackend.s3Region`                     | The AWS region to use with Amazon S3                                             | `""`              |
+| `storageBackend.bucketName`                   | The bucket or storageContainer name to use                                       | `""`              |
+| `storageBackend.protocol`                     | The Protocol to use for accessing the storage backend, options are http or https | `https`           |
+| `storageBackend.existingS3Secret`             | The existing Secret to use for the s3 Credentials                                | `""`              |
+| `storageBackend.existingS3SecretAccessKeyKey` | The key to use for the S3 SecretaccessKey                                        | `secretAccessKey` |
+| `storageBackend.existingS3AccessKeyIdKey`     | The key to use for the S3 AccessKeyId                                            | `accessKeyId`     |
+| `storageBackend.accountName`                  | The Account Name to use with Azure                                               | `""`              |
+| `storageBackend.accountKey`                   | The Account Key to use with Azure                                                | `""`              |
+| `storageBackend.blobDomain`                   | The BlobDomain to use with Azure                                                 | `""`              |
+| `storageBackend.existingAzureSecret`          | The existing secret to use for the Azure Credentials                             | `""`              |
+| `storageBackend.existingAzureAccountNameKey`  | The key to use for the Azure AccountName                                         | `accountName`     |
+| `storageBackend.existingAzureAccountKeyKey`   | The key to use for the Azure AccountKey                                          | `accountKey`      |
+| `externalStorageBackend.host`                 |                                                                                  | `""`              |
+| `externalStorageBackend.port`                 |                                                                                  | `""`              |
+| `externalSqncIpfs.host`                       | External SQNC-Ipfs hostname                                                      | `""`              |
+| `externalSqncIpfs.port`                       | External SQNC-Ipfs port                                                          | `""`              |
+| `ipfs.enabled`                                | Enable sqnc-ipfs subchart                                                        | `false`           |
+| `minio.enabled`                               | Enable minio subchart                                                            | `false`           |
+| `azurite.enabled`                             | Enable the azurite subchart                                                      | `false`           |
 
 ### Helm test parameters
 

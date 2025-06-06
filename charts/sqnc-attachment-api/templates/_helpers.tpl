@@ -59,6 +59,119 @@ Return the ipfs port
 {{- end -}}
 
 {{/*
+Return the storage backend hostname
+*/}}
+{{- define "sqnc-attachment-api.storageBackendHost" -}}
+{{- if eq .Values.storageBackend.mode "S3" -}}
+    {{- if .Values.minio.enabled -}}
+        {{- include "common.names.dependency.fullname" (dict "chartName" "minio" "chartValues" .Values.minio "context" $) -}}
+    {{- else -}}
+        {{- .Values.externalStorageBackendHost | quote -}}
+    {{- end -}}
+{{- else if eq .Values.storageBackend.mode "AZURE" -}}
+    {{- if .Values.azurite.enabled -}}
+        {{- include "common.names.dependency.fullname" (dict "chartName" "azurite" "chartValues" .Values.azurite "context" $) -}}
+    {{- else -}}
+        {{- .Values.externalStorageBackendHost | quote -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the storage backend port
+*/}}
+{{- define "sqnc-attachment-api.storageBackendPort" -}}
+{{- if eq .Values.storageBackend.mode "S3" -}}
+    {{- if .Values.minio.enabled -}}
+        {{- default 9000 .Values.minio.service.ports.api | quote -}}
+    {{- else -}}
+        {{- .Values.externalStorageBackendPort | quote -}}
+    {{- end -}}
+{{- else if eq .Values.storageBackend.mode "AZURE" -}}
+    {{- if .Values.azurite.enabled -}}
+        "10000"
+    {{- else -}}
+        {{- .Values.externalStorageBackendPort | quote -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
+Return the name of the secret containing S3 credentials
+*/}}
+{{- define "sqnc-attachment-api.s3SecretName" -}}
+{{- if .Values.storageBackend.existingS3Secret -}}
+    {{ .Values.storageBackend.existingS3Secret | quote }}
+{{- else if .Values.minio.enabled -}}
+    {{ printf "%s-minio" (include "common.names.fullname" .) | quote }}
+{{- else -}}
+    {{ printf "%s-s3-creds" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" | quote }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the access key ID key used in the S3 secret
+*/}}
+{{- define "sqnc-attachment-api.s3AccessKeyIdKey" -}}
+{{- if .Values.storageBackend.existingS3Secret -}}
+    {{ .Values.storageBackend.existingS3AccessKeyIdKey | default "accessKeyId" | quote }}
+{{- else if .Values.minio.enabled -}}
+    "root-user"
+{{- else -}}
+    "accessKeyId"
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the secret access key used in the S3 secret
+*/}}
+{{- define "sqnc-attachment-api.s3SecretAccessKeyKey" -}}
+{{- if .Values.storageBackend.existingS3Secret -}}
+    {{ .Values.storageBackend.existingS3SecretAccessKeyKey | default "secretAccessKey" | quote }}
+{{- else if .Values.minio.enabled -}}
+    "root-password"
+{{- else -}}
+    "secretAccessKey"
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the name of the secret containing Azure credentials (only if not Azurite)
+*/}}
+{{- define "sqnc-attachment-api.azureSecretName" -}}
+{{- if .Values.storageBackend.existingAzureSecret -}}
+    {{ .Values.storageBackend.existingAzureSecret | quote }}
+{{- else -}}
+    {{ printf "%s-azure-creds" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" | quote }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the key name for Azure accountName (used in the Secret)
+*/}}
+{{- define "sqnc-attachment-api.azureAccountNameKey" -}}
+{{- if .Values.storageBackend.existingAzureSecret -}}
+    {{ .Values.storageBackend.existingAzureAccountNameKey | default "accountName" | quote }}
+{{- else -}}
+    "accountName"
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the key name for Azure accountKey (used in the Secret)
+*/}}
+{{- define "sqnc-attachment-api.azureAccountKeyKey" -}}
+{{- if .Values.storageBackend.existingAzureSecret -}}
+    {{ .Values.storageBackend.existingAzureAccountKeyKey | default "accountKey" | quote }}
+{{- else -}}
+    "accountKey"
+{{- end -}}
+{{- end -}}
+
+
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
@@ -186,6 +299,10 @@ Compile all warnings into a single message, and call fail.
 {{- $messages := list -}}
 {{- $messages := append $messages (include "sqnc-attachment-api.validateValues.databaseName" .) -}}
 {{- $messages := append $messages (include "sqnc-attachment-api.validateValues.databaseUser" .) -}}
+{{- $messages := append $messages (include "sqnc-attachment-api.validateValues.s3Secrets" .) -}}
+{{- $messages := append $messages (include "sqnc-attachment-api.validateValues.azureSecrets" .) -}}
+{{- $messages := append $messages (include "sqnc-attachment-api.validateValues.idpCredentials" .) -}}
+{{- $messages := append $messages (include "sqnc-attachment-api.validateValues.storageBackend" .) -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
@@ -225,3 +342,57 @@ sqnc-attachment-api:
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "sqnc-attachment-api.validateValues.s3Secrets" -}}
+{{- if and (eq .Values.storageBackend.mode "S3") (not (or .Values.minio.enabled .Values.storageBackend.existingS3Secret)) -}}
+  {{- if not .Values.storageBackend.accessKeyId }}
+sqnc-attachment-api:
+    storageBackend.accessKeyId is required if mode=S3 and no existing secret is defined.
+  {{- end }}
+  {{- if not .Values.storageBackend.secretAccessKey }}
+sqnc-attachment-api:
+    storageBackend.secretAccessKey is required if mode=S3 and no existing secret is defined.
+  {{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "sqnc-attachment-api.validateValues.azureSecrets" -}}
+{{- if and (eq .Values.storageBackend.mode "AZURE") (not .Values.azurite.enabled) (not .Values.storageBackend.existingAzureSecret) -}}
+  {{- if not .Values.storageBackend.accountName }}
+sqnc-attachment-api:
+    storageBackend.accountName is required if mode=AZURE and no existing secret is defined.
+  {{- end }}
+  {{- if not .Values.storageBackend.accountKey }}
+sqnc-attachment-api:
+    storageBackend.accountKey is required if mode=AZURE and no existing secret is defined.
+  {{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "sqnc-attachment-api.validateValues.storageBackend" -}}
+{{- $mode := .Values.storageBackend.mode | default "" -}}
+{{- if not (or (eq $mode "S3") (eq $mode "AZURE")) -}}
+sqnc-attachment-api:
+	storageBackend.mode must be one of: S3, AZURE
+{{- end }}
+{{- if eq $mode "S3" -}}
+	{{- if and (not .Values.minio.enabled) (not .Values.externalStorageBackendHost) -}}
+sqnc-attachment-api:
+	storageBackend.externalStorageBackendHost is required when mode=S3 and MinIO is disabled.
+	{{- end }}
+	{{- if and (not .Values.minio.enabled) (not .Values.externalStorageBackendPort) -}}
+sqnc-attachment-api:
+	storageBackend.externalStorageBackendPort is required when mode=S3 and MinIO is disabled.
+	{{- end }}
+{{- end }}
+{{- if eq $mode "AZURE" -}}
+	{{- if and (not .Values.azurite.enabled) (not .Values.externalStorageBackendHost) -}}
+sqnc-attachment-api:
+	storageBackend.externalStorageBackendHost is required when mode=AZURE and Azurite is disabled.
+	{{- end }}
+	{{- if and (not .Values.azurite.enabled) (not .Values.externalStorageBackendPort) -}}
+sqnc-attachment-api:
+	storageBackend.externalStorageBackendPort is required when mode=AZURE and Azurite is disabled.
+	{{- end }}
+{{- end }}
+{{- end }}

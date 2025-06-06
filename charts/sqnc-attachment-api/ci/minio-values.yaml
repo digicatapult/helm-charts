@@ -42,15 +42,14 @@ identity:
   postgresql:
     nameOverride: postgresql-identity
 ipfs:
+  enabled: false
+minio:
   enabled: true
-  sqncNode:
-    enabled: false
-  externalSqncNode:
-    host: attachment-node
-    port: 9944
-  service:
-    ports:
-      http: 5001
+  persistence:
+    size: 1Gi
+storageBackend:
+  mode: S3
+  protocol: http
 keycloak:
   enabled: true
   fullnameOverride: attachment-keycloak
