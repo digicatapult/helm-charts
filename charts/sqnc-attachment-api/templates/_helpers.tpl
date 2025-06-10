@@ -104,7 +104,7 @@ Return the name of the secret containing S3 credentials
 {{- if .Values.storageBackend.existingS3Secret -}}
     {{ .Values.storageBackend.existingS3Secret | quote }}
 {{- else if .Values.minio.enabled -}}
-    {{ printf "%s-minio" (include "common.names.fullname" .) | quote }}
+    {{ printf "%s-minio" ( .Release.Name ) | quote }}
 {{- else -}}
     {{ printf "%s-s3-creds" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" | quote }}
 {{- end -}}
