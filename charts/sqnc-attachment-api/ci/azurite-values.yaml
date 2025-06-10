@@ -50,10 +50,11 @@ azurite:
       initJob:
         enabled: true
         containers:
-          public: 
+          public: "test"
 storageBackend:
   mode: AZURE
   protocol: http
+  bucketName: "test"
 keycloak:
   enabled: true
   fullnameOverride: attachment-keycloak
