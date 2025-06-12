@@ -33,9 +33,7 @@ spec:
           {{- end }}
           {{- range .Values.ingress.paths }}
           - path: {{ .path }}
-            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
             pathType: {{ .pathType }}
-            {{- end }}
             backend: {{- include "common.ingress.backend" (dict "serviceName" (printf "%s-admin" (include "common.names.fullname" $)) "servicePort" "admin" "context" $) | nindent 14 }}
           {{- end }}
     {{- end }}
@@ -48,9 +46,7 @@ spec:
           {{- end }}
           {{- range .paths }}
           - path: {{ .path }}
-            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
             pathType: {{ default "ImplementationSpecific" .pathType }}
-            {{- end }}
             backend: {{- include "common.ingress.backend" (dict "serviceName" (printf "%s-admin" (include "common.names.fullname" $)) "servicePort" "admin" "context" $) | nindent 14 }}
           {{- end }}
     {{- end }}
