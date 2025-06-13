@@ -222,6 +222,8 @@ spec:
             {{- end }}
             - name: ADMIN_PORT
               value: {{ .Values.adminPort | quote }}
+            - name: ADMIN_PING_INTERVAL_MS
+              value: {{ .Values.adminWebSocketPingInterval | quote }}
             - name: IPFS_ORIGIN
             {{- if .Values.ipfs.enabled }}
               value: "http://localhost:{{ .Values.ipfs.containerPorts.api }}"

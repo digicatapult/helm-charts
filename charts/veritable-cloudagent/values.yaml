@@ -103,6 +103,8 @@ connectionImageUrl: ""
 webhookUrl: ""
 ## @param adminPort veritable-cloudagent admin port
 adminPort: 3000
+## @param adminWebSocketPingInterval Interval in ms for checking connection liveness with admin WebSocket clients
+adminWebSocketPingInterval: 10000
 ## @param ipfsExternalOrigin veritable-cloudagent ipfs external origin url (if ipfs.enabled is set to true then we will always point to http://localhost:5001)
 ipfsExternalOrigin: ""
 ## @param personaTitle veritable-cloudagent represents current persona
@@ -251,7 +253,7 @@ ipfs:
     mountPath: /ipfs
     subPath: ""
     size: 1Gi
-    storageClass: ""  # Set to your desired StorageClass
+    storageClass: "" # Set to your desired StorageClass
     accessModes: ["ReadWriteOnce"]
     annotations: {}
 
@@ -269,7 +271,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.12.101
+  tag: v0.13.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
