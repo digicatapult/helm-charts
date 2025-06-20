@@ -192,10 +192,8 @@ spec:
             - name: STORAGE_BACKEND_PROTOCOL
               value: {{ .Values.storageBackend.protocol }}
             {{- if eq .Values.storageBackend.mode "S3" }}
-            {{- if .Values.storageBackend.s3Region }}
             - name: STORAGE_BACKEND_S3_REGION
               value: {{ .Values.storageBackend.s3Region }}
-            {{- end }}
             - name: STORAGE_BACKEND_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
