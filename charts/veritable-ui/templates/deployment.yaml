@@ -191,8 +191,6 @@ spec:
               value: {{ .Values.apiSwaggerHeading | quote }}
             - name: IDP_CLIENT_ID
               value: {{ .Values.idpClientId | quote }}
-            - name: IDP_CLIENT_ID
-              value: {{ .Values.idpClientId | quote }}
             - name: IDP_PUBLIC_URL_PREFIX
               value: {{ .Values.idpPublicURLPrefix | quote }}
             - name: IDP_INTERNAL_URL_PREFIX
