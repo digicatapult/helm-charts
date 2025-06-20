@@ -16,10 +16,7 @@ module.exports = (config = {}) => {
     onboarding: false,
     requireConfig: false,
     allowedPostUpgradeCommands: ["scripts/bump-chart-version.sh"],
-    ignoreDeps: [
-      "postgresql",
-      "docker.io/bitnami/postgresql"
-    ],
+    ignoreDeps: ["postgresql", "docker.io/bitnami/postgresql"],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
     recreateWhen: "always",
@@ -35,6 +32,11 @@ module.exports = (config = {}) => {
       },
     ],
     packageRules: [
+      {
+        matchManagers: ["helmv3"],
+        matchDepNames: ["sqnc-node"],
+        allowedVersions: "<13",
+      },
       {
         matchManagers: ["helm-values", "regex", "helmv3"],
         groupName: null,

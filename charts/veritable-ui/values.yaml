@@ -120,6 +120,8 @@ didPolicy: "FIND_EXISTING"
 schemaPolicy: "FIND_EXISTING"
 ## @param credentialPolicy veritable-ui credential policy
 credentialPolicy: "FIND_EXISTING"
+## @param cloudAgentPingTimeout Timeout in ms to wait for the next ping from the websocket server
+cloudAgentPingTimeout: 30000
 ## @param invitationPin.enabled Enable Invitation pin secret
 ## @param invitationPin.secret the secret value
 ## @param invitationPin.existingSecret If there is an existing secret for the invitationPin
@@ -184,7 +186,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.15.119
+  tag: v0.16.8
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

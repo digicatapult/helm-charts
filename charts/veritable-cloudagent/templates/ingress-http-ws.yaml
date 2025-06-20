@@ -34,7 +34,7 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
-  {{- if and .Values.ingressHttpWs.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
+  {{- if .Values.ingressHttpWs.ingressClassName }}
   ingressClassName: {{ .Values.ingressHttpWs.ingressClassName | quote }}
   {{- end }}
   rules:
