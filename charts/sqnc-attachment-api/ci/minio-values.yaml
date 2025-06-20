@@ -49,6 +49,7 @@ minio:
     size: 1Gi
 storageBackend:
   mode: S3
+  s3Region: eu-west-2
   protocol: http
 keycloak:
   enabled: true
