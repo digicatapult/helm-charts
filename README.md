@@ -9,6 +9,7 @@ A collection of [helm](https://helm.sh) charts created by [Digital Catapult](htt
 * [sqnc-identity-service](charts/sqnc-identity-service/README.md) - Deploy sqnc-identity-service
 * [sqnc-ipfs](charts/sqnc-ipfs/README.md) - Deploy sqnc-ipfs
 * [sqnc-matchmaker-api](charts/sqnc-matchmaker-api/README.md) - Deploy sqnc-matchmaker-api service
+* [sqnc-attachment-api](charts/sqnc-attachment-api/README.md) - Deploy sqnc-attachment-api service
 * [sqnc-node](charts/sqnc-node/README.md) - Deploy sqnc-node
 * [veritable-cloudagent](charts/veritable-cloudagent/README.md) - Deploy the veritable-cloudagent
 * [veritable-ui](charts/veritable-ui/README.md) - Deploy the veritable-ui
