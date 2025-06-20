@@ -45,6 +45,8 @@ ipfs:
   enabled: false
 azurite:
   enabled: true
+  image:
+    tag: 3.34.0
   config:
     blobs:
       initJob:
