@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/sqnc-attachment-api
-appVersion: v3.1.0
+appVersion: v3.2.1
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
