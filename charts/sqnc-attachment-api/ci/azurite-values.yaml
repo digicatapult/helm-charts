@@ -47,12 +47,6 @@ azurite:
   enabled: true
   image:
     version: 3.34.0
-  config:
-    blobs:
-      initJob:
-        enabled: true
-        containers:
-          public: "test"
 storageBackend:
   mode: AZURE
   protocol: http
