@@ -611,6 +611,8 @@ initDbMigrate:
   environment: production
   args:
     - "migrate:latest"
+    - "--knexfile"
+    - "build/lib/db/knexfile.js"
 
 ## @section Other Parameters
 ##
