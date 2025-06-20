@@ -139,7 +139,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v3.1.0
+  tag: v3.2.1
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -374,13 +374,10 @@ extraEnvVarsCM: ""
 extraEnvVarsSecret: ""
 ## @param extraVolumes Optionally specify extra list of additional volumes for the sqnc-attachment-api pod(s)
 ##
-extraVolumes:
-  - name: realm-volume
-    configMap:
-      name: keycloak-realms
-extraVolumeMounts:
-  - mountPath: /opt/bitnami/keycloak/data/import
-    name: realm-volume
+extraVolumes: []
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the sqnc-attachment-api container(s)
+##
+extraVolumeMounts: []
 ## @param sidecars Add additional sidecar containers to the sqnc-attachment-api pod(s)
 ## e.g:
 ## sidecars:
@@ -614,6 +611,8 @@ initDbMigrate:
   environment: production
   args:
     - "migrate:latest"
+    - "--knexfile"
+    - "build/lib/db/knexfile.js"
 
 ## @section Other Parameters
 ##
@@ -692,14 +691,10 @@ node:
   ##
   fullnameOverride: ""
 
-## @section SQNC-Ipfs parameters
-## @param externalSqncIpfs.host External SQNC-Ipfs hostname
-##
-externalSqncIpfs:
-  host: ""
-  ## @param externalSqncIpfs.port External SQNC-Ipfs port
-  ##
-  port: ""
+## @section Keycloak Parameters
+keycloak:
+  ## @param keycloak.enabled Enable Keycloak subchart
+  enabled: false
 
 ## @section SQNC-Identity-Service parameters
 ## @param externalSqncIdentity.host External SQNC-Identity-Service hostname
@@ -710,19 +705,67 @@ externalSqncIdentity:
   ##
   port: ""
 
-## @section Keycloak Parameters
-keycloak:
-  ## @param keycloak.enabled Enable Keycloak subchart
-  enabled: false
-
 ## @section SQNC Identity Service Parameters
 identity:
   ## @param identity.enabled Enable sqnc-identity-service subchart
   enabled: false
 
-## @section SQNC Ipfs Parameters
+## @section Backend Storage Parameters
+## @param storageBackend.mode Storage mode to use, choice of IPFS, AZURE or S3
+storageBackend:
+  mode: IPFS
+  ## @param storageBackend.accessKeyId The access key ID to use for the s3 storageBackend
+  accessKeyId: ""
+  ## @param storageBackend.secretAccessKey The secret access key to use for the s3 storageBackend
+  secretAccessKey: ""
+  ## @param storageBackend.s3Region The AWS region to use with Amazon S3
+  s3Region: ""
+  ## @param storageBackend.bucketName The bucket or storageContainer name to use
+  bucketName: ""
+  ## @param storageBackend.protocol The Protocol to use for accessing the storage backend, options are http or https
+  protocol: "https"
+  ## @param storageBackend.existingS3Secret The existing Secret to use for the s3 Credentials
+  existingS3Secret: ""
+  ## @param storageBackend.existingS3SecretAccessKeyKey The key to use for the S3 SecretaccessKey
+  existingS3SecretAccessKeyKey: "secretAccessKey"
+  ## @param storageBackend.existingS3AccessKeyIdKey The key to use for the S3 AccessKeyId
+  existingS3AccessKeyIdKey: "accessKeyId"
+  ## @param storageBackend.accountName The Account Name to use with Azure
+  accountName: ""
+  ## @param storageBackend.accountKey The Account Key to use with Azure
+  accountKey: ""
+  ## @param storageBackend.blobDomain The BlobDomain to use with Azure
+  blobDomain: ""
+  ## @param storageBackend.existingAzureSecret The existing secret to use for the Azure Credentials
+  existingAzureSecret: ""
+  ## @param storageBackend.existingAzureAccountNameKey The key to use for the Azure AccountName
+  existingAzureAccountNameKey: "accountName"
+  ## @param storageBackend.existingAzureAccountKeyKey The key to use for the Azure AccountKey
+  existingAzureAccountKeyKey: "accountKey"
+## @param externalStorageBackend.host
+externalStorageBackend:
+  host: ""
+  ## @param externalStorageBackend.port
+  port: ""
+
+## @param externalSqncIpfs.host External SQNC-Ipfs hostname
+##
+externalSqncIpfs:
+  host: ""
+  ## @param externalSqncIpfs.port External SQNC-Ipfs port
+  ##
+  port: ""
+
 ipfs:
   ## @param ipfs.enabled Enable sqnc-ipfs subchart
+  enabled: false
+
+minio:
+  ## @param minio.enabled Enable minio subchart
+  enabled: false
+
+azurite:
+  ## @param azurite.enabled Enable the azurite subchart
   enabled: false
 
 ## @section Helm test parameters
