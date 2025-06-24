@@ -59,7 +59,7 @@ module.exports = (config = {}) => {
         matchUpdateTypes: ["patch", "minor"],
         automerge: true,
         automergeType: "pr",
-        labels: ["dependencies", "helm"],
+        labels: ["dependencies", "helm", "automerge"],
       },
       {
         matchManagers: ["helm-values", "regex"],
@@ -85,7 +85,7 @@ module.exports = (config = {}) => {
         matchUpdateTypes: ["patch", "minor"],
         automerge: true,
         automergeType: "pr",
-        labels: ["dependencies", "helm"],
+        labels: ["dependencies", "helm", "automerge"],
       },
       {
         matchManagers: ["helmv3"],
