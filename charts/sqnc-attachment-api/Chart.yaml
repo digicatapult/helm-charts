@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/sqnc-attachment-api
-appVersion: v3.1.0
+appVersion: v3.2.1
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
@@ -39,6 +39,14 @@ dependencies:
       - sqnc-ipfs
     version: 4.x.x
     condition: ipfs.enabled
+  - name: minio
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 16.x
+    condition: minio.enabled
+  - name: azurite
+    repository: https://viters.github.io/azurite-helm-chart/
+    version: 2.x
+    condition: azurite.enabled
 description: The sqnc-attachment-api is a component of the Sequence (SQNC) ledger-based system.
 home: https://github.com/digicatapult/sqnc-documentation
 icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
@@ -51,4 +59,4 @@ maintainers:
 name: sqnc-attachment-api
 sources:
   - https://github.com/digicatapult/sqnc-attachment-api
-version: 3.0.23
+version: 3.1.0

@@ -42,15 +42,15 @@ identity:
   postgresql:
     nameOverride: postgresql-identity
 ipfs:
+  enabled: false
+azurite:
   enabled: true
-  sqncNode:
-    enabled: false
-  externalSqncNode:
-    host: attachment-node
-    port: 9944
-  service:
-    ports:
-      http: 5001
+  image:
+    version: 3.34.0
+storageBackend:
+  mode: AZURE
+  protocol: http
+  bucketName: "test"
 keycloak:
   enabled: true
   fullnameOverride: attachment-keycloak

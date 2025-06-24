@@ -110,7 +110,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `auth.externalRealm`                              | Keycloak IDP realms for authenticating external organisation clients                                                                                                                                | `external`                         |
 | `image.registry`                                  | sqnc-attachment-api image registry                                                                                                                                                                  | `docker.io`                        |
 | `image.repository`                                | sqnc-attachment-api image repository                                                                                                                                                                | `digicatapult/sqnc-attachment-api` |
-| `image.tag`                                       | sqnc-attachment-api image tag (immutable tags are recommended)                                                                                                                                      | `v3.1.0`                           |
+| `image.tag`                                       | sqnc-attachment-api image tag (immutable tags are recommended)                                                                                                                                      | `v3.2.1`                           |
 | `image.digest`                                    | sqnc-attachment-api image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)                                      | `""`                               |
 | `image.pullPolicy`                                | sqnc-attachment-api image pull policy                                                                                                                                                               | `IfNotPresent`                     |
 | `image.pullSecrets`                               | sqnc-attachment-api image pull secrets                                                                                                                                                              | `[]`                               |
@@ -216,17 +216,17 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Init Container Parameters
 
-| Name                             | Description                                                                                                                                                     | Value                |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `initDbCreate.image.registry`    | sqnc-routing-service image registry                                                                                                                             | `docker.io`          |
-| `initDbCreate.image.repository`  | sqnc-routing-service image repository                                                                                                                           | `postgres`           |
-| `initDbCreate.image.tag`         | sqnc-routing-service image tag (immutable tags are recommended)                                                                                                 | `17-alpine`          |
-| `initDbCreate.image.digest`      | sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                 |
-| `initDbCreate.image.pullPolicy`  | sqnc-routing-service image pull policy                                                                                                                          | `IfNotPresent`       |
-| `initDbCreate.image.pullSecrets` | sqnc-routing-service image pull secrets                                                                                                                         | `[]`                 |
-| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`               |
-| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`         |
-| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest"]` |
+| Name                             | Description                                                                                                                                                     | Value                                                        |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `initDbCreate.image.registry`    | sqnc-routing-service image registry                                                                                                                             | `docker.io`                                                  |
+| `initDbCreate.image.repository`  | sqnc-routing-service image repository                                                                                                                           | `postgres`                                                   |
+| `initDbCreate.image.tag`         | sqnc-routing-service image tag (immutable tags are recommended)                                                                                                 | `17-alpine`                                                  |
+| `initDbCreate.image.digest`      | sqnc-routing-service image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                                                         |
+| `initDbCreate.image.pullPolicy`  | sqnc-routing-service image pull policy                                                                                                                          | `IfNotPresent`                                               |
+| `initDbCreate.image.pullSecrets` | sqnc-routing-service image pull secrets                                                                                                                         | `[]`                                                         |
+| `initDbMigrate.enable`           | Run database migration in an init container                                                                                                                     | `true`                                                       |
+| `initDbMigrate.environment`      | Database configuration environment to run database into                                                                                                         | `production`                                                 |
+| `initDbMigrate.args`             | Argument to pass to knex to migrate the database                                                                                                                | `["migrate:latest","--knexfile","build/lib/db/knexfile.js"]` |
 
 ### Other Parameters
 
@@ -267,12 +267,11 @@ The command removes all the Kubernetes components associated with the chart and 
 | `node.nameOverride`     | String to partially override sqnc-node.fullname template (will maintain the release name) | `""`    |
 | `node.fullnameOverride` | String to fully override sqnc-node.fullname template                                      | `""`    |
 
-### SQNC-Ipfs parameters
+### Keycloak Parameters
 
-| Name                    | Description                 | Value |
-| ----------------------- | --------------------------- | ----- |
-| `externalSqncIpfs.host` | External SQNC-Ipfs hostname | `""`  |
-| `externalSqncIpfs.port` | External SQNC-Ipfs port     | `""`  |
+| Name               | Description              | Value   |
+| ------------------ | ------------------------ | ------- |
+| `keycloak.enabled` | Enable Keycloak subchart | `false` |
 
 ### SQNC-Identity-Service parameters
 
@@ -281,23 +280,38 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalSqncIdentity.host` | External SQNC-Identity-Service hostname | `""`  |
 | `externalSqncIdentity.port` | External SQNC-Identity-Service port     | `""`  |
 
-### Keycloak Parameters
-
-| Name               | Description              | Value   |
-| ------------------ | ------------------------ | ------- |
-| `keycloak.enabled` | Enable Keycloak subchart | `false` |
-
 ### SQNC Identity Service Parameters
 
 | Name               | Description                           | Value   |
 | ------------------ | ------------------------------------- | ------- |
 | `identity.enabled` | Enable sqnc-identity-service subchart | `false` |
 
-### SQNC Ipfs Parameters
+### Backend Storage Parameters
 
-| Name           | Description               | Value   |
-| -------------- | ------------------------- | ------- |
-| `ipfs.enabled` | Enable sqnc-ipfs subchart | `false` |
+| Name                                          | Description                                                                      | Value             |
+| --------------------------------------------- | -------------------------------------------------------------------------------- | ----------------- |
+| `storageBackend.mode`                         | Storage mode to use, choice of IPFS, AZURE or S3                                 | `IPFS`            |
+| `storageBackend.accessKeyId`                  | The access key ID to use for the s3 storageBackend                               | `""`              |
+| `storageBackend.secretAccessKey`              | The secret access key to use for the s3 storageBackend                           | `""`              |
+| `storageBackend.s3Region`                     | The AWS region to use with Amazon S3                                             | `""`              |
+| `storageBackend.bucketName`                   | The bucket or storageContainer name to use                                       | `""`              |
+| `storageBackend.protocol`                     | The Protocol to use for accessing the storage backend, options are http or https | `https`           |
+| `storageBackend.existingS3Secret`             | The existing Secret to use for the s3 Credentials                                | `""`              |
+| `storageBackend.existingS3SecretAccessKeyKey` | The key to use for the S3 SecretaccessKey                                        | `secretAccessKey` |
+| `storageBackend.existingS3AccessKeyIdKey`     | The key to use for the S3 AccessKeyId                                            | `accessKeyId`     |
+| `storageBackend.accountName`                  | The Account Name to use with Azure                                               | `""`              |
+| `storageBackend.accountKey`                   | The Account Key to use with Azure                                                | `""`              |
+| `storageBackend.blobDomain`                   | The BlobDomain to use with Azure                                                 | `""`              |
+| `storageBackend.existingAzureSecret`          | The existing secret to use for the Azure Credentials                             | `""`              |
+| `storageBackend.existingAzureAccountNameKey`  | The key to use for the Azure AccountName                                         | `accountName`     |
+| `storageBackend.existingAzureAccountKeyKey`   | The key to use for the Azure AccountKey                                          | `accountKey`      |
+| `externalStorageBackend.host`                 |                                                                                  | `""`              |
+| `externalStorageBackend.port`                 |                                                                                  | `""`              |
+| `externalSqncIpfs.host`                       | External SQNC-Ipfs hostname                                                      | `""`              |
+| `externalSqncIpfs.port`                       | External SQNC-Ipfs port                                                          | `""`              |
+| `ipfs.enabled`                                | Enable sqnc-ipfs subchart                                                        | `false`           |
+| `minio.enabled`                               | Enable minio subchart                                                            | `false`           |
+| `azurite.enabled`                             | Enable the azurite subchart                                                      | `false`           |
 
 ### Helm test parameters
 
