@@ -135,7 +135,7 @@ ipfs:
   image:
     registry: docker.io
     repository: ipfs/kubo
-    tag: v0.35.0
+    tag: v0.36.0
     digest: ""
     pullPolicy: IfNotPresent
 
