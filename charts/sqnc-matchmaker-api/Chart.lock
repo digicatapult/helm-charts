@@ -7,7 +7,7 @@ dependencies:
   version: 2.31.3
 - name: keycloak
   repository: https://charts.bitnami.com/bitnami
-  version: 24.8.0
+  version: 24.8.1
 - name: sqnc-node
   repository: https://digicatapult.github.io/helm-charts/
   version: 7.1.16
@@ -17,5 +17,5 @@ dependencies:
 - name: sqnc-attachment-api
   repository: https://digicatapult.github.io/helm-charts/
   version: 3.1.15
-digest: sha256:409e40d15554fe7f30a69a2b1cd674bc0bab8b61fe854b7631eaa6ffdbefefc2
-generated: "2025-07-23T19:11:14.999363931Z"
+digest: sha256:d74cbed6f4f68e1c71d1add18cab9082fbc5219fd1b6b204ae12cac5045032e5
+generated: "2025-07-24T19:09:04.898232413Z"
