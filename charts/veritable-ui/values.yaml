@@ -122,6 +122,10 @@ schemaPolicy: "FIND_EXISTING"
 credentialPolicy: "FIND_EXISTING"
 ## @param cloudAgentPingTimeout Timeout in ms to wait for the next ping from the websocket server
 cloudAgentPingTimeout: 30000
+## @param socrataApiUrl Socrata API URL
+socrataApiUrl: "https://data.ny.gov/resource/p66s-i79p.json"
+## @param localRegistryToUse Local registry to use
+localRegistryToUse: "GB"
 ## @param invitationPin.enabled Enable Invitation pin secret
 ## @param invitationPin.secret the secret value
 ## @param invitationPin.existingSecret If there is an existing secret for the invitationPin
