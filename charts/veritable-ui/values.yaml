@@ -124,7 +124,7 @@ credentialPolicy: "FIND_EXISTING"
 cloudAgentPingTimeout: 30000
 ## @param socrataApiUrl Socrata API URL
 socrataApiUrl: "https://data.ny.gov/resource/p66s-i79p.json"
-## @param localRegistryToUse Registry that local instance's company number is registered with 
+## @param localRegistryToUse Registry that local instance's company number is registered with
 localRegistryToUse: "GB"
 ## @param invitationPin.enabled Enable Invitation pin secret
 ## @param invitationPin.secret the secret value
