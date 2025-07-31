@@ -246,6 +246,45 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
+Create a default fully qualified app name for the ipidApiKey secret.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "veritable-ui.ipidApiKey.fullname" -}}
+{{- printf "%s-ipid-api-key" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-"  -}}
+{{- end -}}
+
+{{/*
+Return the ipidApiKey Secret Name
+*/}}
+{{- define "veritable-ui.ipidApiKeySecretName" -}}
+{{- if .Values.ipidApiKey.existingSecret -}}
+    {{- tpl .Values.ipidApiKey.existingSecret $ -}}
+{{- else -}}
+    {{- include "veritable-ui.ipidApiKey.fullname" . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Add environment variables to configure ipidApiKey secret values
+*/}}
+{{- define "veritable-ui.ipidApiKeyKey" -}}
+{{- if .Values.ipidApiKey.enabled -}}
+    {{- print "apiKey" -}}
+{{- else -}}
+    {{- if .Values.ipidApiKey.existingSecret -}}
+        {{- if .Values.ipidApiKey.existingSecretKey -}}
+            {{- printf "%s" .Values.ipidApiKey.existingSecretKey -}}
+        {{- else -}}
+            {{- print "apiKey" -}}
+        {{- end -}}
+    {{- else -}}
+        {{- print "apiKey" -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
 Create a default fully qualified app name for the company house.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
