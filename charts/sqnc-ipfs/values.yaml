@@ -666,7 +666,7 @@ volumePermissions:
   ##
   image:
     registry: docker.io
-    repository: bitnami/bitnami-shell
+    repository: bitnamilegacy/bitnami-shell
     tag: latest
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.

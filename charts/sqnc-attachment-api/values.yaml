@@ -776,7 +776,7 @@ tests:
   ## @param tests.osShell.image.tag shell script image tag (immutable tags are recommended)
   osShell:
     image:
-      repository: bitnami/os-shell
+      repository: bitnamilegacy/os-shell
       tag: latest
   ## @param tests.auth.clientId OAuth2 client id to use when requesting tokens in the internal realm for tests
   ## @param tests.auth.clientSecret OAuth2 client secret to use when requesting tokens
