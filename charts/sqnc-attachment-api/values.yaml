@@ -139,7 +139,7 @@ auth:
 image:
   registry: docker.io
   repository: digicatapult/sqnc-attachment-api
-  tag: v3.2.25
+  tag: v3.2.27
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
