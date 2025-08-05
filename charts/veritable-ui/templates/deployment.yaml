@@ -236,7 +236,7 @@ spec:
             - name: LOCAL_REGISTRY_TO_USE
               value: {{ .Values.localRegistryToUse | quote }}
             - name: IPID_API_URL
-              value: {{ .Values. | quote }}
+              value: {{ .Values.ipidApiUrl | quote }}
             - name: IPID_API_KEY
               valueFrom:
                 secretKeyRef:

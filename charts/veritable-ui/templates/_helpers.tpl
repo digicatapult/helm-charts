@@ -267,7 +267,7 @@ Return the ipidApiKey Secret Name
 {{/*
 Add environment variables to configure ipidApiKey secret values
 */}}
-{{- define "veritable-ui.ipidApiKeyKey" -}}
+{{- define "veritable-ui.ipidApiKeySecretKey" -}}
 {{- if .Values.ipidApiKey.enabled -}}
     {{- print "apiKey" -}}
 {{- else -}}
