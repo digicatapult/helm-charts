@@ -200,7 +200,7 @@ kubectl:
   image:
     ## @param kubectl.image.repository The Kubernetes CLI container image name
     ##
-    repository: bitnami/kubectl
+    repository: bitnamilegacy/kubectl
     ## @param kubectl.image.tag The Kubernetes CLI container image tag
     ##
     tag: latest
@@ -379,7 +379,7 @@ tests:
     image:
       ## @param tests.osShell.image.repository The utility init container image name
       ##
-      repository: bitnami/os-shell
+      repository: bitnamilegacy/os-shell
       ## @param tests.osShell.image.tag The utility init container image tag
       ##
       tag: latest
