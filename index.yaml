@@ -6683,6 +6683,72 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v3.2.27
+    created: "2025-08-06T15:37:21.854644494Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - condition: keycloak.enabled
+      name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 24.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    - alias: identity
+      condition: identity.enabled
+      name: sqnc-identity-service
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-identity-service
+      version: 5.x
+    - alias: ipfs
+      condition: ipfs.enabled
+      name: sqnc-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-ipfs
+      version: 4.x.x
+    - condition: minio.enabled
+      name: minio
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.x
+    - condition: azurite.enabled
+      name: azurite
+      repository: https://viters.github.io/azurite-helm-chart/
+      version: 2.x
+    description: The sqnc-attachment-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 01839da55a4ab8dea543a59862f96dbc0af2bb948850660779dfb56626088d2a
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-attachment-api
+    sources:
+    - https://github.com/digicatapult/sqnc-attachment-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-attachment-api-3.2.0/sqnc-attachment-api-3.2.0.tgz
+    version: 3.2.0
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v3.2.27
     created: "2025-08-02T20:09:50.695774682Z"
     dependencies:
     - condition: postgresql.enabled
@@ -16885,6 +16951,42 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v3.0.57
+    created: "2025-08-06T15:37:22.097304875Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: sqncNode
+      condition: sqncNode.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    description: sqnc-ipfs is a component of the SQNC project that provides a distributed
+      IPFS based storage solution for the SQNC platform.
+    digest: 4ea1958db21eae1d575f84f841643b37cf507552b1fe0923ba3e43aec3cd5db4
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-ipfs
+    sources:
+    - https://github.com/digicatapult/sqnc-ipfs
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-ipfs-4.1.0/sqnc-ipfs-4.1.0.tgz
+    version: 4.1.0
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v3.0.57
     created: "2025-08-05T20:10:20.83066667Z"
     dependencies:
     - name: common
@@ -19041,6 +19143,64 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-ipfs-4.0.0/sqnc-ipfs-4.0.0.tgz
     version: 4.0.0
   sqnc-matchmaker-api:
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v6.2.59
+    created: "2025-08-06T15:37:22.410546323Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.31.3
+    - condition: keycloak.enabled
+      name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 24.9.0
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.1.16
+    - alias: identity
+      condition: identity.enabled
+      name: sqnc-identity-service
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-identity-service
+      version: 5.1.73
+    - alias: attachment
+      condition: attachment.enabled
+      name: sqnc-attachment-api
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-attachment-api
+      version: 3.1.18
+    description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 780851397d1bd043495b5d8d6d92c4ded29763b05eb168795a458398e43e6b73
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/sqnc-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-4.1.0/sqnc-matchmaker-api-4.1.0.tgz
+    version: 4.1.0
   - annotations:
       category: sqnc
       licenses: Apache-2.0
@@ -35462,6 +35622,20 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-1.0.0/sqnc-matchmaker-api-1.0.0.tgz
     version: 1.0.0
   sqnc-node:
+  - apiVersion: v2
+    appVersion: 13.0.0
+    created: "2025-08-06T15:37:22.621544363Z"
+    description: A Helm chart to deploy SQNC nodes
+    digest: 31abe58eed8afd7fa8003331879cf48eff72cd984c3e272373d4b33e663c94f4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: sqnc-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-node-7.2.0/sqnc-node-7.2.0.tgz
+    version: 7.2.0
   - apiVersion: v2
     appVersion: 13.0.0
     created: "2025-06-04T08:17:57.441607027Z"
@@ -53362,4 +53536,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-08-06T03:39:16.174965455Z"
+generated: "2025-08-06T15:37:22.624061836Z"
