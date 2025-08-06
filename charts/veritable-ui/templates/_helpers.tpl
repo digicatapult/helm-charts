@@ -443,6 +443,12 @@ veritable-ui:
     If an existing secret is being used for the company house api key, a key must be provided
 {{- end -}}
 {{- end -}}
+{{- if .Values.ipidApiKey.existingSecret -}}
+{{- if not .Values.ipidApiKey.existingSecretKey -}}
+veritable-ui:
+    If an existing secret is being used for the ipid api key, a key must be provided
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/* Validate if the value of a secret is being set, if it is not, the existing secret must be set instead*/}}
@@ -463,6 +469,12 @@ veritable-ui:
 {{- if not .Values.companysHouseApiKey.secret -}}
 veritable-ui:
     If a secret is not being used for the company house api key, a value must be provided
+{{- end -}}
+{{- end -}}
+{{- if not .Values.ipidApiKey.existingSecret -}}
+{{- if not .Values.ipidApiKey.secret -}}
+veritable-ui:
+    If a secret is not being used for the ipid api key, a value must be provided
 {{- end -}}
 {{- end -}}
 {{- if not .Values.smtpCredentials.existingSecret -}}
