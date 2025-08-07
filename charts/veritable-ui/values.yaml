@@ -126,6 +126,19 @@ cloudAgentPingTimeout: 30000
 socrataApiUrl: "https://data.ny.gov/resource/p66s-i79p.json"
 ## @param localRegistryToUse Registry that local instance's company number is registered with
 localRegistryToUse: "GB"
+## @param ipidApiUrl URL for iPiD service
+ipidApiUrl: "https://sandbox.ipid.works"
+## @param ipidCustomerId Customer ID provided by iPiD with API key
+ipidCustomerId: "digicatapult-uat"
+## @param ipidApiKey.enabled Enable ipid secret
+## @param ipidApiKey.secret Secret value
+## @param ipidApiKey.existingSecret If there is an existing secret for the ipidApiKey
+## @param ipidApiKey.existingSecretKey the key to use within the existing secret
+ipidApiKey:
+  enabled: true
+  secret: "ipidApiKey"
+  existingSecret: ""
+  existingSecretKey: ""
 ## @param invitationPin.enabled Enable Invitation pin secret
 ## @param invitationPin.secret the secret value
 ## @param invitationPin.existingSecret If there is an existing secret for the invitationPin
