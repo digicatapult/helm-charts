@@ -99,7 +99,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `healthCheckTimeout`                              | Health check timeout in milliseconds                                                                                                                 | `2000`                   |
 | `image.registry`                                  | sqnc-ipfs image registry                                                                                                                             | `docker.io`              |
 | `image.repository`                                | sqnc-ipfs image repository                                                                                                                           | `digicatapult/sqnc-ipfs` |
-| `image.tag`                                       | sqnc-ipfs image tag (immutable tags are recommended)                                                                                                 | `v3.0.57`                |
+| `image.tag`                                       | sqnc-ipfs image tag (immutable tags are recommended)                                                                                                 | `v3.0.58`                |
 | `image.digest`                                    | sqnc-ipfs image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended) | `""`                     |
 | `image.pullPolicy`                                | sqnc-ipfs image pull policy                                                                                                                          | `IfNotPresent`           |
 | `image.pullSecrets`                               | sqnc-ipfs image pull secrets                                                                                                                         | `[]`                     |
@@ -234,17 +234,17 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Init Container Parameters
 
-| Name                                                   | Description                                                                                     | Value                   |
-| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------- |
-| `volumePermissions.enabled`                            | Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup` | `false`                 |
-| `volumePermissions.image.registry`                     | Bitnami Shell image registry                                                                    | `docker.io`             |
-| `volumePermissions.image.repository`                   | Bitnami Shell image repository                                                                  | `bitnami/bitnami-shell` |
-| `volumePermissions.image.tag`                          | Bitnami Shell image tag (immutable tags are recommended)                                        | `latest`                |
-| `volumePermissions.image.pullPolicy`                   | Bitnami Shell image pull policy                                                                 | `IfNotPresent`          |
-| `volumePermissions.image.pullSecrets`                  | Bitnami Shell image pull secrets                                                                | `[]`                    |
-| `volumePermissions.resources.limits`                   | The resources limits for the init container                                                     | `{}`                    |
-| `volumePermissions.resources.requests`                 | The requested resources for the init container                                                  | `{}`                    |
-| `volumePermissions.containerSecurityContext.runAsUser` | Set init container's Security Context runAsUser                                                 | `0`                     |
+| Name                                                   | Description                                                                                     | Value                         |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------------- |
+| `volumePermissions.enabled`                            | Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup` | `false`                       |
+| `volumePermissions.image.registry`                     | Bitnami Shell image registry                                                                    | `docker.io`                   |
+| `volumePermissions.image.repository`                   | Bitnami Shell image repository                                                                  | `bitnamilegacy/bitnami-shell` |
+| `volumePermissions.image.tag`                          | Bitnami Shell image tag (immutable tags are recommended)                                        | `latest`                      |
+| `volumePermissions.image.pullPolicy`                   | Bitnami Shell image pull policy                                                                 | `IfNotPresent`                |
+| `volumePermissions.image.pullSecrets`                  | Bitnami Shell image pull secrets                                                                | `[]`                          |
+| `volumePermissions.resources.limits`                   | The resources limits for the init container                                                     | `{}`                          |
+| `volumePermissions.resources.requests`                 | The requested resources for the init container                                                  | `{}`                          |
+| `volumePermissions.containerSecurityContext.runAsUser` | Set init container's Security Context runAsUser                                                 | `0`                           |
 
 ### Other Parameters
 
