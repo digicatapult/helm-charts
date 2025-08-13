@@ -4,9 +4,9 @@ dependencies:
   version: 16.7.24
 - name: common
   repository: https://charts.bitnami.com/bitnami
-  version: 2.31.3
+  version: 2.31.4
 - name: veritable-cloudagent
   repository: https://digicatapult.github.io/helm-charts
-  version: 2.4.24
-digest: sha256:936b7c8d76274dc10e2b486a53c75126caab49e989e5b0146ebdc00322a61163
-generated: "2025-08-09T20:09:59.936763504Z"
+  version: 2.4.25
+digest: sha256:774933bea993a3590e03b8573e5cbeab6f76fac4ecb96b0c1b3663f3265a6df6
+generated: "2025-08-13T19:10:22.701570109Z"
