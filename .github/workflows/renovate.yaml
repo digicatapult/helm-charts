@@ -29,10 +29,10 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run Self-hosted Renovate
-        uses: renovatebot/github-action@v43.0.5
+        uses: renovatebot/github-action@v43.0.7
         with:
           token: ${{ steps.get_token.outputs.token }}
           configurationFile: renovate.config.js
