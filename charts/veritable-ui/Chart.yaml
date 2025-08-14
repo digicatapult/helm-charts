@@ -30,4 +30,4 @@ maintainers:
 name: veritable-ui
 sources:
   - https://github.com/digicatapult/veritable-ui
-version: 1.3.2
+version: 1.3.3
