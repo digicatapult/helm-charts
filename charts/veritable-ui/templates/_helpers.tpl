@@ -246,6 +246,45 @@ Add environment variables to configure database values
 {{- end -}}
 
 {{/*
+Create a default fully qualified app name for the ipidApiKey secret.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "veritable-ui.ipidApiKey.fullname" -}}
+{{- printf "%s-ipid-api-key" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-"  -}}
+{{- end -}}
+
+{{/*
+Return the ipidApiKey Secret Name
+*/}}
+{{- define "veritable-ui.ipidApiKeySecretName" -}}
+{{- if .Values.ipidApiKey.existingSecret -}}
+    {{- tpl .Values.ipidApiKey.existingSecret $ -}}
+{{- else -}}
+    {{- include "veritable-ui.ipidApiKey.fullname" . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Add environment variables to configure ipidApiKey secret values
+*/}}
+{{- define "veritable-ui.ipidApiKeySecretKey" -}}
+{{- if .Values.ipidApiKey.enabled -}}
+    {{- print "apiKey" -}}
+{{- else -}}
+    {{- if .Values.ipidApiKey.existingSecret -}}
+        {{- if .Values.ipidApiKey.existingSecretKey -}}
+            {{- printf "%s" .Values.ipidApiKey.existingSecretKey -}}
+        {{- else -}}
+            {{- print "apiKey" -}}
+        {{- end -}}
+    {{- else -}}
+        {{- print "apiKey" -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
 Create a default fully qualified app name for the company house.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
@@ -404,6 +443,12 @@ veritable-ui:
     If an existing secret is being used for the company house api key, a key must be provided
 {{- end -}}
 {{- end -}}
+{{- if .Values.ipidApiKey.existingSecret -}}
+{{- if not .Values.ipidApiKey.existingSecretKey -}}
+veritable-ui:
+    If an existing secret is being used for the ipid api key, a key must be provided
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/* Validate if the value of a secret is being set, if it is not, the existing secret must be set instead*/}}
@@ -424,6 +469,12 @@ veritable-ui:
 {{- if not .Values.companysHouseApiKey.secret -}}
 veritable-ui:
     If a secret is not being used for the company house api key, a value must be provided
+{{- end -}}
+{{- end -}}
+{{- if not .Values.ipidApiKey.existingSecret -}}
+{{- if not .Values.ipidApiKey.secret -}}
+veritable-ui:
+    If a secret is not being used for the ipid api key, a value must be provided
 {{- end -}}
 {{- end -}}
 {{- if not .Values.smtpCredentials.existingSecret -}}

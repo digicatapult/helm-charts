@@ -235,6 +235,15 @@ spec:
               value: {{ .Values.socrataApiUrl | quote }}
             - name: LOCAL_REGISTRY_TO_USE
               value: {{ .Values.localRegistryToUse | quote }}
+            - name: IPID_API_URL
+              value: {{ .Values.ipidApiUrl | quote }}
+            - name: IPID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "veritable-ui.ipidApiKeySecretName" . }}
+                  key: {{ include "veritable-ui.ipidApiKeySecretKey" . }}
+            - name: IPID_CUSTOMER_ID
+              value: {{ .Values.ipidCustomerId | quote }}
             {{- if eq .Values.emailTransport "SMTP_EMAIL" }}
             - name: SMTP_HOST
               value: {{ .Values.smtpHost | quote }}
