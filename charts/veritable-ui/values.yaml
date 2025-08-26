@@ -123,7 +123,7 @@ credentialPolicy: "FIND_EXISTING"
 ## @param cloudAgentPingTimeout Timeout in ms to wait for the next ping from the websocket server
 cloudAgentPingTimeout: 30000
 ## @param nyStateApiUrl Socrata API URL
-nyStateApiUrl: "https://data.ny.gov/resource/p66s-i79p.json" 
+nyStateApiUrl: "https://data.ny.gov/resource/p66s-i79p.json"
 ## @param localRegistryToUse Registry that local instance's company number is registered with
 localRegistryToUse: "company_house"
 ## @param localRegistryCountryCode Country code for the local registry (iso country code)
