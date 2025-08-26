@@ -231,10 +231,19 @@ spec:
               value: {{ .Values.emailFromAddress | quote }}
             - name: EMAIL_ADMIN_ADDRESS
               value: {{ .Values.emailAdminAddress | quote }}
-            - name: SOCRATA_API_URL
-              value: {{ .Values.socrataApiUrl | quote }}
+            - name: NY_STATE_API_URL
+              value: {{ .Values.nyStateApiUrl | quote }}
             - name: LOCAL_REGISTRY_TO_USE
               value: {{ .Values.localRegistryToUse | quote }}
+            - name: LOCAL_REGISTRY_COUNTRY_CODE
+              value: {{ .Values.localRegistryCountryCode | quote }}
+            - name: OPEN_CORPORATES_API_URL
+              value: {{ .Values.openCorporatesApiUrl | quote }}
+            - name: OPEN_CORPORATES_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "veritable-ui.openCorporatesApiKeySecretName" . }}
+                  key: {{ include "veritable-ui.openCorporatesApiKeySecretKey" . }}
             - name: IPID_API_URL
               value: {{ .Values.ipidApiUrl | quote }}
             - name: IPID_API_KEY

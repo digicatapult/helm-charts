@@ -124,6 +124,45 @@ Add environment variables to configure company house api secret key
 
 
 {{/*
+Create a default fully qualified app name for the openCorporates API key secret.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "veritable-ui.openCorporatesApiKey.fullname" -}}
+{{- printf "%s-open-corporates-api-key" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-"  -}}
+{{- end -}}
+
+{{/*
+Return the openCorporates API key secret name
+*/}}
+{{- define "veritable-ui.openCorporatesApiKeySecretName" -}}
+{{- if .Values.openCorporatesApiKey.existingSecret -}}
+    {{- tpl .Values.openCorporatesApiKey.existingSecret $ -}}
+{{- else -}}
+    {{- include "veritable-ui.openCorporatesApiKey.fullname" . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Add environment variables to configure openCorporates API key secret values
+*/}}
+{{- define "veritable-ui.openCorporatesApiKeySecretKey" -}}
+{{- if .Values.openCorporatesApiKey.enabled -}}
+    {{- print "apiKey" -}}
+{{- else -}}
+    {{- if .Values.openCorporatesApiKey.existingSecret -}}
+        {{- if .Values.openCorporatesApiKey.existingSecretKey -}}
+            {{- printf "%s" .Values.openCorporatesApiKey.existingSecretKey -}}
+        {{- else -}}
+            {{- print "apiKey" -}}
+        {{- end -}}
+    {{- else -}}
+        {{- print "apiKey" -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
@@ -449,6 +488,12 @@ veritable-ui:
     If an existing secret is being used for the ipid api key, a key must be provided
 {{- end -}}
 {{- end -}}
+{{- if .Values.openCorporatesApiKey.existingSecret -}}
+{{- if not .Values.openCorporatesApiKey.existingSecretKey -}}
+veritable-ui:
+    If an existing secret is being used for the openCorporates api key, a key must be provided
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/* Validate if the value of a secret is being set, if it is not, the existing secret must be set instead*/}}
@@ -475,6 +520,12 @@ veritable-ui:
 {{- if not .Values.ipidApiKey.secret -}}
 veritable-ui:
     If a secret is not being used for the ipid api key, a value must be provided
+{{- end -}}
+{{- end -}}
+{{- if not .Values.openCorporatesApiKey.existingSecret -}}
+{{- if not .Values.openCorporatesApiKey.secret -}}
+veritable-ui:
+    If a secret is not being used for the openCorporates api key, a value must be provided
 {{- end -}}
 {{- end -}}
 {{- if not .Values.smtpCredentials.existingSecret -}}
