@@ -122,10 +122,24 @@ schemaPolicy: "FIND_EXISTING"
 credentialPolicy: "FIND_EXISTING"
 ## @param cloudAgentPingTimeout Timeout in ms to wait for the next ping from the websocket server
 cloudAgentPingTimeout: 30000
-## @param socrataApiUrl Socrata API URL
-socrataApiUrl: "https://data.ny.gov/resource/p66s-i79p.json"
+## @param nyStateApiUrl Socrata API URL
+nyStateApiUrl: "https://data.ny.gov/resource/p66s-i79p.json" 
 ## @param localRegistryToUse Registry that local instance's company number is registered with
-localRegistryToUse: "GB"
+localRegistryToUse: "company_house"
+## @param localRegistryCountryCode Country code for the local registry (iso country code)
+localRegistryCountryCode: "GB"
+## @param openCorporatesApiUrl OpenCorporates API URL
+openCorporatesApiUrl: "https://api.opencorporates.com/v0.4"
+## @param openCorporatesApiKey.enabled Enable openCorporates secret
+## @param openCorporatesApiKey.secret Secret value
+## @param openCorporatesApiKey.existingSecret If there is an existing secret for the openCorporatesApiKey
+## @param openCorporatesApiKey.existingSecretKey the key to use within the existing secret
+openCorporatesApiKey:
+  enabled: true
+  secret: "openCorporatesApiKey"
+  existingSecret: ""
+  existingSecretKey: ""
+
 ## @param ipidApiUrl URL for iPiD service
 ipidApiUrl: "https://sandbox.ipid.works"
 ## @param ipidCustomerId Customer ID provided by iPiD with API key
