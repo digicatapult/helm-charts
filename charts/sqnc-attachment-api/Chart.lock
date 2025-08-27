@@ -1,27 +1,27 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 16.7.8
+  version: 16.6.3
 - name: common
   repository: https://charts.bitnami.com/bitnami
-  version: 2.31.1
+  version: 2.31.4
 - name: keycloak
   repository: https://charts.bitnami.com/bitnami
-  version: 24.7.3
+  version: 24.9.0
 - name: sqnc-node
   repository: https://digicatapult.github.io/helm-charts/
-  version: 7.1.19
+  version: 7.2.0
 - name: sqnc-identity-service
   repository: https://digicatapult.github.io/helm-charts/
-  version: 5.1.43
+  version: 5.1.76
 - name: sqnc-ipfs
   repository: https://digicatapult.github.io/helm-charts/
-  version: 4.0.51
+  version: 4.1.2
 - name: minio
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 16.0.10
 - name: azurite
   repository: https://viters.github.io/azurite-helm-chart/
   version: 2.0.0
-digest: sha256:da39c6af02821ac4b6468571fb1eab1dd0a9c179be6a4481a9eb154ba6005c17
-generated: "2025-06-03T13:18:00.760515+01:00"
+digest: sha256:14cf1ed00e88ed1451c9bf68039166a8c7cc32d6f5cfb13cf1f3bf58a4d9bc30
+generated: "2025-08-27T14:27:25.008034+01:00"

@@ -644,15 +644,30 @@ serviceAccount:
 ## @param postgresql.auth.database Name for a custom database to create
 ## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
 ## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
+## @param postgresql.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
+## @param postgresql.image.repository Repository to use for pulling postgres container images
+## @param postgresql.volumePermissions.image.repository Repository to use for pulling os-shell container images
+## @param postgresql.metrics.image.repository Repository to use for pulling postgres exporter container images
 ##
 postgresql:
   enabled: true
+  global:
+    security:
+      allowInsecureImages: true
   auth:
     username: attachment_service
     password: ""
     database: attachment
     existingSecret: ""
   architecture: standalone
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  metrics:
+    image:
+      repository: bitnamilegacy/postgres-exporter
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
@@ -694,7 +709,35 @@ node:
 ## @section Keycloak Parameters
 keycloak:
   ## @param keycloak.enabled Enable Keycloak subchart
+  ## @param keycloak.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
+  ## @param keycloak.image.repository The repository to use for the keycloak image
+  ## @param keycloak.keycloakConfigCli.image.repository the repository to use for the keycloakConfigCli image
+  ## @param keycloak.postgresql.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository
+  ## @param keycloak.postgresql.image.repository Repository to use for pulling postgres container images
+  ## @param keycloak.postgresql.volumePermissions.image.repository Repository to use for pulling os-shell container images
+  ## @param keycloak.postgresql.metrics.image.repository Repository to use for pulling postgres exporter container images
+
   enabled: false
+  global:
+    security:
+      allowInsecureImages: true
+  image:
+    repository: bitnamilegacy/keycloak
+  keycloakConfigCli:
+    image:
+      repository: bitnamilegacy/keycloak-config-cli
+  postgresql:
+    global:
+      security:
+        allowInsecureImages: true
+    image:
+      repository: bitnamilegacy/postgresql
+    volumePermissions:
+      image:
+        repository: bitnamilegacy/os-shell
+    metrics:
+      image:
+        repository: bitnamilegacy/postgres-exporter
 
 ## @section SQNC-Identity-Service parameters
 ## @param externalSqncIdentity.host External SQNC-Identity-Service hostname
@@ -762,7 +805,26 @@ ipfs:
 
 minio:
   ## @param minio.enabled Enable minio subchart
+  ## @param minio.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
+  ## @param minio.image.repository The repository to use for the minio image
+  ## @param minio.clientImage.repository The repository to use the minio-client image
+  ## @param minio.defaultInitContainers.volumePermissions.image.repository The repository to use the os-shell image
+  ## @param minio.console.image.repository The repository to use for the minio-object-browser image
   enabled: false
+  global:
+    security:
+      allowInsecureImages: true
+  image:
+    repository: bitnamilegacy/minio
+  clientImage:
+    repository: bitnamilegacy/minio-client
+  defaultInitContainers:
+    volumePermissions:
+      image:
+        repository: bitnamilegacy/os-shell
+  console:
+    image:
+      repository: bitnamilegacy/minio-object-browser
 
 azurite:
   ## @param azurite.enabled Enable the azurite subchart
