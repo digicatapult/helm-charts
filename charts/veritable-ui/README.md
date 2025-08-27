@@ -272,26 +272,30 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Database Parameters
 
-| Name                                                 | Description                                                              | Value            |
-| ---------------------------------------------------- | ------------------------------------------------------------------------ | ---------------- |
-| `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`           |
-| `postgresql.nameOverride`                            | Name for the PostgreSQL dependency                                       | `vui-postgresql` |
-| `postgresql.auth.username`                           | Name for a custom user to create                                         | `veritable-ui`   |
-| `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`             |
-| `postgresql.auth.database`                           | Name for a custom database to create                                     | `veritable-ui`   |
-| `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`             |
-| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`     |
-| `externalDatabase.host`                              | Database host                                                            | `""`             |
-| `externalDatabase.port`                              | Database port number                                                     | `5432`           |
-| `externalDatabase.user`                              | Non-root username for veritable-ui                                       | `veritable-ui`   |
-| `externalDatabase.password`                          | Password for the non-root username for veritable-ui                      | `""`             |
-| `externalDatabase.database`                          | veritable-ui database name                                               | `veritable-ui`   |
-| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`           |
-| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`       |
-| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`             |
-| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`             |
-| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`             |
-| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`             |
+| Name                                                 | Description                                                              | Value                             |
+| ---------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------- |
+| `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`                            |
+| `postgresql.nameOverride`                            | Name for the PostgreSQL dependency                                       | `vui-postgresql`                  |
+| `postgresql.auth.username`                           | Name for a custom user to create                                         | `veritable-ui`                    |
+| `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`                              |
+| `postgresql.auth.database`                           | Name for a custom database to create                                     | `veritable-ui`                    |
+| `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`                              |
+| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`                      |
+| `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                               | `true`                            |
+| `postgresql.image.repository`                        | Repository to use for pulling postgres container images                  | `bitnamilegacy/postgresql`        |
+| `postgresql.volumePermissions.image.repository`      | Repository to use for pulling os-shell container images                  | `bitnamilegacy/os-shell`          |
+| `postgresql.metrics.image.repository`                | Repository to use for pulling postgres exporter container images         | `bitnamilegacy/postgres-exporter` |
+| `externalDatabase.host`                              | Database host                                                            | `""`                              |
+| `externalDatabase.port`                              | Database port number                                                     | `5432`                            |
+| `externalDatabase.user`                              | Non-root username for veritable-ui                                       | `veritable-ui`                    |
+| `externalDatabase.password`                          | Password for the non-root username for veritable-ui                      | `""`                              |
+| `externalDatabase.database`                          | veritable-ui database name                                               | `veritable-ui`                    |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`                            |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`                        |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`                              |
+| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`                              |
+| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                              |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                              |
 
 ### Veritable-Cloudagent section
 
