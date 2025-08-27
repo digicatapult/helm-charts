@@ -74,6 +74,8 @@ jobs:
             --set auth.postgresPassword=test-password \
             --set auth.database="user" \
             --set architecture="standalone" \
+            --set global.security.allowInsecureImages=true \
+            --set image.repository="bitnamilegacy/postgresql" \
             --wait
 
             kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
