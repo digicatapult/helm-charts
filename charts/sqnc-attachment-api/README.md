@@ -239,25 +239,29 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Database Parameters
 
-| Name                                                 | Description                                                              | Value                |
-| ---------------------------------------------------- | ------------------------------------------------------------------------ | -------------------- |
-| `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`               |
-| `postgresql.auth.username`                           | Name for a custom user to create                                         | `attachment_service` |
-| `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`                 |
-| `postgresql.auth.database`                           | Name for a custom database to create                                     | `attachment`         |
-| `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`                 |
-| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`         |
-| `externalDatabase.host`                              | Database host                                                            | `""`                 |
-| `externalDatabase.port`                              | Database port number                                                     | `5432`               |
-| `externalDatabase.user`                              | Non-root username for sqnc-attachment-api                                | `attachment_service` |
-| `externalDatabase.password`                          | Password for the non-root username for sqnc-attachment-api               | `""`                 |
-| `externalDatabase.database`                          | sqnc-attachment-api database name                                        | `attachment`         |
-| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`               |
-| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`           |
-| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`                 |
-| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`                 |
-| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                 |
-| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                 |
+| Name                                                 | Description                                                              | Value                             |
+| ---------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------- |
+| `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`                            |
+| `postgresql.auth.username`                           | Name for a custom user to create                                         | `attachment_service`              |
+| `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`                              |
+| `postgresql.auth.database`                           | Name for a custom database to create                                     | `attachment`                      |
+| `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`                              |
+| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`                      |
+| `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                               | `true`                            |
+| `postgresql.image.repository`                        | Repository to use for pulling postgres container images                  | `bitnamilegacy/postgresql`        |
+| `postgresql.volumePermissions.image.repository`      | Repository to use for pulling os-shell container images                  | `bitnamilegacy/os-shell`          |
+| `postgresql.metrics.image.repository`                | Repository to use for pulling postgres exporter container images         | `bitnamilegacy/postgres-exporter` |
+| `externalDatabase.host`                              | Database host                                                            | `""`                              |
+| `externalDatabase.port`                              | Database port number                                                     | `5432`                            |
+| `externalDatabase.user`                              | Non-root username for sqnc-attachment-api                                | `attachment_service`              |
+| `externalDatabase.password`                          | Password for the non-root username for sqnc-attachment-api               | `""`                              |
+| `externalDatabase.database`                          | sqnc-attachment-api database name                                        | `attachment`                      |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`                            |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`                        |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`                              |
+| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`                              |
+| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                              |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                              |
 
 ### SQNC-Node Parameters.
 
@@ -269,9 +273,16 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Keycloak Parameters
 
-| Name               | Description              | Value   |
-| ------------------ | ------------------------ | ------- |
-| `keycloak.enabled` | Enable Keycloak subchart | `false` |
+| Name                                                      | Description                                                      | Value                               |
+| --------------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------- |
+| `keycloak.enabled`                                        | Enable Keycloak subchart                                         | `false`                             |
+| `keycloak.global.security.allowInsecureImages`            | Allow usage of `bitnamilegacy` repository`                       | `true`                              |
+| `keycloak.image.repository`                               | The repository to use for the keycloak image                     | `bitnamilegacy/keycloak`            |
+| `keycloak.keycloakConfigCli.image.repository`             | the repository to use for the keycloakConfigCli image            | `bitnamilegacy/keycloak-config-cli` |
+| `keycloak.postgresql.global.security.allowInsecureImages` | Allow usage of `bitnamilegacy` repository                        | `true`                              |
+| `keycloak.postgresql.image.repository`                    | Repository to use for pulling postgres container images          | `bitnamilegacy/postgresql`          |
+| `keycloak.postgresql.volumePermissions.image.repository`  | Repository to use for pulling os-shell container images          | `bitnamilegacy/os-shell`            |
+| `keycloak.postgresql.metrics.image.repository`            | Repository to use for pulling postgres exporter container images | `bitnamilegacy/postgres-exporter`   |
 
 ### SQNC-Identity-Service parameters
 
@@ -288,40 +299,45 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Backend Storage Parameters
 
-| Name                                          | Description                                                                      | Value             |
-| --------------------------------------------- | -------------------------------------------------------------------------------- | ----------------- |
-| `storageBackend.mode`                         | Storage mode to use, choice of IPFS, AZURE or S3                                 | `IPFS`            |
-| `storageBackend.accessKeyId`                  | The access key ID to use for the s3 storageBackend                               | `""`              |
-| `storageBackend.secretAccessKey`              | The secret access key to use for the s3 storageBackend                           | `""`              |
-| `storageBackend.s3Region`                     | The AWS region to use with Amazon S3                                             | `""`              |
-| `storageBackend.bucketName`                   | The bucket or storageContainer name to use                                       | `""`              |
-| `storageBackend.protocol`                     | The Protocol to use for accessing the storage backend, options are http or https | `https`           |
-| `storageBackend.existingS3Secret`             | The existing Secret to use for the s3 Credentials                                | `""`              |
-| `storageBackend.existingS3SecretAccessKeyKey` | The key to use for the S3 SecretaccessKey                                        | `secretAccessKey` |
-| `storageBackend.existingS3AccessKeyIdKey`     | The key to use for the S3 AccessKeyId                                            | `accessKeyId`     |
-| `storageBackend.accountName`                  | The Account Name to use with Azure                                               | `""`              |
-| `storageBackend.accountKey`                   | The Account Key to use with Azure                                                | `""`              |
-| `storageBackend.blobDomain`                   | The BlobDomain to use with Azure                                                 | `""`              |
-| `storageBackend.existingAzureSecret`          | The existing secret to use for the Azure Credentials                             | `""`              |
-| `storageBackend.existingAzureAccountNameKey`  | The key to use for the Azure AccountName                                         | `accountName`     |
-| `storageBackend.existingAzureAccountKeyKey`   | The key to use for the Azure AccountKey                                          | `accountKey`      |
-| `externalStorageBackend.host`                 |                                                                                  | `""`              |
-| `externalStorageBackend.port`                 |                                                                                  | `""`              |
-| `externalSqncIpfs.host`                       | External SQNC-Ipfs hostname                                                      | `""`              |
-| `externalSqncIpfs.port`                       | External SQNC-Ipfs port                                                          | `""`              |
-| `ipfs.enabled`                                | Enable sqnc-ipfs subchart                                                        | `false`           |
-| `minio.enabled`                               | Enable minio subchart                                                            | `false`           |
-| `azurite.enabled`                             | Enable the azurite subchart                                                      | `false`           |
+| Name                                                             | Description                                                                      | Value                                |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------ |
+| `storageBackend.mode`                                            | Storage mode to use, choice of IPFS, AZURE or S3                                 | `IPFS`                               |
+| `storageBackend.accessKeyId`                                     | The access key ID to use for the s3 storageBackend                               | `""`                                 |
+| `storageBackend.secretAccessKey`                                 | The secret access key to use for the s3 storageBackend                           | `""`                                 |
+| `storageBackend.s3Region`                                        | The AWS region to use with Amazon S3                                             | `""`                                 |
+| `storageBackend.bucketName`                                      | The bucket or storageContainer name to use                                       | `""`                                 |
+| `storageBackend.protocol`                                        | The Protocol to use for accessing the storage backend, options are http or https | `https`                              |
+| `storageBackend.existingS3Secret`                                | The existing Secret to use for the s3 Credentials                                | `""`                                 |
+| `storageBackend.existingS3SecretAccessKeyKey`                    | The key to use for the S3 SecretaccessKey                                        | `secretAccessKey`                    |
+| `storageBackend.existingS3AccessKeyIdKey`                        | The key to use for the S3 AccessKeyId                                            | `accessKeyId`                        |
+| `storageBackend.accountName`                                     | The Account Name to use with Azure                                               | `""`                                 |
+| `storageBackend.accountKey`                                      | The Account Key to use with Azure                                                | `""`                                 |
+| `storageBackend.blobDomain`                                      | The BlobDomain to use with Azure                                                 | `""`                                 |
+| `storageBackend.existingAzureSecret`                             | The existing secret to use for the Azure Credentials                             | `""`                                 |
+| `storageBackend.existingAzureAccountNameKey`                     | The key to use for the Azure AccountName                                         | `accountName`                        |
+| `storageBackend.existingAzureAccountKeyKey`                      | The key to use for the Azure AccountKey                                          | `accountKey`                         |
+| `externalStorageBackend.host`                                    |                                                                                  | `""`                                 |
+| `externalStorageBackend.port`                                    |                                                                                  | `""`                                 |
+| `externalSqncIpfs.host`                                          | External SQNC-Ipfs hostname                                                      | `""`                                 |
+| `externalSqncIpfs.port`                                          | External SQNC-Ipfs port                                                          | `""`                                 |
+| `ipfs.enabled`                                                   | Enable sqnc-ipfs subchart                                                        | `false`                              |
+| `minio.enabled`                                                  | Enable minio subchart                                                            | `false`                              |
+| `minio.global.security.allowInsecureImages`                      | Allow usage of `bitnamilegacy` repository`                                       | `true`                               |
+| `minio.image.repository`                                         | The repository to use for the minio image                                        | `bitnamilegacy/minio`                |
+| `minio.clientImage.repository`                                   | The repository to use the minio-client image                                     | `bitnamilegacy/minio-client`         |
+| `minio.defaultInitContainers.volumePermissions.image.repository` | The repository to use the os-shell image                                         | `bitnamilegacy/os-shell`             |
+| `minio.console.image.repository`                                 | The repository to use for the minio-object-browser image                         | `bitnamilegacy/minio-object-browser` |
+| `azurite.enabled`                                                | Enable the azurite subchart                                                      | `false`                              |
 
 ### Helm test parameters
 
-| Name                             | Description                                                                    | Value              |
-| -------------------------------- | ------------------------------------------------------------------------------ | ------------------ |
-| `tests.backoffLimit`             | retry backoff limit for the test suite                                         | `4`                |
-| `tests.osShell.image.repository` | shell script image repository                                                  | `bitnami/os-shell` |
-| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended)                        | `latest`           |
-| `tests.auth.clientId`            | OAuth2 client id to use when requesting tokens in the internal realm for tests | `""`               |
-| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens                             | `""`               |
+| Name                             | Description                                                                    | Value                    |
+| -------------------------------- | ------------------------------------------------------------------------------ | ------------------------ |
+| `tests.backoffLimit`             | retry backoff limit for the test suite                                         | `4`                      |
+| `tests.osShell.image.repository` | shell script image repository                                                  | `bitnamilegacy/os-shell` |
+| `tests.osShell.image.tag`        | shell script image tag (immutable tags are recommended)                        | `latest`                 |
+| `tests.auth.clientId`            | OAuth2 client id to use when requesting tokens in the internal realm for tests | `""`                     |
+| `tests.auth.clientSecret`        | OAuth2 client secret to use when requesting tokens                             | `""`                     |
 
 ## Configuration and installation details
 
