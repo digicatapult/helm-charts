@@ -737,8 +737,7 @@ keycloak:
         repository: bitnamilegacy/os-shell
     metrics:
       image:
-        repository: bitnamilegacy/postgres-exporter
-    
+        repository: bitnamilegacy/postgres-exporter    
 
 ## @section SQNC-Identity-Service parameters
 ## @param externalSqncIdentity.host External SQNC-Identity-Service hostname
