@@ -95,25 +95,29 @@ The application only accepts a single ENVAR, so you should always update `modelP
 
 ### Database Parameters
 
-| Name                                                 | Description                                                | Value        |
-| ---------------------------------------------------- | ---------------------------------------------------------- | ------------ |
-| `postgresql.enabled`                                 | Enable or disable PostgreSQL helm chart                    | `true`       |
-| `postgresql.auth.username`                           | Custom PostgreSQL user                                     | `admin`      |
-| `postgresql.auth.password`                           | Custom PostgreSQL user password                            | `""`         |
-| `postgresql.auth.database`                           | Custom PostgreSQL database                                 | `prediction` |
-| `postgresql.auth.existingSecret`                     | Existing secret for PostgreSQL credentials                 | `""`         |
-| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)    | `standalone` |
-| `externalDatabase.host`                              | External database host                                     | `""`         |
-| `externalDatabase.port`                              | External database port number                              | `5432`       |
-| `externalDatabase.user`                              | Username for external database                             | `admin`      |
-| `externalDatabase.password`                          | Password for external database                             | `""`         |
-| `externalDatabase.database`                          | External database name                                     | `prediction` |
-| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (external DB) | `true`       |
-| `externalDatabase.postgresqlPostgresUser`            | External Database admin user                               | `postgres`   |
-| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                           | `""`         |
-| `externalDatabase.existingSecret`                    | Existing secret containing database credentials            | `""`         |
-| `externalDatabase.existingSecretPasswordKey`         | Secret key for user credentials                            | `""`         |
-| `externalDatabase.existingSecretPostgresPasswordKey` | Secret key for admin credentials                           | `""`         |
+| Name                                                 | Description                                                      | Value                             |
+| ---------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------- |
+| `postgresql.enabled`                                 | Enable or disable PostgreSQL helm chart                          | `true`                            |
+| `postgresql.auth.username`                           | Custom PostgreSQL user                                           | `admin`                           |
+| `postgresql.auth.password`                           | Custom PostgreSQL user password                                  | `""`                              |
+| `postgresql.auth.database`                           | Custom PostgreSQL database                                       | `prediction`                      |
+| `postgresql.auth.existingSecret`                     | Existing secret for PostgreSQL credentials                       | `""`                              |
+| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)          | `standalone`                      |
+| `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                       | `true`                            |
+| `postgresql.image.repository`                        | Repository to use for pulling postgres container images          | `bitnamilegacy/postgresql`        |
+| `postgresql.volumePermissions.image.repository`      | Repository to use for pulling os-shell container images          | `bitnamilegacy/os-shell`          |
+| `postgresql.metrics.image.repository`                | Repository to use for pulling postgres exporter container images | `bitnamilegacy/postgres-exporter` |
+| `externalDatabase.host`                              | External database host                                           | `""`                              |
+| `externalDatabase.port`                              | External database port number                                    | `5432`                            |
+| `externalDatabase.user`                              | Username for external database                                   | `admin`                           |
+| `externalDatabase.password`                          | Password for external database                                   | `""`                              |
+| `externalDatabase.database`                          | External database name                                           | `prediction`                      |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (external DB)       | `true`                            |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin user                                     | `postgres`                        |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                 | `""`                              |
+| `externalDatabase.existingSecret`                    | Existing secret containing database credentials                  | `""`                              |
+| `externalDatabase.existingSecretPasswordKey`         | Secret key for user credentials                                  | `""`                              |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Secret key for admin credentials                                 | `""`                              |
 
 ### Pod Configuration Parameters
 

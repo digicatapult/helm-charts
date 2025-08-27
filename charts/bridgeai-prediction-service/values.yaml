@@ -92,14 +92,29 @@ initDbMigrate:
 ## @param postgresql.auth.database Custom PostgreSQL database
 ## @param postgresql.auth.existingSecret Existing secret for PostgreSQL credentials
 ## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
+## @param postgresql.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
+## @param postgresql.image.repository Repository to use for pulling postgres container images
+## @param postgresql.volumePermissions.image.repository Repository to use for pulling os-shell container images
+## @param postgresql.metrics.image.repository Repository to use for pulling postgres exporter container images
 postgresql:
   enabled: true
+  global:
+    security:
+      allowInsecureImages: true
   auth:
     username: admin
     password: ""
     database: prediction
     existingSecret: ""
   architecture: standalone
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  metrics:
+    image:
+      repository: bitnamilegacy/postgres-exporter
 
 ## External PostgreSQL configuration
 ## All values used only when postgresql.enabled is false
