@@ -618,15 +618,30 @@ serviceAccount:
 ## @param postgresql.auth.database Name for a custom database to create
 ## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
 ## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
+## @param postgresql.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
+## @param postgresql.image.repository Repository to use for pulling postgres container images
+## @param postgresql.volumePermissions.image.repository Repository to use for pulling os-shell container images
+## @param postgresql.metrics.image.repository Repository to use for pulling postgres exporter container images
 ##
 postgresql:
   enabled: true
+  global:
+    security:
+      allowInsecureImages: true
   auth:
     username: matchmaker_service
     password: ""
     database: matchmaker
     existingSecret: ""
   architecture: standalone
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  metrics:
+    image:
+      repository: bitnamilegacy/postgres-exporter
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
@@ -693,7 +708,35 @@ externalSqncIdentity:
 ## @section Keycloak Parameters
 keycloak:
   ## @param keycloak.enabled Enable Keycloak subchart
+  ## @param keycloak.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
+  ## @param keycloak.image.repository The repository to use for the keycloak image
+  ## @param keycloak.keycloakConfigCli.image.repository the repository to use for the keycloakConfigCli image
+  ## @param keycloak.postgresql.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository
+  ## @param keycloak.postgresql.image.repository Repository to use for pulling postgres container images
+  ## @param keycloak.postgresql.volumePermissions.image.repository Repository to use for pulling os-shell container images
+  ## @param keycloak.postgresql.metrics.image.repository Repository to use for pulling postgres exporter container images
+
   enabled: false
+  global:
+    security:
+      allowInsecureImages: true
+  image:
+    repository: bitnamilegacy/keycloak
+  keycloakConfigCli:
+    image:
+      repository: bitnamilegacy/keycloak-config-cli
+  postgresql:
+    global:
+      security:
+        allowInsecureImages: true
+    image:
+      repository: bitnamilegacy/postgresql
+    volumePermissions:
+      image:
+        repository: bitnamilegacy/os-shell
+    metrics:
+      image:
+        repository: bitnamilegacy/postgres-exporter
 
 ## @section SQNC Identity Service Parameters
 identity:
