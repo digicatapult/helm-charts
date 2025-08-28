@@ -737,7 +737,6 @@ keycloak:
     metrics:
       image:
         repository: bitnamilegacy/postgres-exporter
-  
 
 ## @section SQNC Identity Service Parameters
 identity:
