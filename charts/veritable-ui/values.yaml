@@ -217,7 +217,7 @@ initIssuancePolicy:
 image:
   registry: docker.io
   repository: digicatapult/veritable-ui
-  tag: v0.20.21
+  tag: v0.20.22
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
