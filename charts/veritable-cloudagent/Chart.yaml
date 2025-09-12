@@ -26,4 +26,4 @@ maintainers:
 name: veritable-cloudagent
 sources:
   - https://github.com/digicatapult/veritable-cloudagent
-version: 2.4.37
+version: 2.4.38
