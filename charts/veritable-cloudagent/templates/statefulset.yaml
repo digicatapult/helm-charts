@@ -335,7 +335,7 @@ spec:
                 - '/bin/sh'
                 - '-c'
                 - |
-                  [ "$(ipfs swarm peers | wc -l)" -ge {{ if .Values.ipfs.initConfig.bootNodeAddress }}0{{ else }}2{{ end }} ]
+                  [ "$(ipfs swarm peers | wc -l)" -ge {{ if .Values.ipfs.initConfig.bootNodeAddress }}2{{ else }}0{{ end }} ]
             initialDelaySeconds: {{ .Values.ipfs.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.ipfs.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.ipfs.livenessProbe.timeoutSeconds }}
