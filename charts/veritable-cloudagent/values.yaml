@@ -140,6 +140,15 @@ ipfs:
     pullPolicy: IfNotPresent
 
   ## @param ipfs.initConfig.enabled Enable IPFS initconfig
+didWeb:
+  enabled: false
+  port: 8443
+  useDevCert: false
+  devCertPath: ""
+  devKeyPath: ""
+  dbName: "did-web-server"
+  dir: "/dids"
+  domain: ""
   ## @param ipfs.initConfig.binary IPFS binary path
   ## @param ipfs.initConfig.routingType IPFS routing type
   ## @param ipfs.initConfig.swarmAddrFilters IPFS swarm address filters

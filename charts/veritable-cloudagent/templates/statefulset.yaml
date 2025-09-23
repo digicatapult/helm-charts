@@ -225,6 +225,22 @@ spec:
               value: {{ .Values.adminPort | quote }}
             - name: ADMIN_PING_INTERVAL_MS
               value: {{ .Values.adminWebSocketPingInterval | quote }}
+            - name: DID_WEB_ENABLED
+              value: {{ .Values.didWeb.enabled | quote }}
+            - name: DID_WEB_PORT
+              value: {{ .Values.didWeb.port | quote }}
+            - name: DID_WEB_USE_DEV_CERT
+              value: {{ .Values.didWeb.useDevCert | quote }}
+            - name: DID_WEB_DEV_CERT_PATH
+              value: {{ .Values.didWeb.devCertPath | quote }}
+            - name: DID_WEB_DEV_KEY_PATH
+              value: {{ .Values.didWeb.devKeyPath | quote }}
+            - name: DID_WEB_DB_NAME
+              value: {{ .Values.didWeb.dbName | quote }}
+            - name: DID_WEB_DIR
+              value: {{ .Values.didWeb.dir | quote }}
+            - name: DID_WEB_DOMAIN
+              value: {{ .Values.didWeb.domain | quote }}
             - name: IPFS_ORIGIN
             {{- if .Values.ipfs.enabled }}
               value: "http://localhost:{{ .Values.ipfs.containerPorts.api }}"
