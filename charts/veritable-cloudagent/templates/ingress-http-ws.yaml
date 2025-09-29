@@ -65,7 +65,7 @@ spec:
             {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
             pathType: {{ default "ImplementationSpecific" .pathType }}
             {{- end }}
-            backend: {{- include "common.ingress.backend" (dict "serviceName" (default (include "common.names.fullname" $) .serviceName) "servicePort" (default "didweb" .servicePort) "context" $) | nindent 14 }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" $) "servicePort" "http" "context" $) | nindent 14 }}
           {{- end }}
     {{- end }}
     {{- if .Values.ingressHttpWs.extraRules }}

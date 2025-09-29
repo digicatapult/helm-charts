@@ -1,0 +1,67 @@
+{{- if and .Values.didWeb.enabled .Values.didWeb.ingress.enabled }}
+---
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ template "common.names.fullname" . }}-didweb
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: veritable-cloudagent-didweb
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.didWeb.ingress.annotations .Values.commonAnnotations }}
+  annotations:
+    {{- if .Values.didWeb.ingress.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.didWeb.ingress.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  {{- if .Values.didWeb.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.didWeb.ingress.ingressClassName | quote }}
+  {{- end }}
+  rules:
+    {{- if .Values.didWeb.ingress.hostname }}
+    - host: {{ .Values.didWeb.ingress.hostname }}
+      http:
+        paths:
+          {{- if .Values.didWeb.ingress.extraPaths }}
+          {{- toYaml .Values.didWeb.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+          {{- range .Values.didWeb.ingress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (printf "%s-didweb" (include "common.names.fullname" $)) "servicePort" "didweb" "context" $) | nindent 14 }}
+          {{- end }}
+    {{- end }}
+    {{- range .Values.didWeb.ingress.extraHosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+          {{- if .Values.didWeb.ingress.extraPaths }}
+          {{- toYaml .Values.didWeb.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (printf "%s-didweb" (include "common.names.fullname" $)) "servicePort" "didweb" "context" $) | nindent 14 }}
+          {{- end }}
+    {{- end }}
+    {{- if .Values.didWeb.ingress.extraRules }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.didWeb.ingress.extraRules "context" $) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.didWeb.ingress.tls .Values.didWeb.ingress.extraTls }}
+  tls:
+    {{- if .Values.didWeb.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingress.annotations )) .Values.ingress.selfSigned) }}
+    - hosts:
+        - {{ .Values.ingress.hostname | quote }}
+      secretName: {{ printf "%s-tls" .Values.didWeb.ingress.hostname }}
+    {{- end }}
+    {{- if .Values.didWeb.ingress.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.didWeb.ingress.extraTls "context" $) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}

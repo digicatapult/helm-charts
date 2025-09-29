@@ -237,10 +237,10 @@ spec:
               value: {{ .Values.didWeb.devKeyPath | quote }}
             - name: DID_WEB_DB_NAME
               value: {{ .Values.didWeb.dbName | quote }}
-            - name: DID_WEB_DIR
-              value: {{ .Values.didWeb.dir | quote }}
             - name: DID_WEB_DOMAIN
               value: {{ .Values.didWeb.domain | quote }}
+            - name: DID_WEB_SERVICE_ENDPOINT
+              value: {{ .Values.didWeb.serviceEndpoint | quote }}
             - name: IPFS_ORIGIN
             {{- if .Values.ipfs.enabled }}
               value: "http://localhost:{{ .Values.ipfs.containerPorts.api }}"
