@@ -6,7 +6,9 @@ The veritable-cloudagent is a component of the Sequence (veritable) ledger-based
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/veritable-cloudagent
+$ helm repo add cnpg https://cloudnative-pg.github.io/charts
+$ helm upgrade --install my-release --namespace default cnpg/cloudnative-pg
+$ helm upgrade --install my-release digicatapult/veritable-cloudagent
 ```
 
 ## Introduction
@@ -25,7 +27,9 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/veritable-cloudagent
+$ helm repo add cnpg https://cloudnative-pg.github.io/charts
+$ helm upgrade --install my-release --namespace default cnpg/cloudnative-pg
+$ helm upgrade --install my-release digicatapult/veritable-cloudagent
 ```
 
 The command deploys veritable-cloudagent on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
@@ -342,6 +346,23 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`                              |
 | `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                              |
 | `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                              |
+
+### cloudnative-pg (CNPG) cluster
+
+| Name                                 | Description                                                                                             | Value        |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------- | ------------ |
+| `cnpg.enabled`                       | Enable the cloudnative-pg cluster                                                                       | `true`       |
+| `cnpg.mode`                          | Cluster mode of operation ("standalone", "replica", or "recovery")                                      | `standalone` |
+| `cnpg.type`                          | Type of backend ("postgresql" is recommended)                                                           | `postgresql` |
+| `cnpg.version.postgresql`            | Major PostgreSQL version to use                                                                         | `17`         |
+| `cnpg.cluster.imageName`             | Long-form PostgreSQL GHCR image ID                                                                      | `""`         |
+| `cnpg.cluster.initdb`                | Details of the database object being created                                                            | `{}`         |
+| `cnpg.cluster.initdb.secret.name`    | Secret name for the database owner (expects "username"/"password" keys within secret)                   |              |
+| `cnpg.cluster.instances`             | Number of database replicas                                                                             | `1`          |
+| `cnpg.cluster.storage.size`          | Instance storage capacity                                                                               | `5Gi`        |
+| `cnpg.cluster.storage.storageClass`  | Storage class                                                                                           | `""`         |
+| `cnpg.cluster.enableSuperuserAccess` | Permit superuser access                                                                                 | `true`       |
+| `cnpg.cluster.superuserSecret`       | Name of the superuser's secret (expects "pgpass"; uses a randomised password if enabled and left blank) |              |
 
 ## Configuration and installation details
 

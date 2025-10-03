@@ -80,80 +80,63 @@ Add environment variables to configure wallet secret key
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "veritable-cloudagent.postgresql.fullname" -}}
-{{- include "common.names.dependency.fullname" (dict "chartName" "postgresql" "chartValues" .Values.postgresql "context" $) -}}
+{{- define "veritable-cloudagent.cnpg.fullname" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "cnpg" "chartValues" .Values.cnpg "context" $) -}}
 {{- end -}}
 
 {{/*
-Return the Postgresql hostname
+Return the CNPG hostname
 */}}
 {{- define "veritable-cloudagent.databaseHost" -}}
-{{- ternary (include "veritable-cloudagent.postgresql.fullname" .) .Values.externalDatabase.host .Values.postgresql.enabled | quote -}}
+{{- if .Values.cnpg.enabled -}}
+    {{- printf "%v-rw" (include "veritable-cloudagent.cnpg.fullname" $) }}
+{{- else if .Values.externalDatabase.host -}}
+    {{- include "veritable-cloudagent.cnpg.fullname" -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
-Return the Postgresql port
+Return the CNPG port
 */}}
 {{- define "veritable-cloudagent.databasePort" -}}
-{{- ternary "5432" .Values.externalDatabase.port .Values.postgresql.enabled | quote -}}
+{{- ternary "5432" .Values.externalDatabase.port .Values.cnpg.enabled | quote -}}
 {{- end -}}
 
 {{/*
-Return the Postgresql database name
+Return the CNPG database name
 */}}
 {{- define "veritable-cloudagent.databaseName" -}}
-{{- if .Values.postgresql.enabled -}}
-    {{- if .Values.global.postgresql -}}
-        {{- if .Values.global.postgresql.auth -}}
-            {{- coalesce .Values.global.postgresql.auth.database .Values.postgresql.auth.database -}}
-        {{- else -}}
-            {{- .Values.postgresql.auth.database -}}
-        {{- end -}}
-    {{- else -}}
-        {{- .Values.postgresql.auth.database -}}
-    {{- end -}}
+{{- if .Values.cnpg.enabled -}}
+  {{- $initdb := .Values.cnpg.cluster.initdb | default dict }}
+  {{- $initdb.database -}}
 {{- else -}}
     {{- .Values.externalDatabase.database -}}
 {{- end -}}
 {{- end -}}
 
 {{/*
-Return the Postgresql user
+Return the CNPG user
 */}}
 {{- define "veritable-cloudagent.databaseUser" -}}
-{{- if .Values.postgresql.enabled -}}
-    {{- if .Values.global.postgresql -}}
-        {{- if .Values.global.postgresql.auth -}}
-            {{- coalesce .Values.global.postgresql.auth.username .Values.postgresql.auth.username -}}
-        {{- else -}}
-            {{- .Values.postgresql.auth.username -}}
-        {{- end -}}
-    {{- else -}}
-        {{- .Values.postgresql.auth.username -}}
-    {{- end -}}
+{{- if .Values.cnpg.enabled -}}
+  {{- $initdb := .Values.cnpg.cluster.initdb | default dict }}
+  {{- $initdb.owner -}}
 {{- else -}}
     {{- .Values.externalDatabase.user -}}
 {{- end -}}
 {{- end -}}
 
 {{/*
-Return the PostgreSQL Secret Name
+Return the CNPG secret name
 */}}
 {{- define "veritable-cloudagent.databaseSecretName" -}}
-{{- if .Values.postgresql.enabled -}}
-    {{- if .Values.global.postgresql -}}
-        {{- if .Values.global.postgresql.auth -}}
-            {{- if .Values.global.postgresql.auth.existingSecret -}}
-                {{- tpl .Values.global.postgresql.auth.existingSecret $ -}}
-            {{- else -}}
-                {{- default (include "veritable-cloudagent.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
-            {{- end -}}
-        {{- else -}}
-            {{- default (include "veritable-cloudagent.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
-        {{- end -}}
-    {{- else -}}
-        {{- default (include "veritable-cloudagent.postgresql.fullname" .) (tpl .Values.postgresql.auth.existingSecret $) -}}
-    {{- end -}}
+{{- if .Values.cnpg.enabled -}}
+  {{- $secret := .Values.cnpg.cluster.initdb.secret | default dict }}
+  {{- if $secret.name -}}
+    {{- default (printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl $secret.name $) -}}
+  {{- else -}}
+    {{- printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" | quote -}}
+  {{- end -}}
 {{- else -}}
     {{- default (printf "%s-externaldb" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}
 {{- end -}}
@@ -163,7 +146,7 @@ Return the PostgreSQL Secret Name
 Add environment variables to configure database values
 */}}
 {{- define "veritable-cloudagent.databaseSecretPasswordKey" -}}
-{{- if .Values.postgresql.enabled -}}
+{{- if .Values.cnpg.enabled -}}
     {{- print "password" -}}
 {{- else -}}
     {{- if .Values.externalDatabase.existingSecret -}}
@@ -182,8 +165,8 @@ Add environment variables to configure database values
 Add environment variables to configure database values
 */}}
 {{- define "veritable-cloudagent.databaseSecretPostgresPasswordKey" -}}
-{{- if .Values.postgresql.enabled -}}
-    {{- print "postgres-password" -}}
+{{- if .Values.cnpg.enabled -}}
+    {{- print "pgpass" -}}
 {{- else -}}
     {{- if .Values.externalDatabase.existingSecret -}}
         {{- if .Values.externalDatabase.existingSecretPostgresPasswordKey -}}
@@ -235,22 +218,22 @@ Compile all warnings into a single message, and call fail.
 
 {{/* Validate database name */}}
 {{- define "veritable-cloudagent.validateValues.databaseName" -}}
-{{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create -}}
+{{- if and (not .Values.cnpg.enabled) .Values.externalDatabase.create -}}
 {{- $db_name := (include "veritable-cloudagent.databaseName" .) -}}
-{{- if not (regexMatch "^[a-zA-Z_]+$" $db_name) -}}
+{{- if not (regexMatch "^[-a-zA-Z_]+$" $db_name) -}}
 veritable-cloudagent:
-    When creating a database the database name must consist of the characters a-z, A-Z and _ only
+    When creating a database the database name must consist of the characters a-z, A-Z, - and _ only
 {{- end -}}
 {{- end -}}
 {{- end -}}
 
 {{/* Validate database username */}}
 {{- define "veritable-cloudagent.validateValues.databaseUser" -}}
-{{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create -}}
+{{- if and (not .Values.cnpg.enabled) .Values.externalDatabase.create -}}
 {{- $db_user := (include "veritable-cloudagent.databaseUser" .) -}}
-{{- if not (regexMatch "^[a-zA-Z_]+$" $db_user) -}}
+{{- if not (regexMatch "^[-a-zA-Z_]+$" $db_user) -}}
 veritable-cloudagent:
-    When creating a database the username must consist of the characters a-z, A-Z and _ only
+    When creating a database the username must consist of the characters a-z, A-Z, - and _ only
 {{- end -}}
 {{- end -}}
 {{- end -}}
