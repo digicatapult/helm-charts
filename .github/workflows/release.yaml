@@ -31,12 +31,6 @@ jobs:
           helm repo add digicatapult https://digicatapult.github.io/helm-charts
           helm repo add azurite https://viters.github.io/azurite-helm-chart/
 
-      - name: Install cloudnative-pg operator
-        if: success()
-        run: |
-          helm install cnpg cnpg/cloudnative-pg --wait
-          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cloudnative-pg --timeout=300s
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1
         env:
