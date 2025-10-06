@@ -1,7 +1,4 @@
 dependencies:
-- name: cloudnative-pg
-  repository: https://cloudnative-pg.github.io/charts
-  version: 0.26.0
 - name: cluster
   repository: https://cloudnative-pg.github.io/charts
   version: 0.3.1
@@ -13,6 +10,6 @@ dependencies:
   version: 2.31.4
 - name: veritable-cloudagent
   repository: https://digicatapult.github.io/helm-charts
-  version: 2.4.50
-digest: sha256:1b8759eb9a45efdb5f71f600edb83bfcf0b9e6f5547fb35f97969e36914a67d0
-generated: "2025-10-03T10:08:04.630866+01:00"
+  version: 2.4.53
+digest: sha256:b214d3b98eba219654db268a4947f44c173f35347c4fad2cfa140f44ac931969
+generated: "2025-10-06T09:29:43.101949+01:00"

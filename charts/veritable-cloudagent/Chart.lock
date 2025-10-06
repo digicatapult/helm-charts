@@ -1,7 +1,4 @@
 dependencies:
-- name: cloudnative-pg
-  repository: https://cloudnative-pg.github.io/charts
-  version: 0.26.0
 - name: cluster
   repository: https://cloudnative-pg.github.io/charts
   version: 0.3.1
@@ -11,5 +8,5 @@ dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami
   version: 2.24.0
-digest: sha256:43ef5d9e5421b2906da0ee853909c565a175a2963e5da62e2339e86b48d33634
-generated: "2025-10-03T10:07:15.216603+01:00"
+digest: sha256:c917d64f48dc5a0ebb4bb42fb2331a5e106febb9e728125920852e287942cc7b
+generated: "2025-10-06T09:30:15.825975+01:00"

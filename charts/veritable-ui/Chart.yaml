@@ -5,9 +5,6 @@ apiVersion: v2
 # renovate: image=digicatapult/veritable-ui
 appVersion: v0.20.34
 dependencies:
-  - name: cloudnative-pg
-    repository: https://cloudnative-pg.github.io/charts
-    version: 0.26.0
   - alias: cnpg
     condition: cnpg.enabled
     name: cluster
@@ -25,7 +22,7 @@ dependencies:
   - name: veritable-cloudagent
     condition: cloudagent.enabled
     repository: https://digicatapult.github.io/helm-charts
-    version: 2.4.50
+    version: 2.4.53
     alias: cloudagent
 description: The veritable user interface for managing connections
 home: https://github.com/digicatapult/veritable-ui
