@@ -100,9 +100,7 @@ jobs:
     - name: Install cloudnative-pg operator
       run: |
         helm install cnpg cnpg/cloudnative-pg --wait
-      if: |
-        success() &&
-        steps.list-changed.outputs.changed_named_charts == 'true'
+      if: steps.list-changed.outputs.changed == 'true'
 
     - name: Run chart-testing (install)
       run: |
