@@ -100,7 +100,6 @@ jobs:
     - name: Install cloudnative-pg operator
       run: |
         helm install cnpg cnpg/cloudnative-pg --wait
-        kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cloudnative-pg --timeout=300s
       if: |
         success() &&
         steps.list-changed.outputs.changed_named_charts == 'true'
