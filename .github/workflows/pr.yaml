@@ -99,7 +99,7 @@ jobs:
 
     - name: Install cloudnative-pg operator
       run: |
-        helm install cnpg cnpg/cloudnative-pg --wait
+        helm install cnpg cnpg/cloudnative-pg --wait --namespace cnpg --create-namespace
       if: |
         success() &&
         steps.list-changed.outputs.changed_named_charts == 'true'
