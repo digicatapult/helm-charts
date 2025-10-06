@@ -91,7 +91,7 @@ Return the CNPG hostname
 {{- if .Values.cnpg.enabled -}}
     {{- printf "%v-rw" (include "veritable-cloudagent.cnpg.fullname" $) }}
 {{- else if .Values.externalDatabase.host -}}
-    {{- include "veritable-cloudagent.cnpg.fullname" -}}
+    {{- .Values.externalDatabase.host -}}
 {{- end -}}
 {{- end -}}
 

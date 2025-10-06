@@ -177,7 +177,7 @@ Return the CNPG hostname
 {{- if .Values.cnpg.enabled -}}
     {{- printf "%v-rw" (include "veritable-ui.cnpg.fullname" $) }}
 {{- else if .Values.externalDatabase.host -}}
-    {{- include "veritable-ui.cnpg.fullname" -}}
+    {{- .Values.externalDatabase.host -}}
 {{- end -}}
 {{- end -}}
 
