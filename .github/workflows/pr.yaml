@@ -49,12 +49,6 @@ jobs:
         helm repo add digicatapult https://digicatapult.github.io/helm-charts
         helm repo add viters https://viters.github.io/azurite-helm-chart
 
-    - name: Install cloudnative-pg operator
-      if: success()
-      run: |
-        helm install cnpg cnpg/cloudnative-pg --wait
-        kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cloudnative-pg --timeout=300s
-
     - name: Run chart-testing (list-changed)
       id: list-changed
       run: |
@@ -102,6 +96,12 @@ jobs:
           --docker-password=${{ secrets.GITHUB_TOKEN }} \
           --docker-email=${{ github.actor }}@users.noreply.github.com
       if: steps.list-changed.outputs.changed_named_charts == 'true'
+
+    - name: Install cloudnative-pg operator
+      if: success()
+      run: |
+        helm install cnpg cnpg/cloudnative-pg --wait
+        kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cloudnative-pg --timeout=300s
 
     - name: Run chart-testing (install)
       run: |
