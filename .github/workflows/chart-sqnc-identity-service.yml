@@ -41,6 +41,7 @@ jobs:
       - name: Install additional Helm repos
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add cnpg https://cloudnative-pg.github.io/charts
           helm repo add digicatapult https://digicatapult.github.io/helm-charts
 
       # only keep changed logic get rid of named_charts logic
@@ -79,6 +80,12 @@ jobs:
             --wait
 
             kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
+
+      - name: Install cloudnative-pg operator
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          helm install cnpg cnpg/cloudnative-pg --wait
+          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cloudnative-pg --timeout=300s
 
       - name: Install sqnc-node manually
         if: steps.list-changed.outputs.changed == 'true'
