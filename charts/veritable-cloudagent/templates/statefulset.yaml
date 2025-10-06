@@ -67,9 +67,9 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
-      {{- if or .Values.initContainers .Values.ipfs.initConfig (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
+      {{- if or .Values.initContainers .Values.ipfs.initConfig (and (not .Values.cnpg.enabled) .Values.externalDatabase.create) }}
       initContainers:
-        {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
+        {{- if and (not .Values.cnpg.enabled) .Values.externalDatabase.create }}
         - name: database-create
           image: {{ template "veritable-cloudagent.initDbCreate.image" . }}
           imagePullPolicy: {{ .Values.initDbCreate.image.pullPolicy }}
