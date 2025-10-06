@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/veritable-cloudagent
-appVersion: v0.15.3
+appVersion: v0.15.7
 dependencies:
   - alias: cnpg
     condition: cnpg.enabled
