@@ -39428,6 +39428,39 @@ entries:
       category: veritable
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v0.15.12
+    created: "2025-10-07T22:08:46.27165451Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The veritable-cloudagent is a component of the veritable distributed
+      identity system.
+    digest: a6bfda8c81637edcf24ae9ef3b28916ce857c5049a74ae7336eab177500473a3
+    home: https://github.com/digicatapult/veritable-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/main/assets/icon.png
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-cloudagent
+    sources:
+    - https://github.com/digicatapult/veritable-cloudagent
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-2.4.56/veritable-cloudagent-2.4.56.tgz
+    version: 2.4.56
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v0.15.9
     created: "2025-10-07T05:09:34.462005126Z"
     dependencies:
@@ -60283,4 +60316,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-10-07T21:08:22.847990506Z"
+generated: "2025-10-07T22:08:46.273950988Z"
