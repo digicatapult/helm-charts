@@ -108,6 +108,13 @@ module.exports = (config = {}) => {
         labels: ["dependencies", "github-actions"],
         automerge: false,
       },
+      {
+        matchManagers: ["github-actions"],
+        matchPackageNames: ["renovatebot/github-action"],
+        matchUpdateTypes: ["patch", "minor"],
+        automerge: true,
+        addLabels: ["automerge"],
+      },
     ],
   };
 };
