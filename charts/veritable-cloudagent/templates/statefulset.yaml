@@ -67,7 +67,7 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
-      {{- if or .Values.initContainers .Values.ipfs.initConfig (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
+      {{- if or .Values.initContainers .Values.ipfs.initConfig .Values.initDbMigrate.enabled (and (not .Values.postgresql.enabled) .Values.externalDatabase.create) }}
       initContainers:
         {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.create }}
         - name: database-create
@@ -153,6 +153,31 @@ spec:
             - name: BOOT_NODE_ADDRESS
               value: {{ .Values.ipfs.initConfig.bootNodeAddress }}
             {{- end}}
+        {{- end }}
+        {{- if .Values.initDbMigrate.enabled }}
+        - name: database-migrate
+          image: {{ template "veritable-cloudagent.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['npx','knex']
+          {{- if .Values.initDbMigrate.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.initDbMigrate.args "context" $) | nindent 12 }}
+          {{- end }}
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.initDbMigrate.environment | quote }}
+            - name: POSTGRES_HOST
+              value: {{ template "veritable-cloudagent.databaseHost" . }}
+            - name: POSTGRES_PORT
+              value: {{ template "veritable-cloudagent.databasePort" . }}
+            - name: POSTGRES_USERNAME
+              value: {{ template "veritable-cloudagent.databaseUser" . }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "veritable-cloudagent.databaseSecretName" . }}
+                  key: {{ include "veritable-cloudagent.databaseSecretPasswordKey" . }}
+            - name: DID_WEB_DB_NAME
+              value: {{ .Values.didWebServer.env.didWebDbName | default "did-web-server" | quote }}
         {{- end }}
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
@@ -256,6 +281,33 @@ spec:
             - name: VERIFIED_DRPC_OPTIONS_PROOF_REQUEST_OPTIONS
               value: {{ .Values.verifiedDrpcOptionsProofRequestOptions | quote }}
             {{- end }}
+            {{- if .Values.didWebServer.enabled }}
+            # TODO: Race condition exists where DID document generation occurs before didWebServer
+            # is fully started and pod/ingress are ready. The application may exit when it cannot
+            # lookup the DID document at the specified DID_WEB_DOMAIN address during startup.
+            - name: DID_WEB_ENABLED
+              value: "true"
+            - name: DID_WEB_PORT
+              value: {{ .Values.didWebServer.containerPort | quote }}
+            - name: DID_WEB_DB_NAME
+              value: {{ .Values.didWebServer.env.didWebDbName | quote }}
+            - name: DID_WEB_DOMAIN
+              value: {{ .Values.didWebServer.env.didWebDomain | quote }}
+            - name: DID_WEB_SERVICE_ENDPOINT
+              value: {{ (default (include "veritable-cloudagent.defineEndpoint" .) .Values.didWebServer.env.didWebServiceEndpoint) | quote }}
+            - name: DID_WEB_USE_DEV_CERT
+              value: {{ ternary "true" "false" .Values.didWebServer.env.useDevCert | quote }}
+            - name: DID_WEB_DEV_CERT_PATH
+              value: {{ .Values.didWebServer.env.devCertPath | quote }}
+            - name: DID_WEB_DEV_KEY_PATH
+              value: {{ .Values.didWebServer.env.devKeyPath | quote }}
+            {{- if .Values.didWebServer.extraEnv }}
+            {{- range $k, $v := .Values.didWebServer.extraEnv }}
+            - name: {{ $k }}
+              value: {{ $v | quote }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
@@ -278,6 +330,10 @@ spec:
               containerPort: {{ .Values.containerPorts.ws }}
             - name: admin
               containerPort: {{ .Values.containerPorts.admin }}
+            {{- if .Values.didWebServer.enabled }}
+            - name: http-didweb
+              containerPort: {{ .Values.didWebServer.containerPort }}
+            {{- end }}
           {{- if not .Values.diagnosticMode.enabled }}
           {{- if .Values.customLivenessProbe }}
           livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" $) | nindent 12 }}

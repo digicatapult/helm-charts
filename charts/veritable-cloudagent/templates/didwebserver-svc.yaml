@@ -1,0 +1,33 @@
+{{- if and .Values.didWebServer.enabled .Values.didWebServer.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-didweb
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: did-web-server
+    {{- if .Values.didWebServer.service.labels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.didWebServer.service.labels "context" $ ) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.didWebServer.service.annotations .Values.commonAnnotations }}
+  annotations:
+    {{- if .Values.didWebServer.service.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.didWebServer.service.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  type: {{ .Values.didWebServer.service.type }}
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: veritable-cloudagent
+  ports:
+    - name: http
+      port: {{ .Values.didWebServer.service.port }}
+      targetPort: {{ .Values.didWebServer.service.targetPort }}
+      protocol: TCP
+{{- end }}

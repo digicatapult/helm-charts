@@ -1,0 +1,73 @@
+{{- if and .Values.didWebServer.enabled .Values.didWebServer.ingress.enabled }}
+---
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ include "common.names.fullname" . }}-didweb
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: did-web-server
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.didWebServer.ingress.annotations .Values.commonAnnotations }}
+  annotations:
+    {{- if .Values.didWebServer.ingress.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.didWebServer.ingress.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  {{- if .Values.didWebServer.ingress.className }}
+  ingressClassName: {{ .Values.didWebServer.ingress.className | quote }}
+  {{- end }}
+  rules:
+    {{- if .Values.didWebServer.ingress.hostname }}
+    - host: {{ .Values.didWebServer.ingress.hostname | quote }}
+      http:
+        paths:
+          {{- $svcName := printf "%s-didweb" (include "common.names.fullname" $) }}
+          - path: {{ .Values.didWebServer.ingress.path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ .Values.didWebServer.ingress.pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" $svcName "servicePort" "http" "context" $) | nindent 14 }}
+          {{- if .Values.didWebServer.ingress.extraPaths }}
+          {{- toYaml .Values.didWebServer.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+    {{- end }}
+    {{- range .Values.didWebServer.ingress.extraHosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+          {{- $svcName := printf "%s-didweb" (include "common.names.fullname" $) }}
+          {{- if $.Values.didWebServer.ingress.extraPaths }}
+          {{- toYaml $.Values.didWebServer.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" $svcName "servicePort" "http" "context" $) | nindent 14 }}
+          {{- end }}
+    {{- end }}
+    {{- if .Values.didWebServer.ingress.extraRules }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.didWebServer.ingress.extraRules "context" $) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.didWebServer.ingress.tls .Values.didWebServer.ingress.extraTls }}
+  tls:
+    {{- range .Values.didWebServer.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+    {{- if .Values.didWebServer.ingress.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.didWebServer.ingress.extraTls "context" $) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}

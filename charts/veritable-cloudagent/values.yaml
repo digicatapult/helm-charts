@@ -1030,7 +1030,7 @@ postgresql:
   auth:
     username: veritable-cloudgent
     password: ""
-    database: wallet-id
+    database: "did-web-server"
     existingSecret: ""
   architecture: standalone
   image:
@@ -1067,3 +1067,73 @@ externalDatabase:
   existingSecret: ""
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
+
+## @section Database Migration Init Container Parameters
+## Run database migrations (Knex) for DID Web tables before the main container starts.
+## @param initDbMigrate.enabled Run database migration in an init container
+## @param initDbMigrate.environment NODE_ENV value used during migration
+## @param initDbMigrate.args Arguments supplied to npx knex (array)
+initDbMigrate:
+  enabled: true
+  environment: production
+  args:
+    - "migrate:latest"
+
+## @section DID Web Server Parameters
+## didWebServer optional HTTP(S) server exposing did:web documents
+## @param didWebServer.enabled Enable DID Web Server feature. When false, no related resources/env vars are rendered
+## @param didWebServer.containerPort Container port the DID Web Server listens on (maps to DID_WEB_PORT)
+## @param didWebServer.env.didWebDbName Override database name for DID Web Server (DID_WEB_DB_NAME)
+## @param didWebServer.env.didWebDomain Domain portion (URL-encoded) for did:web identifiers (DID_WEB_DOMAIN)
+## @param didWebServer.env.didWebServiceEndpoint Explicit service endpoint for DID doc generation; empty => use veritable-cloudagent.defineEndpoint helper (DID_WEB_SERVICE_ENDPOINT)
+## @param didWebServer.env.useDevCert Use development self-signed certificate inside container (DID_WEB_USE_DEV_CERT)
+## @param didWebServer.env.devCertPath Path to development certificate inside container (DID_WEB_DEV_CERT_PATH)
+## @param didWebServer.env.devKeyPath Path to development key inside container (DID_WEB_DEV_KEY_PATH)
+## @param didWebServer.service.enabled Create a Service for the DID Web Server
+## @param didWebServer.service.type Kubernetes Service type
+## @param didWebServer.service.port Service port to expose DID Web Server
+## @param didWebServer.service.targetPort Target container port for DID Web Server traffic
+## @param didWebServer.service.annotations Additional annotations for DID Web Server service
+## @param didWebServer.service.labels Additional labels for DID Web Server service
+## @param didWebServer.ingress.enabled Create an Ingress for the DID Web Server
+## @param didWebServer.ingress.className IngressClass name
+## @param didWebServer.ingress.hostname Hostname for DID Web Server ingress
+## @param didWebServer.ingress.path Base path for DID Web Server ingress
+## @param didWebServer.ingress.pathType Ingress pathType
+## @param didWebServer.ingress.tls TLS configuration entries for DID Web Server ingress
+## @param didWebServer.ingress.annotations Additional annotations for DID Web Server ingress
+## @param didWebServer.ingress.extraHosts Additional hosts for DID Web Server ingress
+## @param didWebServer.ingress.extraPaths Additional paths for primary host
+## @param didWebServer.ingress.extraTls Additional TLS entries
+## @param didWebServer.ingress.extraRules Additional raw ingress rules
+## @param didWebServer.extraEnv Additional map of extra environment variables to inject (merged as simple key/value)
+didWebServer:
+  enabled: false
+  containerPort: 8443
+  env:
+    didWebDbName: "did-web-server"
+    didWebDomain: ""  # URL-encoded domain (e.g. localhost%3A8443)
+    didWebServiceEndpoint: ""  # e.g. http://<agent-service-host>:5002
+    useDevCert: false
+    devCertPath: ""  # e.g. alice.pem (dev only)
+    devKeyPath: ""   # e.g. alice-key.pem (dev only)
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 80
+    targetPort: 8443
+    annotations: {}
+    labels: {}
+  ingress:
+    enabled: false
+    className: ""
+    hostname: ""
+    path: /.well-known/did.json
+    pathType: ImplementationSpecific
+    tls: []
+    annotations: {}
+    extraHosts: []
+    extraPaths: []
+    extraTls: []
+    extraRules: []
+  extraEnv: {}

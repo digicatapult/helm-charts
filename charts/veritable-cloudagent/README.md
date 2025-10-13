@@ -324,7 +324,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`                            |
 | `postgresql.auth.username`                           | Name for a custom user to create                                         | `veritable-cloudgent`             |
 | `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`                              |
-| `postgresql.auth.database`                           | Name for a custom database to create                                     | `wallet-id`                       |
+| `postgresql.auth.database`                           | Name for a custom database to create                                     | `did-web-server`                  |
 | `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`                              |
 | `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`                      |
 | `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                               | `true`                            |
@@ -342,6 +342,45 @@ The command removes all the Kubernetes components associated with the chart and 
 | `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`                              |
 | `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                              |
 | `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                              |
+
+### Database Migration Init Container Parameters
+
+| Name                        | Description                                 | Value                |
+| --------------------------- | ------------------------------------------- | -------------------- |
+| `initDbMigrate.enabled`     | Run database migration in an init container | `true`               |
+| `initDbMigrate.environment` | NODE_ENV value used during migration        | `production`         |
+| `initDbMigrate.args`        | Arguments supplied to npx knex (array)      | `["migrate:latest"]` |
+
+### DID Web Server Parameters
+
+| Name                                     | Description                                                                                                                          | Value                    |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
+| `didWebServer.enabled`                   | Enable DID Web Server feature. When false, no related resources/env vars are rendered                                                | `false`                  |
+| `didWebServer.containerPort`             | Container port the DID Web Server listens on (maps to DID_WEB_PORT)                                                                  | `8443`                   |
+| `didWebServer.env.didWebDbName`          | Override database name for DID Web Server (DID_WEB_DB_NAME)                                                                          | `did-web-server`         |
+| `didWebServer.env.didWebDomain`          | Domain portion (URL-encoded) for did:web identifiers (DID_WEB_DOMAIN)                                                                | `""`                     |
+| `didWebServer.env.didWebServiceEndpoint` | Explicit service endpoint for DID doc generation; empty => use veritable-cloudagent.defineEndpoint helper (DID_WEB_SERVICE_ENDPOINT) | `""`                     |
+| `didWebServer.env.useDevCert`            | Use development self-signed certificate inside container (DID_WEB_USE_DEV_CERT)                                                      | `false`                  |
+| `didWebServer.env.devCertPath`           | Path to development certificate inside container (DID_WEB_DEV_CERT_PATH)                                                             | `""`                     |
+| `didWebServer.env.devKeyPath`            | Path to development key inside container (DID_WEB_DEV_KEY_PATH)                                                                      | `""`                     |
+| `didWebServer.service.enabled`           | Create a Service for the DID Web Server                                                                                              | `true`                   |
+| `didWebServer.service.type`              | Kubernetes Service type                                                                                                              | `ClusterIP`              |
+| `didWebServer.service.port`              | Service port to expose DID Web Server                                                                                                | `80`                     |
+| `didWebServer.service.targetPort`        | Target container port for DID Web Server traffic                                                                                     | `8443`                   |
+| `didWebServer.service.annotations`       | Additional annotations for DID Web Server service                                                                                    | `{}`                     |
+| `didWebServer.service.labels`            | Additional labels for DID Web Server service                                                                                         | `{}`                     |
+| `didWebServer.ingress.enabled`           | Create an Ingress for the DID Web Server                                                                                             | `false`                  |
+| `didWebServer.ingress.className`         | IngressClass name                                                                                                                    | `""`                     |
+| `didWebServer.ingress.hostname`          | Hostname for DID Web Server ingress                                                                                                  | `""`                     |
+| `didWebServer.ingress.path`              | Base path for DID Web Server ingress                                                                                                 | `/.well-known/did.json`  |
+| `didWebServer.ingress.pathType`          | Ingress pathType                                                                                                                     | `ImplementationSpecific` |
+| `didWebServer.ingress.tls`               | TLS configuration entries for DID Web Server ingress                                                                                 | `[]`                     |
+| `didWebServer.ingress.annotations`       | Additional annotations for DID Web Server ingress                                                                                    | `{}`                     |
+| `didWebServer.ingress.extraHosts`        | Additional hosts for DID Web Server ingress                                                                                          | `[]`                     |
+| `didWebServer.ingress.extraPaths`        | Additional paths for primary host                                                                                                    | `[]`                     |
+| `didWebServer.ingress.extraTls`          | Additional TLS entries                                                                                                               | `[]`                     |
+| `didWebServer.ingress.extraRules`        | Additional raw ingress rules                                                                                                         | `[]`                     |
+| `didWebServer.extraEnv`                  | Additional map of extra environment variables to inject (merged as simple key/value)                                                 | `{}`                     |
 
 ## Configuration and installation details
 
