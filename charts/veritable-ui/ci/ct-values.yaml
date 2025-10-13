@@ -1,7 +1,3 @@
-global:
-  postgresql:
-    auth:
-      password: password
 invitationPin:
   secret: blah
 cloudagent:

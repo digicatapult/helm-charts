@@ -1,5 +1,1 @@
-global:
-  postgresql:
-    auth:
-      password: password
 isNginxIngressController: true
