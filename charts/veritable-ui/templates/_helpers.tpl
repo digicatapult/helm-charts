@@ -219,11 +219,8 @@ Return the CNPG secret name
 {{- define "veritable-ui.databaseSecretName" -}}
 {{- if .Values.cnpg.enabled -}}
   {{- $secret := .Values.cnpg.cluster.initdb.secret | default dict }}
-  {{- if $secret.name -}}
-    {{- default (printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl $secret.name $) -}}
-  {{- else -}}
-    {{- printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" | quote -}}
-  {{- end -}}
+  {{- $secretName := $secret.name | default (printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") }}
+  {{- $secretName -}}
 {{- else -}}
     {{- default (printf "%s-externaldb" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}
 {{- end -}}
