@@ -1009,38 +1009,6 @@ serviceAccount:
 
 ## @section Database Parameters
 
-## PostgreSQL chart configuration
-## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
-## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart
-## @param postgresql.auth.username Name for a custom user to create
-## @param postgresql.auth.password Password for the custom user to create
-## @param postgresql.auth.database Name for a custom database to create
-## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
-## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
-## @param postgresql.global.security.allowInsecureImages Allow usage of `bitnamilegacy` repository`
-## @param postgresql.image.repository Repository to use for pulling postgres container images
-## @param postgresql.volumePermissions.image.repository Repository to use for pulling os-shell container images
-## @param postgresql.metrics.image.repository Repository to use for pulling postgres exporter container images
-##
-postgresql:
-  enabled: true
-  global:
-    security:
-      allowInsecureImages: true
-  auth:
-    username: veritable-cloudgent
-    password: ""
-    database: wallet-id
-    existingSecret: ""
-  architecture: standalone
-  image:
-    repository: bitnamilegacy/postgresql
-  volumePermissions:
-    image:
-      repository: bitnamilegacy/os-shell
-  metrics:
-    image:
-      repository: bitnamilegacy/postgres-exporter
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
@@ -1067,3 +1035,56 @@ externalDatabase:
   existingSecret: ""
   existingSecretPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
+
+## @section cloudnative-pg (CNPG) cluster
+##
+## Ensure that the CNPG operator CRDs have already been installed before enabling.
+## https://github.com/cloudnative-pg/charts
+##
+## A comprehensive list of CNPG cluster values can be found here:
+## https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/values.yaml
+##
+## @param cnpg.enabled Enable the cloudnative-pg cluster
+## @param cnpg.mode Cluster mode of operation ("standalone", "replica", or "recovery")
+## @param cnpg.type Type of backend ("postgresql" is recommended)
+## @param cnpg.version.postgresql Major PostgreSQL version to use
+##
+## Nb. To automatically perform a major version upgrade of the PostgreSQL instances,
+## increase this value incrementally to arrive at the target version.
+##
+## @param cnpg.cluster.imageName Long-form PostgreSQL GHCR image ID
+## @param cnpg.cluster.initdb [object] Details of the database object being created
+## @extra cnpg.cluster.initdb.secret.name Secret name for the database owner (expects "username"/"password" keys within secret)
+## e.g.
+    # initdb:
+      # database: example
+      # owner: example-owner
+      # secret:
+        # name: example-cnpg-app
+      # options: []
+      # encoding: UTF8
+      # postInitSQL:
+      #   - CREATE EXTENSION IF NOT EXISTS vector;
+      # postInitApplicationSQL: []
+      # postInitTemplateSQL: []
+## @param cnpg.cluster.instances Number of database replicas
+## @param cnpg.cluster.storage.size Instance storage capacity
+## @param cnpg.cluster.storage.storageClass Storage class
+## @param cnpg.cluster.enableSuperuserAccess Permit superuser access
+## @extra cnpg.cluster.superuserSecret Name of the superuser's secret (expects "pgpass"; uses a randomised password if enabled and left blank)
+cnpg:
+  enabled: true
+  type: postgresql
+  version:
+    postgresql: "17"
+  mode: standalone
+  cluster:
+    imageName: ""
+    initdb:
+      database: veritable-cloudagent
+      owner: postgres
+    instances: 1
+    storage:
+      size: 5Gi
+      storageClass: ""
+    enableSuperuserAccess: true

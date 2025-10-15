@@ -6,7 +6,9 @@ The veritable-ui is an UI for Veritable that manages connections. Utilizing TSOA
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/veritable-ui
+$ helm repo add cnpg https://cloudnative-pg.github.io/charts
+$ helm upgrade --install my-release --namespace default cnpg/cloudnative-pg
+$ helm upgrade --install my-release digicatapult/veritable-ui
 ```
 
 ## Introduction
@@ -25,7 +27,9 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add digicatapult https://digicatapult.github.io/helm-charts
-$ helm install my-release digicatapult/veritable-ui
+$ helm repo add cnpg https://cloudnative-pg.github.io/charts
+$ helm upgrade --install my-release --namespace default cnpg/cloudnative-pg
+$ helm upgrade --install my-release digicatapult/veritable-ui
 ```
 
 The command deploys veritable-ui on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
@@ -272,30 +276,36 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Database Parameters
 
-| Name                                                 | Description                                                              | Value                             |
-| ---------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------- |
-| `postgresql.enabled`                                 | Switch to enable or disable the PostgreSQL helm chart                    | `true`                            |
-| `postgresql.nameOverride`                            | Name for the PostgreSQL dependency                                       | `vui-postgresql`                  |
-| `postgresql.auth.username`                           | Name for a custom user to create                                         | `veritable-ui`                    |
-| `postgresql.auth.password`                           | Password for the custom user to create                                   | `""`                              |
-| `postgresql.auth.database`                           | Name for a custom database to create                                     | `veritable-ui`                    |
-| `postgresql.auth.existingSecret`                     | Name of existing secret to use for PostgreSQL credentials                | `""`                              |
-| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                  | `standalone`                      |
-| `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                               | `true`                            |
-| `postgresql.image.repository`                        | Repository to use for pulling postgres container images                  | `bitnamilegacy/postgresql`        |
-| `postgresql.volumePermissions.image.repository`      | Repository to use for pulling os-shell container images                  | `bitnamilegacy/os-shell`          |
-| `postgresql.metrics.image.repository`                | Repository to use for pulling postgres exporter container images         | `bitnamilegacy/postgres-exporter` |
-| `externalDatabase.host`                              | Database host                                                            | `""`                              |
-| `externalDatabase.port`                              | Database port number                                                     | `5432`                            |
-| `externalDatabase.user`                              | Non-root username for veritable-ui                                       | `veritable-ui`                    |
-| `externalDatabase.password`                          | Password for the non-root username for veritable-ui                      | `""`                              |
-| `externalDatabase.database`                          | veritable-ui database name                                               | `veritable-ui`                    |
-| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`                            |
-| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`                        |
-| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`                              |
-| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`                              |
-| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`                              |
-| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`                              |
+| Name                                                 | Description                                                              | Value          |
+| ---------------------------------------------------- | ------------------------------------------------------------------------ | -------------- |
+| `externalDatabase.host`                              | Database host                                                            | `""`           |
+| `externalDatabase.port`                              | Database port number                                                     | `5432`         |
+| `externalDatabase.user`                              | Non-root username for veritable-ui                                       | `veritable-ui` |
+| `externalDatabase.password`                          | Password for the non-root username for veritable-ui                      | `""`           |
+| `externalDatabase.database`                          | veritable-ui database name                                               | `veritable-ui` |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (when using an external db) | `true`         |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin username                                         | `postgres`     |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                         | `""`           |
+| `externalDatabase.existingSecret`                    | Name of an existing secret resource containing the database credentials  | `""`           |
+| `externalDatabase.existingSecretPasswordKey`         | Name of an existing secret key containing the non-root credentials       | `""`           |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Name of an existing secret key containing the admin credentials          | `""`           |
+
+### cloudnative-pg (CNPG) cluster
+
+| Name                                 | Description                                                                                             | Value        |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------- | ------------ |
+| `cnpg.enabled`                       | Enable the cloudnative-pg cluster                                                                       | `true`       |
+| `cnpg.mode`                          | Cluster mode of operation ("standalone", "replica", or "recovery")                                      | `standalone` |
+| `cnpg.type`                          | Type of backend ("postgresql" is recommended)                                                           | `postgresql` |
+| `cnpg.version.postgresql`            | Major PostgreSQL version to use                                                                         | `17`         |
+| `cnpg.cluster.imageName`             | Long-form PostgreSQL GHCR image ID                                                                      | `""`         |
+| `cnpg.cluster.initdb`                | Details of the database object being created                                                            | `{}`         |
+| `cnpg.cluster.initdb.secret.name`    | Secret name for the database owner (expects "username"/"password" keys within secret)                   |              |
+| `cnpg.cluster.instances`             | Number of database replicas                                                                             | `1`          |
+| `cnpg.cluster.storage.size`          | Instance storage capacity                                                                               | `5Gi`        |
+| `cnpg.cluster.storage.storageClass`  | Storage class                                                                                           | `""`         |
+| `cnpg.cluster.enableSuperuserAccess` | Permit superuser access                                                                                 | `true`       |
+| `cnpg.cluster.superuserSecret`       | Name of the superuser's secret (expects "pgpass"; uses a randomised password if enabled and left blank) |              |
 
 ### Veritable-Cloudagent section
 

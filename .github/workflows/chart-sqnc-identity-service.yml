@@ -85,7 +85,7 @@ jobs:
       - name: Install cloudnative-pg operator
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          helm install cnpg cnpg/cloudnative-pg --wait
+          helm install cnpg cnpg/cloudnative-pg --wait --namespace cnpg --create-namespace
 
       - name: Install sqnc-node manually
         if: steps.list-changed.outputs.changed == 'true'

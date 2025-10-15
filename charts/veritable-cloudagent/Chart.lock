@@ -1,9 +1,9 @@
 dependencies:
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 16.0.0
+- name: cluster
+  repository: https://cloudnative-pg.github.io/charts
+  version: 0.3.1
 - name: common
   repository: https://charts.bitnami.com/bitnami
   version: 2.24.0
-digest: sha256:28d29bb12645ea4843f40fa85b23c06096a192ad36ebc9cc91c1571bfeee59ef
-generated: "2024-10-03T10:17:41.385185615Z"
+digest: sha256:30ac344b98e3e4c0bcbbdc8b542ffbc2c6b9c56a10f3296ee0b53345a058aea2
+generated: "2025-10-13T09:13:45.220947+01:00"

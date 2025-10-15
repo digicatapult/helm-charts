@@ -5,10 +5,11 @@ apiVersion: v2
 # renovate: image=digicatapult/veritable-ui
 appVersion: v0.20.42
 dependencies:
-  - condition: postgresql.enabled
-    name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 16.6.3
+  - alias: cnpg
+    condition: cnpg.enabled
+    name: cluster
+    repository: https://cloudnative-pg.github.io/charts
+    version: 0.3.1
   - name: common
     repository: https://charts.bitnami.com/bitnami
     tags:
@@ -30,4 +31,4 @@ maintainers:
 name: veritable-ui
 sources:
   - https://github.com/digicatapult/veritable-ui
-version: 1.4.53
+version: 2.0.0

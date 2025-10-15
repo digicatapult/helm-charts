@@ -5,15 +5,16 @@ apiVersion: v2
 # renovate: image=digicatapult/veritable-cloudagent
 appVersion: v0.15.15
 dependencies:
-  - condition: postgresql.enabled
-    name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 16.x
+  - alias: cnpg
+    condition: cnpg.enabled
+    name: cluster
+    repository: https://cloudnative-pg.github.io/charts
+    version: 0.3.1
   - name: common
     repository: https://charts.bitnami.com/bitnami
     tags:
       - bitnami-common
-    version: 2.x.x
+    version: 2.24.0
 description: The veritable-cloudagent is a component of the veritable distributed identity system.
 home: https://github.com/digicatapult/veritable-documentation
 icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/main/assets/icon.png
@@ -26,4 +27,4 @@ maintainers:
 name: veritable-cloudagent
 sources:
   - https://github.com/digicatapult/veritable-cloudagent
-version: 2.4.59
+version: 3.0.0
