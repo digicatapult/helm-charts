@@ -11068,6 +11068,46 @@ entries:
       category: sqnc
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v4.2.113
+    created: "2025-11-01T20:08:42.758756376Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.31.3
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.1.16
+    description: The sqnc-identity-service is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 0e294268419af3902a9d6c7995b3d94b838f4d2f483fe04a8fea0925f114e6b4
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-identity-service
+    sources:
+    - https://github.com/digicatapult/sqnc-identity-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-identity-service-5.1.107/sqnc-identity-service-5.1.107.tgz
+    version: 5.1.107
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v4.2.112
     created: "2025-10-31T04:11:18.271825024Z"
     dependencies:
@@ -62404,4 +62444,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2025-10-31T05:10:10.436574892Z"
+generated: "2025-11-01T20:08:42.760636108Z"
