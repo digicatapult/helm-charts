@@ -1,12 +1,12 @@
 dependencies:
 - name: cluster
   repository: https://cloudnative-pg.github.io/charts
-  version: 0.4.0
+  version: 0.5.0
 - name: common
   repository: https://charts.bitnami.com/bitnami
   version: 2.31.4
 - name: veritable-cloudagent
   repository: https://digicatapult.github.io/helm-charts
   version: 2.4.59
-digest: sha256:0523c5fe3490bdcafe1780091edc3a7a1029444eb758e2e49483b6091a838bb4
-generated: "2025-12-04T21:11:41.795779971Z"
+digest: sha256:f84c0d684df504390c4cad4415326228e2f092d1e243be817c42f3971cdc714f
+generated: "2025-12-14T23:09:13.208629202Z"
