@@ -88,7 +88,7 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 | Name               | Description            | Value                    |
 | ------------------ | ---------------------- | ------------------------ |
 | `image.repository` | Node image name        | `digicatapult/sqnc-node` |
-| `image.tag`        | Node image tag         | `v13.0.0`                |
+| `image.tag`        | Node image tag         | `v14.0.0`                |
 | `image.pullPolicy` | Node image pull policy | `Always`                 |
 
 ### Init container parameters
