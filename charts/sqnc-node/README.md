@@ -93,15 +93,15 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 
 ### Init container parameters
 
-| Name                               | Description                                                                                           | Value              |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------ |
-| `initContainer.image.repository`   | The chain-snapshot init container image name                                                          | `crazymax/7zip`    |
-| `initContainer.image.tag`          | The chain-snapshot init container image tag                                                           | `latest`           |
-| `kubectl.image.repository`         | The Kubernetes CLI container image name                                                               | `bitnami/kubectl`  |
-| `kubectl.image.tag`                | The Kubernetes CLI container image tag                                                                | `latest`           |
-| `googleCloudSdk.image.repository`  | The sync-chain-gcs init container image name                                                          | `google/cloud-sdk` |
-| `googleCloudSdk.image.tag`         | The sync-chain-gcs init container image tag                                                           | `slim`             |
-| `googleCloudSdk.serviceAccountKey` | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret | `nil`              |
+| Name                               | Description                                                                                           | Value                   |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------- |
+| `initContainer.image.repository`   | The chain-snapshot init container image name                                                          | `crazymax/7zip`         |
+| `initContainer.image.tag`          | The chain-snapshot init container image tag                                                           | `latest`                |
+| `kubectl.image.repository`         | The Kubernetes CLI container image name                                                               | `bitnamilegacy/kubectl` |
+| `kubectl.image.tag`                | The Kubernetes CLI container image tag                                                                | `latest`                |
+| `googleCloudSdk.image.repository`  | The sync-chain-gcs init container image name                                                          | `google/cloud-sdk`      |
+| `googleCloudSdk.image.tag`         | The sync-chain-gcs init container image tag                                                           | `slim`                  |
+| `googleCloudSdk.serviceAccountKey` | Service account key (JSON) to inject into the Sync-chain-gcs init container using a Kubernetes secret | `nil`                   |
 
 ### Other parameters
 
@@ -145,12 +145,12 @@ helm install kusama-node parity/node --set node.chainDataSnapshotUrl=https://ksm
 
 ### Test parameters
 
-| Name                                 | Description                                                                                 | Value              |
-| ------------------------------------ | ------------------------------------------------------------------------------------------- | ------------------ |
-| `tests.backoffLimit`                 | A limit on retry attempts                                                                   | `4`                |
-| `tests.osShell.image.repository`     | The utility init container image name                                                       | `bitnami/os-shell` |
-| `tests.osShell.image.tag`            | The utility init container image tag                                                        | `latest`           |
-| `tests.blockAuthor.enabled`          | A toggle to enable or disable the container that checks the validator is authoring blocks   | `true`             |
-| `tests.blockAuthor.pollSeconds`      | The delay in seconds between polls of the current block synchronisation state               | `5`                |
-| `tests.blockAuthor.timeoutSeconds`   | The timeout in seconds to allow the validator to author a finalised block                   | `300`              |
-| `tests.nodeConnection.minPeerCounts` | The minimum number of peers needed for production chains; dev and local chains require none | `2`                |
+| Name                                 | Description                                                                                 | Value                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- | ------------------------ |
+| `tests.backoffLimit`                 | A limit on retry attempts                                                                   | `4`                      |
+| `tests.osShell.image.repository`     | The utility init container image name                                                       | `bitnamilegacy/os-shell` |
+| `tests.osShell.image.tag`            | The utility init container image tag                                                        | `latest`                 |
+| `tests.blockAuthor.enabled`          | A toggle to enable or disable the container that checks the validator is authoring blocks   | `true`                   |
+| `tests.blockAuthor.pollSeconds`      | The delay in seconds between polls of the current block synchronisation state               | `5`                      |
+| `tests.blockAuthor.timeoutSeconds`   | The timeout in seconds to allow the validator to author a finalised block                   | `300`                    |
+| `tests.nodeConnection.minPeerCounts` | The minimum number of peers needed for production chains; dev and local chains require none | `2`                      |
