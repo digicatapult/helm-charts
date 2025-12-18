@@ -74,7 +74,7 @@ jobs:
             --version 15.1.0 \
             --set auth.username="identity_service" \
             --set auth.password="test-password" \
-            --set auth.postgresPassword=test-password \
+            --set auth.postgresPassword="test-password" \
             --set auth.database="user" \
             --set architecture="standalone" \
             --set global.security.allowInsecureImages=true \
