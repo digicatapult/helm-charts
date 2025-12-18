@@ -41,11 +41,6 @@ module.exports = (config = {}) => {
     ],
     packageRules: [
       {
-        matchManagers: ["helmv3"],
-        matchDepNames: ["sqnc-node"],
-        allowedVersions: "<13",
-      },
-      {
         matchManagers: ["helm-values", "regex", "helmv3"],
         groupName: null,
         labels: ["dependencies", "helm"],
