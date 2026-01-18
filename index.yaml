@@ -23735,6 +23735,64 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v6.2.76
+    created: "2026-01-18T23:10:21.155971418Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.31.3
+    - condition: keycloak.enabled
+      name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 24.9.0
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.1.16
+    - alias: identity
+      condition: identity.enabled
+      name: sqnc-identity-service
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-identity-service
+      version: 5.1.135
+    - alias: attachment
+      condition: attachment.enabled
+      name: sqnc-attachment-api
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-attachment-api
+      version: 3.2.1
+    description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 7b128e23eebc0b8681956c7d472b8f1a6b73916d726238d741cb7b77c6758bf4
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: sqnc-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/sqnc-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-4.1.77/sqnc-matchmaker-api-4.1.77.tgz
+    version: 4.1.77
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v6.2.76
     created: "2026-01-18T20:10:12.96006158Z"
     dependencies:
     - condition: postgresql.enabled
@@ -68528,4 +68586,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2026-01-18T22:09:16.032219213Z"
+generated: "2026-01-18T23:10:21.158079227Z"
