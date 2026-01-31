@@ -7,6 +7,6 @@ dependencies:
   version: 2.31.4
 - name: veritable-cloudagent
   repository: https://digicatapult.github.io/helm-charts
-  version: 2.4.59
-digest: sha256:f84c0d684df504390c4cad4415326228e2f092d1e243be817c42f3971cdc714f
-generated: "2025-12-14T23:09:13.208629202Z"
+  version: 3.0.41
+digest: sha256:752ac5a932a218a238231217ef5b424bc273ea1236b345d1feca852db8ad47bc
+generated: "2026-01-31T18:44:44.116907903Z"
