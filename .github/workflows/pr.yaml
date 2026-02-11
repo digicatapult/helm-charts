@@ -20,6 +20,8 @@ concurrency:
 env:
   CHART_LIST: ""
   # space separated list of charts that we want to use a pullSecret for
+  CHART_EXCLUSIONS: "sqnc-identity-service"
+  # comma-separated list of charts to exclude from the workflow; paths-ignore will only skip if ALL paths in the PR are matching
 
 jobs:
   helm-testing:
@@ -53,7 +55,7 @@ jobs:
     - name: Run chart-testing (list-changed)
       id: list-changed
       run: |
-        changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }} --excluded-charts sqnc-identity-service)
+        changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }} --excluded-charts "$CHART_EXCLUSIONS")
         if [[ -n "$changed" ]]; then
           echo "changed=true" >> $GITHUB_OUTPUT
 
@@ -81,7 +83,7 @@ jobs:
     - name: Run chart-testing (lint)
       run: |
         ct lint \
-          --target-branch ${{ github.event.repository.default_branch }}
+          --target-branch ${{ github.event.repository.default_branch }} --excluded-charts "$CHART_EXCLUSIONS"
       if: steps.list-changed.outputs.changed == 'true'
 
     - name: Create kind cluster
@@ -106,7 +108,7 @@ jobs:
     - name: Run chart-testing (install)
       run: |
         ct install \
-        --target-branch ${{ github.event.repository.default_branch }} --namespace default
+        --target-branch ${{ github.event.repository.default_branch }} --namespace default --excluded-charts "$CHART_EXCLUSIONS"
       if: |
         steps.list-changed.outputs.changed_named_charts == 'true' &&
         steps.list-changed.outputs.changed == 'true'
@@ -114,7 +116,7 @@ jobs:
     - name: Run chart-testing (install)
       run: |
         ct install \
-        --target-branch ${{ github.event.repository.default_branch }}
+        --target-branch ${{ github.event.repository.default_branch }} --excluded-charts "$CHART_EXCLUSIONS"
       if: |
         steps.list-changed.outputs.changed_named_charts == 'false' &&
         steps.list-changed.outputs.changed == 'true'
