@@ -17,6 +17,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CHART_EXCLUSIONS: "sqnc-attachment-api,sqnc-matchmaker-api,sqnc-node"
+  # comma-separated list of charts to exclude from the workflow
+
 jobs:
   helm-testing-identity-service:
     runs-on: ubuntu-latest
@@ -50,7 +54,7 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch || 'main' }})
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch || 'main' }} --excluded-charts "$CHART_EXCLUSIONS")
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
@@ -60,7 +64,8 @@ jobs:
       - name: Run chart-testing (lint)
         run: |
           ct lint \
-            --target-branch ${{ github.event.repository.default_branch }}
+            --target-branch ${{ github.event.repository.default_branch }} \
+            --excluded-charts "$CHART_EXCLUSIONS"
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Create kind cluster
@@ -104,5 +109,6 @@ jobs:
         run: |
           ct install \
               --target-branch ${{ github.event.repository.default_branch }} \
-              --upgrade
+              --upgrade \
+              --excluded-charts "$CHART_EXCLUSIONS"
         if: steps.list-changed.outputs.changed == 'true'
