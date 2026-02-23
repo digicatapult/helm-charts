@@ -1,3 +1,4 @@
+fullnameOverride: veritable-cloudagent
 isNginxIngressController: true
 cnpg:
   cluster:

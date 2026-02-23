@@ -1,3 +1,4 @@
+fullnameOverride: veritable-ui
 invitationPin:
   secret: blah
 cloudagent:
