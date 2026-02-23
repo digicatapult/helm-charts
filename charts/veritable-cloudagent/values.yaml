@@ -1083,6 +1083,8 @@ cnpg:
     initdb:
       database: veritable-cloudagent
       owner: postgres
+      secret:
+        name: veritable-cloudagent-cnpg-superuser
     instances: 1
     storage:
       size: 5Gi

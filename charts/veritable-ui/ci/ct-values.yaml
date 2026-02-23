@@ -3,6 +3,12 @@ invitationPin:
 cloudagent:
   enabled: true
   logLevel: debug
+  cnpg:
+    fullnameOverride: veritable-ui-cloudagent-cnpg
+    cluster:
+      initdb:
+        secret:
+          name: veritable-ui-cloudagent-cnpg-superuser
 emailTransport: SMTP_EMAIL
 smtpCredentials:
   enabled: true

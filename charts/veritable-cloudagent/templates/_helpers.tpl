@@ -132,7 +132,7 @@ Return the CNPG secret name
 {{- define "veritable-cloudagent.databaseSecretName" -}}
 {{- if .Values.cnpg.enabled -}}
   {{- $secret := .Values.cnpg.cluster.initdb.secret | default dict }}
-  {{- $secretName := $secret.name | default (printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") }}
+  {{- $secretName := $secret.name | default (printf "%s-cnpg-superuser" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") }}
   {{- $secretName -}}
 {{- else -}}
     {{- default (printf "%s-externaldb" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}

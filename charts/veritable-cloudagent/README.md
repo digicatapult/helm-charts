@@ -364,13 +364,13 @@ Digital Catapult will release a new chart updating its containers if a new versi
 
 ### Ingress
 
-This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress-controller](https://github.com/bitnami/charts/tree/main/bitnami/nginx-ingress-controller) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
+This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [ingress-nginx](https://github.com/kubernetes/ingress-nginx/tree/main/charts/ingress-nginx) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
 
-To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hostname` property can be used to set the host name. The `ingress.tls` parameter can be used to add the TLS configuration for this host. It is also possible to have more than one host, with a separate TLS configuration for each host. [Learn more about configuring and using Ingress](https://docs.bitnami.com/kubernetes/apps/veritable-cloudagent/configuration/configure-use-ingress/).
+To enable Ingress integration, set `ingress.enabled` to `true`. The `ingress.hostname` property can be used to set the host name. The `ingress.tls` parameter can be used to add the TLS configuration for this host. It is also possible to have more than one host, with a separate TLS configuration for each host. [Learn more about configuring and using Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/).
 
 ### TLS secrets
 
-The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://docs.bitnami.com/kubernetes/apps/veritable-cloudagent/administration/enable-tls/).
+The chart also facilitates the creation of TLS secrets for use with the Ingress controller, with different options for certificate management. [Learn more about TLS secrets](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls).
 
 ### Additional environment variables
 
@@ -386,7 +386,7 @@ Alternatively, you can use a ConfigMap or a Secret with the environment variable
 
 ### Sidecars
 
-If additional containers are needed in the same pod as veritable-cloudagent (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://docs.bitnami.com/kubernetes/apps/veritable-cloudagent/administration/configure-use-sidecars/).
+If additional containers are needed in the same pod as veritable-ui (such as additional metrics or logging exporters), they can be defined using the `sidecars` parameter. If these sidecars export extra ports, extra port definitions can be added using the `service.extraPorts` parameter. [Learn more about configuring and using sidecar containers](https://cloudnative-pg.io/docs/1.26/cnpg_i#sidecar-container).
 
 ### Pod affinity
 
@@ -396,7 +396,7 @@ As an alternative, use one of the preset configurations for pod affinity, pod an
 
 ## Troubleshooting
 
-Find more information about how to deal with common errors related to Bitnami's Helm charts in [this troubleshooting guide](https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues).
+Find more information about how to deal with common errors related to CloudNativePG's Helm charts in [this troubleshooting guide](https://cloudnative-pg.io/docs/1.26/troubleshooting/).
 
 ## License
 
@@ -406,7 +406,7 @@ Copyright &copy; 2023 Digital Catapult
 
 ### Attribution
 
-This chart is adapted from The [charts](<(https://github.com/bitnami/charts)>) provided by [Bitnami](https://bitnami.com/) which are licensed under the Apache v2.0 License which is reproduced here:
+This chart is adapted from The [charts](<(https://github.com/cloudnative-pg/charts)>) provided by [CloudNativePG](https://cloudnative-pg.io/) which are licensed under the Apache v2.0 License which is reproduced here:
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");

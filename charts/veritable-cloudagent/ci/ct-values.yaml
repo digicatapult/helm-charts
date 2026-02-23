@@ -1,1 +1,6 @@
 isNginxIngressController: true
+cnpg:
+  cluster:
+    initdb:
+      secret:
+        name: veritable-cloudagent-cnpg-superuser
