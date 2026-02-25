@@ -760,7 +760,7 @@ externalDatabase:
       # database: example
       # owner: example-owner
       # secret:
-        # name: example-cnpg-app
+        # name: example-cnpg-superuser
       # options: []
       # encoding: UTF8
       # postInitSQL:
@@ -783,6 +783,8 @@ cnpg:
     initdb:
       database: veritable-ui
       owner: postgres
+      secret:
+        name: veritable-ui-cnpg-superuser
     instances: 1
     storage:
       size: 5Gi
@@ -791,13 +793,8 @@ cnpg:
 
 ## @section Veritable-Cloudagent section
 ##
-## @param cloudagent.enabled Enable veritable-cloudagent
-## @param cloudagent.postgresql.nameOverride Name for the veritable-cloudagent PostgreSQL dependency
-##
 cloudagent:
   enabled: false
-  postgresql:
-    nameOverride: vca-postgresql
 
 ## @section External vertiable-cloudagent section
 ##

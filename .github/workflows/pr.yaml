@@ -22,6 +22,8 @@ env:
   # space separated list of charts that we want to use a pullSecret for
   CHART_EXCLUSIONS: "sqnc-identity-service"
   # comma-separated list of charts to exclude from the workflow; paths-ignore will only skip if ALL paths in the PR are matching
+  CHART_CONSUMERS: "veritable-ui"
+  # comma-separated list of charts to be considered as downstream consumers and have additional dependencies installed first
 
 jobs:
   helm-testing:
@@ -104,6 +106,13 @@ jobs:
       run: |
         helm install cnpg cnpg/cloudnative-pg --wait --namespace cnpg --create-namespace
       if: steps.list-changed.outputs.changed == 'true'
+
+    - name: Install upstream DC charts for consumers
+      run: |
+        helm install veritable-cloudagent digicatapult/veritable-cloudagent --wait --namespace default
+      if: |
+        steps.list-changed.outputs.changed == 'true' &&
+        contains('veritable-ui', env.CHART_CONSUMERS)
 
     - name: Run chart-testing (install)
       run: |

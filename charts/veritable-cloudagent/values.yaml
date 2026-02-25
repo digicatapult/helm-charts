@@ -1060,7 +1060,7 @@ externalDatabase:
       # database: example
       # owner: example-owner
       # secret:
-        # name: example-cnpg-app
+        # name: example-cnpg-superuser
       # options: []
       # encoding: UTF8
       # postInitSQL:
@@ -1083,6 +1083,8 @@ cnpg:
     initdb:
       database: veritable-cloudagent
       owner: postgres
+      secret:
+        name: veritable-cloudagent-cnpg-superuser
     instances: 1
     storage:
       size: 5Gi

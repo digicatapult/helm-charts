@@ -1,8 +1,11 @@
+fullnameOverride: veritable-ui
 invitationPin:
   secret: blah
 cloudagent:
-  enabled: true
-  logLevel: debug
+  enabled: false
+externalCloudagent:
+  host: "veritable-cloudagent-admin.default.svc.cluster.local"
+  port: "3000"
 emailTransport: SMTP_EMAIL
 smtpCredentials:
   enabled: true
