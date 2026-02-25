@@ -105,6 +105,13 @@ jobs:
         helm install cnpg cnpg/cloudnative-pg --wait --namespace cnpg --create-namespace
       if: steps.list-changed.outputs.changed == 'true'
 
+    - name: Install Veritable's UI dependencies
+      run: |
+        helm install veritable-cloudagent digicatapult/veritable-cloudagent --wait --namespace default
+      if: |
+        steps.list-changed.outputs.changed == 'true' &&
+        contains('veritable-ui', github.ref)
+
     - name: Run chart-testing (install)
       run: |
         ct install \

@@ -2,14 +2,10 @@ fullnameOverride: veritable-ui
 invitationPin:
   secret: blah
 cloudagent:
-  enabled: true
-  logLevel: debug
-  cnpg:
-    fullnameOverride: veritable-ui-cloudagent-cnpg
-    cluster:
-      initdb:
-        secret:
-          name: veritable-ui-cloudagent-cnpg-superuser
+  enabled: false
+externalCloudagent:
+  host: "veritable-cloudagent-admin.default.svc.cluster.local"
+  port: "3000"
 emailTransport: SMTP_EMAIL
 smtpCredentials:
   enabled: true
