@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 # renovate: image=digicatapult/veritable-ui
-appVersion: v0.21.49
+appVersion: v0.21.50
 dependencies:
   - alias: cnpg
     condition: cnpg.enabled
