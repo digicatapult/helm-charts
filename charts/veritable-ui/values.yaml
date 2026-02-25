@@ -760,7 +760,7 @@ externalDatabase:
       # database: example
       # owner: example-owner
       # secret:
-        # name: example-cnpg-app
+        # name: example-cnpg-superuser
       # options: []
       # encoding: UTF8
       # postInitSQL:
