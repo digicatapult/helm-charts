@@ -23,7 +23,7 @@ jobs:
         uses: azure/setup-helm@v5.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          version: "v3.19.2"
+          version: "v3.21.0"
 
       - name: Install additional Helm repos
         run: |
