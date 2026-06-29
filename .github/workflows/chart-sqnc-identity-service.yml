@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Helm
-        uses: azure/setup-helm@v5.0.0
+        uses: azure/setup-helm@v5.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: "v3.21.1"
