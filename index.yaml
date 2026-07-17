@@ -9660,6 +9660,69 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v3.3.101
+    created: "2026-07-17T11:39:48.301335627Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.6.3
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - condition: keycloak.enabled
+      name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 24.x
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    - alias: identity
+      condition: identity.enabled
+      name: sqnc-identity-service
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-identity-service
+      version: 5.x
+    - alias: ipfs
+      condition: ipfs.enabled
+      name: sqnc-ipfs
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-ipfs
+      version: 4.x.x
+    - condition: minio.enabled
+      name: minio
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.x
+    - condition: azurite.enabled
+      name: azurite
+      repository: https://viters.github.io/azurite-helm-chart/
+      version: 2.x
+    deprecated: true
+    description: The sqnc-attachment-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: bb59e16bd6ea897457aa66ba1416ceac008fd4d5bb49bad301bcc2258748f7fb
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    name: sqnc-attachment-api
+    sources:
+    - https://github.com/digicatapult/sqnc-attachment-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-attachment-api-3.2.29/sqnc-attachment-api-3.2.29.tgz
+    version: 3.2.29
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v3.3.101
     created: "2026-07-07T19:38:25.599173359Z"
     dependencies:
     - condition: postgresql.enabled
@@ -14970,6 +15033,43 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-attachment-api-1.0.0/sqnc-attachment-api-1.0.0.tgz
     version: 1.0.0
   sqnc-identity-service:
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v4.2.180
+    created: "2026-07-17T11:39:48.47526687Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.31.3
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.2.1
+    deprecated: true
+    description: The sqnc-identity-service is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: 25934242c10d84831dca288d677a772a93fb6d802d5fc5a30058b3142d9d02fd
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    name: sqnc-identity-service
+    sources:
+    - https://github.com/digicatapult/sqnc-identity-service
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-identity-service-5.1.174/sqnc-identity-service-5.1.174.tgz
+    version: 5.1.174
   - annotations:
       category: sqnc
       licenses: Apache-2.0
@@ -25776,6 +25876,39 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v3.0.110
+    created: "2026-07-17T11:39:48.601884706Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: sqncNode
+      condition: sqncNode.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.x.x
+    deprecated: true
+    description: sqnc-ipfs is a component of the SQNC project that provides a distributed
+      IPFS based storage solution for the SQNC platform.
+    digest: a8ca7f0f089c3a77ddbcb50591ea031a9e7577ba51f285f9d1d4a33a734537ee
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    name: sqnc-ipfs
+    sources:
+    - https://github.com/digicatapult/sqnc-ipfs
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-ipfs-4.1.40/sqnc-ipfs-4.1.40.tgz
+    version: 4.1.40
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v3.0.110
     created: "2026-07-14T05:07:24.679022784Z"
     dependencies:
     - name: common
@@ -29372,6 +29505,61 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-ipfs-4.0.0/sqnc-ipfs-4.0.0.tgz
     version: 4.0.0
   sqnc-matchmaker-api:
+  - annotations:
+      category: sqnc
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v6.2.138
+    created: "2026-07-17T11:39:48.822074937Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.31.3
+    - condition: keycloak.enabled
+      name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 24.9.0
+    - alias: node
+      condition: node.enabled
+      name: sqnc-node
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-node
+      version: 7.2.1
+    - alias: identity
+      condition: identity.enabled
+      name: sqnc-identity-service
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-identity-service
+      version: 5.1.173
+    - alias: attachment
+      condition: attachment.enabled
+      name: sqnc-attachment-api
+      repository: https://digicatapult.github.io/helm-charts/
+      tags:
+      - sqnc-attachment-api
+      version: 3.2.28
+    deprecated: true
+    description: The sqnc-matchmaker-api is a component of the Sequence (SQNC) ledger-based
+      system.
+    digest: b10c3bddc8d7315f98ab9d99f7ec76d71f3c0268e0887bc105e49c00fe043f61
+    home: https://github.com/digicatapult/sqnc-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
+    keywords:
+    - SQNC
+    name: sqnc-matchmaker-api
+    sources:
+    - https://github.com/digicatapult/sqnc-matchmaker-api
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-4.1.200/sqnc-matchmaker-api-4.1.200.tgz
+    version: 4.1.200
   - annotations:
       category: sqnc
       licenses: Apache-2.0
@@ -57335,6 +57523,17 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/sqnc-matchmaker-api-1.0.0/sqnc-matchmaker-api-1.0.0.tgz
     version: 1.0.0
   sqnc-node:
+  - apiVersion: v2
+    appVersion: 14.0.0
+    created: "2026-07-17T11:39:48.952955797Z"
+    deprecated: true
+    description: A Helm chart to deploy SQNC nodes
+    digest: 9910911b06b13e7b3066f1a0a3af1e74c51914ccf2ab375aa748d87231fc98c6
+    name: sqnc-node
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/sqnc-node-7.2.2/sqnc-node-7.2.2.tgz
+    version: 7.2.2
   - apiVersion: v2
     appVersion: 14.0.0
     created: "2025-12-18T12:15:21.217046753Z"
@@ -86259,4 +86458,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2026-07-16T20:24:31.284591193Z"
+generated: "2026-07-17T11:39:48.956168923Z"
