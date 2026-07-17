@@ -25,9 +25,5 @@ home: https://github.com/digicatapult/sqnc-documentation
 icon: https://raw.githubusercontent.com/digicatapult/sqnc-documentation/main/assets/icon.png
 keywords:
   - SQNC
-maintainers:
-  - name: digicatapult  # Digital Catapult
-    url: https://github.com/digicatapult/helm-charts
-    email: opensource@digicatapult.org.uk
 sources:
   - https://github.com/digicatapult/sqnc-ipfs
