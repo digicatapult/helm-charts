@@ -2,6 +2,7 @@ annotations:
   category: sqnc
   licenses: Apache-2.0
 apiVersion: v2
+deprecated: true
 # renovate: image=digicatapult/sqnc-matchmaker-api
 appVersion: v6.2.138
 dependencies:
@@ -51,4 +52,4 @@ maintainers:
 name: sqnc-matchmaker-api
 sources:
   - https://github.com/digicatapult/sqnc-matchmaker-api
-version: 4.1.199
+version: 4.1.200

@@ -1,4 +1,5 @@
 apiVersion: v2
+deprecated: true
 name: sqnc-node
 maintainers:
   - name: digicatapult
@@ -6,6 +7,6 @@ maintainers:
     url: www.digicatapult.org.uk
 description: A Helm chart to deploy SQNC nodes
 type: application
-version: 7.2.1
+version: 7.2.2
 # renovate: image=digicatapult/sqnc-node
 appVersion: "14.0.0"

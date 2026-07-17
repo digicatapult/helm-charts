@@ -2,11 +2,12 @@ annotations:
   category: sqnc
   licenses: Apache-2.0
 apiVersion: v2
+deprecated: true
 name: sqnc-ipfs
 description: sqnc-ipfs is a component of the SQNC project that provides a distributed IPFS based storage solution for the SQNC platform.
 # renovate: image=digicatapult/sqnc-ipfs
 appVersion: v3.0.110
-version: 4.1.39
+version: 4.1.40
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
