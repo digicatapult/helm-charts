@@ -41,6 +41,18 @@ module.exports = (config = {}) => {
     ],
     packageRules: [
       {
+        description:
+          "Disable all updates for deprecated SQNC charts (ENG-318). Source repositories are archived; these charts are frozen.",
+        matchFileNames: [
+          "charts/sqnc-attachment-api/**",
+          "charts/sqnc-identity-service/**",
+          "charts/sqnc-ipfs/**",
+          "charts/sqnc-matchmaker-api/**",
+          "charts/sqnc-node/**",
+        ],
+        enabled: false,
+      },
+      {
         matchManagers: ["helm-values", "regex", "helmv3"],
         groupName: null,
         labels: ["dependencies", "helm"],
