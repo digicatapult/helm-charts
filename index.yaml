@@ -57890,6 +57890,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v0.20.23
+    created: "2026-07-20T21:31:22.925735562Z"
+    dependencies:
+    - alias: cnpg
+      condition: cnpg.enabled
+      name: cluster
+      repository: https://cloudnative-pg.github.io/charts
+      version: 0.8.1
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.24.0
+    description: The veritable-cloudagent is a component of the veritable distributed
+      identity system.
+    digest: ec7fb015ed2461a88d1ff84a4fd7847505a7a26b532c913332f442c1c737fcc1
+    home: https://github.com/digicatapult/veritable-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/main/assets/icon.png
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-cloudagent
+    sources:
+    - https://github.com/digicatapult/veritable-cloudagent
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-3.0.111/veritable-cloudagent-3.0.111.tgz
+    version: 3.0.111
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.20.23
     created: "2026-07-17T23:22:30.825266406Z"
     dependencies:
     - alias: cnpg
@@ -67369,6 +67403,43 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-1.0.0/veritable-cloudagent-1.0.0.tgz
     version: 1.0.0
   veritable-ui:
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.21.99
+    created: "2026-07-20T21:31:23.180279707Z"
+    dependencies:
+    - alias: cnpg
+      condition: cnpg.enabled
+      name: cluster
+      repository: https://cloudnative-pg.github.io/charts
+      version: 0.8.1
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: cloudagent
+      condition: cloudagent.enabled
+      name: veritable-cloudagent
+      repository: https://digicatapult.github.io/helm-charts
+      version: 2.4.59
+    description: The veritable user interface for managing connections
+    digest: 97f2b754df711a0dc38eccc5086a775c04b747fc0b15b523bb59e09a905f912c
+    home: https://github.com/digicatapult/veritable-ui
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-ui
+    sources:
+    - https://github.com/digicatapult/veritable-ui
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-ui-2.0.98/veritable-ui-2.0.98.tgz
+    version: 2.0.98
   - annotations:
       category: veritable
       licenses: Apache-2.0
@@ -86492,4 +86563,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2026-07-17T23:22:30.827492287Z"
+generated: "2026-07-20T21:31:23.185425586Z"
