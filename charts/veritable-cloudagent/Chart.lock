@@ -1,9 +1,9 @@
 dependencies:
 - name: cluster
   repository: https://cloudnative-pg.github.io/charts
-  version: 0.8.0
+  version: 0.8.1
 - name: common
   repository: https://charts.bitnami.com/bitnami
   version: 2.24.0
-digest: sha256:b01d99c86580e2b6a4597239a741fc6d1e2dee61c6430b22a2d070b916a1a28d
-generated: "2026-07-13T22:24:54.375073524Z"
+digest: sha256:bf740a33d61de4a58cc703fa14b63916ef08c6a3ecdfc241470ce5b795d7a3ab
+generated: "2026-07-20T20:35:23.845009822Z"
