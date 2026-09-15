@@ -1,1 +1,5 @@
 isNginxIngressController: true
+
+# ct can generate long release names that exceed CNPG's 50-char limit
+cnpg:
+  fullnameOverride: veritable-cloudagent-cnpg
