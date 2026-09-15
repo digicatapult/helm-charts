@@ -271,7 +271,7 @@ ipfs:
 image:
   registry: docker.io
   repository: digicatapult/veritable-cloudagent
-  tag: v0.20.42
+  tag: v0.20.38
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -1028,7 +1028,7 @@ externalDatabase:
   port: 5432
   user: veritable-cloudagent
   password: ""
-  database: wallet-id
+  database: walletId
   create: true
   postgresqlPostgresUser: "postgres"
   postgresqlPostgresPassword: ""
@@ -1055,6 +1055,9 @@ externalDatabase:
 ##
 ## @param cnpg.cluster.imageName Long-form PostgreSQL GHCR image ID
 ## @param cnpg.cluster.initdb [object] Details of the database object being created
+## @param cnpg.cluster.initdb.database [string] PostgreSQL database name
+## @param cnpg.cluster.initdb.owner [string] Postgres role that owns the database. Must be kept in sync with the role name granted CREATEDB
+## @param cnpg.cluster.initdb.postInitSQL [array] SQL executed as the CNPG superuser against the "postgres" database immediately after the initdb.owner role is created (and before initdb.database itself is created). Defaults to granting CREATEDB to initdb.owner, so Askar can self-provision its own separate WALLET_ID-named database and schema on first connect (see WALLET_ID docs) instead of requiring that database to be pre-created or the app to run as the actual Postgres superuser
 ## @extra cnpg.cluster.initdb.secret.name Name of a pre-existing secret for the database owner (expects "username"/"password" keys within secret) to wire into the CNPG cluster in lieu of an auto-generated one. Leave unset to let CNPG auto-generate its own
 ## e.g.
     # initdb:
@@ -1084,7 +1087,9 @@ cnpg:
     imageName: ""
     initdb:
       database: veritable-cloudagent
-      owner: postgres
+      owner: veritable-cloudagent
+      postInitSQL:
+        - 'ALTER ROLE "veritable-cloudagent" CREATEDB;'
     instances: 1
     storage:
       size: 5Gi
