@@ -219,10 +219,20 @@ Return the CNPG secret name
 {{- define "veritable-ui.databaseSecretName" -}}
 {{- if .Values.cnpg.enabled -}}
   {{- $secret := .Values.cnpg.cluster.initdb.secret | default dict }}
-  {{- $secretName := $secret.name | default (printf "%s-cnpg-app" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") }}
+  {{- $secretName := $secret.name | default (printf "%s-app" (include "veritable-ui.cnpg.fullname" $) | trunc 63 | trimSuffix "-") }}
   {{- $secretName -}}
 {{- else -}}
     {{- default (printf "%s-externaldb" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") (tpl .Values.externalDatabase.existingSecret $) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the CNPG superuser secret name
+*/}}
+{{- define "veritable-ui.databaseSuperuserSecretName" -}}
+{{- if .Values.cnpg.enabled -}}
+  {{- $secretName := .Values.cnpg.cluster.superuserSecret | default (printf "%s-superuser" (include "veritable-ui.cnpg.fullname" $) | trunc 63 | trimSuffix "-") }}
+  {{- $secretName -}}
 {{- end -}}
 {{- end -}}
 

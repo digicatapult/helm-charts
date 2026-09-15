@@ -745,6 +745,7 @@ externalDatabase:
 ## https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/values.yaml
 ##
 ## @param cnpg.enabled Enable the cloudnative-pg cluster
+## @param cnpg.nameOverride Unique name to prevent clobbering other CNPG clusters
 ## @param cnpg.mode Cluster mode of operation ("standalone", "replica", or "recovery")
 ## @param cnpg.type Type of backend ("postgresql" is recommended)
 ## @param cnpg.version.postgresql Major PostgreSQL version to use
@@ -754,7 +755,7 @@ externalDatabase:
 ##
 ## @param cnpg.cluster.imageName Long-form PostgreSQL GHCR image ID
 ## @param cnpg.cluster.initdb [object] Details of the database object being created
-## @extra cnpg.cluster.initdb.secret.name Secret name for the database owner (expects "username"/"password" keys within secret)
+## @extra cnpg.cluster.initdb.secret.name Name of a pre-existing secret for the database owner (expects "username"/"password" keys within secret) to wire into the CNPG cluster in lieu of an auto-generated one. Leave unset to let CNPG auto-generate its own (default); set explicitly (matching cnpgSecrets.app.create's chart-managed secret, or your own externally-managed secret) to have CNPG adopt it instead
 ## e.g.
     # initdb:
       # database: example
@@ -771,9 +772,10 @@ externalDatabase:
 ## @param cnpg.cluster.storage.size Instance storage capacity
 ## @param cnpg.cluster.storage.storageClass Storage class
 ## @param cnpg.cluster.enableSuperuserAccess Permit superuser access
-## @extra cnpg.cluster.superuserSecret Name of the superuser's secret (expects "pgpass"; uses a randomised password if enabled and left blank)
+## @extra cnpg.cluster.superuserSecret Name of a pre-existing superuser secret (expects "username"/"password"/"pgpass" keys) to wire into the CNPG cluster in lieu of an auto-generated one. Leave unset to let CNPG auto-generate its own
 cnpg:
   enabled: true
+  nameOverride: veritable-ui-cnpg
   type: postgresql
   version:
     postgresql: "17"
@@ -789,15 +791,23 @@ cnpg:
       storageClass: ""
     enableSuperuserAccess: true
 
+## @param cnpgSecrets.app.create Create a chart-managed CNPG app-user secret (named per cnpg.cluster.initdb.secret.name, or a cnpg.nameOverride-derived default); set cnpg.cluster.initdb.secret.name to have CNPG use it instead of auto-generating its own
+## @param cnpgSecrets.superuser.create Create a chart-managed CNPG superuser secret (named per cnpg.cluster.superuserSecret, or a cnpg.nameOverride-derived default); set cnpg.cluster.superuserSecret to have CNPG use it instead of auto-generating its own
+cnpgSecrets:
+  app:
+    create: false
+  superuser:
+    create: false
+
 ## @section Veritable-Cloudagent section
 ##
 ## @param cloudagent.enabled Enable veritable-cloudagent
-## @param cloudagent.postgresql.nameOverride Name for the veritable-cloudagent PostgreSQL dependency
+## @param cloudagent.cnpg.nameOverride Name for the veritable-cloudagent CNPG cluster dependency
 ##
 cloudagent:
   enabled: false
-  postgresql:
-    nameOverride: vca-postgresql
+  cnpg:
+    nameOverride: veritable-cloudagent-cnpg
 
 ## @section External vertiable-cloudagent section
 ##
