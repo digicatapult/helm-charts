@@ -3,8 +3,13 @@ invitationPin:
 cloudagent:
   enabled: true
   logLevel: debug
+  # ct can generate long release names that exceed CNPG's 50-char limit
+  cnpg:
+    fullnameOverride: veritable-cloudagent-cnpg
 emailTransport: SMTP_EMAIL
 smtpCredentials:
   enabled: true
   userSecret: smtp-user
   passwordSecret: smtp-password
+cnpg:
+  fullnameOverride: veritable-ui-cnpg
