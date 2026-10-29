@@ -119,7 +119,7 @@ postgresql:
   architecture: standalone
   image:
     repository: bitnamilegacy/postgresql
-    tag: 17.4.0-debian-12-r15
+    tag: 17.5.0-debian-12-r15
     digest: "sha256:b03f623716969693bf2f5ecf6578df3498024b38da2d8eb0565570fbec537dfc"
   volumePermissions:
     image:
