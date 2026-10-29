@@ -3,6 +3,31 @@ entries:
   bridgeai-prediction-service:
   - apiVersion: v2
     appVersion: 0.3.5
+    created: "2026-10-29T12:46:21.328815241Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.6.3
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.31.3
+    description: A Helm chart for Kubernetes
+    digest: bb473ea3834bdfd843d438552180f509871c5de448e9d39eec6ded88ef3daa91
+    icon: https://avatars.githubusercontent.com/u/12200704?s=200&v=4
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: bridgeai-prediction-service
+    type: application
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/bridgeai-prediction-service-0.2.62/bridgeai-prediction-service-0.2.62.tgz
+    version: 0.2.62
+  - apiVersion: v2
+    appVersion: 0.3.5
     created: "2025-08-27T12:27:15.275157492Z"
     dependencies:
     - condition: postgresql.enabled
@@ -2778,6 +2803,42 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/inteli-api-1.29.2/inteli-api-1.29.2.tgz
     version: 1.29.2
   openapi-merger:
+  - annotations:
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 1.2.80
+    created: "2026-10-29T12:46:21.461186148Z"
+    dependencies:
+    - alias: apiDocsMockOne
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x
+    - alias: apiDocsMockTwo
+      condition: apiDocsMock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: The openapi-merger is designed to merge several openapi files into
+      one and present a unified swagger interface
+    digest: e2bf4ad2f0614a9b47b6eca9dcceecce96393ab8e9e5df3bb81e2e9b57453871
+    keywords:
+    - IoT
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: openapi-merger
+    sources:
+    - https://github.com/digicatapult/openapi-merger
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/openapi-merger-2.1.210/openapi-merger-2.1.210.tgz
+    version: 2.1.210
   - annotations:
       licenses: Apache-2.0
     apiVersion: v2
@@ -58862,6 +58923,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v0.20.68
+    created: "2026-10-29T12:46:21.672068572Z"
+    dependencies:
+    - alias: cnpg
+      condition: cnpg.enabled
+      name: cluster
+      repository: https://cloudnative-pg.github.io/charts
+      version: 0.9.0
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.24.0
+    description: The veritable-cloudagent is a component of the veritable distributed
+      identity system.
+    digest: b2fc7796201b402a00b83c8c00c981d7d92b3f3e4ae76c10969a922b07a47824
+    home: https://github.com/digicatapult/veritable-documentation
+    icon: https://raw.githubusercontent.com/digicatapult/veritable-documentation/main/assets/icon.png
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-cloudagent
+    sources:
+    - https://github.com/digicatapult/veritable-cloudagent
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-3.0.149/veritable-cloudagent-3.0.149.tgz
+    version: 3.0.149
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.20.68
     created: "2026-10-28T20:14:39.204018581Z"
     dependencies:
     - alias: cnpg
@@ -69633,6 +69728,43 @@ entries:
     - https://github.com/digicatapult/helm-charts/releases/download/veritable-cloudagent-1.0.0/veritable-cloudagent-1.0.0.tgz
     version: 1.0.0
   veritable-ui:
+  - annotations:
+      category: veritable
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.21.145
+    created: "2026-10-29T12:46:21.842202087Z"
+    dependencies:
+    - alias: cnpg
+      condition: cnpg.enabled
+      name: cluster
+      repository: https://cloudnative-pg.github.io/charts
+      version: 0.9.0
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    - alias: cloudagent
+      condition: cloudagent.enabled
+      name: veritable-cloudagent
+      repository: https://digicatapult.github.io/helm-charts
+      version: 3.x.x
+    description: The veritable user interface for managing connections
+    digest: c1c1ceddedf9b5f0f23b436366f54bfe172318692e3736f84095d63878521634
+    home: https://github.com/digicatapult/veritable-ui
+    keywords:
+    - veritable
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: https://github.com/digicatapult/helm-charts
+    name: veritable-ui
+    sources:
+    - https://github.com/digicatapult/veritable-ui
+    urls:
+    - https://github.com/digicatapult/helm-charts/releases/download/veritable-ui-2.0.130/veritable-ui-2.0.130.tgz
+    version: 2.0.130
   - annotations:
       category: veritable
       licenses: Apache-2.0
@@ -89866,4 +89998,4 @@ entries:
     urls:
     - https://github.com/digicatapult/helm-charts/releases/download/wasp-ws-reading-service-0.0.9/wasp-ws-reading-service-0.0.9.tgz
     version: 0.0.9
-generated: "2026-10-28T21:12:11.183076195Z"
+generated: "2026-10-29T12:46:21.846581969Z"
