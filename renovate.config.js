@@ -23,6 +23,7 @@ module.exports = (config = {}) => {
       "keycloak",
       "minio",
       "nginx",
+      "postgresql",
     ],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
