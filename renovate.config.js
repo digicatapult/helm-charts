@@ -23,7 +23,6 @@ module.exports = (config = {}) => {
       "keycloak",
       "minio",
       "nginx",
-      "postgresql",
     ],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
@@ -37,6 +36,16 @@ module.exports = (config = {}) => {
           '#\\s*renovate: image=(?<imageName>.*?)\\s+appVersion:\\s*[\"]?(?<currentValue>[\\w+\\.\\-]*)',
         ],
         depNameTemplate: "docker.io/{{{imageName}}}",
+      },
+      {
+        description:
+          "CNPG cluster imageName is a single tag@digest string, which the helm-values manager does not parse.",
+        customType: "regex",
+        datasourceTemplate: "docker",
+        fileMatch: ["(^|/)values\\.yaml$"],
+        matchStrings: [
+          'imageName:\\s*"?(?<depName>ghcr\\.io/cloudnative-pg/postgresql):(?<currentValue>[\\w.\\-]+)@(?<currentDigest>sha256:[a-f0-9]{64})"?',
+        ],
       },
     ],
     packageRules: [
@@ -81,6 +90,20 @@ module.exports = (config = {}) => {
         matchUpdateTypes: ["major"],
         automerge: false,
         labels: ["dependencies", "helm"],
+      },
+      {
+        description:
+          "Keep tag and digest in lockstep for pinned third-party init images, since a set digest overrides the tag.",
+        matchManagers: ["helm-values"],
+        matchDepNames: ["docker.io/node", "docker.io/postgres"],
+        pinDigests: true,
+      },
+      {
+        description:
+          "Hold the openapi-merger init image on the Node 24 LTS line; move to the next LTS deliberately.",
+        matchManagers: ["helm-values"],
+        matchDepNames: ["docker.io/node"],
+        allowedVersions: "<25",
       },
       {
         description: "Do not automerge updates for kubo in helm-values",

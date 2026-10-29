@@ -81,43 +81,49 @@ The application only accepts a single ENVAR, so you should always update `modelP
 
 ### Init Container Parameters
 
-| Name                             | Description                                           | Value                |
-| -------------------------------- | ----------------------------------------------------- | -------------------- |
-| `initDbCreate.image.registry`    | PostgreSQL image registry                             | `docker.io`          |
-| `initDbCreate.image.repository`  | PostgreSQL image repository                           | `postgres`           |
-| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `17-alpine`          |
-| `initDbCreate.image.digest`      | PostgreSQL image digest (sha256)                      | `""`                 |
-| `initDbCreate.image.pullPolicy`  | PostgreSQL image pull policy                          | `IfNotPresent`       |
-| `initDbCreate.image.pullSecrets` | PostgreSQL image pull secrets                         | `[]`                 |
-| `initDbMigrate.enable`           | Run database migration in an init container           | `true`               |
-| `initDbMigrate.environment`      | Database configuration environment to run migration   | `production`         |
-| `initDbMigrate.args`             | Arguments to pass to alembic to migrate the database  | `["upgrade","head"]` |
+| Name                             | Description                                           | Value                                                                     |
+| -------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| `initDbCreate.image.registry`    | PostgreSQL image registry                             | `docker.io`                                                               |
+| `initDbCreate.image.repository`  | PostgreSQL image repository                           | `postgres`                                                                |
+| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `18.6-alpine`                                                             |
+| `initDbCreate.image.digest`      | PostgreSQL image digest (sha256)                      | `sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5` |
+| `initDbCreate.image.pullPolicy`  | PostgreSQL image pull policy                          | `IfNotPresent`                                                            |
+| `initDbCreate.image.pullSecrets` | PostgreSQL image pull secrets                         | `[]`                                                                      |
+| `initDbMigrate.enable`           | Run database migration in an init container           | `true`                                                                    |
+| `initDbMigrate.environment`      | Database configuration environment to run migration   | `production`                                                              |
+| `initDbMigrate.args`             | Arguments to pass to alembic to migrate the database  | `["upgrade","head"]`                                                      |
 
 ### Database Parameters
 
-| Name                                                 | Description                                                      | Value                             |
-| ---------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------- |
-| `postgresql.enabled`                                 | Enable or disable PostgreSQL helm chart                          | `true`                            |
-| `postgresql.auth.username`                           | Custom PostgreSQL user                                           | `admin`                           |
-| `postgresql.auth.password`                           | Custom PostgreSQL user password                                  | `""`                              |
-| `postgresql.auth.database`                           | Custom PostgreSQL database                                       | `prediction`                      |
-| `postgresql.auth.existingSecret`                     | Existing secret for PostgreSQL credentials                       | `""`                              |
-| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)          | `standalone`                      |
-| `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                       | `true`                            |
-| `postgresql.image.repository`                        | Repository to use for pulling postgres container images          | `bitnamilegacy/postgresql`        |
-| `postgresql.volumePermissions.image.repository`      | Repository to use for pulling os-shell container images          | `bitnamilegacy/os-shell`          |
-| `postgresql.metrics.image.repository`                | Repository to use for pulling postgres exporter container images | `bitnamilegacy/postgres-exporter` |
-| `externalDatabase.host`                              | External database host                                           | `""`                              |
-| `externalDatabase.port`                              | External database port number                                    | `5432`                            |
-| `externalDatabase.user`                              | Username for external database                                   | `admin`                           |
-| `externalDatabase.password`                          | Password for external database                                   | `""`                              |
-| `externalDatabase.database`                          | External database name                                           | `prediction`                      |
-| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (external DB)       | `true`                            |
-| `externalDatabase.postgresqlPostgresUser`            | External Database admin user                                     | `postgres`                        |
-| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                 | `""`                              |
-| `externalDatabase.existingSecret`                    | Existing secret containing database credentials                  | `""`                              |
-| `externalDatabase.existingSecretPasswordKey`         | Secret key for user credentials                                  | `""`                              |
-| `externalDatabase.existingSecretPostgresPasswordKey` | Secret key for admin credentials                                 | `""`                              |
+| Name                                                 | Description                                                                          | Value                                                                     |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| `postgresql.enabled`                                 | Enable or disable PostgreSQL helm chart                                              | `true`                                                                    |
+| `postgresql.auth.username`                           | Custom PostgreSQL user                                                               | `admin`                                                                   |
+| `postgresql.auth.password`                           | Custom PostgreSQL user password                                                      | `""`                                                                      |
+| `postgresql.auth.database`                           | Custom PostgreSQL database                                                           | `prediction`                                                              |
+| `postgresql.auth.existingSecret`                     | Existing secret for PostgreSQL credentials                                           | `""`                                                                      |
+| `postgresql.architecture`                            | PostgreSQL architecture (`standalone` or `replication`)                              | `standalone`                                                              |
+| `postgresql.global.security.allowInsecureImages`     | Allow usage of `bitnamilegacy` repository`                                           | `true`                                                                    |
+| `postgresql.image.repository`                        | Repository to use for pulling postgres container images                              | `bitnamilegacy/postgresql`                                                |
+| `postgresql.image.tag`                               | PostgreSQL image tag (pinned to the subchart's last published bitnamilegacy default) | `17.4.0-debian-12-r15`                                                    |
+| `postgresql.image.digest`                            | PostgreSQL image digest (sha256)                                                     | `sha256:b03f623716969693bf2f5ecf6578df3498024b38da2d8eb0565570fbec537dfc` |
+| `postgresql.volumePermissions.image.repository`      | Repository to use for pulling os-shell container images                              | `bitnamilegacy/os-shell`                                                  |
+| `postgresql.volumePermissions.image.tag`             | os-shell image tag                                                                   | `12-debian-12-r42`                                                        |
+| `postgresql.volumePermissions.image.digest`          | os-shell image digest (sha256)                                                       | `sha256:afa5e8fd849f05a3773b38e43fe1c08423577900a967bd9fe1ab65406406d505` |
+| `postgresql.metrics.image.repository`                | Repository to use for pulling postgres exporter container images                     | `bitnamilegacy/postgres-exporter`                                         |
+| `postgresql.metrics.image.tag`                       | postgres-exporter image tag                                                          | `0.17.1-debian-12-r5`                                                     |
+| `postgresql.metrics.image.digest`                    | postgres-exporter image digest (sha256)                                              | `sha256:44ebaadb1cac59f0d40ae4177fc8340c3d4d02a3b91e4b5d3b571c53b118e5c9` |
+| `externalDatabase.host`                              | External database host                                                               | `""`                                                                      |
+| `externalDatabase.port`                              | External database port number                                                        | `5432`                                                                    |
+| `externalDatabase.user`                              | Username for external database                                                       | `admin`                                                                   |
+| `externalDatabase.password`                          | Password for external database                                                       | `""`                                                                      |
+| `externalDatabase.database`                          | External database name                                                               | `prediction`                                                              |
+| `externalDatabase.create`                            | Enable PostgreSQL user and database creation (external DB)                           | `true`                                                                    |
+| `externalDatabase.postgresqlPostgresUser`            | External Database admin user                                                         | `postgres`                                                                |
+| `externalDatabase.postgresqlPostgresPassword`        | External Database admin password                                                     | `""`                                                                      |
+| `externalDatabase.existingSecret`                    | Existing secret containing database credentials                                      | `""`                                                                      |
+| `externalDatabase.existingSecretPasswordKey`         | Secret key for user credentials                                                      | `""`                                                                      |
+| `externalDatabase.existingSecretPostgresPasswordKey` | Secret key for admin credentials                                                     | `""`                                                                      |
 
 ### Pod Configuration Parameters
 
