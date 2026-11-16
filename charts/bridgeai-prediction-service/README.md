@@ -81,17 +81,17 @@ The application only accepts a single ENVAR, so you should always update `modelP
 
 ### Init Container Parameters
 
-| Name                             | Description                                           | Value                                                                     |
-| -------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------- |
-| `initDbCreate.image.registry`    | PostgreSQL image registry                             | `docker.io`                                                               |
-| `initDbCreate.image.repository`  | PostgreSQL image repository                           | `postgres`                                                                |
-| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `18.6-alpine`                                                             |
-| `initDbCreate.image.digest`      | PostgreSQL image digest (sha256)                      | `sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5` |
-| `initDbCreate.image.pullPolicy`  | PostgreSQL image pull policy                          | `IfNotPresent`                                                            |
-| `initDbCreate.image.pullSecrets` | PostgreSQL image pull secrets                         | `[]`                                                                      |
-| `initDbMigrate.enable`           | Run database migration in an init container           | `true`                                                                    |
-| `initDbMigrate.environment`      | Database configuration environment to run migration   | `production`                                                              |
-| `initDbMigrate.args`             | Arguments to pass to alembic to migrate the database  | `["upgrade","head"]`                                                      |
+| Name                             | Description                                           | Value                                                                                 |
+| -------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `initDbCreate.image.registry`    | PostgreSQL image registry                             | `docker.io`                                                                           |
+| `initDbCreate.image.repository`  | PostgreSQL image repository                           | `postgres`                                                                            |
+| `initDbCreate.image.tag`         | PostgreSQL image tag (immutable tags are recommended) | `18.6-alpine@sha256:9ba53c7d41ea093baf5c1ba635ba5434c4f979880527d49bb7d9237d3193085b` |
+| `initDbCreate.image.digest`      | PostgreSQL image digest (sha256)                      | `sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5`             |
+| `initDbCreate.image.pullPolicy`  | PostgreSQL image pull policy                          | `IfNotPresent`                                                                        |
+| `initDbCreate.image.pullSecrets` | PostgreSQL image pull secrets                         | `[]`                                                                                  |
+| `initDbMigrate.enable`           | Run database migration in an init container           | `true`                                                                                |
+| `initDbMigrate.environment`      | Database configuration environment to run migration   | `production`                                                                          |
+| `initDbMigrate.args`             | Arguments to pass to alembic to migrate the database  | `["upgrade","head"]`                                                                  |
 
 ### Database Parameters
 
